@@ -3,24 +3,48 @@ package com.ssafy.db.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
+import java.time.LocalDate;
 
 /**
  * 유저 모델 정의.
  */
 @Entity
-@Getter
-@Setter
+@Builder @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
 public class User extends BaseEntity{
-    String position;
-    String department;
-    String name;
-    String userId;
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Column(unique = true, nullable = false)
+    private String email;
+    @Column(nullable = false)
+    private String pw;
+    @Column(nullable = false)
+    private String name;
+    @Column(unique = true, nullable = false)
+    private String mobile_number;
+    @Column(unique = true, nullable = false)
+    private String nickname;
 
-    @JsonIgnore
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    String password;
+    private LocalDate birthday;
+    private String imageSrc;
+
+    @Enumerated(EnumType.STRING)
+    private GENDER gender;
+
+    @Enumerated(EnumType.STRING)
+    private USER_ROLE role;
+
+    private String blackListNY;
+    private LocalDate blackExpireDate;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="countryId")
+    private Country country;
+
+
+
 }
