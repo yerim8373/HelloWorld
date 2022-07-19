@@ -22,11 +22,11 @@ public class User extends BaseEntity{
     private String email;
     @Column(nullable = false)
     private String pw;
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String name;
-    @Column(unique = true, nullable = false)
+    @Column(unique = true, nullable = true)
     private String mobile_number;
-    @Column(unique = true, nullable = false)
+    @Column(unique = true, nullable = true)
     private String nickname;
 
     private LocalDate birthday;
