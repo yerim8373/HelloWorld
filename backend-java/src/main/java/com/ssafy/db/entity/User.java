@@ -14,7 +14,7 @@ import java.util.List;
  */
 @Entity
 @Builder @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor(access = AccessLevel.PUBLIC)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 public class User extends BaseEntity{
 
@@ -22,7 +22,7 @@ public class User extends BaseEntity{
     private String email;
     @Column(nullable = false)
     private String pw;
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String name;
     @Column(unique = true, nullable = false)
     private String mobileNumber;
