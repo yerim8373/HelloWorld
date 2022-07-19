@@ -13,7 +13,7 @@ import java.time.LocalDate;
  */
 @Entity
 @Builder @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor(access = AccessLevel.PUBLIC)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 public class User extends BaseEntity{
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
