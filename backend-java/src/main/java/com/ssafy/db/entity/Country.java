@@ -9,9 +9,8 @@ import javax.persistence.*;
 @Getter
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Country {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Country extends BaseEntity{
+
     @Column(unique = true)
     String name;
 }
