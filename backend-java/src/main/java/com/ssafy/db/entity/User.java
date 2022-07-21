@@ -57,7 +57,7 @@ public class User extends BaseEntity{
     private List<Post> postList = new ArrayList<>();
     @OneToMany(mappedBy = "user")
     private List<Runtime> runtimeList = new ArrayList<>();
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user" )
     private List<UserLan> userLanList = new ArrayList<>();
     @OneToMany(mappedBy = "user")
     private List<Subscribe> subscribeList = new ArrayList<>();
