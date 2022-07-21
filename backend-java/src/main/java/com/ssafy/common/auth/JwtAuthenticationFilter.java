@@ -1,41 +1,33 @@
 package com.ssafy.common.auth;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.util.Base64;
-import java.util.Objects;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import com.ssafy.common.model.response.Response;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
-import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.ssafy.api.service.UserService;
 import com.ssafy.common.util.JwtTokenUtil;
-import com.ssafy.common.util.ResponseBodyWriteUtil;
 import com.ssafy.db.entity.User;
 
 /**
  * 요청 헤더에 jwt 토큰이 있는 경우, 토큰 검증 및 인증 처리 로직 정의.
  */
 public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
-	private UserService userService;
+	private final UserService userService;
+
 	
 	public JwtAuthenticationFilter(AuthenticationManager authenticationManager, UserService userService) {
 		super(authenticationManager);
@@ -43,28 +35,28 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
 	}
 
 	@Override
-	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+	protected void doFilterInternal(HttpServletRequest req, HttpServletResponse resp, FilterChain filterChain)
 			throws ServletException, IOException {
 		// Read the Authorization header, where the JWT Token should be
-        String header = request.getHeader(JwtTokenUtil.HEADER_STRING);
+        String header = req.getHeader(JwtTokenUtil.HEADER_STRING);
 
         // If header does not contain BEARER or is null delegate to Spring impl and exit
         if (header == null || !header.startsWith(JwtTokenUtil.TOKEN_PREFIX)) {
-            filterChain.doFilter(request, response);
+            filterChain.doFilter(req, resp);
             return;
         }
         
         try {
             // If header is present, try grab user principal from database and perform authorization
-            Authentication authentication = getAuthentication(request);
+            Authentication authentication = getAuthentication(req);
             // jwt 토큰으로 부터 획득한 인증 정보(authentication) 설정.
             SecurityContextHolder.getContext().setAuthentication(authentication);
         } catch (Exception ex) {
-            ResponseBodyWriteUtil.sendError(request, response, ex);
+//            ResponseBodyWriteUtil.sendError(req, resp, ex);
             return;
         }
         
-        filterChain.doFilter(request, response);
+        filterChain.doFilter(req, resp);
 	}
 	
 	@Transactional(readOnly = true)

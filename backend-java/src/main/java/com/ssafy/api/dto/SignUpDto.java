@@ -17,6 +17,6 @@ public class SignUpDto {
     private String mobileNumber;
     private String name;
     private String nickName;
-    private int country;
-    private List languageList;
+    private Long country;
+    private List<Long> languageList;
 }
