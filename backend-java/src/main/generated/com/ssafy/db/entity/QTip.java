@@ -10,35 +10,35 @@ import com.querydsl.core.types.Path;
 
 
 /**
- * QCountry is a Querydsl query type for Country
+ * QTip is a Querydsl query type for Tip
  */
 @Generated("com.querydsl.codegen.EntitySerializer")
-public class QCountry extends EntityPathBase<Country> {
+public class QTip extends EntityPathBase<Tip> {
 
-    private static final long serialVersionUID = 404028820L;
+    private static final long serialVersionUID = -1219619431L;
 
-    public static final QCountry country = new QCountry("country");
+    public static final QTip tip = new QTip("tip");
 
     public final QBaseEntity _super = new QBaseEntity(this);
+
+    public final StringPath content = createString("content");
 
     //inherited
     public final NumberPath<Long> id = _super.id;
 
-    public final StringPath name = createString("name");
-
     //inherited
     public final DateTimePath<java.time.LocalDateTime> regDate = _super.regDate;
 
-    public QCountry(String variable) {
-        super(Country.class, forVariable(variable));
+    public QTip(String variable) {
+        super(Tip.class, forVariable(variable));
     }
 
-    public QCountry(Path<? extends Country> path) {
+    public QTip(Path<? extends Tip> path) {
         super(path.getType(), path.getMetadata());
     }
 
-    public QCountry(PathMetadata metadata) {
-        super(Country.class, metadata);
+    public QTip(PathMetadata metadata) {
+        super(Tip.class, metadata);
     }
 
 }
