@@ -29,8 +29,8 @@ public class User extends BaseEntity{
     @Column(unique = true, nullable = false)
     private String nickname;
 
-    private Integer birthday;
-    private String imageSrc;
+    private Integer age;
+    private String avatarSrc;
 
     @Enumerated(EnumType.STRING)
     private Gender gender;

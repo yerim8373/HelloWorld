@@ -5,7 +5,7 @@ import org.springframework.web.socket.WebSocketSession;
 
 import java.util.concurrent.ConcurrentHashMap;
 
-@Component
+@Component("registry")
 public class UserRegistry {
     private ConcurrentHashMap<String, UserSession> usersByName = new ConcurrentHashMap<>();
     private ConcurrentHashMap<String, UserSession> usersBySessionId = new ConcurrentHashMap<>();
