@@ -1,10 +1,10 @@
 package com.ssafy.api.service;
 
+import com.ssafy.api.dto.SignUpDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.ssafy.api.request.UserRegisterPostReq;
 import com.ssafy.db.entity.User;
 import com.ssafy.db.repository.UserRepository;
 import com.ssafy.db.repository.UserRepositorySupport;
@@ -24,9 +24,17 @@ public class UserServiceImpl implements UserService {
 	PasswordEncoder passwordEncoder;
 	
 	@Override
-	public User createUser(UserRegisterPostReq userRegisterInfo) {
-		User user = User.builder().email(userRegisterInfo.getEmail())
-				.pw(passwordEncoder.encode(userRegisterInfo.getPw()))
+	public User createUser(SignUpDto signUpDto) {
+		User user = User.builder().email(signUpDto.getEmail())
+				.pw(passwordEncoder.encode(signUpDto.getPw()))
+				.age(signUpDto.getAge())
+				.gender(signUpDto.getGender())
+				.avatarSrc(signUpDto.getAvatar())
+				.mobileNumber(signUpDto.getMobileNumber())
+				.name(signUpDto.getName())
+				.nickname(signUpDto.getNickName())
+//				.country(signUpDto.getCountry())
+				.userLanList(signUpDto.getLanguageList())
 				.build();
 		return userRepository.save(user);
 	}
