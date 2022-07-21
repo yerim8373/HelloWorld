@@ -1,9 +1,6 @@
 package com.ssafy.config;
 
-<<<<<<< HEAD
-import com.ssafy.common.exception.handler.ChatHandler;
-=======
->>>>>>> feature-garoo/temperal
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
