@@ -2,6 +2,7 @@ package com.ssafy.api.controller;
 
 import com.ssafy.api.dto.SignUpDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -26,6 +27,9 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import springfox.documentation.annotations.ApiIgnore;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * 유저 관련 API 요청 처리를 위한 컨트롤러 정의.
  */
@@ -36,6 +40,9 @@ public class UserController {
 	
 	@Autowired
 	UserService userService;
+
+//	@Autowired
+//	JwtTokenUtil jwtTokenUtil;
 	
 	@PostMapping()
 	@ApiOperation(value = "회원 가입", notes = "<strong>이메일와 패스워드</strong>를 통해 회원가입 한다.")
@@ -53,6 +60,30 @@ public class UserController {
 		
 		return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
 	}
+
+//	@PostMapping("/login")
+//	public ResponseEntity<Map<String, Object>> login(@RequestBody User user) {
+//		HttpStatus status = null;
+//
+//		HashMap<String, Object> result = new HashMap<>();
+//
+//		try {
+//			if (userService.isUser(user)) {
+//				result.put("access-token", jwtTokenUtil.createToken("id", user.getId()));
+//				result.put("message", SUCCESS);
+//				status = HttpStatus.ACCEPTED;
+//			} else {
+//				result.put("message", FAIL);
+//				status = HttpStatus.ACCEPTED;
+//			}
+//
+//		} catch (Exception e) {
+//			result.put("message", FAIL);
+//			status = HttpStatus.INTERNAL_SERVER_ERROR;
+//		}
+//		return new ResponseEntity<Map<String, Object>>(result, status);
+//	}
+
 	
 	@GetMapping("/me")
 	@ApiOperation(value = "회원 본인 정보 조회", notes = "로그인한 회원 본인의 정보를 응답한다.") 

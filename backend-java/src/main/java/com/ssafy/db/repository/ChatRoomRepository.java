@@ -9,6 +9,8 @@ import java.util.*;
 @Repository
 public class ChatRoomRepository {
 
+    // 실제 서비스할 때는 MAP이 아닌 DB에 저장해두고 사용하라고 합니다.
+    // DB - chatroom -> id,
     private Map<String, ChatRoomDTO> chatRoomDTOMap;
 
     @PostConstruct
