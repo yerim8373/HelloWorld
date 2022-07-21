@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,8 +17,11 @@ import java.util.List;
 @Builder @Getter
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
-public class User extends BaseEntity{
-
+public class User{
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private LocalDateTime regDate;
     @Column(unique = true, nullable = false)
     private String email;
     @Column(nullable = false)
@@ -45,6 +49,10 @@ public class User extends BaseEntity{
     @JoinColumn(name="countryId")
     private Country country;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="subscribeId")
+    private Subscribe subscribe;
+
     @OneToMany(mappedBy = "user")
     private List<Report> reportList = new ArrayList<>();
     @OneToMany(mappedBy = "user")
@@ -57,8 +65,15 @@ public class User extends BaseEntity{
     private List<Post> postList = new ArrayList<>();
     @OneToMany(mappedBy = "user")
     private List<Runtime> runtimeList = new ArrayList<>();
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user" )
     private List<UserLan> userLanList = new ArrayList<>();
-    @OneToMany(mappedBy = "user")
-    private List<Subscribe> subscribeList = new ArrayList<>();
+
+
+    public void setCountry(Country country){
+        this.country = country;
+    }
+    public void setSubscribe(Subscribe subscribe){
+        this.subscribe = subscribe;
+        subscribe.getUser().add(this);
+    }
 }
