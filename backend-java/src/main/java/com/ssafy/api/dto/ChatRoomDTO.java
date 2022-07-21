@@ -1,6 +1,5 @@
 package com.ssafy.api.dto;
 
-import com.ssafy.common.model.response.BaseResponseBody;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.web.socket.WebSocketSession;
@@ -11,7 +10,7 @@ import java.util.UUID;
 
 @Getter
 @Setter
-public class ChatRoomDTO extends BaseResponseBody {
+public class ChatRoomDTO{
 
     private String roomId;
     private String name;
@@ -27,8 +26,6 @@ public class ChatRoomDTO extends BaseResponseBody {
     }
 
     public static ChatRoomDTO of(Integer statusCode, String message, ChatRoomDTO chatRoomDTO){
-        chatRoomDTO.setStatusCode(statusCode);
-        chatRoomDTO.setMessage(message);
         return chatRoomDTO;
     }
 }

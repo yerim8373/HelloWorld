@@ -3,6 +3,8 @@ package com.ssafy.config;
 import com.ssafy.api.service.UserService;
 import com.ssafy.common.auth.JwtAuthenticationFilter;
 import com.ssafy.common.auth.SsafyUserDetailService;
+import com.ssafy.common.model.response.Response;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,26 +23,22 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  */
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    @Autowired
-    private SsafyUserDetailService ssafyUserDetailService;
-    
-    @Autowired
-    private UserService userService;
-    
+
+    private final SsafyUserDetailService ssafyUserDetailService;
+    private final UserService userService;
+    private final PasswordEncoder passwordEncoder;
     // Password 인코딩 방식에 BCrypt 암호화 방식 사용
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+
 
     // DAO 기반으로 Authentication Provider를 생성
     // BCrypt Password Encoder와 UserDetailService 구현체를 설정
     @Bean
     DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
-        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
+        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder);
         daoAuthenticationProvider.setUserDetailsService(this.ssafyUserDetailService);
         return daoAuthenticationProvider;
     }
@@ -58,10 +56,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // 토큰 기반 인증이므로 세션 사용 하지않음
                 .and()
+
                 .addFilter(new JwtAuthenticationFilter(authenticationManager(), userService)) //HTTP 요청에 JWT 토큰 인증 필터를 거치도록 필터를 추가
                 .authorizeRequests()
-                .antMatchers("/api/v1/users/me").authenticated()       //인증이 필요한 URL과 필요하지 않은 URL에 대하여 설정
-    	        	    .anyRequest().permitAll()
+                .antMatchers("/api/v1/auth/signin", "/api/v1/user").permitAll()
+                .anyRequest().authenticated()//인증이 필요한 URL과 필요하지 않은 URL에 대하여 설정
                 .and().cors();
     }
 }

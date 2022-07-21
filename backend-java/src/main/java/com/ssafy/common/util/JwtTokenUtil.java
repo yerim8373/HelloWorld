@@ -5,15 +5,18 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.*;
 
+import com.ssafy.api.dto.SignInDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
-import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.google.common.collect.Lists.newArrayList;
 
@@ -23,22 +26,18 @@ import static com.google.common.collect.Lists.newArrayList;
 @Component
 public class JwtTokenUtil {
     private static String secretKey;
-    private static Integer expirationTime;
+    public static Integer expirationTime;
 
     public static final String TOKEN_PREFIX = "Bearer ";
     public static final String HEADER_STRING = "Authorization";
     public static final String ISSUER = "ssafy.com";
-    
+
     @Autowired
-	public JwtTokenUtil(@Value("${jwt.secret}") String secretKey, @Value("${jwt.expiration}") Integer expirationTime) {
+        public JwtTokenUtil(@Value("${jwt.secret}") String secretKey, @Value("${jwt.expiration}") Integer expirationTime) {
 		this.secretKey = secretKey;
 		this.expirationTime = expirationTime;
 	}
-    
-	public void setExpirationTime() {
-    		//JwtTokenUtil.expirationTime = Integer.parseInt(expirationTime);
-    		JwtTokenUtil.expirationTime = expirationTime;
-	}
+
 
 	public static JWTVerifier getVerifier() {
         return JWT
@@ -122,5 +121,37 @@ public class JwtTokenUtil {
         } catch (Exception ex) {
             throw ex;
         }
+    }
+
+    public static JWToken createToken(SignInDTO signInDTO, Authentication auth) {
+        Date date = new Date();
+        Long accessExpires = 30*60*1000L; // 30minutes
+        Long refreshExpires = 60*60*24*15*1000L; // 15days
+
+        String authorities = auth.getAuthorities().stream().map(GrantedAuthority::getAuthority)
+                .collect(Collectors.joining(","));
+
+
+        String accessToken = JWT.create()
+                .withSubject(signInDTO.getEmail())
+                .withClaim("auth", authorities)
+                .withExpiresAt(new Date(date.getTime() + accessExpires))
+                .withIssuer(ISSUER)
+                .withIssuedAt(Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()))
+                .sign(Algorithm.HMAC512(secretKey.getBytes()));
+
+        String refreshToken = JWT.create()
+                .withSubject(signInDTO.getEmail())
+                .withExpiresAt(new Date(date.getTime() + refreshExpires))
+                .withIssuer(ISSUER)
+                .withIssuedAt(Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()))
+                .sign(Algorithm.HMAC512(secretKey.getBytes()));
+
+        return JWToken.builder()
+                .accessToken(accessToken)
+                .refreshToken(refreshToken)
+                .build();
+
+
     }
 }
