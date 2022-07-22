@@ -7,6 +7,8 @@ import com.ssafy.common.model.response.Response;
 import com.ssafy.common.util.JWToken;
 import com.ssafy.common.util.JwtTokenUtil;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
@@ -35,7 +37,7 @@ import javax.servlet.http.HttpServletResponse;
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/auth")
 public class AuthController {
-
+	private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
 	private final AuthService authService;
 	private final Response response;
 
@@ -56,11 +58,11 @@ public class AuthController {
 				.maxAge(60*60*24*15)
 				.httpOnly(true)
 				.secure(true)
-				.domain("127.0.0.1:8080")
+				.domain("")
 				.path("/")
 				.sameSite("None")
 				.build();
 		resp.setHeader("Set-Cookie", cookie.toString());
-		return response.success(JWTokenDto.of(jwt), "", HttpStatus.OK);
+		return response.success(JWTokenDto.of(jwt));
 	}
 }

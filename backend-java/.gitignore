@@ -6,7 +6,7 @@ build/
 !**/src/test/**/build/
 
 ssafy-web.log
-
+application-secret.properties
 ### STS ###
 .apt_generated
 .classpath
