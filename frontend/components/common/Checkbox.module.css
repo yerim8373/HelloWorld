@@ -1,0 +1,57 @@
+.checkbox {
+  display: flex;
+  align-items: center;
+}
+
+.boxContainer {
+  display: flex;
+}
+
+.invisibleBox {
+  display: none;
+}
+
+.visibleBox {
+  position: relative;
+  display: flex;
+  padding: 4px;
+}
+
+.backgroundBox {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid black;
+}
+
+.invisibleBox:checked + .backgroundBox {
+  background-color: var(--color-primary);
+}
+
+.clickArea {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.label {
+  cursor: pointer;
+}
+
+.checkIcon {
+  position: relative;
+  top: -4px;
+  left: 0;
+  fill: none;
+}
+
+.checked {
+  fill: var(--color-primary);
+}
