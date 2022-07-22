@@ -1,6 +1,6 @@
 import Image from "next/image";
-import logo from "../../public/asset/images/logo.svg";
-import logoWhite from "../../public/asset/images/Logo_white.svg";
+import logo from "../../public/assets/images/logo.svg";
+import logoWhite from "../../public/assets/images/Logo_white.svg";
 
 const LogoImage = (props) => {
   return (

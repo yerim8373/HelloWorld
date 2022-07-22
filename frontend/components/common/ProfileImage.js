@@ -1,5 +1,5 @@
 import Image from "next/image";
-import profile from "../../public/asset/images/profile.jpg";
+import profile from "../../public/assets/images/profile.jpg";
 import classes from "./ProfileImage.module.css";
 
 const ProfileImage = (props) => {
