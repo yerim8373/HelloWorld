@@ -7,7 +7,5 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class SignInDTO {
-    private String email;
-    private String pw;
+public class ReviewDto {
 }

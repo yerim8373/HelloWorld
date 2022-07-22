@@ -1,7 +1,14 @@
 package com.ssafy.api.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.ssafy.common.util.JWToken;
+import lombok.*;
 
+@Builder
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class JWTokenDto {
     private String grantType;
     private String accessToken;

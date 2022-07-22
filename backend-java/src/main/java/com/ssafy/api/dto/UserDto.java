@@ -1,27 +1,34 @@
 package com.ssafy.api.dto;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.ssafy.db.entity.*;
 import com.ssafy.db.entity.Runtime;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+@Builder
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserDto {
-    private Long id;
-    private String email;
-    private String name;
-    private String mobileNumber;
-    private String nickname;
-    private Integer age;
-    private Gender gender;
+     private Long id;
+     private String email;
+     private String name;
+     private String mobileNumber;
+     private String nickname;
+     private Integer age;
+     private Gender gender;
 
-    private Boolean blackListNY;
-    private LocalDate blackExpireDate;
+     private Boolean blackListNY;
+     private LocalDate blackExpireDate;
 
-    private CountryDto country;
-    private SubscribeDto subscribe;
+     private CountryDto country;
+     private SubscribeDto subscribe;
 
     public static UserDto of(User user){
         UserDto userDto = new UserDto();

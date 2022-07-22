@@ -1,13 +1,14 @@
 package com.ssafy.api.dto;
 
 import com.ssafy.db.entity.Gender;
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 
 import java.util.List;
 
 @Getter
-@Builder
+@Builder @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class SignUpDto {
     private String email;
     private String pw;
