@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * 20022-07-19
@@ -26,7 +27,7 @@ public class User{
     private String email;
     @Column(nullable = false)
     private String pw;
-    @Column(nullable = true)
+    @Column(nullable = false)
     private String name;
     @Column(unique = true, nullable = false)
     private String mobileNumber;
@@ -39,8 +40,18 @@ public class User{
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
-    @Enumerated(EnumType.STRING)
-    private UserRole role;
+    @ManyToMany
+    @JoinTable(
+            name = "userAuth",
+            joinColumns = {
+                    @JoinColumn(name = "userId", referencedColumnName = "id")
+            },
+            inverseJoinColumns = {
+                    @JoinColumn(name = "authName", referencedColumnName = "authName")
+            }
+    )
+    private Set<Authority> authorities;
+    private boolean activated;
 
     private Boolean blackListNY;
     private LocalDate blackExpireDate;
