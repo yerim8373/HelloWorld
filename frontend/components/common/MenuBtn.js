@@ -5,8 +5,6 @@ import classes from "./MenuBtn.module.css";
 const MenuBtn = (props) => {
   const router = useRouter();
 
-  console.log(router.pathname === props.link);
-
   return (
     <Link href={props.link}>
       <h4 className={router.pathname === props.link ? classes.logo_active : ""}>
