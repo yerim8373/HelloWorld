@@ -3,12 +3,12 @@ import classes from './Checkbox.module.css'
 
 export default function Checkbox({ id, children, checked }) {
   const [checkState, setCheckState] = useState(checked ?? false)
-  const onChangeHandler = () => setCheckState(!checkState)
+  const handleChange = e => setCheckState(e.target.checked)
 
   return (
     <div className={classes.checkbox}>
       <div className={classes.boxContainer}>
-        <input type="checkbox" id={id} className={classes.invisibleBox} checked={checkState} onChange={onChangeHandler} />
+        <input type="checkbox" id={id} className={classes.invisibleBox} checked={checkState} onChange={handleChange} />
         <div className={classes.visibleBox}>
           <div className={classes.backgroundBox}></div>
           <svg width="21" height="16" viewBox="0 0 21 16" xmlns="http://www.w3.org/2000/svg" className={`${classes.checkIcon} ${checkState && classes.checked}`}>
