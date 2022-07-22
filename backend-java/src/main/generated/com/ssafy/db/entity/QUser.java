@@ -22,7 +22,11 @@ public class QUser extends EntityPathBase<User> {
 
     public static final QUser user = new QUser("user");
 
+    public final BooleanPath activated = createBoolean("activated");
+
     public final NumberPath<Integer> age = createNumber("age", Integer.class);
+
+    public final SetPath<Authority, QAuthority> authorities = this.<Authority, QAuthority>createSet("authorities", Authority.class, QAuthority.class, PathInits.DIRECT2);
 
     public final StringPath avatarSrc = createString("avatarSrc");
 
@@ -58,11 +62,9 @@ public class QUser extends EntityPathBase<User> {
 
     public final ListPath<Review, QReview> reviewList = this.<Review, QReview>createList("reviewList", Review.class, QReview.class, PathInits.DIRECT2);
 
-    public final EnumPath<UserRole> role = createEnum("role", UserRole.class);
-
     public final ListPath<Runtime, QRuntime> runtimeList = this.<Runtime, QRuntime>createList("runtimeList", Runtime.class, QRuntime.class, PathInits.DIRECT2);
 
-    public final ListPath<Subscribe, QSubscribe> subscribeList = this.<Subscribe, QSubscribe>createList("subscribeList", Subscribe.class, QSubscribe.class, PathInits.DIRECT2);
+    public final QSubscribe subscribe;
 
     public final ListPath<UserLan, QUserLan> userLanList = this.<UserLan, QUserLan>createList("userLanList", UserLan.class, QUserLan.class, PathInits.DIRECT2);
 
@@ -85,6 +87,7 @@ public class QUser extends EntityPathBase<User> {
     public QUser(Class<? extends User> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.country = inits.isInitialized("country") ? new QCountry(forProperty("country")) : null;
+        this.subscribe = inits.isInitialized("subscribe") ? new QSubscribe(forProperty("subscribe")) : null;
     }
 
 }
