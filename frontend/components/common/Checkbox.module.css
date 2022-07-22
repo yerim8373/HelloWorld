@@ -50,9 +50,12 @@
   position: relative;
   top: -4px;
   left: 0;
-  fill: none;
+  fill: var(--color-primary);
+  opacity: 0;
+  transition: opacity 0.15s;
 }
 
 .checked {
-  fill: var(--color-primary);
+  opacity: 1;
+  transition: opacity 0.15s;
 }
