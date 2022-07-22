@@ -16,7 +16,6 @@ const Button = (props) => {
     default:
       className += classes.button_transparent + " ";
   }
-  console.log(className);
 
   switch (props.color) {
     case "error":
@@ -29,7 +28,6 @@ const Button = (props) => {
       className += classes.button + " ";
       break;
   }
-  console.log(className);
 
   return (
     <button className={className} onClick={props.onEvent}>
