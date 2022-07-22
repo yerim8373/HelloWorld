@@ -1,3 +1,5 @@
+import "../styles/minireset.min.css";
+import "../styles/pretendard.css";
 import "../styles/globals.css";
 import { wrapper } from "../store";
 
