@@ -5,6 +5,8 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.*;
 
+import com.auth0.jwt.interfaces.Claim;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import com.ssafy.api.dto.SignInDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -123,6 +125,9 @@ public class JwtTokenUtil {
         }
     }
 
+
+
+
     public static JWToken createToken(SignInDTO signInDTO, Authentication auth) {
         Date date = new Date();
         Long accessExpires = 30*60*1000L; // 30minutes
@@ -151,7 +156,39 @@ public class JwtTokenUtil {
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)
                 .build();
+    }
+    public String getEmailFromToken(String bearerToken) {
+        if(bearerToken.startsWith(TOKEN_PREFIX)) {
+            String token = bearerToken.substring(TOKEN_PREFIX.length());
+            return decodeToken(token).getSubject();
+        }
+        throw new RuntimeException();
+    }
 
+    public static DecodedJWT decodeToken(String token) {
+        try {
+            JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC512(secretKey)).withIssuer(ISSUER).build();
 
+            // 토큰 검증
+            DecodedJWT decodedJWT = jwtVerifier.verify(token);
+            return decodedJWT;
+
+        } catch (JWTVerificationException e) {
+            throw e;
+        }
+    }
+
+    /**
+     * test용 임시 token
+     * @return
+     */
+    public String tempToken(){
+        return JWT.create()
+                .withSubject("ssafy@naver.com")
+                .withClaim("test", "test1,test2")
+                .withExpiresAt(new Date(new Date().getTime() + 1L*expirationTime))
+                .withIssuer(ISSUER)
+                .withIssuedAt(Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()))
+                .sign(Algorithm.HMAC512(secretKey.getBytes()));
     }
 }

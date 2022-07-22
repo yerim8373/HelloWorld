@@ -18,8 +18,6 @@ public class QSubscribe extends EntityPathBase<Subscribe> {
 
     private static final long serialVersionUID = 886832072L;
 
-    private static final PathInits INITS = PathInits.DIRECT2;
-
     public static final QSubscribe subscribe = new QSubscribe("subscribe");
 
     public final QBaseEntity _super = new QBaseEntity(this);
@@ -32,27 +30,18 @@ public class QSubscribe extends EntityPathBase<Subscribe> {
     //inherited
     public final DateTimePath<java.time.LocalDateTime> regDate = _super.regDate;
 
-    public final QUser user;
+    public final ListPath<User, QUser> user = this.<User, QUser>createList("user", User.class, QUser.class, PathInits.DIRECT2);
 
     public QSubscribe(String variable) {
-        this(Subscribe.class, forVariable(variable), INITS);
+        super(Subscribe.class, forVariable(variable));
     }
 
     public QSubscribe(Path<? extends Subscribe> path) {
-        this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
+        super(path.getType(), path.getMetadata());
     }
 
     public QSubscribe(PathMetadata metadata) {
-        this(metadata, PathInits.getFor(metadata, INITS));
-    }
-
-    public QSubscribe(PathMetadata metadata, PathInits inits) {
-        this(Subscribe.class, metadata, inits);
-    }
-
-    public QSubscribe(Class<? extends Subscribe> type, PathMetadata metadata, PathInits inits) {
-        super(type, metadata, inits);
-        this.user = inits.isInitialized("user") ? new QUser(forProperty("user"), inits.get("user")) : null;
+        super(Subscribe.class, metadata);
     }
 
 }
