@@ -1,10 +1,12 @@
 package com.ssafy.api.dto;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
+@Builder
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class ChatMessageDTO {
 
     private String roomId;
