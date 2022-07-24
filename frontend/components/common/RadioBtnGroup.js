@@ -18,7 +18,6 @@ function RadioBtn({ id, name, children, selectedValue, handleChange }) {
 export default function RadioBtnGroup({ name, items }) {
   const [value, setValue] = useState(items[0].value)
   const handleChange = e => {
-    console.log(e.target.value)
     setValue(e.target.value)
   }
 
