@@ -1,4 +1,5 @@
 import LodingSpinner from "../components/common/LoadingSpinner";
+import Input from "../components/common/Input";
 
 export default function LandingPage() {
   return (
@@ -6,6 +7,15 @@ export default function LandingPage() {
       <h1>랜딩 페이지</h1>
       {/* 로딩 스피너 시험용 */}
       {/* <LodingSpinner viewCount={5} /> */}
+      {/* input 시험용 */}
+      {/* <form>
+        <Input
+          id={"Email"}
+          type={"email"}
+          placeholder={"example@example.com"}
+        />
+        <Input id={"비밀번호"} type={"password"} />
+      </form> */}
     </>
   );
 }
