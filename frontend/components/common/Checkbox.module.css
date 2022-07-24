@@ -1,10 +1,7 @@
 .checkbox {
   display: flex;
   align-items: center;
-}
-
-.boxContainer {
-  display: flex;
+  cursor: pointer;
 }
 
 .invisibleBox {
@@ -24,7 +21,7 @@
   display: inline-block;
   width: 16px;
   height: 16px;
-  border: 3px solid black;
+  border: 2px solid black;
   border-radius: 4px;
 }
 
@@ -32,18 +29,8 @@
   background-color: var(--color-primary);
 }
 
-.clickArea {
-  position: absolute;
-  top: 4px;
-  left: 4px;
-  display: inline-block;
-  width: 16px;
-  height: 16px;
-  cursor: pointer;
-}
-
-.label {
-  cursor: pointer;
+.invisibleBox:checked + .visibleBox > .checkIcon {
+  opacity: 1;
 }
 
 .checkIcon {
@@ -52,10 +39,5 @@
   left: 0;
   fill: var(--color-primary);
   opacity: 0;
-  transition: opacity 0.15s;
-}
-
-.checked {
-  opacity: 1;
   transition: opacity 0.15s;
 }
