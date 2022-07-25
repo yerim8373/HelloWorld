@@ -49,3 +49,21 @@ a {
 .margin_div {
   height: 5rem;
 }
+
+/* 가로형 레이아웃 */
+.flex_row {
+  display: flex;
+  flex-direction: row;
+}
+
+/* 가로형 레이아웃 가운데 정렬 */
+.flex_row_center {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.width_50 {
+  width: 50vw;
+}
