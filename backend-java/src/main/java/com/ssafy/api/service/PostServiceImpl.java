@@ -1,5 +1,6 @@
 package com.ssafy.api.service;
 
+import com.ssafy.api.dto.PostDto;
 import com.ssafy.db.entity.Post;
 import com.ssafy.db.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @RequiredArgsConstructor
@@ -18,5 +20,22 @@ public class PostServiceImpl implements PostService{
     @Override
     public List<Post> getAllPosts() {
         return postRepository.findAll();
+    }
+
+    @Override
+    public Post getPostById(Long id) {
+        Optional<Post> post = postRepository.findById(id);
+        if(post.isPresent()){
+           return post.get();
+        }
+        throw new RuntimeException();
+    }
+
+    @Override
+    public void modifyPost(PostDto postDto) {
+        Optional<Post> post = postRepository.findById(postDto.getNo());
+        if(post.isPresent()){
+//            post.
+        }
     }
 }
