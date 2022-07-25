@@ -1,5 +1,6 @@
 import LodingSpinner from "../components/common/LoadingSpinner";
 import Input from "../components/common/Input";
+import Sheet from "../components/common/sheet";
 
 export default function LandingPage() {
   return (
@@ -16,5 +17,7 @@ export default function LandingPage() {
         />
         <Input id={"비밀번호"} type={"password"} />
       </form> */}
+      <Sheet />
     </>
-  );}
+  );
+}
