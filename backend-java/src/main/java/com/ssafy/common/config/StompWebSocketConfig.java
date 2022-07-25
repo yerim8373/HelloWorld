@@ -1,4 +1,4 @@
-package com.ssafy.config;
+package com.ssafy.common.config;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;

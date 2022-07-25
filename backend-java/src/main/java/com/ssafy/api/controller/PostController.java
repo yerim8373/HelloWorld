@@ -34,6 +34,7 @@ public class PostController {
 
     @GetMapping("/{id}")
     public ResponseEntity<?> read(@PathVariable Long id){
-        return response.success(postService.read(id));
+//        return response.success(postService.read(id));
+    return null;
     }
 }

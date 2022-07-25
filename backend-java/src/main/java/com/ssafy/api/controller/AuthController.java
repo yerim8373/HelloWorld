@@ -13,10 +13,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.ssafy.api.response.UserLoginPostRes;
 
@@ -27,6 +24,7 @@ import io.swagger.annotations.ApiResponses;
 import io.swagger.annotations.ApiResponse;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
@@ -64,5 +62,17 @@ public class AuthController {
 				.build();
 		resp.setHeader("Set-Cookie", cookie.toString());
 		return response.success(JWTokenDto.of(jwt));
+	}
+
+	@PostMapping("/signout")
+	public ResponseEntity<?> signout(HttpServletRequest req){
+//		return response.success(authService.logout(req));
+		return null;
+	}
+
+	@PostMapping("/reissue")
+	public ResponseEntity<?> reissue(HttpServletRequest req){
+//		authService.reissue(req);
+		return null;
 	}
 }

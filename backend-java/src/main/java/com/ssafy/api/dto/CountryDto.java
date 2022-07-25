@@ -9,6 +9,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CountryDto {
+    private Long countryId;
     public static CountryDto of(Country country){
         return new CountryDto();
     }

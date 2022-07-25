@@ -1,4 +1,4 @@
-package com.ssafy.config;
+package com.ssafy.common.config;
 
 import io.lettuce.core.RedisURI;
 import org.springframework.beans.factory.annotation.Value;
