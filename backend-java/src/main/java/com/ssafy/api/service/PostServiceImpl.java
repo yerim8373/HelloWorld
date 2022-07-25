@@ -1,5 +1,6 @@
 package com.ssafy.api.service;
 
+import com.ssafy.api.dto.PostDto;
 import com.ssafy.db.entity.Post;
 import com.ssafy.db.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
@@ -27,8 +28,14 @@ public class PostServiceImpl implements PostService{
         if(post.isPresent()){
            return post.get();
         }
-        throw  new RuntimeException();
+        throw new RuntimeException();
     }
 
-
+    @Override
+    public void modifyPost(PostDto postDto) {
+        Optional<Post> post = postRepository.findById(postDto.getNo());
+        if(post.isPresent()){
+//            post.
+        }
+    }
 }
