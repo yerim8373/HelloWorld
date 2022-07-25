@@ -1,5 +1,4 @@
 .overlay {
-  cursor: pointer;
   position: fixed;
   top: 0;
   left: 0;
@@ -13,8 +12,23 @@
 }
 
 .modal {
-  cursor: default;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 80%;
+  max-height: 90%;
   padding: 32px;
   border-radius: 8px;
   background-color: white;
+  box-shadow: 0 6px 25px 0 rgba(0, 0, 0, 0.25);
+}
+
+/* .content {
+  overflow-y: scroll;
+} */
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 32px;
 }
