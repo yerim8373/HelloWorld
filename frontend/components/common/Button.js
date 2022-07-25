@@ -1,9 +1,9 @@
 import React from "react";
 import classes from "./Button.module.css";
 
-const Button = (props) => {
+const Button = ({ size, color, onEvent, text, closable = false}) => {
   let className = "";
-  switch (props.size) {
+  switch (size) {
     case "large":
       className += classes.button_large + " ";
       break;
@@ -17,21 +17,23 @@ const Button = (props) => {
       className += classes.button_transparent + " ";
   }
 
-  switch (props.color) {
+  switch (color) {
     case "error":
       className += classes.button_error + " ";
       break;
-    case "newtral":
-      className += classes.button_newtral + " ";
+    case "neutral":
+      className += classes.button_neutral + " ";
       break;
     default:
       className += classes.button + " ";
       break;
   }
 
+  if (closable) className += 'closable '
+
   return (
-    <button className={className} onClick={props.onEvent}>
-      {props.text}
+    <button className={className} onClick={onEvent}>
+      {text}
     </button>
   );
 };
