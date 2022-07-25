@@ -20,6 +20,7 @@ public class AuthServiceImpl implements AuthService {
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
+    private final JwtTokenUtil jwtTokenUtil;
 
 //response.success(JwtTokenUtil.getToken(loginInfo.getEmail()), "login success", HttpStatus.OK)
     @Override
@@ -31,7 +32,7 @@ public class AuthServiceImpl implements AuthService {
             UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(signInDTO.getEmail(), signInDTO.getPw());
             Authentication auth = authenticationManagerBuilder.getObject().authenticate(token);
 
-            return JwtTokenUtil.createToken(signInDTO, auth);
+            return jwtTokenUtil.createToken(signInDTO, auth);
 //            return ResponseEntity.ok(UserLoginPostRes.of(200, "Success", JwtTokenUtil.getToken(loginInfo.getEmail())));
         }
 

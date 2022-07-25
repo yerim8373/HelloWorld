@@ -1,4 +1,4 @@
-package com.ssafy.config;
+package com.ssafy.common.config;
 
 import com.ssafy.api.service.CustomUserDetailService;
 import com.ssafy.api.service.UserService;
