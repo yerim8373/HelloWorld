@@ -171,6 +171,8 @@ dependencies {
     testImplementation("com.jayway.jsonpath:json-path:2.4.0")
 
     implementation("com.auth0:java-jwt:3.10.3")
+
+    implementation 'javax.interceptor:javax.interceptor-api:1.2.2'
     
     implementation("io.springfox:springfox-swagger2:3.0.0")
     implementation("io.springfox:springfox-swagger-ui:3.0.0")
@@ -183,6 +185,9 @@ dependencies {
     annotationProcessor("org.projectlombok:lombok:1.18.20")
 
     testCompile('org.springframework.boot:spring-boot-starter-test')
+    //인터셉터
+    implementation 'javax.interceptor:javax.interceptor-api:1.2.2'
+
 }
 
 test {
