@@ -23,7 +23,7 @@ const HeaderNav = () => {
     <div className={classes.HeaderNav}>
       <nav className={classes.HeaderNav_nav}>
         <div className={classes.HeaderNav_link_btns}>
-          <LogoImage color="black" width="50" height="50"></LogoImage>
+          <LogoImage color="logoBlackFill" width="50" height="50"></LogoImage>
           {isLogined ? (
             <div
               className={`${classes.HeaderNav_link_btns} ${classes.hover_color}`}
@@ -37,7 +37,7 @@ const HeaderNav = () => {
             </div>
           ) : (
             <Link href="/">
-              <h2 className={classes.HeaderNav_brand}>HelloWorld</h2>
+              <h3 className={classes.HeaderNav_brand}>HelloWorld</h3>
             </Link>
           )}
         </div>

@@ -7,7 +7,13 @@ const MenuBtn = (props) => {
 
   return (
     <Link href={props.link}>
-      <h4 className={router.pathname === props.link ? classes.logo_active : ""}>
+      <h4
+        className={
+          router.pathname === props.link
+            ? classes.logo_active + " " + classes.logo_brand
+            : classes.logo_brand
+        }
+      >
         {props.text}
       </h4>
     </Link>
