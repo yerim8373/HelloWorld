@@ -32,7 +32,6 @@ public class Post extends BaseEntity{
     }
 
     public void setPost(PostDto post){
-        super.setId(post.getNo());
         this.title = post.getTitle();
         this.content = post.getContent();
         this.lastModifiedAt = LocalDateTime.now();

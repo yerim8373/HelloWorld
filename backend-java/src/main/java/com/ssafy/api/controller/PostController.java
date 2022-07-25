@@ -2,8 +2,11 @@ package com.ssafy.api.controller;
 
 import com.ssafy.api.dto.PostDto;
 import com.ssafy.api.dto.SignUpDto;
+import com.ssafy.api.dto.UserDto;
 import com.ssafy.api.service.PostService;
+import com.ssafy.api.service.UserService;
 import com.ssafy.common.model.response.Response;
+import com.ssafy.common.util.JwtTokenUtil;
 import com.ssafy.db.entity.Post;
 import io.lettuce.core.dynamic.annotation.Param;
 import io.swagger.annotations.ApiOperation;
@@ -24,6 +27,8 @@ public class PostController {
 
     private final PostService postService;
     private final Response response;
+    private final UserService userService;
+    private final JwtTokenUtil jwtTokenUtil;
 
     @GetMapping("")
     @ApiOperation(value = "포스트", notes = "<strong>모든</strong> 포스트를 가져온다.")
@@ -54,6 +59,11 @@ public class PostController {
         return response.success(HttpStatus.OK);
     }
 
-
+    @PostMapping("/insert")
+    public ResponseEntity<?> insertPost(@RequestHeader("Authorization") String bearerToken
+                                        ,@RequestBody PostDto postDto) {
+        postService.insertPost(postDto, jwtTokenUtil.getEmailFromToken(bearerToken));
+        return response.success(HttpStatus.OK);
+    }
 
 }
