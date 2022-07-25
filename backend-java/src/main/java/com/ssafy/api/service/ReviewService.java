@@ -1,5 +1,6 @@
 package com.ssafy.api.service;
 
+import com.ssafy.api.dto.ReviewDto;
 import com.ssafy.db.entity.Review;
 
 import java.util.List;
@@ -9,6 +10,11 @@ import java.util.List;
  */
 public interface ReviewService {
 //    Review saveReview(ReviewDto reviewDto);
-    List<Review> getReviewByEmail(String bearerToken);
-    List<Review> getAllReviews(String bearerToken);
+    List<Review> getAllReviews();
+
+    List<Review> getReviewsByEmail(String email);
+
+     Review insertReview(ReviewDto reviewDto, String email);
+
+     void removeReview(Long id);
 }
