@@ -9,7 +9,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SubscribeDto {
-    int id;
+    int no;
     public static SubscribeDto of(Subscribe subscribe){
         return new SubscribeDto();
     }

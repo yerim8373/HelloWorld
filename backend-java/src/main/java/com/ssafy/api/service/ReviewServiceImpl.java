@@ -1,6 +1,5 @@
 package com.ssafy.api.service;
 
-import com.ssafy.api.dto.ReviewDto;
 import com.ssafy.db.entity.Review;
 import com.ssafy.db.repository.ReviewRepository;
 import com.ssafy.db.repository.UserRepository;
@@ -14,7 +13,6 @@ import java.util.List;
 @RequiredArgsConstructor
 @Transactional
 public class ReviewServiceImpl implements ReviewService{
-
     private final ReviewRepository reviewRepository;
     private final UserRepository userRepository;
 
@@ -43,5 +41,6 @@ public class ReviewServiceImpl implements ReviewService{
     @Override
     public void removeReview(Long id) {
         reviewRepository.deleteById(id);
+
     }
 }

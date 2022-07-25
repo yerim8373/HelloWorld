@@ -185,6 +185,9 @@ dependencies {
     annotationProcessor("org.projectlombok:lombok:1.18.20")
 
     testCompile('org.springframework.boot:spring-boot-starter-test')
+    //인터셉터
+    implementation 'javax.interceptor:javax.interceptor-api:1.2.2'
+
 }
 
 test {
