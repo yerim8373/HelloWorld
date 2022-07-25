@@ -22,6 +22,7 @@
 
 .HeaderNav_brand {
   cursor: pointer;
+  font-weight: 300;
 }
 
 .hover_color *:hover {

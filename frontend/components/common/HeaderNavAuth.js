@@ -8,7 +8,9 @@ const HeaderNavAuth = () => {
       <nav className={classes.HeaderNav_nav}>
         <div className={classes.HeaderNav_link_btns}>
           <LogoImage color="logoBlack" width="50" height="50"></LogoImage>
-          <h3 className={classes.HeaderNav_brand}>HelloWorld</h3>
+          <Link href="/">
+            <h3 className={classes.HeaderNav_brand}>HelloWorld</h3>
+          </Link>
         </div>
       </nav>
     </div>

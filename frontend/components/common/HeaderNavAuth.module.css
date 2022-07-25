@@ -20,6 +20,7 @@
 .HeaderNav_brand {
   cursor: pointer;
   color: #ffffff;
+  font-weight: 300;
 }
 
 .hover_color *:hover {
