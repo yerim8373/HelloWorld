@@ -1,0 +1,28 @@
+.HeaderNav {
+  position: relative;
+}
+
+.HeaderNav_nav {
+  display: flex;
+  position: fixed;
+  width: 100%;
+  z-index: 10;
+  padding: 1rem 1rem;
+  gap: 2rem;
+}
+
+.HeaderNav_link_btns {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.HeaderNav_brand {
+  cursor: pointer;
+  color: #ffffff;
+}
+
+.hover_color *:hover {
+  cursor: pointer;
+  color: var(--color-primary);
+}
