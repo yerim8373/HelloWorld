@@ -1,16 +1,17 @@
 package com.ssafy.api.controller;
 
-import com.ssafy.api.dto.SignUpDto;
 import com.ssafy.api.service.PostService;
 import com.ssafy.common.model.response.Response;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
@@ -34,6 +35,8 @@ public class PostController {
 
     @GetMapping("/{id}")
     public ResponseEntity<?> read(@PathVariable Long id){
-        return response.success(postService.read(id));
+        return response.success(postService.getAllPosts());
     }
 }
+
+

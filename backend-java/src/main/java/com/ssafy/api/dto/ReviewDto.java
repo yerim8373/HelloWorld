@@ -8,4 +8,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ReviewDto {
+    String content;
+    int score;
+    UserDto user;
 }
