@@ -7,7 +7,7 @@ export default function LandingPage() {
       <h1>랜딩 페이지</h1>
       {/* 로딩 스피너 시험용 */}
       {/* <LodingSpinner viewCount={5} /> */}
-      {/* input 시험용 */}
+      {/* input 시험용 */}S
       {/* <form>
         <Input
           id={"Email"}
@@ -17,5 +17,4 @@ export default function LandingPage() {
         <Input id={"비밀번호"} type={"password"} />
       </form> */}
     </>
-  );
-}
+  );}

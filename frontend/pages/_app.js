@@ -1,3 +1,4 @@
+
 import "../styles/minireset.min.css";
 import "../styles/pretendard.css";
 import "../styles/globals.css";
