@@ -1,5 +1,17 @@
 import classes from "./Input.module.css";
 
+// Input-Component /////////////////////////
+////////////////////////////////////////////
+////////////////////////////////////////////
+
+// props 설정
+// props.id
+// label 이름, input name 속성, label for 속성 설정
+// props.type (선택)
+// 해당 input의 type 설정, 적용x 시 기본 값은 text
+// props.placeHolder (선택)
+// placeHolder 적용
+
 const Input = (props) => {
   return (
     <div className={classes.input_wrapper}>
