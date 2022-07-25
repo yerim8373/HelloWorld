@@ -16,6 +16,7 @@ body {
   font-family: Pretendard, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
     Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
+
 a {
   color: inherit;
   text-decoration: none;
@@ -43,4 +44,8 @@ a {
 .small {
   font-size: 12px;
   font-weight: 500;
+}
+
+.margin_div {
+  height: 5rem;
 }

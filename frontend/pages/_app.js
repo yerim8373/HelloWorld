@@ -1,4 +1,3 @@
-
 import "../styles/minireset.min.css";
 import "../styles/pretendard.css";
 import "../styles/globals.css";
@@ -12,8 +11,8 @@ function MyApp({ Component, pageProps }) {
   return (
     <>
       {router.pathname.includes("auth") ? <HeaderNavAuth /> : <HeaderNav />}
+      {!router.pathname.includes("auth") && <div className="margin_div"></div>}
       <Component {...pageProps} />
-
       <div id="modal-root"></div>
     </>
   );
