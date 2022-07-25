@@ -1,4 +1,4 @@
-package com.ssafy.config;
+package com.ssafy.common.config;
 
 import com.ssafy.webrtc.CallHandler;
 import lombok.RequiredArgsConstructor;

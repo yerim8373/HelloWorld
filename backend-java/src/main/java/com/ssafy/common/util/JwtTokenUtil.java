@@ -8,6 +8,7 @@ import com.auth0.jwt.exceptions.*;
 import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.ssafy.api.dto.SignInDTO;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
@@ -33,11 +34,13 @@ public class JwtTokenUtil {
     public static final String TOKEN_PREFIX = "Bearer ";
     public static final String HEADER_STRING = "Authorization";
     public static final String ISSUER = "ssafy.com";
+    private final RedisUtil redisUtil;
 
     @Autowired
-        public JwtTokenUtil(@Value("${jwt.secret}") String secretKey, @Value("${jwt.expiration}") Integer expirationTime) {
+        public JwtTokenUtil(@Value("${jwt.secret}") String secretKey, @Value("${jwt.expiration}") Integer expirationTime, RedisUtil redisUtil) {
 		this.secretKey = secretKey;
 		this.expirationTime = expirationTime;
+        this.redisUtil=redisUtil;
 	}
 
 
@@ -128,7 +131,7 @@ public class JwtTokenUtil {
 
 
 
-    public static JWToken createToken(SignInDTO signInDTO, Authentication auth) {
+    public JWToken createToken(SignInDTO signInDTO, Authentication auth) {
         Date date = new Date();
         Long accessExpires = 30*60*1000L; // 30minutes
         Long refreshExpires = 60*60*24*15*1000L; // 15days
@@ -151,6 +154,8 @@ public class JwtTokenUtil {
                 .withIssuer(ISSUER)
                 .withIssuedAt(Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()))
                 .sign(Algorithm.HMAC512(secretKey.getBytes()));
+
+        redisUtil.set(auth.getName(), refreshToken, refreshExpires);
 
         return JWToken.builder()
                 .accessToken(accessToken)
