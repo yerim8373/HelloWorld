@@ -33,10 +33,6 @@ public class ReviewServiceImpl implements ReviewService{
     // 리뷰 작성
     @Override
     public Review insertReview(ReviewDto reviewDto, String email) {
-//        return reviewRepository.save(Review.builder()
-//                .content(review.getContent())
-//                .score(review.getScore())
-//                .user(review.getUser()));
         return reviewRepository.save(Review.builder()
                         .content(reviewDto.getContent())
                         .score(reviewDto.getScore())
