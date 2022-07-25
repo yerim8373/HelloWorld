@@ -1,9 +1,12 @@
 import WelcomePicture from "../../components/common/WelcomePicture";
+import Login from "../../components/auth/Login";
 export default function LoginPage() {
   return (
-    <>
-      {/* <h1>로그인 페이지</h1> */}
+    <div className="flex_row">
       <WelcomePicture></WelcomePicture>
-    </>
+      <div className="flex_row_center width_50">
+        <Login />
+      </div>
+    </div>
   );
 }

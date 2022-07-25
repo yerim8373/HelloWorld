@@ -17,9 +17,15 @@
   gap: 1rem;
 }
 
-.HeaderNav_brand {
+.HeaderNav_brand_white {
   cursor: pointer;
   color: #ffffff;
+  font-weight: 300;
+}
+
+.HeaderNav_brand_black {
+  cursor: pointer;
+  color: #000000;
   font-weight: 300;
 }
 

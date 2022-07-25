@@ -52,6 +52,7 @@ const HeaderNav = () => {
             <Button
               size="small"
               text="회원가입"
+              color="success"
               onEvent={routerPushHandler}
             ></Button>
             {/* <MenuBtn text="회원가입" link="/auth/signup"></MenuBtn> */}
