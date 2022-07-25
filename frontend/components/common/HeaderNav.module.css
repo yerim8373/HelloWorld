@@ -1,10 +1,15 @@
 .HeaderNav {
-  margin: 1rem 1rem;
   font-weight: bolder;
+  position: relative;
 }
 
 .HeaderNav_nav {
   display: flex;
+  position: fixed;
+  width: 100%;
+  z-index: 10;
+  background-color: #ffffff;
+  padding: 1rem 1rem;
   justify-content: space-between;
   gap: 2rem;
 }
@@ -17,6 +22,7 @@
 
 .HeaderNav_brand {
   cursor: pointer;
+  font-weight: 300;
 }
 
 .hover_color *:hover {
