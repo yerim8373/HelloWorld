@@ -35,7 +35,18 @@ public class PostServiceImpl implements PostService{
     public void modifyPost(PostDto postDto) {
         Optional<Post> post = postRepository.findById(postDto.getNo());
         if(post.isPresent()){
-//            post.
+            post.get().setPost(postDto);
+            postRepository.save(post.get());
         }
+        throw new RuntimeException("fail to update a post");
+    }
+
+    @Override
+    public void removePost(Long id) {
+        Optional<Post> post = postRepository.findById(id);
+        if(post.isPresent()){
+            postRepository.delete(post.get());
+        }
+        throw new RuntimeException("fail to delete a post");
     }
 }
