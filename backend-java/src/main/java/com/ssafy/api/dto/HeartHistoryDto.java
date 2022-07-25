@@ -8,7 +8,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class HeartHistoryDto {
-//    private int cnt;
+    private int cnt;
 //    private Long from;
 //    private Long to;
 //    private Ro
