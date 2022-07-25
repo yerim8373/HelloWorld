@@ -13,6 +13,8 @@ function MyApp({ Component, pageProps }) {
     <>
       {router.pathname.includes("auth") ? <HeaderNavAuth /> : <HeaderNav />}
       <Component {...pageProps} />
+
+      <div id="modal-root"></div>
     </>
   );
 }
