@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @RequiredArgsConstructor
@@ -19,4 +20,15 @@ public class PostServiceImpl implements PostService{
     public List<Post> getAllPosts() {
         return postRepository.findAll();
     }
+
+    @Override
+    public Post getPostById(Long id) {
+        Optional<Post> post = postRepository.findById(id);
+        if(post.isPresent()){
+           return post.get();
+        }
+        throw  new RuntimeException();
+    }
+
+
 }

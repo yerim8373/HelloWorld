@@ -29,11 +29,11 @@ public class PostController {
             @ApiResponse(code = 500, message = "서버 오류")
     })
     public ResponseEntity<?> getAllPosts() {
-        return response.success(postService.getAllPosts(), "join success" , HttpStatus.OK);
+        return response.success(postService.getAllPosts(), "getAllPosts success" , HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> read(@PathVariable Long id){
-        return response.success(postService.read(id));
+    public ResponseEntity<?> getPostById(@PathVariable Long id){
+        return response.success(postService.getPostById(id), "getPostById success", HttpStatus.OK);
     }
 }
