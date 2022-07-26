@@ -1,5 +1,6 @@
 package com.ssafy.db.entity;
 
+import com.ssafy.api.dto.PostDto;
 import lombok.*;
 
 import javax.persistence.*;
@@ -28,5 +29,11 @@ public class Post extends BaseEntity{
     public void setUser(User user){
         this.user = user;
         user.getPostList().add(this);
+    }
+
+    public void setPost(PostDto post){
+        this.title = post.getTitle();
+        this.content = post.getContent();
+        this.lastModifiedAt = LocalDateTime.now();
     }
 }

@@ -4,6 +4,8 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -20,12 +22,6 @@ public class Subscribe extends BaseEntity{
 
     private LocalDateTime expireDate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userId")
-    private User user;
-
-    public void setUser(User user){
-        this.user = user;
-        user.getSubscribeList().add(this);
-    }
+    @OneToMany(mappedBy = "subscribe")
+    private List<User> user = new ArrayList<>();
 }

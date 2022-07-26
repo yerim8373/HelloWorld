@@ -1,4 +1,4 @@
-package com.ssafy.config;
+package com.ssafy.common.config;
 
 import com.ssafy.common.util.JwtTokenUtil;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
