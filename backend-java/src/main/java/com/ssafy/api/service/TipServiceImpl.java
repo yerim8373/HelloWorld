@@ -1,6 +1,7 @@
 package com.ssafy.api.service;
 
 import com.ssafy.api.dto.TipDto;
+import com.ssafy.db.entity.Language;
 import com.ssafy.db.entity.Tip;
 import com.ssafy.db.repository.TipRepository;
 import lombok.RequiredArgsConstructor;
@@ -9,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 @Service("tipService")
 @RequiredArgsConstructor
@@ -33,13 +33,17 @@ public class TipServiceImpl implements TipService{
         return TipDto.of(list.get((int)(Math.random()*list.size())));
     }
 
-//    @Override
-//    public void insertTip(TipDto tipDto) {
-//        tipRepository.save(Tip.builder()
-//                        .content(tipDto.getContent())
-//                        .language(tipDto.getLanguageDto())
-//                        .build());
-//    }
+    @Override
+    public void insertTip(TipDto tipDto) {
+
+        tipRepository.save(Tip.builder()
+                        .content(tipDto.getContent())
+                        .build())
+                .setLanguage(Language
+                        .builder()
+                        .lan(tipDto.getLanguageDto().getLan())
+                        .build());
+    }
 
     @Override
     public void removeTip(Long id) {
