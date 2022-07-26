@@ -7,6 +7,7 @@ import com.ssafy.db.entity.Runtime;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +26,7 @@ public class UserDto {
      private Gender gender;
 
      private Boolean blackListNY;
-     private LocalDate blackExpireDate;
+     private String blackExpireDate;
 
      private CountryDto country;
      private SubscribeDto subscribe;
@@ -40,7 +41,7 @@ public class UserDto {
         userDto.age = user.getAge();
         userDto.gender = user.getGender();
         userDto.blackListNY = user.getBlackListNY();
-        userDto.blackExpireDate = user.getBlackExpireDate();
+        userDto.blackExpireDate = user.getBlackExpireDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss"));
         userDto.country = CountryDto.of(user.getCountry());
         userDto.subscribe = SubscribeDto.of(user.getSubscribe());
 
