@@ -3,7 +3,6 @@ package com.ssafy.api.service;
 import com.ssafy.api.dto.TipDto;
 import com.ssafy.db.entity.Language;
 import com.ssafy.db.entity.Tip;
-import com.ssafy.db.repository.LanguageRepository;
 import com.ssafy.db.repository.TipRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -11,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 @Service("tipService")
 @RequiredArgsConstructor
