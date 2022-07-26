@@ -1,17 +1,24 @@
 package com.ssafy.api.controller;
 
 import com.ssafy.api.dto.PostDto;
+import com.ssafy.api.dto.SignUpDto;
+import com.ssafy.api.dto.UserDto;
 import com.ssafy.api.service.PostService;
 import com.ssafy.api.service.UserService;
 import com.ssafy.common.model.response.Response;
 import com.ssafy.common.util.JwtTokenUtil;
+import com.ssafy.db.entity.Post;
+import io.lettuce.core.dynamic.annotation.Param;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.xml.transform.OutputKeys;
 
 @RestController
 @RequiredArgsConstructor

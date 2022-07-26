@@ -9,7 +9,8 @@ import lombok.*;
 @NoArgsConstructor
 public class ReviewDto {
     private Long reviewId;
-    String content;
-    int score;
-    UserDto user;
+    private String regDate;
+    private String content;
+    private int score;
+    private UserDto user;
 }
