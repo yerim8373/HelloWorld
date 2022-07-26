@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,28 +23,32 @@ public class PostServiceImpl implements PostService{
     private final UserService userService;
 
     @Override
-    public List<Post> getAllPosts() {
-        return postRepository.findAll();
+    public List<PostDto> getAllPosts() {
+        List<PostDto> list = new ArrayList<>();
+        for(Post post : postRepository.findAll()) {
+            list.add(PostDto.of(post));
+        }
+        return list;
     }
 
     @Override
-    public Post getPostById(Long id) {
+    public PostDto getPostById(Long id) {
         Optional<Post> post = postRepository.findById(id);
         if(post.isPresent()){
-           return post.get();
+           return PostDto.of(post.get());
         }
         throw new RuntimeException();
     }
 
     @Override
     public void modifyPost(PostDto postDto) {
-        Post post = getPostById(postDto.getPostNo());
+        Post post = postRepository.findById(postDto.getPostNo()).get();
         post.setPost(postDto);
     }
 
     @Override
     public void removePost(Long id) {
-        Post post = getPostById(id);
+        Post post = postRepository.findById(id).get();
         postRepository.delete(post);
     }
 
