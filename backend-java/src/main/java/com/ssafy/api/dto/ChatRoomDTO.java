@@ -1,16 +1,18 @@
 package com.ssafy.api.dto;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.web.socket.WebSocketSession;
 
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
+@Builder
 @Getter
 @Setter
-public class ChatRoomDTO {
+@AllArgsConstructor
+@NoArgsConstructor
+public class ChatRoomDTO{
 
     private String roomId;
     private String name;
@@ -23,5 +25,9 @@ public class ChatRoomDTO {
         room.roomId = UUID.randomUUID().toString();
         room.name = name;
         return room;
+    }
+
+    public static ChatRoomDTO of(Integer statusCode, String message, ChatRoomDTO chatRoomDTO){
+        return chatRoomDTO;
     }
 }

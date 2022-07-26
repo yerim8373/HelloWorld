@@ -4,8 +4,10 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * 20022-07-19
@@ -16,27 +18,40 @@ import java.util.List;
 @Builder @Getter
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
-public class User extends BaseEntity{
-
+public class User{
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private LocalDateTime regDate;
     @Column(unique = true, nullable = false)
     private String email;
     @Column(nullable = false)
     private String pw;
-    @Column(nullable = true)
+    @Column(nullable = false)
     private String name;
     @Column(unique = true, nullable = false)
     private String mobileNumber;
     @Column(unique = true, nullable = false)
     private String nickname;
 
-    private Integer birthday;
-    private String imageSrc;
+    private Integer age;
+    private String avatarSrc;
 
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
-    @Enumerated(EnumType.STRING)
-    private UserRole role;
+    @ManyToMany
+    @JoinTable(
+            name = "userAuth",
+            joinColumns = {
+                    @JoinColumn(name = "userId", referencedColumnName = "id")
+            },
+            inverseJoinColumns = {
+                    @JoinColumn(name = "authName", referencedColumnName = "authName")
+            }
+    )
+    private Set<Authority> authorities;
+    private boolean activated;
 
     private Boolean blackListNY;
     private LocalDate blackExpireDate;
@@ -44,6 +59,10 @@ public class User extends BaseEntity{
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="countryId")
     private Country country;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="subscribeId")
+    private Subscribe subscribe;
 
     @OneToMany(mappedBy = "user")
     private List<Report> reportList = new ArrayList<>();
@@ -57,8 +76,15 @@ public class User extends BaseEntity{
     private List<Post> postList = new ArrayList<>();
     @OneToMany(mappedBy = "user")
     private List<Runtime> runtimeList = new ArrayList<>();
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user" )
     private List<UserLan> userLanList = new ArrayList<>();
-    @OneToMany(mappedBy = "user")
-    private List<Subscribe> subscribeList = new ArrayList<>();
+
+
+    public void setCountry(Country country){
+        this.country = country;
+    }
+    public void setSubscribe(Subscribe subscribe){
+        this.subscribe = subscribe;
+        subscribe.getUser().add(this);
+    }
 }

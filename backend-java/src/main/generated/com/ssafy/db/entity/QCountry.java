@@ -19,9 +19,15 @@ public class QCountry extends EntityPathBase<Country> {
 
     public static final QCountry country = new QCountry("country");
 
-    public final NumberPath<Long> id = createNumber("id", Long.class);
+    public final QBaseEntity _super = new QBaseEntity(this);
+
+    //inherited
+    public final NumberPath<Long> id = _super.id;
 
     public final StringPath name = createString("name");
+
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> regDate = _super.regDate;
 
     public QCountry(String variable) {
         super(Country.class, forVariable(variable));
