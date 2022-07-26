@@ -10,6 +10,6 @@ public interface TipService {
     List<TipDto> getAllTipsByLan(String lan);
     TipDto getTipByLan(String lan);
     void removeTip(Long id);
-//    void insertTip(TipDto tipDto);
+    void insertTip(TipDto tipDto);
 
 }

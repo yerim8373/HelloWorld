@@ -21,4 +21,8 @@ public class Tip extends BaseEntity{
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "languageId")
     private Language language;
+
+    public void setLanguage(Language language){
+        this.language = language;
+    }
 }
