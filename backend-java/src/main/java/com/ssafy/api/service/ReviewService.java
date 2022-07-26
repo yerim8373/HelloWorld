@@ -14,7 +14,7 @@ public interface ReviewService {
 
     List<Review> getReviewsByEmail(String email);
 
-     Review insertReview(ReviewDto reviewDto, String email);
+     void insertReview(ReviewDto reviewDto, String email);
 
      void removeReview(Long id);
 }
