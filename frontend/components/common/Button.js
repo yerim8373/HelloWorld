@@ -10,7 +10,7 @@ import classes from "./Button.module.css";
 // color - error, neutral, success(기본값) 버튼 색 조정
 // text - 버튼 이름 설정
 // onEvent - 적용된 함수 실행
-// closable (모달전용) - 모달이 보일 때 버튼이 안보이도록, 모달이 꺼지면 다시 버튼이 보임
+// closable (모달전용) - 모달 안에 버튼이 있는 경우, 버튼을 클릭했을 때 모달이 닫히는지 여부
 
 const Button = ({ size, color, onEvent, text, closable = false }) => {
   let className = "";
