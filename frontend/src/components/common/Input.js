@@ -1,8 +1,8 @@
-import classes from "./Input.module.css";
+import classes from './Input.module.css'
 
 // Input-Component /////////////////////////
-////////////////////////////////////////////
-////////////////////////////////////////////
+/// /////////////////////////////////////////
+/// /////////////////////////////////////////
 
 // props 설정
 // props.id
@@ -12,7 +12,7 @@ import classes from "./Input.module.css";
 // props.placeHolder (선택)
 // placeHolder 적용
 
-const Input = (props) => {
+function Input(props) {
   return (
     <div className={classes.input_wrapper}>
       <label className={classes.input_label} htmlFor={props.id}>
@@ -21,11 +21,11 @@ const Input = (props) => {
       <input
         className={classes.input}
         name={props.id}
-        type={props.type ? props.type : "text"}
+        type={props.type ? props.type : 'text'}
         placeholder={props.placeholder && props.placeholder}
       />
     </div>
-  );
-};
+  )
+}
 
-export default Input;
+export default Input

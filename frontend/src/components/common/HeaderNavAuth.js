@@ -1,22 +1,22 @@
-import LogoImage from "./LogoImage";
-import classes from "./HeaderNavAuth.module.css";
-import { NavLink } from "react-router-dom";
+import { NavLink } from 'react-router-dom'
+import LogoImage from './LogoImage'
+import classes from './HeaderNavAuth.module.css'
 
-const HeaderNavAuth = (props) => {
+function HeaderNavAuth(props) {
   return (
     <nav
       className={props.fixed ? classes.HeaderNav_fixed : classes.HeaderNav_nav}
     >
       <div className={classes.HeaderNav_link_btns}>
         <LogoImage
-          color={props.color === "white" ? "logoBlack" : "logoWhite"}
+          color={props.color === 'white' ? 'logoBlack' : 'logoWhite'}
           width="50"
           height="50"
-        ></LogoImage>
+        />
         <NavLink to="/">
           <h3
             className={
-              props.color === "white"
+              props.color === 'white'
                 ? classes.HeaderNav_brand_white
                 : classes.HeaderNav_brand_black
             }
@@ -26,7 +26,7 @@ const HeaderNavAuth = (props) => {
         </NavLink>
       </div>
     </nav>
-  );
-};
+  )
+}
 
-export default HeaderNavAuth;
+export default HeaderNavAuth
