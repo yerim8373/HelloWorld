@@ -22,7 +22,6 @@ public class LanguageController {
                             , HttpStatus.OK);
     }
 
-
     @PutMapping("/insert")
     public ResponseEntity<?> insertLanguage(@RequestBody LanguageDto languageDto){
         languageService.insertLanguage(languageDto);
@@ -34,6 +33,4 @@ public class LanguageController {
         languageService.removeLanguage(id);
         return response.success(HttpStatus.OK);
     }
-
-
 }
