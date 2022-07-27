@@ -17,14 +17,20 @@ import java.time.LocalDateTime;
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 public class HeartHistory extends BaseEntity{
     private int cnt;
-    private String route;
+    @Enumerated(EnumType.STRING)
+    private Route route;
+    private String name;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userId")
-    private User user;
+    @JoinColumn(name = "fromUserId")
+    private User fromUser;
 
-    public void setUser(User user){
-        this.user = user;
-        user.getHeartHistoryList().add(this);
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "toUserId")
+    private User toUser;
+
+    public void setUser(User toUser){
+        this.toUser = toUser;
+        toUser.getHeartHistoryList().add(this);
     }
 }

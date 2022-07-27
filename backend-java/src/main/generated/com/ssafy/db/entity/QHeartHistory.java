@@ -26,15 +26,19 @@ public class QHeartHistory extends EntityPathBase<HeartHistory> {
 
     public final NumberPath<Integer> cnt = createNumber("cnt", Integer.class);
 
+    public final QUser fromUser;
+
     //inherited
     public final NumberPath<Long> id = _super.id;
+
+    public final StringPath name = createString("name");
 
     //inherited
     public final DateTimePath<java.time.LocalDateTime> regDate = _super.regDate;
 
-    public final StringPath route = createString("route");
+    public final EnumPath<Route> route = createEnum("route", Route.class);
 
-    public final QUser user;
+    public final QUser toUser;
 
     public QHeartHistory(String variable) {
         this(HeartHistory.class, forVariable(variable), INITS);
@@ -54,7 +58,8 @@ public class QHeartHistory extends EntityPathBase<HeartHistory> {
 
     public QHeartHistory(Class<? extends HeartHistory> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.user = inits.isInitialized("user") ? new QUser(forProperty("user"), inits.get("user")) : null;
+        this.fromUser = inits.isInitialized("fromUser") ? new QUser(forProperty("fromUser"), inits.get("fromUser")) : null;
+        this.toUser = inits.isInitialized("toUser") ? new QUser(forProperty("toUser"), inits.get("toUser")) : null;
     }
 
 }
