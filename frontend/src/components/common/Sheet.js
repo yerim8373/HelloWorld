@@ -30,6 +30,8 @@ Sheet.propTypes = {
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,
   ]),
+  size: PropTypes.string,
+  shallow: PropTypes.bool,
 }
 
 export default Sheet
