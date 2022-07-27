@@ -1,4 +1,4 @@
-/* Color Variables */
+/* 색상 변수 */
 :root {
   --color-primary: #49c288;
   --color-secondary: #5778ec;
@@ -25,6 +25,11 @@ a {
   box-sizing: border-box;
 }
 
+main {
+  min-height: 80vh;
+}
+
+/* 폰트 크기 및 굵기 */
 .display {
   font-size: 48px;
   font-weight: 600;
