@@ -12,7 +12,7 @@ import javax.persistence.*;
 public class UserLan extends BaseEntity {
 
     private int fluent;
-
+    private int priority;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId")
     private User user;
