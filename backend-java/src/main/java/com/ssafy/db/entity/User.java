@@ -68,7 +68,7 @@ public class User{
     private List<Report> reportList = new ArrayList<>();
     @OneToMany(mappedBy = "user")
     private List<Review> reviewList = new ArrayList<>();
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "toUser")
     private List<HeartHistory> heartHistoryList = new ArrayList<>();
     @OneToMany(mappedBy = "user")
     private List<Notification> notificationList = new ArrayList<>();

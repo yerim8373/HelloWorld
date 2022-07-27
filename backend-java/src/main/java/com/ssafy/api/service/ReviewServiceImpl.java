@@ -1,5 +1,6 @@
 package com.ssafy.api.service;
 
+import com.ssafy.api.dto.ReviewDto;
 import com.ssafy.db.entity.Review;
 import com.ssafy.db.repository.ReviewRepository;
 import com.ssafy.db.repository.UserRepository;
