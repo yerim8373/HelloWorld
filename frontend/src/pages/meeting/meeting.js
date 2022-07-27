@@ -1,3 +1,5 @@
+import Meeting from '../../components/meeting/Meeting'
+
 export default function MeetingPage() {
-  return <h1>미팅 페이지</h1>
+  return <Meeting></Meeting>
 }

@@ -37,15 +37,15 @@ export default function LandingSection({ content }) {
 }
 
 LandingSection.propTypes = {
-  content: PropTypes.objectOf({
-    center: PropTypes.string,
+  content: PropTypes.shape({
+    center: PropTypes.bool,
     title: PropTypes.array.isRequired,
-    content: PropTypes.array.isRequired,
-    button: PropTypes.objectOf({
+    content: PropTypes.array,
+    button: PropTypes.shape({
       name: PropTypes.string.isRequired,
-      color: PropTypes.string.isRequired,
+      color: PropTypes.string,
       action: PropTypes.func,
     }),
     right: PropTypes.bool,
-  }).isRequired,
+  }),
 }

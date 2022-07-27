@@ -70,7 +70,7 @@ ModalSection.propTypes = {
   children: PropTypes.object,
   opened: PropTypes.bool,
   handleModal: PropTypes.func,
-  contents: PropTypes.objectOf({
+  contents: PropTypes.shape({
     title: PropTypes.string,
     content: PropTypes.string,
     actions: PropTypes.arrayOf({

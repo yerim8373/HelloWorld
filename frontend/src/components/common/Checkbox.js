@@ -39,6 +39,9 @@ export default function Checkbox({ id, children, checked }) {
 
 Checkbox.propTypes = {
   id: PropTypes.string.isRequired,
-  children: PropTypes.object,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]),
   checked: PropTypes.bool,
 }

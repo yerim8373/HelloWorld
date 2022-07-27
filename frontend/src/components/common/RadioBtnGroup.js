@@ -50,7 +50,10 @@ export default function RadioBtnGroup({ name, items }) {
 RadioBtn.propTypes = {
   id: PropTypes.string,
   name: PropTypes.string,
-  children: PropTypes.object,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]),
   selectedValue: PropTypes.string,
   handleChange: PropTypes.func,
 }

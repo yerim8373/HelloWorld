@@ -46,9 +46,18 @@ a {
   font-weight: 500;
 }
 
-.margin_div {
-  height: 5rem;
+.margin_small {
+  margin: 2rem;
 }
+
+.margin_middle {
+  margin: 5rem;
+}
+
+.margin_big {
+  margin :8rem;
+}
+
 
 /* 가로형 레이아웃 */
 .flex_row {
@@ -64,6 +73,7 @@ a {
   align-items: center;
 }
 
-.width_50 {
+.width_50vw {
   width: 50vw;
 }
+

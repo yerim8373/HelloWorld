@@ -62,8 +62,8 @@ function Button({
 }
 
 Button.propTypes = {
-  size: PropTypes.string.isRequired,
-  color: PropTypes.string.isRequired,
+  size: PropTypes.string,
+  color: PropTypes.string,
   onEvent: PropTypes.func,
   text: PropTypes.string.isRequired,
   closable: PropTypes.bool,
