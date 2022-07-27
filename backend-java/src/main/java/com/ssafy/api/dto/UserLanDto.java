@@ -1,6 +1,5 @@
 package com.ssafy.api.dto;
 
-import com.ssafy.db.entity.Language;
 import com.ssafy.db.entity.UserLan;
 import lombok.*;
 
@@ -15,4 +14,14 @@ public class UserLanDto {
     int priority;
     LanguageDto languageDto;
     UserDto userDto;
+
+    public static UserLanDto of(UserLan userLan){
+        return UserLanDto.builder()
+                .userLanId(userLan.getId())
+                .fluent(userLan.getFluent())
+                .priority(userLan.getPriority())
+                .languageDto(LanguageDto.of(userLan.getLanguage()))
+                .userDto(UserDto.of(userLan.getUser()))
+                .build();
+    }
 }
