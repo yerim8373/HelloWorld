@@ -2,6 +2,11 @@ package com.ssafy.api.dto;
 
 import com.ssafy.db.entity.Country;
 import lombok.*;
+import org.springframework.web.socket.WebSocketSession;
+
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
 
 @Builder
 @Getter
@@ -9,8 +14,13 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CountryDto {
-    int no;
+    private long id;
+    private String name;
+
     public static CountryDto of(Country country){
-        return new CountryDto();
+        return new CountryDtoBuilder()
+                .id(country.getId())
+                .name(country.getName())
+                .build();
     }
 }

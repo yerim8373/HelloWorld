@@ -12,9 +12,10 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 public class Language extends BaseEntity{
-    private String name;
+    private String lan;
 
     @OneToMany(mappedBy = "language")
     private List<Question> questionList = new ArrayList<>();
-
+    @OneToMany(mappedBy = "language")
+    private List<Tip> tipList = new ArrayList<>();
 }

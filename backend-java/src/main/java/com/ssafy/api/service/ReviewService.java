@@ -10,11 +10,11 @@ import java.util.List;
  */
 public interface ReviewService {
 //    Review saveReview(ReviewDto reviewDto);
-    List<Review> getAllReviews();
+    List<ReviewDto> getAllReviews();
 
-    List<Review> getReviewsByEmail(String email);
+    List<ReviewDto> getReviewsByEmail(String email);
 
-     Review insertReview(ReviewDto reviewDto, String email);
+     void insertReview(ReviewDto reviewDto, String email);
 
      void removeReview(Long id);
 }

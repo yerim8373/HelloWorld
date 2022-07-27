@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service("reviewService")
@@ -15,28 +16,36 @@ import java.util.List;
 @Transactional
 public class ReviewServiceImpl implements ReviewService{
     private final ReviewRepository reviewRepository;
-    private final UserRepository userRepository;
+    private final UserService userService;
 
     // 리뷰 전체 get
     @Override
-    public List<Review> getAllReviews() {
-        return reviewRepository.findAll();
+    public List<ReviewDto> getAllReviews() {
+        List<ReviewDto> list = new ArrayList<>();
+        for(Review review : reviewRepository.findAll()){
+            list.add(ReviewDto.of(review));
+        }
+        return list;
     }
 
     // id로 리뷰 get
     @Override
-    public List<Review> getReviewsByEmail(String email) {
-        return reviewRepository.findReviewByEmail(email);
+    public List<ReviewDto> getReviewsByEmail(String email) {
+        List<ReviewDto> list = new ArrayList<>();
+        for(Review review : reviewRepository.findReviewByEmail(email)){
+            list.add(ReviewDto.of(review));
+        }
+        return list;
     }
 
     // 리뷰 작성
     @Override
-    public Review insertReview(ReviewDto reviewDto, String email) {
-        return reviewRepository.save(Review.builder()
+    public void insertReview(ReviewDto reviewDto, String email) {
+        reviewRepository.save(Review.builder()
                         .content(reviewDto.getContent())
                         .score(reviewDto.getScore())
-                        .user(userRepository.findByEmail(email).get())
-                        .build());
+                        .build())
+                .setUser(userService.getUserByEmail(email));
     }
 
     @Override
