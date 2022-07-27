@@ -6,11 +6,13 @@ import com.ssafy.db.entity.User;
 import com.ssafy.db.repository.LanguageRepository;
 import com.ssafy.db.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.codec.language.bm.Languages;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service("languageService")
 @RequiredArgsConstructor
@@ -23,20 +25,25 @@ public class LanguageServiceImpl implements LanguageService{
 
 
     @Override
-    public LanguageDto getLanguageByEmail(String email){
-        User user = userRepository.findByEmail(email).get();
-        Language language = languageRepository.findLanguageByUserId(user.getId());
-        return LanguageDto.of(language);
+    public List<LanguageDto> getAllLanguage(){
+        List<LanguageDto> list = new ArrayList<>();
+        for(Language language : languageRepository.findAll()){
+            list.add(LanguageDto.of(language));
+        }
+        return list;
     }
 
 
     @Override
-    public void insertLanguage(String email, Language language) {
-
+    public void insertLanguage(LanguageDto languageDto) {
+        languageRepository.save(Language.builder()
+                .lan(languageDto.getLan())
+                .build());
     }
 
-    @Override
-    public void removeLanguage(String email, Language language) {
 
+    @Override
+    public void removeLanguage(Long id) {
+        languageRepository.delete(languageRepository.findById(id).get());
     }
 }
