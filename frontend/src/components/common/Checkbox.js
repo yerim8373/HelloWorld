@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import PropTypes from 'prop-types'
+
 import classes from './Checkbox.module.css'
 
 export default function Checkbox({ id, children, checked }) {
@@ -33,4 +35,13 @@ export default function Checkbox({ id, children, checked }) {
       {children}
     </label>
   )
+}
+
+Checkbox.propTypes = {
+  id: PropTypes.string.isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]),
+  checked: PropTypes.bool,
 }

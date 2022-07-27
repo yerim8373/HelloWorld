@@ -1,16 +1,23 @@
-import profile from "../../images/profile.jpg";
-import classes from "./ProfileImage.module.css";
+import profile from '../../images/profile.jpg'
+import classes from './ProfileImage.module.css'
 
-const ProfileImage = (props) => {
+import PropTypes from 'prop-types'
+
+const ProfileImage = ({ width, height }) => {
   return (
     <img
       className={classes.image}
       src={profile}
-      width={props.width}
-      height={props.height}
+      width={width}
+      height={height}
       alt="프로필 이미지"
     ></img>
-  );
-};
+  )
+}
 
-export default ProfileImage;
+ProfileImage.propTypes = {
+  width: PropTypes.string.isRequired,
+  height: PropTypes.string.isRequired,
+}
+
+export default ProfileImage

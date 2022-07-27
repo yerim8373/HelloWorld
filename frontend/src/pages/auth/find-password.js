@@ -1,3 +1,3 @@
 export default function FindPasswordPage() {
-  return <h1>비밀번호찾기 페이지</h1>;
+  return <h1>비밀번호찾기 페이지</h1>
 }
