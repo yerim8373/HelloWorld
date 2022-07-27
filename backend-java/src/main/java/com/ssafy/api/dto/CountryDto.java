@@ -15,10 +15,12 @@ import java.util.UUID;
 @NoArgsConstructor
 public class CountryDto {
     private long id;
+    private String name;
 
     public static CountryDto of(Country country){
         return new CountryDtoBuilder()
                 .id(country.getId())
+                .name(country.getName())
                 .build();
     }
 }
