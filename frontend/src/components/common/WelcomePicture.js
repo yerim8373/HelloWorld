@@ -1,7 +1,7 @@
-import classes from "./WelcomePicture.module.css";
-import React from "react";
-import WelcomePicture2 from "../../images/WelcomePicture2.jpg";
-import LogoImage from "./LogoImage";
+import classes from './WelcomePicture.module.css'
+import React from 'react'
+import WelcomePicture2 from '../../images/WelcomePicture2.jpg'
+import LogoImage from './LogoImage'
 
 const WelcomePicture = () => {
   return (
@@ -19,7 +19,7 @@ const WelcomePicture = () => {
         <p>로그인을 통해 지금 바로 시작해보세요!</p>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default WelcomePicture;
+export default WelcomePicture

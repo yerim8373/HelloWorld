@@ -1,0 +1,21 @@
+
+
+.section_size_wide {
+  width: 40vw;
+  height: 70vh;
+}
+
+.section_size_narrow {
+  width: 40vw;
+  height: 30vh;
+}
+
+.user_info_section {
+  height: 2rem;
+  border-bottom: 1px solid var(--color-grey-500);
+}
+
+.video_section {
+  height: 90%;
+}
+
