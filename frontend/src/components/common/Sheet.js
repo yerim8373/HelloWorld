@@ -15,13 +15,13 @@ import classes from './Sheet.module.css'
 
 const Sheet = ({ children, size, shallow }) => {
   return (
-    <div
+    <section
       className={`${classes.sheet} ${size ? classes[size] : ''} ${
         shallow ? classes.shallow : ''
       }`}
     >
       {children}
-    </div>
+    </section>
   )
 }
 
