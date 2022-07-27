@@ -1,5 +1,5 @@
-import React from "react";
-import classes from "./Sheet.module.css";
+import React from 'react'
+import classes from './Sheet.module.css'
 
 // Sheet-Component //////////////////////
 ////////////////////////////////////////
@@ -10,8 +10,9 @@ import classes from "./Sheet.module.css";
 // 참고
 // https://velog.io/@beberiche/React-props-props.children
 
-const Sheet = (props) => {
-  return <div className={classes.sheet}>{props.children}</div>;
-};
+const Sheet = props => {
+  // eslint-disable-next-line react/prop-types
+  return <div className={classes.sheet}>{props.children}</div>
+}
 
-export default Sheet;
+export default Sheet
