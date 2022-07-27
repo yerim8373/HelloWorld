@@ -1,30 +1,23 @@
 package com.ssafy.api.controller;
 
+import com.ssafy.api.dto.HeartDto;
+import com.ssafy.api.dto.HeartHistoryDto;
 import com.ssafy.api.dto.SignUpDto;
 import com.ssafy.api.dto.UserDto;
 import com.ssafy.common.model.response.Response;
 import com.ssafy.common.util.JwtTokenUtil;
-import com.ssafy.db.entity.HeartHistory;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
-import com.ssafy.api.response.UserRes;
 import com.ssafy.api.service.UserService;
-import com.ssafy.common.auth.SsafyUserDetails;
-import com.ssafy.db.entity.User;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import springfox.documentation.annotations.ApiIgnore;
-
-import java.util.List;
 
 /**
  * 유저 관련 API 요청 처리를 위한 컨트롤러 정의.
@@ -86,7 +79,7 @@ public class UserController {
 //		return response.success(UserDto.of(user), "", HttpStatus.OK);
 //	}
 
-	@GetMapping("/heart")
+	@GetMapping("/heart/history")
 	@ApiOperation(value = "회원 하트 정보 조회", notes = "회원 본인의 하트 정보를 응답한다.")
 	@ApiResponses({
 			@ApiResponse(code = 200, message = "성공"),
@@ -95,9 +88,18 @@ public class UserController {
 			@ApiResponse(code = 500, message = "서버 오류")
 	})
 	public ResponseEntity<?> getUserHeartHistory(@RequestHeader("Authorization") String bearerToken){
-		return response.success(userService.getUserHeartHistory(bearerToken)
+		return response.success(userService.getUserHeartHistory(bearerToken).stream().map(hh-> HeartHistoryDto.of(hh))
 								,"heart history success"
 								,HttpStatus.OK);
+	}
+
+	@PostMapping("/heart")
+	public ResponseEntity<?> heart(@RequestBody HeartDto heartDto){
+		if(heartDto.getCnt() > 0)
+			userService.plusHeart(heartDto);
+		else
+			userService.minusHeart(heartDto);
+		return response.success();
 	}
 
 }
