@@ -1,5 +1,5 @@
 import classes from './Input.module.css'
-
+import PropTypes from 'prop-types'
 // Input-Component /////////////////////////
 /// /////////////////////////////////////////
 /// /////////////////////////////////////////
@@ -12,20 +12,26 @@ import classes from './Input.module.css'
 // props.placeHolder (선택)
 // placeHolder 적용
 
-function Input(props) {
+function Input({ id, type = 'text', placeholder = '' }) {
   return (
     <div className={classes.input_wrapper}>
-      <label className={classes.input_label} htmlFor={props.id}>
-        {props.id}
+      <label className={classes.input_label} htmlFor={id}>
+        {id}
       </label>
       <input
         className={classes.input}
-        name={props.id}
-        type={props.type ? props.type : 'text'}
-        placeholder={props.placeholder && props.placeholder}
+        name={id}
+        type={type}
+        placeholder={placeholder}
       />
     </div>
   )
+}
+
+Input.propTypes = {
+  id: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  placeholder: PropTypes.string,
 }
 
 export default Input

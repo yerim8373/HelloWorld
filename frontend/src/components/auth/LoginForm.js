@@ -40,7 +40,7 @@ function LoginForm() {
           </div>
           <div>
             <Button
-              onEvent={routerPushHandler.bind}
+              onEvent={routerPushHandler}
               color="recommend"
               text="회원가입"
             />

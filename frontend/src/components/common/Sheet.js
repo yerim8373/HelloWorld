@@ -1,5 +1,6 @@
-import React from "react";
-import classes from "./Sheet.module.css";
+import React from 'react'
+import classes from './Sheet.module.css'
+import PropTypes from 'prop-types'
 
 // Sheet-Component //////////////////////
 ////////////////////////////////////////
@@ -10,8 +11,12 @@ import classes from "./Sheet.module.css";
 // 참고
 // https://velog.io/@beberiche/React-props-props.children
 
-const Sheet = (props) => {
-  return <div className={classes.sheet}>{props.children}</div>;
-};
+const Sheet = ({ children }) => {
+  return <div className={classes.sheet}>{children}</div>
+}
 
-export default Sheet;
+Sheet.propTypes = {
+  children: PropTypes.object,
+}
+
+export default Sheet

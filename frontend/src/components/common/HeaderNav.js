@@ -13,6 +13,8 @@ import Button from './Button'
 function HeaderNav() {
   // 임시 로그인 용 useStaet
   // 후에 redux 공유객체로 바뀔 예정!
+
+  // eslint-disable-next-line no-unused-vars
   const [isLogined, setIsLogin] = useState(false)
   const navigate = useNavigate()
 
