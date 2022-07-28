@@ -1,7 +1,8 @@
+import PropTypes from 'prop-types'
 import Sheet from '../common/Sheet'
 import classes from './ProfileSection.module.css'
 
-export default function ProfileSection({ user }) {
+function ProfileSection({ user }) {
   return (
     <Sheet size="large">
       <div className={classes.profileContainer}>
@@ -44,3 +45,23 @@ export default function ProfileSection({ user }) {
     </Sheet>
   )
 }
+
+ProfileSection.propTypes = {
+  user: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    nickname: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    gender: PropTypes.string.isRequired,
+    age: PropTypes.number.isRequired,
+    countryId: PropTypes.number.isRequired,
+    mobileNumber: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+    birthday: PropTypes.string.isRequired,
+    heart: PropTypes.number.isRequired,
+    avatar: PropTypes.string.isRequired,
+    subscribed: PropTypes.bool.isRequired,
+    languages: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  }).isRequired,
+}
+
+export default ProfileSection
