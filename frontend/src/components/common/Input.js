@@ -24,6 +24,8 @@ function Input({ id, type = 'text', placeholder = '' }) {
         type={type}
         placeholder={placeholder}
       />
+      {/* 에레가 렌더링 되는 창 */}
+      <div></div>
     </div>
   )
 }
