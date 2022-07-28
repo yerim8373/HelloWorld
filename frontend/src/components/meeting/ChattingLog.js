@@ -6,7 +6,6 @@ import classes from './ChattingLog.module.css'
 const DUMMY_USER_ID = 'ssafy'
 
 const ChattingLog = ({ textData }) => {
-  console.log(textData.userId)
   const check = textData.userId !== DUMMY_USER_ID
   return (
     <div
