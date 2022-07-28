@@ -46,26 +46,43 @@ function ModalSection({ children, opened, handleModal, contents }) {
               )}
             </header>
             <div className={classes.content}>{contents.content}</div>
-            <div className={classes.actions}>
-              {contents.actions ? (
-                contents.actions.map((btn, index) => (
+            <div className={classes.actionsContainer}>
+              <div className={classes.actions}>
+                {contents.actions ? (
+                  contents.actions.map((btn, index) => (
+                    <Button
+                      key={index}
+                      text={btn.name}
+                      size="small"
+                      color={btn.color}
+                      onEvent={btn.action}
+                      closable
+                    />
+                  ))
+                ) : (
                   <Button
-                    key={index}
-                    text={btn.name}
-                    color={btn.color}
-                    onEvent={btn.action}
+                    text="확인"
+                    size="small"
+                    onEvent={closeModal}
                     closable
                   />
-                ))
-              ) : (
-                <Button text="확인" onEvent={closeModal} closable />
-              )}
+                )}
+              </div>
             </div>
           </>
         ) : (
           <>
             {children}
-            <Button text="확인" onEvent={closeModal} closable />
+            <div className={classes.actionsContainer}>
+              <div className={classes.actions}>
+                <Button
+                  text="확인"
+                  size="small"
+                  onEvent={closeModal}
+                  closable
+                />
+              </div>
+            </div>
           </>
         )}
       </section>
