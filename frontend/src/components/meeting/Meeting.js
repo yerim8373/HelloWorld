@@ -20,12 +20,12 @@ const Meeting = () => {
   return (
     <div className={classes.meeting_wrapper}>
       <div className={`${classes.meeting}`}>
-        <div>
-          <VideoDisplay size="wide" userData={DUMMYUSER_1} />
-        </div>
+        <VideoDisplay size="wide" userData={DUMMYUSER_1} />
         <div className={classes.right_display}>
-          <VideoDisplay size="narrow" userData={DUMMYUSER_2} />
-          <VideoControlBtns />
+          <div>
+            <VideoDisplay size="narrow" userData={DUMMYUSER_2} />
+            <VideoControlBtns />
+          </div>
           <Chatting />
         </div>
       </div>

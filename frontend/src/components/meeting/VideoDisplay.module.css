@@ -1,16 +1,18 @@
-
+.video_display {
+  margin: 2rem;
+}
 
 .section_size_wide {
   width: 40vw;
-  min-width: 600px;
-  max-width: 1000px;
+  min-width: 800px;
+  min-height: 600px;
   height: 70vh;
 }
 
 .section_size_narrow {
   width: 40vw;
+  min-height: 300px;
   min-width: 600px;
-  max-width: 1000px;
   height: 35vh;
 }
 
