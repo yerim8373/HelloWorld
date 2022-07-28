@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+import { BsHeart, BsGear } from 'react-icons/bs'
 import Sheet from '../common/Sheet'
 import classes from './ProfileSection.module.css'
 
@@ -25,7 +26,9 @@ function ProfileSection({ user }) {
         <div className={classes.subInfo}>
           <div className={classes.subInfoContents}>
             <div className={classes.heartContainer}>
-              <div className={classes.tempHeartIcon}></div>
+              <div className={classes.HeartIcon}>
+                <BsHeart />
+              </div>
               <div className="subtitle">{user.heart}</div>
             </div>
             <div className={classes.countryAndLanguages}>
@@ -39,7 +42,9 @@ function ProfileSection({ user }) {
               </div>
             </div>
           </div>
-          <div className={classes.tempSettingsIcon}></div>
+          <div className={classes.SettingsIcon}>
+            <BsGear />
+          </div>
         </div>
       </div>
     </Sheet>
