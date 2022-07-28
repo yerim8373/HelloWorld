@@ -6,6 +6,10 @@
  * contents {object}: 모달 창 내용 객체 (없을 경우 모달 창의 자식 컴포넌트가 렌더링됨)
  * contents.title {string}: 모달 창 제목
  * contents.content {string}: 모달 창 내용
+ * contents.subInfo {array}: 제목, 내용 외에 추가로 표시할 정보를 담은 객체 리스트
+ * contents.subInfo[].key {string}: 추가로 표시할 정보의 key 값
+ * contents.subInfo[].name {string}: 추가로 표시할 정보의 이름
+ * contents.subInfo[].content {string}: 추가로 표시할 정보의 내용
  * contents.actions {array}: 하단 버튼의 정보를 담는 객체 리스트
  * contents.actions[].name {string}: 버튼에 표시되는 텍스트
  * contents.actions[].color {string}: 버튼 색상 (생략 시 기본 색상으로)
@@ -29,7 +33,18 @@ function ModalSection({ children, opened, handleModal, contents }) {
       <section className={classes.modal}>
         {contents ? (
           <>
-            <h1 className="subtitle">{contents.title}</h1>
+            <header>
+              <h1 className="subtitle">{contents.title}</h1>
+              {contents.subInfo && (
+                <div className={classes.subInfo}>
+                  {contents.subInfo.map(info => (
+                    <div key={info.key}>
+                      {info.name}: {info.content}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </header>
             <div className={classes.content}>{contents.content}</div>
             <div className={classes.actions}>
               {contents.actions ? (
@@ -68,20 +83,29 @@ export default function Modal({ opened, ...rest }) {
 
 ModalSection.propTypes = {
   children: PropTypes.object,
-  opened: PropTypes.bool,
-  handleModal: PropTypes.func,
+  opened: PropTypes.bool.isRequired,
+  handleModal: PropTypes.func.isRequired,
   contents: PropTypes.shape({
     title: PropTypes.string,
     content: PropTypes.string,
-    actions: PropTypes.arrayOf({
-      name: PropTypes.string,
-      color: PropTypes.string,
-      action: PropTypes.func,
-    }),
+    subInfo: PropTypes.arrayOf(
+      PropTypes.shape({
+        key: PropTypes.string,
+        name: PropTypes.string,
+        content: PropTypes.string,
+      }),
+    ),
+    actions: PropTypes.arrayOf(
+      PropTypes.shape({
+        name: PropTypes.string,
+        color: PropTypes.string,
+        action: PropTypes.func,
+      }),
+    ),
   }),
 }
 
 Modal.propTypes = {
-  opened: PropTypes.bool,
+  opened: PropTypes.bool.isRequired,
   rest: PropTypes.object,
 }
