@@ -16,7 +16,7 @@ function FindInformationPage() {
   const contents = [
     {
       title: '찾고자 하는 정보를 선택해주세요',
-      center: true,
+      center : true,
     },
   ]
 */
