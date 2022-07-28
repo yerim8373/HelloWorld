@@ -30,6 +30,7 @@ function PostItem({ post }) {
     <>
       <article className={classes.postItem} onClick={handleModal}>
         <h2 className={classes.title}>{post.title}</h2>
+        <p className={classes.author}>by {post.author}</p>
         <p className={classes.summary}>{post.content}</p>
       </article>
       <Modal
