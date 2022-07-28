@@ -93,3 +93,13 @@
 - 사용자 메인 페이지 우측 포스트 섹션 구현
 - 포스트 아이템 클릭 시 모달 창을 표시하도록 구현
 - 포스트 섹션 내 '더 보기' 버튼 및 포스트 더미 데이터 추가
+
+#### 종현
+- 미팅 페이지 생성 완료
+- Meeting.js
+  - VideoDisplay1
+  - VideoDisplay2
+  - VideoControlBtns
+  - Chatting
+    - ChattingLog
+- Kurento 연결 초기 작업

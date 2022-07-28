@@ -30,7 +30,7 @@ const VideoDisplay = ({ size, userData }) => {
           </div>
           <div className={classes.video_section}>
             <div className={classes.video_wrapper}>
-              <div>{/* 영상 배치 */}</div>
+              <video>{/* 영상 배치 */}</video>
             </div>
           </div>
         </section>
