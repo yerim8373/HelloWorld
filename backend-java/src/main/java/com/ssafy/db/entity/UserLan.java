@@ -1,5 +1,6 @@
 package com.ssafy.db.entity;
 
+import com.ssafy.api.dto.UserLanDto;
 import lombok.*;
 
 import javax.persistence.*;
@@ -27,5 +28,10 @@ public class UserLan extends BaseEntity {
 
     public void setLanguage(Language language){
         this.language = language;
+    }
+
+    public void modify(UserLanDto userLanDto){
+        this.fluent = userLanDto.getFluent();
+        this.priority = userLanDto.getPriority();
     }
 }

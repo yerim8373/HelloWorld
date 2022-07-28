@@ -21,8 +21,14 @@ public class LanguageServiceImpl implements LanguageService{
 
 
     private final LanguageRepository languageRepository;
-    private final UserRepository userRepository;
 
+    public Language getLanguageById(Long id){
+        Optional<Language> lan = languageRepository.findById(id);
+        //없을거 대비
+        // if(!ran.present()){}
+
+        return lan.get();
+    }
 
     @Override
     public List<LanguageDto> getAllLanguage(){
