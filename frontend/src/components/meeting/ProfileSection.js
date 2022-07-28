@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+import { NavLink } from 'react-router-dom'
 import { BsHeart, BsGear } from 'react-icons/bs'
 import Sheet from '../common/Sheet'
 import classes from './ProfileSection.module.css'
@@ -42,9 +43,9 @@ function ProfileSection({ user }) {
               </div>
             </div>
           </div>
-          <div className={classes.SettingsIcon}>
+          <NavLink to="/setting" className={classes.SettingsIcon}>
             <BsGear />
-          </div>
+          </NavLink>
         </div>
       </div>
     </Sheet>

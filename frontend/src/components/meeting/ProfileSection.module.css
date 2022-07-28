@@ -100,7 +100,12 @@
 
 .SettingsIcon {
   display: flex;
-    align-items: center;
-    font-size: 2rem;
-    color: var(--color-grey-500);
+  align-items: center;
+  font-size: 2rem;
+  color: var(--color-grey-500);
+  transition: color 0.15s;
+}
+
+.SettingsIcon:hover {
+  color: var(--color-primary)
 }
