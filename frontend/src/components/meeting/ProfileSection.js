@@ -1,7 +1,11 @@
+import PropTypes from 'prop-types'
+import { NavLink } from 'react-router-dom'
+import { BsHeart, BsGear } from 'react-icons/bs'
+import CountryFlag from 'react-country-flag'
 import Sheet from '../common/Sheet'
 import classes from './ProfileSection.module.css'
 
-export default function ProfileSection({ user }) {
+function ProfileSection({ user }) {
   return (
     <Sheet size="large">
       <div className={classes.profileContainer}>
@@ -24,11 +28,21 @@ export default function ProfileSection({ user }) {
         <div className={classes.subInfo}>
           <div className={classes.subInfoContents}>
             <div className={classes.heartContainer}>
-              <div className={classes.tempHeartIcon}></div>
+              <div className={classes.HeartIcon}>
+                <BsHeart />
+              </div>
               <div className="subtitle">{user.heart}</div>
             </div>
             <div className={classes.countryAndLanguages}>
-              <div className={classes.tempCountryFlag}></div>
+              <CountryFlag
+                svg
+                countryCode="KR"
+                className={classes.CountryFlag}
+                style={{
+                  width: '3rem',
+                  height: '2rem',
+                }}
+              />
               <div className={classes.languages}>
                 {user.languages.map(lang => (
                   <div key={lang} className={classes.language}>
@@ -38,9 +52,31 @@ export default function ProfileSection({ user }) {
               </div>
             </div>
           </div>
-          <div className={classes.tempSettingsIcon}></div>
+          <NavLink to="/setting" className={classes.SettingsIcon}>
+            <BsGear />
+          </NavLink>
         </div>
       </div>
     </Sheet>
   )
 }
+
+ProfileSection.propTypes = {
+  user: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    nickname: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    gender: PropTypes.string.isRequired,
+    age: PropTypes.number.isRequired,
+    countryId: PropTypes.number.isRequired,
+    mobileNumber: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+    birthday: PropTypes.string.isRequired,
+    heart: PropTypes.number.isRequired,
+    avatar: PropTypes.string.isRequired,
+    subscribed: PropTypes.bool.isRequired,
+    languages: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  }).isRequired,
+}
+
+export default ProfileSection
