@@ -1,9 +1,7 @@
 package com.ssafy.api.controller;
 
-import com.ssafy.api.dto.HeartDto;
-import com.ssafy.api.dto.HeartHistoryDto;
-import com.ssafy.api.dto.SignUpDto;
-import com.ssafy.api.dto.UserDto;
+import com.ssafy.api.dto.*;
+import com.ssafy.api.service.UserLanService;
 import com.ssafy.common.model.response.Response;
 import com.ssafy.common.util.JwtTokenUtil;
 import lombok.RequiredArgsConstructor;
@@ -31,6 +29,7 @@ public class UserController {
 	private final UserService userService;
 	private final Response response;
 	private final JwtTokenUtil jwtTokenUtil;
+	private final UserLanService userLanService;
 
 	@PostMapping()
 	@ApiOperation(value = "회원 가입", notes = "<strong>이메일와 패스워드</strong>를 통해 회원가입 한다.")
@@ -102,4 +101,26 @@ public class UserController {
 		return response.success();
 	}
 
+	@PostMapping("/lan")
+	public ResponseEntity<?> insertLan(@RequestBody UserLanDto userLanDto){
+		userLanService.insertUserLan(userLanDto);
+		return response.success(HttpStatus.OK);
+	}
+
+	@PutMapping("/lan")
+	public ResponseEntity<?> modifyLan(@RequestBody UserLanDto userLanDto){
+		userLanService.modifyUserLan(userLanDto);
+		return response.success(HttpStatus.OK);
+	}
+
+	@GetMapping("/lan")
+	public ResponseEntity<?> getAllLan(@RequestHeader("Authorization") String bearerToken){
+		return response.success(userLanService.getUserLanByEmail(jwtTokenUtil.getEmailFromToken(bearerToken)));
+	}
+
+	@DeleteMapping("/lan/{id}")
+	public ResponseEntity<?> removeLan(@PathVariable Long id){
+		userLanService.removeUserLan(id);
+		return response.success(HttpStatus.OK);
+	}
 }

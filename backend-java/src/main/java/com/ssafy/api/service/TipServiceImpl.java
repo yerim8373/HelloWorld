@@ -44,7 +44,7 @@ public class TipServiceImpl implements TipService {
                         .build())
                 .setLanguage(Language
                         .builder()
-                        .lan(tipDto.getLanguageDto().getLan())
+                        .lan(tipDto.getLanguage().getLan())
                         .build());
     }
 

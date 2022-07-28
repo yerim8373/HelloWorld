@@ -12,14 +12,14 @@ import lombok.*;
 public class TipDto {
     private Long tipId;
     private String regDate;
-    private LanguageDto languageDto;
+    private LanguageDto language;
     private String content;
 
     public static TipDto of(Tip tip){
         return new TipDtoBuilder()
                 .content(tip.getContent())
                 .tipId(tip.getId())
-                .languageDto(LanguageDto.of(tip.getLanguage()))
+                .language(LanguageDto.of(tip.getLanguage()))
                 .build();
     }
 }
