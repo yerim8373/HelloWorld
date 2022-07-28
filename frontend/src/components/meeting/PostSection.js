@@ -1,8 +1,9 @@
+import { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import Sheet from '../common/Sheet'
 import Modal from '../common/Modal'
-import { useState } from 'react'
 import classes from './PostSection.module.css'
+import Button from '../common/Button'
 
 function PostItem({ post }) {
   const [modalState, setModalState] = useState(false)
@@ -43,16 +44,36 @@ function PostItem({ post }) {
 }
 
 function PostSection({ posts }) {
+  const [itemCount, setItemCount] = useState(5)
+  const [currPosts, setCurrPosts] = useState(posts.slice(0, itemCount))
+
+  const handleClick = () => {
+    setItemCount(itemCount + 5)
+  }
+
+  useEffect(() => {
+    setCurrPosts(posts.slice(0, itemCount))
+  }, [posts, itemCount])
+
   return (
     <div className={classes.postSection}>
       <Sheet size="large">
         <div className={classes.postListContainer}>
           <h1>포스트</h1>
           <div className={classes.postList}>
-            {posts.map(post => (
+            {currPosts.map(post => (
               <PostItem key={post.id} post={post} />
             ))}
           </div>
+          {itemCount < posts.length && (
+            <div className={classes.moreBtn}>
+              <Button
+                text="더 보기"
+                size="small"
+                onEvent={handleClick}
+              ></Button>
+            </div>
+          )}
         </div>
       </Sheet>
     </div>
