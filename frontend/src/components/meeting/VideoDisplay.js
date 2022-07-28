@@ -3,10 +3,14 @@ import Sheet from '../common/Sheet'
 import PropTypes from 'prop-types'
 
 import classes from './VideoDisplay.module.css'
-const VideoDisplay = ({ size }) => {
+// VideoDisplay /////////////////////////////////
+/////////////////////////////////////////////////
+/////////////////////////////////////////////////
+
+const VideoDisplay = ({ size, userData }) => {
   return (
-    <div className="margin_small">
-      <Sheet>
+    <div className={classes.video_display}>
+      <Sheet size="medium">
         <section
           className={
             size === 'wide'
@@ -14,8 +18,21 @@ const VideoDisplay = ({ size }) => {
               : classes.section_size_narrow
           }
         >
-          <div className={classes.user_info_section}>유저 정보</div>
-          <div className={classes.video_section}>비디오 정보</div>
+          <div className={classes.user_info_section}>
+            <div className={classes.user_info}>
+              <span>{userData.country}</span>
+              <span>{userData.nickName}</span>
+            </div>
+            <div className={classes.hearts_info}>
+              <span className={classes.heart_icon}>❤</span>
+              <span>{userData.hearts}</span>
+            </div>
+          </div>
+          <div className={classes.video_section}>
+            <div className={classes.video_wrapper}>
+              <div>{/* 영상 배치 */}</div>
+            </div>
+          </div>
         </section>
       </Sheet>
     </div>
@@ -24,6 +41,12 @@ const VideoDisplay = ({ size }) => {
 
 VideoDisplay.propTypes = {
   size: PropTypes.string.isRequired,
+  userData: PropTypes.shape({
+    // 국가 아이콘으로 바꿀 예정
+    country: PropTypes.string,
+    nickName: PropTypes.string,
+    hearts: PropTypes.number,
+  }),
 }
 
 export default VideoDisplay

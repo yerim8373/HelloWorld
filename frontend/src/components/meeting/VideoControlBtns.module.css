@@ -1,7 +1,10 @@
-.mic_icon {
-  color: var(--color-success);
+.btns_wrapper {
+  margin: 1rem 10rem;
 }
 
-.mic_icon {
+.icon {
+  color: var(--color-success);
   font-size: 2rem;
+  margin: 1rem;
 }
+

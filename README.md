@@ -72,4 +72,10 @@
 - 개발 컨벤션: ESLint 설정 
 
 #### 종현
-- 모든 코드 ESLint 규칙에 맞게 리팩토링 
+- 모든 코드 ESLint 규칙에 맞게 리팩토링
+- 미팅 페이지에 필요한 컴포넌트 생성 (진행중)
+- Meeting.js
+  - VideoDisplay1
+  - VideoDisplay2
+  - VideoControlBtns
+  - Chatting
