@@ -7,7 +7,7 @@ export default function UserMain() {
     name: '김싸피',
     nickname: 'HELLOWORLD',
     description: '처음 뵙겠습니다. 잘 부탁드립니다.',
-    genter: '남자',
+    gender: '남자',
     age: 27,
     countryId: 82,
     mobileNumber: '010-0000-0000',
