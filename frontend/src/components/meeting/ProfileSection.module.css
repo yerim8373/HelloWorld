@@ -1,0 +1,103 @@
+.profileContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.mainInfoContainer {
+  display: flex;
+  gap: 4rem;
+}
+
+.mainInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.title {
+  display: flex;
+  gap: 1rem;
+}
+
+.title > h1 {
+  font-weight: 400;
+}
+
+.title > h1 > strong {
+  font-weight: 600;
+}
+
+.vipBadgeContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.vipBadge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 1rem;
+  background-color: var(--color-vip);
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 1px;
+}
+
+.description {
+  font-size: 1.25rem;
+  color: var(--color-grey-500);
+}
+
+.avatar {
+  width: 12rem;
+  height: 12rem;
+  border-radius: 6rem;
+}
+
+.subInfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.subInfoContents {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.heartContainer {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.tempHeartIcon {
+  width: 2rem;
+  height: 2rem;
+  border: 2px solid var(--color-error);
+}
+
+.countryAndLanguages {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.tempCountryFlag {
+  width: 3rem;
+  height: 2rem;
+  border: 2px solid var(--color-grey-500);
+}
+
+.languages {
+  display: flex;
+  gap: 0.5rem;
+  font-weight: 600;
+}
+
+.tempSettingsIcon {
+  width: 2rem;
+  height: 2rem;
+  border: 2px solid var(--color-grey-500);
+}

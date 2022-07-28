@@ -23,7 +23,7 @@ function LoginForm() {
   }
 
   return (
-    <Sheet>
+    <Sheet size="large">
       <form onSubmit={e => e.preventDefault()}>
         <div className={classes.login_main}>
           <h2 className={classes.login_title}>로그인</h2>
@@ -40,7 +40,7 @@ function LoginForm() {
           </div>
           <div>
             <Button
-              onEvent={routerPushHandler.bind}
+              onEvent={routerPushHandler}
               color="recommend"
               text="회원가입"
             />

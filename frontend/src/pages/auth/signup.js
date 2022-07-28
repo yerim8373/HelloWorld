@@ -1,4 +1,4 @@
-import WelcomePicture from "../../components/common/WelcomePicture";
+import WelcomePicture from '../../components/common/WelcomePicture'
 
 export default function SignupPage() {
   return (
@@ -6,5 +6,5 @@ export default function SignupPage() {
       <WelcomePicture></WelcomePicture>
       <div className="flex_row_center width_50">회원가입</div>
     </div>
-  );
+  )
 }

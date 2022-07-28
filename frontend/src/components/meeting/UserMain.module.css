@@ -1,0 +1,5 @@
+.mainPageContents {
+  display: flex;
+  gap: 64px;
+  align-items: flex-start;
+}
