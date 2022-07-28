@@ -6,7 +6,7 @@
 
 .mainInfoContainer {
   display: flex;
-  gap: 4rem;
+  justify-content: space-between;
 }
 
 .mainInfo {

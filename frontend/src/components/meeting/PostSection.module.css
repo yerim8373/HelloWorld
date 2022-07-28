@@ -1,0 +1,56 @@
+.postItem {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem 0;
+  border-top: 1px solid var(--color-grey-100);
+  transition: background 0.15s;
+}
+
+.postItem:last-child {
+  border-bottom: 1px solid var(--color-grey-100);
+}
+
+.postItem:hover {
+  background-color: var(--color-grey-100);
+}
+
+.title {
+  font-size: 1.25rem;
+}
+
+/* 출처: https: //webdir.tistory.com/483 */
+.summary {
+  /* 한 줄 자르기 */
+  display: inline-block;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  /* 여러 줄 자르기 추가 스타일 */
+  white-space: normal;
+  line-height: 1.25;
+  height: 2.5em;
+  text-align: left;
+  word-wrap: break-word;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.postSection {
+  flex: 1;
+}
+
+.postListContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.postList {
+  display: flex;
+  flex-direction: column;
+}
