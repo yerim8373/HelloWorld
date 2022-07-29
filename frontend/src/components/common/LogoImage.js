@@ -1,24 +1,24 @@
-import logoBlack from "../../images/logo_black.svg";
-import logoWhite from "../../images/logo_white.svg";
-import logoBlackFill from "../../images/logo_black_fill.svg";
+import logoBlack from '../../images/logo_black.svg'
+import logoWhite from '../../images/logo_white.svg'
+import logoBlackFill from '../../images/logo_black_fill.svg'
 
-const LogoImage = (props) => {
-  let color = "";
+const LogoImage = props => {
+  let color = ''
   switch (props.color) {
-    case "logoBlack": {
-      color = logoBlack;
-      break;
+    case 'logoBlack': {
+      color = logoBlack
+      break
     }
-    case "logoWhite": {
-      color = logoWhite;
-      break;
+    case 'logoWhite': {
+      color = logoWhite
+      break
     }
-    case "logoBlackFill": {
-      color = logoBlackFill;
-      break;
+    case 'logoBlackFill': {
+      color = logoBlackFill
+      break
     }
     default:
-      break;
+      break
   }
   return (
     <>
@@ -29,7 +29,7 @@ const LogoImage = (props) => {
         alt="로고 이미지"
       ></img>
     </>
-  );
-};
+  )
+}
 
-export default LogoImage;
+export default LogoImage

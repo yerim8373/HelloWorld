@@ -1,5 +1,5 @@
-import WelcomePicture from "../../components/common/WelcomePicture";
-import LoginForm from "../../components/auth/LoginForm";
+import WelcomePicture from '../../components/common/WelcomePicture'
+import LoginForm from '../../components/auth/LoginForm'
 export default function LoginPage() {
   return (
     <div className="flex_row">
@@ -8,5 +8,5 @@ export default function LoginPage() {
         <LoginForm />
       </div>
     </div>
-  );
+  )
 }

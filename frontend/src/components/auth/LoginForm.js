@@ -28,7 +28,7 @@ function LoginForm() {
         <div className={classes.login_main}>
           <h2 className={classes.login_title}>로그인</h2>
           <div>
-            <Input id="Email" type="email" placeholder="example@example.com" />
+            <Input id="Email" type="text" placeholder="example@example.com" />
           </div>
           <div>
             <Input id="비밀번호" type="password" />
