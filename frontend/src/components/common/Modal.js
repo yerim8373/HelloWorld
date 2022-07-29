@@ -104,7 +104,7 @@ ModalSection.propTypes = {
   handleModal: PropTypes.func.isRequired,
   contents: PropTypes.shape({
     title: PropTypes.string,
-    content: PropTypes.string,
+    content: PropTypes.node,
     subInfo: PropTypes.arrayOf(
       PropTypes.shape({
         key: PropTypes.string,
