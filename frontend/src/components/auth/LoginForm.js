@@ -3,12 +3,14 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import Sheet from '../common/Sheet'
 import Input from '../common/Input'
 import Button from '../common/Button'
-
 import classes from './LoginForm.module.css'
 
-// import Link from "next/link";
-// import { useRouter } from "next/router";
-
+import { emailValidHandler } from '../utils/validation/emailValid'
+import {
+  passwordValidIncludeLetterForRulesHandler,
+  passwordValidLengthHandler,
+} from '../utils/validation/passwordValid'
+import { ageValidHandler } from '../utils/validation/ageValid'
 // 유효성 검사 설정
 // useRef를 통한 현재 input 값 읽기
 // useEffect를 통한 useRef 변경마다, 유효성 체크
@@ -16,51 +18,28 @@ import classes from './LoginForm.module.css'
 // 조건에 따라, 부적합한 값인 경우, 그에 따른 알맞은 에러값 모두 송출
 // 마음의 숙제 : 할 수 있다면 비즈니스 로직으로 빼서 처리하자!!
 
-function emailValidHandler(inputValue) {
-  if (!inputValue.trim().includes('@')) {
-    return false
-  }
-  return true
+const emailValidObj = {
+  func0: {
+    func: inputValue => emailValidHandler(inputValue),
+    message: '올바른 이메일 형식이 아닙니다.',
+  },
 }
 
-function passwordValidLengthHandler(inputValue) {
-  if (inputValue.trim().length < 8) {
-    return false
-  }
-  return true
-}
-
-function passwordValidIncludeLetterForRulesHandler(inputValue) {
-  const regxPassowrd = /^.*(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/
-  if (!regxPassowrd.test(inputValue.trim())) {
-    return false
-  }
-
-  return true
+const passwordValidObj = {
+  func0: {
+    func: inputValue => passwordValidLengthHandler(inputValue),
+    message: '비밀번호는 8자 이상이어야 합니다.',
+  },
+  func1: {
+    func: inputValue => passwordValidIncludeLetterForRulesHandler(inputValue),
+    message: '비밀번호는 영문자,숫자,특수문자를 포함해야 합니다',
+  },
 }
 
 function LoginForm() {
   const navigate = useNavigate()
   function routerPushHandler() {
     navigate('/auth/signup')
-  }
-
-  const emailValidObj = {
-    func0: {
-      func: inputValue => emailValidHandler(inputValue),
-      message: '올바른 이메일 형식이 아닙니다.',
-    },
-  }
-
-  const passwordValidObj = {
-    func0: {
-      func: inputValue => passwordValidLengthHandler(inputValue),
-      message: '비밀번호는 8자 이상이어야 합니다.',
-    },
-    func1: {
-      func: inputValue => passwordValidIncludeLetterForRulesHandler(inputValue),
-      message: '비밀번호는 영문자,숫자,특수문자를 포함해야 합니다',
-    },
   }
 
   return (

@@ -15,7 +15,7 @@
 .input_label {
   font-size: 0.8rem;
   font-weight: 700;
-  color: red;
+  color: #000000;
 }
 
 .input::placeholder {
@@ -31,21 +31,16 @@
 
 .valid_input_true {
   border-bottom: 1px solid var(--color-success);
-  transition: all 0.3s linear;
 }
 
 .valid_input_error {
   border-bottom: 1px solid var(--color-error);
-  transition: all 0.3s linear;
 }
 
 .valid_label_true {
   color : var(--color-success);
-  transition: all 0.3s linear;
 }
 
 .valid_label_error {
   color : var(--color-error);
-  transition: all 0.3s linear;
-
 }
