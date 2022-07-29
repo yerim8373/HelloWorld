@@ -1,4 +1,4 @@
-/* Color Variables */
+/* 색상 변수 */
 :root {
   --color-primary: #49c288;
   --color-secondary: #5778ec;
@@ -9,6 +9,8 @@
   --color-grey-900: #323835;
   --color-grey-500: #7a8982;
   --color-grey-300: #b2b8bc;
+  --color-grey-200: #c2d1ca;
+  --color-grey-100: #f0f0f0;
 }
 
 html,
@@ -25,6 +27,11 @@ a {
   box-sizing: border-box;
 }
 
+main {
+  min-height: 80vh;
+}
+
+/* 폰트 크기 및 굵기 */
 .display {
   font-size: 48px;
   font-weight: 600;
@@ -45,15 +52,27 @@ a {
   font-size: 12px;
   font-weight: 500;
 }
-
-.margin_div {
-  height: 5rem;
+.margin_small {
+  margin: 2rem;
 }
+.margin_middle {
+  margin: 5rem;
+}
+.margin_big {
+  margin :8rem;
+}
+
 
 /* 가로형 레이아웃 */
 .flex_row {
   display: flex;
   flex-direction: row;
+}
+
+/* 세로형 레이아웃 */
+.flex_column {
+  display: flex;
+  flex-direction: column;
 }
 
 /* 가로형 레이아웃 가운데 정렬 */
@@ -64,6 +83,14 @@ a {
   align-items: center;
 }
 
-.width_50 {
+.flex_row_space_evenly {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.width_50vw {
   width: 50vw;
 }
+

@@ -1,4 +1,6 @@
 import React from 'react'
+import PropTypes from 'prop-types'
+
 import classes from './Button.module.css'
 
 // Button-Component ///////////////////////
@@ -12,7 +14,13 @@ import classes from './Button.module.css'
 // onEvent - 적용된 함수 실행
 // closable (모달전용) - 모달이 보일 때 버튼이 안보이도록, 모달이 꺼지면 다시 버튼이 보임
 
-function Button({ size, color, onEvent, text, closable = false }) {
+function Button({
+  size = 'inherit',
+  color = 'success',
+  onEvent,
+  text = '버튼',
+  closable = false,
+}) {
   let className = ''
   switch (size) {
     case 'large':
@@ -26,6 +34,7 @@ function Button({ size, color, onEvent, text, closable = false }) {
       break
     default:
       className += `${classes.button_inherit} `
+      break
   }
 
   switch (color) {
@@ -40,6 +49,7 @@ function Button({ size, color, onEvent, text, closable = false }) {
       break
     default:
       className += `${classes.button_success} `
+      break
   }
 
   if (closable) className += 'closable '
@@ -49,5 +59,13 @@ function Button({ size, color, onEvent, text, closable = false }) {
       {text}
     </button>
   )
+}
+
+Button.propTypes = {
+  size: PropTypes.string,
+  color: PropTypes.string,
+  onEvent: PropTypes.func,
+  text: PropTypes.string.isRequired,
+  closable: PropTypes.bool,
 }
 export default Button

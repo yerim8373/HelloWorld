@@ -64,3 +64,42 @@
 - React APP 환경 구축
 - next APP -> React APP으로 변환
 - 현 시점 모든 코드 전환 완료
+
+
+### 220727
+
+#### 성찬
+
+- 개발 컨벤션: ESLint & Prettier 설정
+- 사용자 메인 페이지 (포스트 섹션 제외) 생성
+
+#### 종현
+
+- 모든 코드 ESLint 규칙에 맞게 리팩토링
+- 미팅 페이지에 필요한 컴포넌트 생성 (진행중)
+- Meeting.js
+  - VideoDisplay1
+  - VideoDisplay2
+  - VideoControlBtns
+  - Chatting
+
+### 220728
+
+#### 성찬
+
+- 좌측 프로필 섹션에 PropTypes 적용
+- 프로필 영역에 채우지 못한 아이콘(하트(heart), 설정(gear)) 및 국기 이미지 추가
+- 설정 아이콘 클릭 시 사용자 설정 페이지로 이동하도록 링크 추가
+- 사용자 메인 페이지 우측 포스트 섹션 구현
+- 포스트 아이템 클릭 시 모달 창을 표시하도록 구현
+- 포스트 섹션 내 '더 보기' 버튼 및 포스트 더미 데이터 추가
+
+#### 종현
+- 미팅 페이지 생성 완료
+- Meeting.js
+  - VideoDisplay1
+  - VideoDisplay2
+  - VideoControlBtns
+  - Chatting
+    - ChattingLog
+- Kurento 연결 초기 작업

@@ -1,5 +1,6 @@
 import Button from './Button'
 import classes from './LandingSection.module.css'
+import PropTypes from 'prop-types'
 
 export default function LandingSection({ content }) {
   return (
@@ -33,4 +34,18 @@ export default function LandingSection({ content }) {
       </div>
     </section>
   )
+}
+
+LandingSection.propTypes = {
+  content: PropTypes.shape({
+    center: PropTypes.bool,
+    title: PropTypes.array.isRequired,
+    content: PropTypes.array,
+    button: PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      color: PropTypes.string,
+      action: PropTypes.func,
+    }),
+    right: PropTypes.bool,
+  }),
 }

@@ -1,26 +1,32 @@
-import React from "react";
+import React from 'react'
+import PropTypes from 'prop-types'
 // import Link from "next/link";
 // import { useRouter } from "next/router";
 
-import { NavLink, useMatch } from "react-router-dom";
+import { NavLink, useMatch } from 'react-router-dom'
 
-import classes from "./MenuBtn.module.css";
-const MenuBtn = (props) => {
-  const match = useMatch(props.link);
+import classes from './MenuBtn.module.css'
+const MenuBtn = ({ link, text }) => {
+  const match = useMatch(link)
 
   return (
-    <NavLink to={props.link}>
+    <NavLink to={link}>
       <h4
         className={
           match
-            ? classes.logo_active + " " + classes.logo_brand
+            ? classes.logo_active + ' ' + classes.logo_brand
             : classes.logo_brand
         }
       >
-        {props.text}
+        {text}
       </h4>
     </NavLink>
-  );
-};
+  )
+}
 
-export default MenuBtn;
+MenuBtn.propTypes = {
+  link: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired,
+}
+
+export default MenuBtn

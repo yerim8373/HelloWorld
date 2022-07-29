@@ -23,7 +23,7 @@ export default function LoginPage() {
         <LoginForm />
       </div>
     </div>
-  );
+  )
 }
 
 
