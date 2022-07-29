@@ -10,7 +10,6 @@ import FindEmail from './pages/auth/find-email'
 import FindPassword from './pages/auth/find-password'
 
 import Main from './pages/meeting/main'
-import Loading from './pages/meeting/loading'
 import Meeting from './pages/meeting/meeting'
 
 import UserProfile from './pages/settings/userProfile'
@@ -44,7 +43,6 @@ function App() {
           <Route path="/auth/find-email" element={<FindEmail />} />
           <Route path="/auth/find-password" element={<FindPassword />} />
           <Route path="/meeting" element={<Main />} />
-          <Route path="/meeting/loading" element={<Loading />} />
           <Route path="/meeting/:roomId" element={<Meeting />} />
           <Route path="/setting" element={<UserProfile />} />
           <Route path="/setting/subscribe" element={<Subscribe />} />

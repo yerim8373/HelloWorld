@@ -14,6 +14,7 @@
  * contents.actions[].name {string}: 버튼에 표시되는 텍스트
  * contents.actions[].color {string}: 버튼 색상 (생략 시 기본 색상으로)
  * contents.actions[].action {function}: 버튼 클릭 시 호출되는 함수
+ * locked {boolean}: true시 확인 버튼 삭제 & 오버레이 클릭 시 모달 종료 불가
  */
 
 import ModalPortal from './Portal'
@@ -22,14 +23,17 @@ import classes from './Modal.module.css'
 import PropTypes from 'prop-types'
 
 // TODO: Sheet 컴포넌트로 교체
-function ModalSection({ children, opened, handleModal, contents }) {
+function ModalSection({ children, opened, handleModal, contents, locked }) {
   const closeModal = e => {
     const isClosable = [...e.target.classList].some(cls => cls === 'closable')
     if (opened && isClosable) handleModal()
   }
 
   return (
-    <div className={`${classes.overlay} closable`} onClick={closeModal}>
+    <div
+      className={`${classes.overlay} ${locked ? '' : 'closable'}`}
+      onClick={closeModal}
+    >
       <section className={classes.modal}>
         {contents ? (
           <>
@@ -47,27 +51,29 @@ function ModalSection({ children, opened, handleModal, contents }) {
             </header>
             <div className={classes.content}>{contents.content}</div>
             <div className={classes.actionsContainer}>
-              <div className={classes.actions}>
-                {contents.actions ? (
-                  contents.actions.map((btn, index) => (
+              {locked || (
+                <div className={classes.actions}>
+                  {contents.actions ? (
+                    contents.actions.map((btn, index) => (
+                      <Button
+                        key={index}
+                        text={btn.name}
+                        size="small"
+                        color={btn.color}
+                        onEvent={btn.action}
+                        closable
+                      />
+                    ))
+                  ) : (
                     <Button
-                      key={index}
-                      text={btn.name}
+                      text="확인"
                       size="small"
-                      color={btn.color}
-                      onEvent={btn.action}
+                      onEvent={closeModal}
                       closable
                     />
-                  ))
-                ) : (
-                  <Button
-                    text="확인"
-                    size="small"
-                    onEvent={closeModal}
-                    closable
-                  />
-                )}
-              </div>
+                  )}
+                </div>
+              )}
             </div>
           </>
         ) : (
@@ -104,7 +110,7 @@ ModalSection.propTypes = {
   handleModal: PropTypes.func.isRequired,
   contents: PropTypes.shape({
     title: PropTypes.string,
-    content: PropTypes.string,
+    content: PropTypes.node,
     subInfo: PropTypes.arrayOf(
       PropTypes.shape({
         key: PropTypes.string,
@@ -120,6 +126,7 @@ ModalSection.propTypes = {
       }),
     ),
   }),
+  locked: PropTypes.bool,
 }
 
 Modal.propTypes = {
