@@ -1,8 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import VideoDisplay from './VideoDisplay'
 import VideoControlBtns from './VideoControlBtns'
 import Chatting from './Chatting'
 import classes from './Meeting.module.css'
+import { useAsync } from 'react-async'
+// import SockJS from 'sockjs-client'
+// import Stomp from 'stompjs'
 
 const DUMMYUSER_1 = {
   country: '🇰🇷',
@@ -16,17 +19,30 @@ const DUMMYUSER_2 = {
   hearts: 200,
 }
 
+// let socket = new SockJS()
+// let client = Stomp.over(socket)
+
 const Meeting = () => {
-  const [currStream, setStream] = useState(null)
+  const [myStream, setMyStream] = useState(null)
+  const getMedia = useCallback(async () => {
+    const streamData = await navigator.mediaDevices.getUserMedia({
+      audio: true,
+      video: { facingMode: 'user' },
+    })
+    setMyStream(streamData)
+  }, [])
+
+  useAsync({ promiseFn: getMedia })
+
+  // 내 비디오 연결
+
   useEffect(() => {
-    async function fetchVideo() {
-      const myStream = await navigator.mediaDevices.getUserMedia({
-        audio: true,
-        video: { facingMode: 'user' },
-      })
-      setStream(myStream)
-    }
-    fetchVideo()
+    // 서버 커넥트
+    // client.connect({}, () => {
+    //   console.log('connected to socket server!')
+    //   client.send()
+    //   client.subscibe()
+    // })
   }, [])
   return (
     <div className={classes.meeting_wrapper}>
@@ -37,7 +53,7 @@ const Meeting = () => {
             <VideoDisplay
               size="narrow"
               userData={DUMMYUSER_2}
-              streamData={currStream}
+              streamData={myStream}
             />
             <VideoControlBtns />
           </div>
