@@ -1,13 +1,21 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import Sheet from '../common/Sheet'
 import PropTypes from 'prop-types'
 
 import classes from './VideoDisplay.module.css'
+
 // VideoDisplay /////////////////////////////////
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 
-const VideoDisplay = ({ size, userData }) => {
+const VideoDisplay = ({ size, userData, streamData }) => {
+  const videoRef = useRef(null)
+
+  useEffect(() => {
+    if (!streamData) return
+    videoRef.current.srcObject = streamData
+  }, [streamData])
+
   return (
     <div className={classes.video_display}>
       <Sheet size="medium">
@@ -30,7 +38,9 @@ const VideoDisplay = ({ size, userData }) => {
           </div>
           <div className={classes.video_section}>
             <div className={classes.video_wrapper}>
-              <video>{/* 영상 배치 */}</video>
+              <video ref={videoRef} autoPlay playsInline>
+                {/* 영상 배치 */}
+              </video>
             </div>
           </div>
         </section>
@@ -43,10 +53,11 @@ VideoDisplay.propTypes = {
   size: PropTypes.string.isRequired,
   userData: PropTypes.shape({
     // 국가 아이콘으로 바꿀 예정
-    country: PropTypes.string,
-    nickName: PropTypes.string,
-    hearts: PropTypes.number,
+    country: PropTypes.string.isRequired,
+    nickName: PropTypes.string.isRequired,
+    hearts: PropTypes.number.isRequired,
   }),
+  streamData: PropTypes.object,
 }
 
 export default VideoDisplay
