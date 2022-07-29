@@ -16,10 +16,51 @@ import classes from './LoginForm.module.css'
 // 조건에 따라, 부적합한 값인 경우, 그에 따른 알맞은 에러값 모두 송출
 // 마음의 숙제 : 할 수 있다면 비즈니스 로직으로 빼서 처리하자!!
 
+function emailValidHandler(inputValue) {
+  if (!inputValue.trim().includes('@')) {
+    return false
+  }
+  return true
+}
+
+function passwordValidLengthHandler(inputValue) {
+  if (inputValue.trim().length < 8) {
+    return false
+  }
+  return true
+}
+
+function passwordValidIncludeLetterForRulesHandler(inputValue) {
+  const regxPassowrd = /^.*(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/
+  if (!regxPassowrd.test(inputValue.trim())) {
+    return false
+  }
+
+  return true
+}
+
 function LoginForm() {
   const navigate = useNavigate()
   function routerPushHandler() {
     navigate('/auth/signup')
+  }
+
+  const emailValidObj = {
+    func0: {
+      func: inputValue => emailValidHandler(inputValue),
+      message: '올바른 이메일 형식이 아닙니다.',
+    },
+  }
+
+  const passwordValidObj = {
+    func0: {
+      func: inputValue => passwordValidLengthHandler(inputValue),
+      message: '비밀번호는 8자 이상이어야 합니다.',
+    },
+    func1: {
+      func: inputValue => passwordValidIncludeLetterForRulesHandler(inputValue),
+      message: '비밀번호는 영문자,숫자,특수문자를 포함해야 합니다',
+    },
   }
 
   return (
@@ -33,10 +74,11 @@ function LoginForm() {
                 id="Email"
                 type="email"
                 placeholder="example@example.com"
+                onValid={emailValidObj}
               />
             </div>
             <div>
-              <Input id="비밀번호" type="password" />
+              <Input id="비밀번호" type="password" onValid={passwordValidObj} />
             </div>
           </div>
           <div className={classes.login_btns}>
