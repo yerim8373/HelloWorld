@@ -1,13 +1,13 @@
 import PropTypes from 'prop-types'
 import ProfileSection from './ProfileSection'
-import Button from '../common/Button'
 import classes from './MainLeftArea.module.css'
+import MeetingEntrySection from './MeetingEntrySection'
 
 function MainLeftArea({ user }) {
   return (
     <div className={classes.mainLeftArea}>
       <ProfileSection user={user}></ProfileSection>
-      <Button text="랜덤 매칭 시작하기"></Button>
+      <MeetingEntrySection></MeetingEntrySection>
     </div>
   )
 }
