@@ -29,7 +29,7 @@ export default function EmailValidation() {
         onChange={handleChange}
       />
 
-      {error && <h2 style={{ color: 'red', fontSize: 20 }}>{error}</h2>}
+      {error && <h4 style={{ color: 'red', fontSize: 20 }}>{error}</h4>}
     </div>
   )
 }
