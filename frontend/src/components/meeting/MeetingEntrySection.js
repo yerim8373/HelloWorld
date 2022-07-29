@@ -1,25 +1,24 @@
 import { useState } from 'react'
 import Button from '../common/Button'
 import Modal from '../common/Modal'
-import classes from './MeetingEntrySection.module.css'
+import LoadingContainer from './LoadingContainer'
 
 export default function MeetingEntrySection() {
   const [modalState, setModalState] = useState(false)
   const handleModal = () => setModalState(!modalState)
 
   const contents = {
-    content: '전세계의 대화 상대를 찾고 있는 중이에요.',
+    content: <LoadingContainer handleModal={handleModal}></LoadingContainer>,
   }
 
   return (
     <>
-      <div className={classes.meetingEntrySection}>
-        <Button text="랜덤 매칭 시작하기" onEvent={handleModal}></Button>
-      </div>
+      <Button text="랜덤 매칭 시작하기" onEvent={handleModal}></Button>
       <Modal
         opened={modalState}
         handleModal={handleModal}
         contents={contents}
+        locked
       />
     </>
   )

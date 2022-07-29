@@ -28,7 +28,6 @@ function ModalSection({ children, opened, handleModal, contents, locked }) {
     const isClosable = [...e.target.classList].some(cls => cls === 'closable')
     if (opened && isClosable) handleModal()
   }
-  console.log(locked)
 
   return (
     <div
