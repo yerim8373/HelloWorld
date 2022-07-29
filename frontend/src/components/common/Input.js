@@ -1,11 +1,14 @@
+//email input 맞춤형 컴포넌트 진행
+
+import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 import classes from './Input.module.css'
 import PropTypes from 'prop-types'
 import { useState, useRef } from 'react'
 // Input-Component /////////////////////////
 /// /////////////////////////////////////////
 /// /////////////////////////////////////////
-
-// props 설정
+// 설정
 // props.id
 // label 이름, input name 속성, label for 속성 설정
 // props.type (선택)
@@ -75,6 +78,7 @@ Input.propTypes = {
 
 export default Input
 
+
 function ErrorComponent({ text }) {
   return <div className={classes.error_component}>{text}</div>
 }
@@ -82,3 +86,4 @@ function ErrorComponent({ text }) {
 ErrorComponent.propTypes = {
   text: PropTypes.string.isRequired,
 }
+
