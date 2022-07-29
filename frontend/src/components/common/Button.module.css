@@ -17,6 +17,7 @@
 }
 
 .button_error {
+  cursor: pointer;
   background-color: var(--color-error);
   color: #ffffff;
   border: none;
