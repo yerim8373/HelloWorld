@@ -22,10 +22,6 @@
   opacity: 0.75;
 }
 
-.selected {
-  /* border: 2px solid black; */
-}
-
 .addImageBtn {
   cursor: pointer;
   width: 3rem;
