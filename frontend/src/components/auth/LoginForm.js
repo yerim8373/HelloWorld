@@ -7,10 +7,10 @@ import classes from './LoginForm.module.css'
 
 import { emailValidHandler } from '../utils/validation/emailValid'
 import {
-  passwordValidIncludeLetterForRulesHandler,
+  passwordValidIncludeLetterHandler,
   passwordValidLengthHandler,
 } from '../utils/validation/passwordValid'
-import { ageValidHandler } from '../utils/validation/ageValid'
+
 // 유효성 검사 설정
 // useRef를 통한 현재 input 값 읽기
 // useEffect를 통한 useRef 변경마다, 유효성 체크
@@ -31,7 +31,7 @@ const passwordValidObj = {
     message: '비밀번호는 8자 이상이어야 합니다.',
   },
   func1: {
-    func: inputValue => passwordValidIncludeLetterForRulesHandler(inputValue),
+    func: inputValue => passwordValidIncludeLetterHandler(inputValue),
     message: '비밀번호는 영문자,숫자,특수문자를 포함해야 합니다',
   },
 }

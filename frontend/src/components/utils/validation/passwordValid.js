@@ -5,7 +5,7 @@ export function passwordValidLengthHandler(inputValue) {
   return true
 }
 
-export function passwordValidIncludeLetterForRulesHandler(inputValue) {
+export function passwordValidIncludeLetterHandler(inputValue) {
   const regxPassowrd = /^.*(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/
   if (!regxPassowrd.test(inputValue.trim())) {
     return false
@@ -20,7 +20,7 @@ const passwordValidObj = {
     message: '비밀번호는 8자 이상이어야 합니다.',
   },
   func1: {
-    func: inputValue => passwordValidIncludeLetterForRulesHandler(inputValue),
+    func: inputValue => passwordValidIncludeLetterHandler(inputValue),
     message: '비밀번호는 영문자,숫자,특수문자를 포함해야 합니다',
   },
 }
