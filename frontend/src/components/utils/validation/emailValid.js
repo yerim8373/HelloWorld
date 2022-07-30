@@ -1,8 +1,9 @@
 export function emailValidHandler(inputValue) {
-  if (!inputValue.trim().includes('@')) {
-    return false
+  const regxEmail = /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
+  if (regxEmail.test(inputValue)) {
+    return true
   }
-  return true
+  return false
 }
 
 const emailValidObj = {
