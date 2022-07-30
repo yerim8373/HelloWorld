@@ -1,4 +1,5 @@
 .image {
+  background-color: var(--color-grey-300);
   border-radius: 50%;
 }
 
