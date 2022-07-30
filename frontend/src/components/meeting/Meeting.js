@@ -24,15 +24,15 @@ const DUMMYUSER_2 = {
 
 const Meeting = () => {
   const [myStream, setMyStream] = useState(null)
-  const getMedia = useCallback(async () => {
-    const streamData = await navigator.mediaDevices.getUserMedia({
-      audio: true,
-      video: { facingMode: 'user' },
-    })
-    setMyStream(streamData)
-  }, [])
+  // const getMedia = useCallback(async () => {
+  //   const streamData = await navigator.mediaDevices.getUserMedia({
+  //     audio: true,
+  //     video: { facingMode: 'user' },
+  //   })
+  //   setMyStream(streamData)
+  // }, [])
 
-  useAsync({ promiseFn: getMedia })
+  // useAsync({ promiseFn: getMedia })
 
   // 내 비디오 연결
 

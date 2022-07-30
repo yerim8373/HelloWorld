@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import Sheet from '../common/Sheet'
 import Input from '../common/Input'
@@ -10,6 +10,8 @@ import {
   passwordValidIncludeLetterHandler,
   passwordValidLengthHandler,
 } from '../utils/validation/passwordValid'
+
+import { inputObj } from '../utils/helper/inputObj'
 
 // 유효성 검사 설정
 // useRef를 통한 현재 input 값 읽기
@@ -37,15 +39,35 @@ const passwordValidObj = {
 }
 
 function LoginForm() {
+  const [email, setEmail] = useState(inputObj)
+  const [password, setPassword] = useState(inputObj)
+
   const navigate = useNavigate()
   function routerPushHandler() {
     navigate('/auth/signup')
   }
 
+  const loginHandler = () => {
+    if (email.value === 'test@test.com' && password.value === 'test1234!') {
+      navigate('/meeting', {
+        state: {
+          email: email.value,
+        },
+      })
+    } else {
+      console.log('데이터 못찾음')
+    }
+  }
+
   return (
     <div>
       <Sheet size="large">
-        <form onSubmit={e => e.preventDefault()}>
+        <form
+          onSubmit={e => {
+            e.preventDefault()
+            loginHandler()
+          }}
+        >
           <div className={classes.login_main}>
             <h2 className={classes.login_title}>로그인</h2>
             <div>
@@ -54,15 +76,25 @@ function LoginForm() {
                 type="email"
                 placeholder="example@example.com"
                 onValid={emailValidObj}
+                onData={emailData => setEmail(emailData)}
               />
             </div>
             <div>
-              <Input id="비밀번호" type="password" onValid={passwordValidObj} />
+              <Input
+                id="비밀번호"
+                type="password"
+                onValid={passwordValidObj}
+                onData={passwordData => setPassword(passwordData)}
+              />
             </div>
           </div>
           <div className={classes.login_btns}>
             <div>
-              <Button text="로그인" />
+              {email.valid && password.valid ? (
+                <Button text="로그인" />
+              ) : (
+                <Button text="로그인" color="neutral" />
+              )}
             </div>
             <div>
               <Button
