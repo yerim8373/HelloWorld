@@ -15,12 +15,13 @@ import { useRef } from 'react'
 // props.placeHolder (선택)
 // placeHolder 적용
 
-function Input({ id, type = 'text', placeholder = '', onValid }) {
+function Input({ id, type = 'text', placeholder = '', onValid, onData }) {
   const inputRef = useRef()
   const [errorComponent, setErrorComponent] = useState(null)
 
   let colorInputClass = ''
   let colorLabelClass = ''
+
   switch (errorComponent) {
     case null:
       colorInputClass = ''
@@ -35,16 +36,24 @@ function Input({ id, type = 'text', placeholder = '', onValid }) {
       colorLabelClass = classes.valid_label_error
   }
 
+  let checkValid
   function inputValidHandler() {
-    let errorComponent = ''
-    for (let func in onValid) {
-      if (!onValid[func].func(inputRef.current.value)) {
-        console.log('작동함?')
-        errorComponent = <ErrorComponent text={onValid[func].message} />
-        break
+    clearTimeout(checkValid)
+    checkValid = setTimeout(() => {
+      let errorComponent = ''
+      for (let func in onValid) {
+        if (!onValid[func].func(inputRef.current.value)) {
+          errorComponent = <ErrorComponent text={onValid[func].message} />
+          break
+        }
       }
-    }
-    setErrorComponent(errorComponent)
+      console.log('유효성 체크')
+      setErrorComponent(errorComponent)
+      onData({
+        value: inputRef.current.value,
+        valid: errorComponent === '' ? true : false,
+      })
+    }, 500)
   }
 
   return (
@@ -74,6 +83,7 @@ Input.propTypes = {
   type: PropTypes.string.isRequired,
   placeholder: PropTypes.string,
   onValid: PropTypes.object,
+  onData: PropTypes.func,
 }
 
 export default Input
