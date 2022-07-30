@@ -1,11 +1,11 @@
 import { useState } from 'react'
-
 import { NavLink, useNavigate } from 'react-router-dom'
 import MenuBtn from './MenuBtn'
 import classes from './HeaderNav.module.css'
 import LogoImage from './LogoImage'
 import ProfileImage from './ProfileImage'
 import Button from './Button'
+import profile from '../../images/profile.jpg'
 
 // import Link from "next/link";
 // import { useRouter } from "next/router";
@@ -15,7 +15,7 @@ function HeaderNav() {
   // 후에 redux 공유객체로 바뀔 예정!
 
   // eslint-disable-next-line no-unused-vars
-  const [isLogined, setIsLogin] = useState(false)
+  const [isLogined, setIsLogin] = useState(true)
   const navigate = useNavigate()
 
   function routerPushHandler() {
@@ -47,7 +47,7 @@ function HeaderNav() {
       </div>
 
       {isLogined ? (
-        <ProfileImage width="70" height="70" src="" />
+        <ProfileImage src={profile} size="small" />
       ) : (
         <div
           className={`${classes.HeaderNav_link_btns} ${classes.hover_color}`}

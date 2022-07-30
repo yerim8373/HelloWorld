@@ -1,23 +1,26 @@
-import profile from '../../images/profile.jpg'
-import classes from './ProfileImage.module.css'
+/**
+ * 사용자 프로필 이미지 컴포넌트
+ *
+ * src {string}: 프로필 이미지 경로 혹은 URL
+ * size {string}: 이미지 크기 (xSmall, small, medium, large, xLarge)
+ */
 
 import PropTypes from 'prop-types'
+import classes from './ProfileImage.module.css'
 
-const ProfileImage = ({ width, height }) => {
+const ProfileImage = ({ src, size }) => {
   return (
     <img
-      className={classes.image}
-      src={profile}
-      width={width}
-      height={height}
+      className={`${classes.image} ${size ? classes[size] : ''}`}
+      src={src}
       alt="프로필 이미지"
-    ></img>
+    />
   )
 }
 
 ProfileImage.propTypes = {
-  width: PropTypes.string.isRequired,
-  height: PropTypes.string.isRequired,
+  src: PropTypes.string.isRequired,
+  size: PropTypes.oneOf(['xSmall', 'small', 'medium', 'large', 'xLarge']),
 }
 
 export default ProfileImage
