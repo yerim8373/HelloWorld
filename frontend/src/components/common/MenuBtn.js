@@ -11,13 +11,7 @@ const MenuBtn = ({ link, text }) => {
 
   return (
     <NavLink to={link}>
-      <h4
-        className={
-          match
-            ? classes.logo_active + ' ' + classes.logo_brand
-            : classes.logo_brand
-        }
-      >
+      <h4 className={`${classes.menuItem} ${match ? classes.active : ''}`}>
         {text}
       </h4>
     </NavLink>

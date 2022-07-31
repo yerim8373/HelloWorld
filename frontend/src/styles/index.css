@@ -1,5 +1,5 @@
-/* 색상 변수 */
 :root {
+  /* 색상 변수 */
   --color-primary: #49c288;
   --color-secondary: #5778ec;
   --color-vip: #6e29ff;
@@ -11,6 +11,9 @@
   --color-grey-300: #b2b8bc;
   --color-grey-200: #c2d1ca;
   --color-grey-100: #f0f0f0;
+
+  /* 길이 변수 */
+  --header-height: 6rem;
 }
 
 html,
