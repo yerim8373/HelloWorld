@@ -4,7 +4,7 @@
 import classes from './SignupPicture.module.css'
 import React from 'react'
 import SignupPicture2 from '../../images/SignupPicture2.jpg'
-import LogoImage from './LogoImage'
+import Logo from './Logo'
 
 const SignupPicture = () => {
   return (
@@ -15,7 +15,7 @@ const SignupPicture = () => {
         alt="SignupPicture"
       ></img>
       <div className={classes.back_drop}>
-        <LogoImage color="logoBlack" width="100" height="100"></LogoImage>
+        <Logo color="white" size="large" />
         <h4 className={classes.title}>HelloWorld에 오신 것을 환영합니다!</h4>
         <p>전세계의 사람들과 즐거운 대화를 나눌 준비가 되셨나요?</p>
       </div>
