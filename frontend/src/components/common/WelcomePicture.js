@@ -1,7 +1,7 @@
 import classes from './WelcomePicture.module.css'
 import React from 'react'
 import WelcomePicture2 from '../../images/WelcomePicture2.jpg'
-import LogoImage from './LogoImage'
+import Logo from './Logo'
 
 const WelcomePicture = () => {
   return (
@@ -12,7 +12,7 @@ const WelcomePicture = () => {
         alt="welcomePicture"
       ></img>
       <div className={classes.back_drop}>
-        <LogoImage color="logoBlack" width="100" height="100"></LogoImage>
+        <Logo color="white" size="large" />
         <h4 className={classes.title}>
           HelloWorld와 함께 <br /> 전세계 사람들과 대화를 시작해볼까요??
         </h4>
