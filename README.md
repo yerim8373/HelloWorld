@@ -52,6 +52,10 @@
 - 로그인 컴포넌트 생성
 - 로그인 페이지 기본 디자인 완료
 
+#### 채윤
+
+- drop down -> multi select box로 변경 후 작업 진행 및 완료
+
 ### 220726
 
 #### 성찬
@@ -64,6 +68,11 @@
 - React APP 환경 구축
 - next APP -> React APP으로 변환
 - 현 시점 모든 코드 전환 완료
+
+
+#### 채윤
+
+- find password page 작업
 
 ### 220727
 
@@ -81,6 +90,11 @@
   - VideoDisplay2
   - VideoControlBtns
   - Chatting
+
+#### 채윤
+
+- 깃 재설정
+- find password page 작업
 
 ### 220728
 
@@ -104,6 +118,10 @@
     - ChattingLog
 - Kurento 연결 초기 작업
 
+#### 채윤
+
+- validation check 작업 
+
 ### 220729
 
 #### 종현
@@ -119,6 +137,9 @@
 - 모달의 `contents.content` prop 타입을 `string`에서 `node`로 변경
 - 모달의 레이아웃을 클릭했을 때 모달이 닫히지 않게 하는 `locked` prop 추가
 
+#### 채윤
+
+- signup page(1) 기본 배치 디자인 완료
 
 ### 220730
 
