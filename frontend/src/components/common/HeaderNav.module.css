@@ -1,23 +1,32 @@
-.HeaderNav_nav {
+.headerNav {
+  height: var(--header-height);
   display: flex;
-  width: 100%;
+  align-items: flex-end;
   z-index: 10;
-  background-color: #ffffff;
-  padding: 1rem 1rem;
+  padding: 0 4rem 0.5rem;
+}
+
+.auth {
+  padding: 0 2rem 0.5rem;
+}
+
+.navWrapper {
+  width: 100%;
+  height: calc(var(--header-height) * 2 / 3);
+  display: flex;
   justify-content: space-between;
-  gap: 2rem;
-  height: 100px;
+  align-items: center;
 }
 
 .HeaderNav_link_btns {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 1.5rem;
 }
 
 .HeaderNav_brand {
   cursor: pointer;
-  font-weight: 300;
+  font-weight: 600;
 }
 
 .hover_color *:hover {
