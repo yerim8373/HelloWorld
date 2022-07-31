@@ -1,0 +1,46 @@
+.input_wrapper {
+  padding: 10px;
+  display: inline-block;
+}
+
+.input {
+  display: block;
+  width: 300px;
+  border: none;
+  outline: none;
+  border-bottom: 1px solid #000000;
+  padding: 8px 0;
+}
+
+.input_label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #000000;
+}
+
+.input::placeholder {
+  color: var(--color-grey-500);
+  font-size: 0.8rem;
+  font-family: 100;
+  font-style: italic;
+}
+
+.error_component {
+  color: var(--color-error);
+}
+
+.valid_input_true {
+  border-bottom: 1px solid var(--color-success);
+}
+
+.valid_input_error {
+  border-bottom: 1px solid var(--color-error);
+}
+
+.valid_label_true {
+  color : var(--color-success);
+}
+
+.valid_label_error {
+  color : var(--color-error);
+}
