@@ -44,10 +44,10 @@ function App() {
           <Route path="/auth/find-password" element={<FindPassword />} />
           <Route path="/meeting" element={<Main />} />
           <Route path="/meeting/:roomId" element={<Meeting />} />
-          <Route path="/setting" element={<UserProfile />} />
-          <Route path="/setting/subscribe" element={<Subscribe />} />
-          <Route path="/setting/password" element={<Password />} />
-          <Route path="/setting/heart" element={<Heart />} />
+          <Route path="/settings" element={<UserProfile />} />
+          <Route path="/settings/subscribe" element={<Subscribe />} />
+          <Route path="/settings/password" element={<Password />} />
+          <Route path="/settings/heart" element={<Heart />} />
         </Routes>
       </main>
     </>

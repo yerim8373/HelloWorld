@@ -52,7 +52,7 @@ function ProfileSection({ user }) {
               </div>
             </div>
           </div>
-          <NavLink to="/setting" className={classes.SettingsIcon}>
+          <NavLink to="/settings" className={classes.SettingsIcon}>
             <BsGear />
           </NavLink>
         </div>
