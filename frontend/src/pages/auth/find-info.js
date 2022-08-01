@@ -1,4 +1,4 @@
-import FindInformationPage from '../../components/common/FindInformationPage'
+//import FindInformationPage from '../../components/auth/FindInformationPage'
 
 export default function FindInfoPage() {
   return (

@@ -1,5 +1,8 @@
 import SignupPicture from '../../components/common/SignupPicture'
 import SignupForm from '../../components/auth/SignupForm.js'
+/*import StepIndicatorSignup from '../common/StepIndicatorSignup'*/
+
+//나중에 여기에 stepindicator_signup.js import하기
 
 const Signup = () => {
   return (
@@ -14,6 +17,7 @@ const Signup = () => {
 
 export default Signup
 
+//우린 페이지를 정리정돈하고 여기에 넣는 거임 그니까 복잡하면 ㄴㄴ해
 ////////////////////
 /*
 import React from 'react'
