@@ -11,4 +11,5 @@ public interface LanguageService {
     void insertLanguage(LanguageDto languageDto);
 
     void removeLanguage(Long id);
+    Language getLanguageById(Long id);
 }
