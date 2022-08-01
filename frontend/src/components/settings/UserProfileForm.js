@@ -1,6 +1,7 @@
 import ProfileImage from '../common/ProfileImage'
 import Badge from '../common/Badge'
 import Input from '../common/Input'
+import Button from '../common/Button'
 import Heart from '../common/Heart'
 import classes from './UserProfileForm.module.css'
 
@@ -21,8 +22,17 @@ const dummy = {
 }
 
 export default function UserProfileForm() {
+  const handleSubmit = e => {
+    e.preventDefault()
+    console.log('submit')
+  }
+  const handleReset = e => {
+    e.preventDefault()
+    console.log('reset')
+  }
+
   return (
-    <div className={classes.userProfileForm}>
+    <form className={classes.userProfileForm} onSubmit={handleSubmit}>
       <h1>기본 프로필</h1>
       <div className={classes.mainProfileContainer}>
         <div className={classes.mainProfile}>
@@ -45,6 +55,15 @@ export default function UserProfileForm() {
         <Input id="국적" type="text" placeholder="국적" />
         <Input id="언어" type="text" placeholder="언어" />
       </div>
-    </div>
+      <div className={classes.buttons}>
+        <Button text="수정" size="small" />
+        <Button
+          text="초기화"
+          size="small"
+          color="neutral"
+          onEvent={handleReset}
+        />
+      </div>
+    </form>
   )
 }
