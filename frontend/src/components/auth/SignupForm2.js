@@ -5,47 +5,13 @@ import Input from '../common/Input'
 import Button from '../common/Button'
 import classes from './SignupForm.module.css'
 
-import { emailValidHandler } from '../utils/validation/emailValid'
-import {
-  passwordValidIncludeLetterHandler,
-  passwordValidLengthHandler,
-} from '../utils/validation/passwordValid'
-
-import { inputObj } from '../utils/helper/inputObj'
-
-//pw 재확인이 필요합니다
-
-/////////////////////////////////////////////////////////
-
-//이메일 확인
-const emailValidObj = {
-  func0: {
-    func: inputValue => emailValidHandler(inputValue),
-    message: '올바른 이메일 형식이 아닙니다.',
-  },
-}
-
-//비밀번호 확인
-const passwordValidObj = {
-  func0: {
-    func: inputValue => passwordValidLengthHandler(inputValue),
-    message: '비밀번호는 8자 이상이어야 합니다.',
-  },
-  func1: {
-    func: inputValue => passwordValidIncludeLetterHandler(inputValue),
-    message: '비밀번호는 영문자,숫자,특수문자를 포함해야 합니다',
-  },
-}
-
-//비밀번호 확인 추가해야합니다
-
-//const password~~
+import RadioBtnGroup from '../common/RadioBtnGroup'
 
 //////////////////////////////////////////////////////////////////
-function SignupForm() {
+function SignupForm2() {
   const navigate = useNavigate()
   function routerPushHandler() {
-    navigate('/auth/signup2')
+    navigate('/auth/signup3')
   }
 
   //////////////////////////////////////////////////////////////////
@@ -54,8 +20,7 @@ function SignupForm() {
       <form onSubmit={e => e.preventDefault()}>
         <div className={classes.signup_main}>
           <h2 className={classes.signup_title}>회원가입</h2>
-
-          <div className={classes.signup_essential_text3}>
+          <div>
             <font size="3" color="#f0b622">
               {' '}
               *
@@ -64,12 +29,23 @@ function SignupForm() {
               </font>
             </font>
           </div>
-
+          <p>이건 회원가입2인데요 아직 완성안했어요</p>
           <div>
-            <Input id="Email" type="text" placeholder="example@example.com" />
+            <Input id="이름" type="text" placeholder="본명을 입력해주세요" />
           </div>
           <div>
-            <Input id="비밀번호" type="password" />
+            <Input
+              id="닉네임"
+              type="text"
+              placeholder="2자 이상을 입력해주세요. 특수문자를 입력할 수 없어요"
+            />
+          </div>
+          <div>
+            <Input
+              id="휴대폰 번호"
+              type="text"
+              placeholder="전화번호 (하이픈 제외)"
+            />
           </div>
           <div>
             <Input
@@ -78,6 +54,7 @@ function SignupForm() {
               placeholder="비밀번호 확인"
             />
           </div>
+          <div></div>
         </div>
         <div className={classes.signup_btns}>
           <div>
@@ -88,5 +65,4 @@ function SignupForm() {
     </Sheet>
   )
 }
-
-export default SignupForm
+export default SignupForm2

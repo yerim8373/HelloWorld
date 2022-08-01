@@ -5,47 +5,11 @@ import Input from '../common/Input'
 import Button from '../common/Button'
 import classes from './SignupForm.module.css'
 
-import { emailValidHandler } from '../utils/validation/emailValid'
-import {
-  passwordValidIncludeLetterHandler,
-  passwordValidLengthHandler,
-} from '../utils/validation/passwordValid'
-
-import { inputObj } from '../utils/helper/inputObj'
-
-//pw 재확인이 필요합니다
-
-/////////////////////////////////////////////////////////
-
-//이메일 확인
-const emailValidObj = {
-  func0: {
-    func: inputValue => emailValidHandler(inputValue),
-    message: '올바른 이메일 형식이 아닙니다.',
-  },
-}
-
-//비밀번호 확인
-const passwordValidObj = {
-  func0: {
-    func: inputValue => passwordValidLengthHandler(inputValue),
-    message: '비밀번호는 8자 이상이어야 합니다.',
-  },
-  func1: {
-    func: inputValue => passwordValidIncludeLetterHandler(inputValue),
-    message: '비밀번호는 영문자,숫자,특수문자를 포함해야 합니다',
-  },
-}
-
-//비밀번호 확인 추가해야합니다
-
-//const password~~
-
 //////////////////////////////////////////////////////////////////
-function SignupForm() {
+function SignupForm3() {
   const navigate = useNavigate()
   function routerPushHandler() {
-    navigate('/auth/signup2')
+    navigate('/auth/signup4')
   }
 
   //////////////////////////////////////////////////////////////////
@@ -54,9 +18,8 @@ function SignupForm() {
       <form onSubmit={e => e.preventDefault()}>
         <div className={classes.signup_main}>
           <h2 className={classes.signup_title}>회원가입</h2>
-
-          <div className={classes.signup_essential_text3}>
-            <font size="3" color="#f0b622">
+          <div>
+            <font text-align="center" size="3" color="#f0b622">
               {' '}
               *
               <font size="2" color="#7a8982">
@@ -64,9 +27,9 @@ function SignupForm() {
               </font>
             </font>
           </div>
-
+          <p>이건 회원가입 333333</p>
           <div>
-            <Input id="Email" type="text" placeholder="example@example.com" />
+            <Input id="이름" type="text" placeholder="example@example.com" />
           </div>
           <div>
             <Input id="비밀번호" type="password" />
@@ -88,5 +51,4 @@ function SignupForm() {
     </Sheet>
   )
 }
-
-export default SignupForm
+export default SignupForm3
