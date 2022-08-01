@@ -1,0 +1,41 @@
+.userProfileForm {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.mainProfileContainer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.mainProfile {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.nameAndBadge {
+  display: flex;
+  gap: 1rem;
+}
+
+.name {
+  font-size: 2rem;
+  font-weight: 500;
+}
+
+.nickname {
+  font-size: 2rem;
+  color: var(--color-grey-300);
+}
+
+.label {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.subProfileContainer {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}

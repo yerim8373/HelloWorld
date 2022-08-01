@@ -12,10 +12,12 @@ import FindPassword from './pages/auth/find-password'
 import Main from './pages/meeting/main'
 import Meeting from './pages/meeting/meeting'
 
-import UserProfile from './pages/settings/userProfile'
-import Subscribe from './pages/settings/subscribe'
-import Password from './pages/settings/password'
-import Heart from './pages/settings/heart'
+import SettingsPage from './pages/settings/SettingsPage'
+import ProfilePage from './pages/settings/ProfilePage'
+import SubscribePage from './pages/settings/SubscribePage'
+import PasswordPage from './pages/settings/PasswordPage'
+import HeartPage from './pages/settings/HeartPage'
+import WithdrawalPage from './pages/settings/WithdrawalPage'
 
 function App() {
   const location = useLocation()
@@ -44,10 +46,13 @@ function App() {
           <Route path="/auth/find-password" element={<FindPassword />} />
           <Route path="/meeting" element={<Main />} />
           <Route path="/meeting/:roomId" element={<Meeting />} />
-          <Route path="/setting" element={<UserProfile />} />
-          <Route path="/setting/subscribe" element={<Subscribe />} />
-          <Route path="/setting/password" element={<Password />} />
-          <Route path="/setting/heart" element={<Heart />} />
+          <Route path="/settings/*" element={<SettingsPage />}>
+            <Route path="profile" element={<ProfilePage />} />
+            <Route path="subscribe" element={<SubscribePage />} />
+            <Route path="password" element={<PasswordPage />} />
+            <Route path="heart" element={<HeartPage />} />
+            <Route path="withdrawal" element={<WithdrawalPage />} />
+          </Route>
         </Routes>
       </main>
     </>
