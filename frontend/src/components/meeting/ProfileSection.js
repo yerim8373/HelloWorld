@@ -1,10 +1,11 @@
 import PropTypes from 'prop-types'
 import { NavLink } from 'react-router-dom'
-import { BsHeart, BsGear } from 'react-icons/bs'
+import { BsGear } from 'react-icons/bs'
 import CountryFlag from 'react-country-flag'
 import Sheet from '../common/Sheet'
-import classes from './ProfileSection.module.css'
 import Badge from '../common/Badge'
+import Heart from '../common/Heart'
+import classes from './ProfileSection.module.css'
 
 function ProfileSection({ user }) {
   return (
@@ -24,12 +25,7 @@ function ProfileSection({ user }) {
         </div>
         <div className={classes.subInfo}>
           <div className={classes.subInfoContents}>
-            <div className={classes.heartContainer}>
-              <div className={classes.HeartIcon}>
-                <BsHeart />
-              </div>
-              <div className="subtitle">{user.heart}</div>
-            </div>
+            <Heart count={user.heart} />
             <div className={classes.countryAndLanguages}>
               <CountryFlag
                 svg
