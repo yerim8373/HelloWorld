@@ -46,3 +46,9 @@
 .signup_essential_text3 {
     margin: auto;
 }
+
+.signup_input_label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #000000;
+}
