@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-
 import classes from './Button.module.css'
 
 // Button-Component ///////////////////////
@@ -47,6 +46,9 @@ function Button({
     case 'recommend':
       className += `${classes.button_recommend} `
       break
+    case 'vip':
+      className += `${classes.button_vip} `
+      break
     default:
       className += `${classes.button_success} `
       break
@@ -68,4 +70,5 @@ Button.propTypes = {
   text: PropTypes.string.isRequired,
   closable: PropTypes.bool,
 }
+
 export default Button
