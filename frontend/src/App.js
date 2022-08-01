@@ -17,6 +17,7 @@ import ProfilePage from './pages/settings/ProfilePage'
 import SubscribePage from './pages/settings/SubscribePage'
 import PasswordPage from './pages/settings/PasswordPage'
 import HeartPage from './pages/settings/HeartPage'
+import WithdrawalPage from './pages/settings/WithdrawalPage'
 
 function App() {
   const location = useLocation()
@@ -50,6 +51,7 @@ function App() {
             <Route path="subscribe" element={<SubscribePage />} />
             <Route path="password" element={<PasswordPage />} />
             <Route path="heart" element={<HeartPage />} />
+            <Route path="withdrawal" element={<WithdrawalPage />} />
           </Route>
         </Routes>
       </main>

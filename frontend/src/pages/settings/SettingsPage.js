@@ -1,10 +1,5 @@
-import { Outlet } from 'react-router-dom'
+import SettingsContainer from '../../components/settings/SettingsContainer'
 
 export default function SettingsPage() {
-  return (
-    <div>
-      settings-container
-      <Outlet />
-    </div>
-  )
+  return <SettingsContainer />
 }
