@@ -1,29 +1,60 @@
-//지금 이 페이지는 회원가입 페이지로, auth/signup 이다.
-//지금 복붙된 코드는 loginForm.js이다.
-//이걸 피그마를 보고 하나씩 변경하면서 만들어야한다.
-//css작업밖에없다는...데...?하지만 전혀아닌거같닫..
-
-import React from 'react'
+import React, { useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import Sheet from '../common/Sheet'
 import Input from '../common/Input'
 import Button from '../common/Button'
-
 import classes from './SignupForm.module.css'
 
-//이제 다음페이지로 넘어갈 방법을 만들어주세요 나는 signup2라고 정해둠
+import { emailValidHandler } from '../utils/validation/emailValid'
+import {
+  passwordValidIncludeLetterHandler,
+  passwordValidLengthHandler,
+} from '../utils/validation/passwordValid'
+
+import { inputObj } from '../utils/helper/inputObj'
+
+//pw 재확인이 필요합니다
+
+/////////////////////////////////////////////////////////
+
+//이메일 확인
+const emailValidObj = {
+  func0: {
+    func: inputValue => emailValidHandler(inputValue),
+    message: '올바른 이메일 형식이 아닙니다.',
+  },
+}
+
+//비밀번호 확인
+const passwordValidObj = {
+  func0: {
+    func: inputValue => passwordValidLengthHandler(inputValue),
+    message: '비밀번호는 8자 이상이어야 합니다.',
+  },
+  func1: {
+    func: inputValue => passwordValidIncludeLetterHandler(inputValue),
+    message: '비밀번호는 영문자,숫자,특수문자를 포함해야 합니다',
+  },
+}
+
+//비밀번호 확인 추가해야합니다
+
+//const password~~
+
+//////////////////////////////////////////////////////////////////
 function SignupForm() {
   const navigate = useNavigate()
   function routerPushHandler() {
     navigate('/auth/signup2')
   }
 
+  //////////////////////////////////////////////////////////////////
   return (
-    <Sheet>
+    <Sheet size="large">
       <form onSubmit={e => e.preventDefault()}>
-        <div className={classes.login_main}>
-          <h2 className={classes.login_title}>회원가입</h2>
-          <p className={classes.login_tip}>*은 필수 입력</p>
+        <div className={classes.signup_main}>
+          <h2 className={classes.signup_title}>회원가입</h2>
+          <p className={classes.signup_tip}>*은 필수 입력</p>
           <div>
             <Input id="Email" type="text" placeholder="example@example.com" />
           </div>
@@ -38,9 +69,9 @@ function SignupForm() {
             />
           </div>
         </div>
-        <div className={classes.login_btns}>
+        <div className={classes.signup_btns}>
           <div>
-            <Button text="다음" />
+            <Button onEvent={routerPushHandler} text="다음" />
           </div>
         </div>
       </form>
