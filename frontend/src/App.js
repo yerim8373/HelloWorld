@@ -12,10 +12,11 @@ import FindPassword from './pages/auth/find-password'
 import Main from './pages/meeting/main'
 import Meeting from './pages/meeting/meeting'
 
-import UserProfile from './pages/settings/userProfile'
-import Subscribe from './pages/settings/subscribe'
-import Password from './pages/settings/password'
-import Heart from './pages/settings/heart'
+import SettingsContainer from './pages/settings/SettingsContainer'
+import ProfilePage from './pages/settings/ProfilePage'
+import SubscribePage from './pages/settings/SubscribePage'
+import PasswordPage from './pages/settings/PasswordPage'
+import HeartPage from './pages/settings/HeartPage'
 
 function App() {
   const location = useLocation()
@@ -44,10 +45,12 @@ function App() {
           <Route path="/auth/find-password" element={<FindPassword />} />
           <Route path="/meeting" element={<Main />} />
           <Route path="/meeting/:roomId" element={<Meeting />} />
-          <Route path="/settings" element={<UserProfile />} />
-          <Route path="/settings/subscribe" element={<Subscribe />} />
-          <Route path="/settings/password" element={<Password />} />
-          <Route path="/settings/heart" element={<Heart />} />
+          <Route path="/settings/*" element={<SettingsContainer />}>
+            <Route path="profile" element={<ProfilePage />} />
+            <Route path="subscribe" element={<SubscribePage />} />
+            <Route path="password" element={<PasswordPage />} />
+            <Route path="heart" element={<HeartPage />} />
+          </Route>
         </Routes>
       </main>
     </>
