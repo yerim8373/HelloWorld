@@ -16,7 +16,7 @@ import PropTypes from 'prop-types'
 const Sheet = ({ children, size, shallow }) => {
   return (
     <section
-      className={`${classes.sheet} ${size ? classes[size] : ''} ${
+      className={`${classes.sheet} ${size ? classes[size] : classes.medium} ${
         shallow ? classes.shallow : ''
       }`}
     >
@@ -30,7 +30,7 @@ Sheet.propTypes = {
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,
   ]),
-  size: PropTypes.string,
+  size: PropTypes.oneOf(['small', 'medium', 'large']),
   shallow: PropTypes.bool,
 }
 

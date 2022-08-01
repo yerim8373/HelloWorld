@@ -10,3 +10,11 @@
 .active {
   border-bottom: 3px solid var(--color-primary);
 }
+
+.warning {
+  color: var(--color-error);
+}
+
+.warning.active {
+  border-bottom: 3px solid var(--color-error);
+}

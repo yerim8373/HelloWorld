@@ -1,8 +1,10 @@
 import PropTypes from 'prop-types'
 import { NavLink } from 'react-router-dom'
-import { BsHeart, BsGear } from 'react-icons/bs'
+import { BsGear } from 'react-icons/bs'
 import CountryFlag from 'react-country-flag'
 import Sheet from '../common/Sheet'
+import Badge from '../common/Badge'
+import Heart from '../common/Heart'
 import classes from './ProfileSection.module.css'
 
 function ProfileSection({ user }) {
@@ -15,11 +17,7 @@ function ProfileSection({ user }) {
               <h1 className="title">
                 안녕하세요, <strong>{user.name}</strong>님!
               </h1>
-              {user.subscribed && (
-                <div className={classes.vipBadgeContainer}>
-                  <div className={classes.vipBadge}>VIP</div>
-                </div>
-              )}
+              {user.subscribed && <Badge />}
             </div>
             <div className={classes.description}>{user.description}</div>
           </div>
@@ -27,12 +25,7 @@ function ProfileSection({ user }) {
         </div>
         <div className={classes.subInfo}>
           <div className={classes.subInfoContents}>
-            <div className={classes.heartContainer}>
-              <div className={classes.HeartIcon}>
-                <BsHeart />
-              </div>
-              <div className="subtitle">{user.heart}</div>
-            </div>
+            <Heart count={user.heart} />
             <div className={classes.countryAndLanguages}>
               <CountryFlag
                 svg
@@ -52,7 +45,7 @@ function ProfileSection({ user }) {
               </div>
             </div>
           </div>
-          <NavLink to="/setting" className={classes.SettingsIcon}>
+          <NavLink to="/settings/profile" className={classes.SettingsIcon}>
             <BsGear />
           </NavLink>
         </div>
