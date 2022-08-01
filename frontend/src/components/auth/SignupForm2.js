@@ -6,12 +6,16 @@ import Button from '../common/Button'
 import classes from './SignupForm.module.css'
 
 import RadioBtnGroup from '../common/RadioBtnGroup'
+//단순히 넣기만 해도 오류뜹니다
 
 //////////////////////////////////////////////////////////////////
 function SignupForm2() {
   const navigate = useNavigate()
   function routerPushHandler() {
     navigate('/auth/signup3')
+  }
+  function routerPushHandler2() {
+    navigate('/auth/signup')
   }
 
   //////////////////////////////////////////////////////////////////
@@ -29,7 +33,7 @@ function SignupForm2() {
               </font>
             </font>
           </div>
-          <p>이건 회원가입2인데요 아직 완성안했어요</p>
+          <p>회원가입2 //휴대폰, 성별, 국적 컴포넌트 x</p>
           <div>
             <Input id="이름" type="text" placeholder="본명을 입력해주세요" />
           </div>
@@ -49,16 +53,35 @@ function SignupForm2() {
           </div>
           <div>
             <Input
-              id="비밀번호확인"
-              type="password"
-              placeholder="비밀번호 확인"
+              id="성별"
+              type="text"
+              placeholder="여기는 radio, but 적용하면 오류뜸"
             />
           </div>
-          <div></div>
-        </div>
-        <div className={classes.signup_btns}>
           <div>
-            <Button onEvent={routerPushHandler} text="다음" />
+            <tr>
+              <td>
+                <Input id="국적" type="text" placeholder="국적" />
+              </td>
+              <td>
+                <Input id="나이" type="text" placeholder="나이" />
+              </td>
+            </tr>
+          </div>
+        </div>
+        <div>
+          <div>
+            <tr>
+              <td>
+                <Button
+                  className={classes.button_error}
+                  onEvent={routerPushHandler2}
+                  text="이전"
+                />
+              </td>
+              <Button onEvent={routerPushHandler} text="다음" />
+              <td></td>
+            </tr>
           </div>
         </div>
       </form>
