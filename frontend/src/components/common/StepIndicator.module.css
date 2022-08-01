@@ -1,0 +1,113 @@
+/*
+
+/* Nav Styles 
+
+nav {
+    width: 100%;
+    padding: 20px 30px;
+    background: #333;
+}
+
+nav a {
+    margin-right: 10px;
+    text-decoration: none;
+    display: inline-block;
+    color: #fff;
+}
+
+/* Home Title Styles 
+
+.homeTitle {
+    margin: 18px 30px;
+    font-size: 30px;
+    line-height: 1;
+}
+
+/* Signup styles 
+
+.signup {
+    width: 100%;
+    min-height: calc(100vh - 58px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.signup .mainContainer {
+    width: 100%;
+    max-width: 776px;
+    margin: 0 auto;
+    padding: 70px 0;
+}
+
+.signup .output {
+    margin: 60px 0 0 0;
+    padding: 30px;
+    width: 100%;
+    min-height: 500px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0px 3px 12px rgb(160, 181, 238);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* Step Indicator Styles 
+
+.stepIndicator {
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.stepIndicator hr {
+    width: 160px;
+    background: #fafafa;
+    height: 2px;
+    border-width: 0;
+    margin: 0 16px;
+}
+
+.stepIndicator hr:last-of-type {
+    display: none;
+}
+
+.stepIndicator a {
+    text-decoration: none;
+    width: 50px;
+    height: 50px;
+    background: #fff;
+    color: lightblue;
+    box-shadow: 0px 3px 12px rgba(161, 161, 161, 0.25);
+    align-items: center;
+    justify-content: center;
+    /*cursor: pointer;
+    cursor: default;
+    user-select: none;
+    position: relative;
+    font-weight: bold;
+    font-size: 22px;
+    transition: all 600ms ease-in-out;
+}
+
+.stepIndicator .activeLink {
+    background: #5778ec;
+    color: #fff;
+}
+
+/* Button Container Styles 
+.btnContainer {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.btnContainer a {
+    text-decoration: none;
+    display: inline-block;
+    margin-left: 10px;
+    color: #000;
+}
+*/
