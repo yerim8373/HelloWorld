@@ -168,3 +168,9 @@
 
 - `HeaderNav` 스타일 수정
 - 로고 이미지 컴포넌트 리팩토링
+
+#### 채윤
+
+- signup 페이지 상단에 표시될 step indicator 작성 및 적용 시도
+- signup(2), signup(3), signup(4) 생성 및 작성
+- radioBtnGroup usecallback 진행
