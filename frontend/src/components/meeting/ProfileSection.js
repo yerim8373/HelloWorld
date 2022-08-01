@@ -4,6 +4,7 @@ import { BsHeart, BsGear } from 'react-icons/bs'
 import CountryFlag from 'react-country-flag'
 import Sheet from '../common/Sheet'
 import classes from './ProfileSection.module.css'
+import Badge from '../common/Badge'
 
 function ProfileSection({ user }) {
   return (
@@ -15,11 +16,7 @@ function ProfileSection({ user }) {
               <h1 className="title">
                 안녕하세요, <strong>{user.name}</strong>님!
               </h1>
-              {user.subscribed && (
-                <div className={classes.vipBadgeContainer}>
-                  <div className={classes.vipBadge}>VIP</div>
-                </div>
-              )}
+              {user.subscribed && <Badge />}
             </div>
             <div className={classes.description}>{user.description}</div>
           </div>

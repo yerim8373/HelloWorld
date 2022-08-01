@@ -28,22 +28,6 @@
   font-weight: 600;
 }
 
-.vipBadgeContainer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.vipBadge {
-  padding: 0.25rem 0.75rem;
-  border-radius: 1rem;
-  background-color: var(--color-vip);
-  color: white;
-  font-size: 0.75rem;
-  font-weight: 500;
-  letter-spacing: 1px;
-}
-
 .description {
   font-size: 1.25rem;
   color: var(--color-grey-500);
