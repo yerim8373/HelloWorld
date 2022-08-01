@@ -12,7 +12,7 @@ import FindPassword from './pages/auth/find-password'
 import Main from './pages/meeting/main'
 import Meeting from './pages/meeting/meeting'
 
-import SettingsContainer from './pages/settings/SettingsContainer'
+import SettingsPage from './pages/settings/SettingsPage'
 import ProfilePage from './pages/settings/ProfilePage'
 import SubscribePage from './pages/settings/SubscribePage'
 import PasswordPage from './pages/settings/PasswordPage'
@@ -45,7 +45,7 @@ function App() {
           <Route path="/auth/find-password" element={<FindPassword />} />
           <Route path="/meeting" element={<Main />} />
           <Route path="/meeting/:roomId" element={<Meeting />} />
-          <Route path="/settings/*" element={<SettingsContainer />}>
+          <Route path="/settings/*" element={<SettingsPage />}>
             <Route path="profile" element={<ProfilePage />} />
             <Route path="subscribe" element={<SubscribePage />} />
             <Route path="password" element={<PasswordPage />} />

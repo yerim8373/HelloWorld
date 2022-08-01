@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom'
 
-export default function SettingsContainer() {
+export default function SettingsPage() {
   return (
     <div>
       settings-container
