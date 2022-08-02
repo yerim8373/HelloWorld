@@ -139,7 +139,6 @@ public class JwtTokenUtil {
         String authorities = auth.getAuthorities().stream().map(GrantedAuthority::getAuthority)
                 .collect(Collectors.joining(","));
 
-
         String accessToken = JWT.create()
                 .withSubject(signInDTO.getEmail())
                 .withClaim("auth", authorities)
@@ -162,6 +161,27 @@ public class JwtTokenUtil {
                 .refreshToken(refreshToken)
                 .build();
     }
+
+    public JWToken reissueAccessToken(String email, Authentication auth){
+        Date date = new Date();
+        Long accessExpires = 30*60*1000L; // 30minutes
+
+        String authorities = auth.getAuthorities().stream().map(GrantedAuthority::getAuthority)
+                .collect(Collectors.joining(","));
+
+        String accessToken = JWT.create()
+                .withSubject(email)
+                .withClaim("auth", authorities)
+                .withExpiresAt(new Date(date.getTime() + accessExpires))
+                .withIssuer(ISSUER)
+                .withIssuedAt(Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()))
+                .sign(Algorithm.HMAC512(secretKey.getBytes()));
+
+        return JWToken.builder()
+                .accessToken(accessToken)
+                .build();
+    }
+
     public String getEmailFromToken(String bearerToken) {
         if(bearerToken.startsWith(TOKEN_PREFIX)) {
             String token = bearerToken.substring(TOKEN_PREFIX.length());
