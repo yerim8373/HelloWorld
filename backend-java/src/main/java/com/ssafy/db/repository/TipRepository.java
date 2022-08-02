@@ -11,6 +11,6 @@ import java.util.List;
 
 public interface TipRepository extends JpaRepository<Tip, Long> {
     @Query("select t from Tip t where t.language.id" +
-            " = (select ul.language.id from UserLan ul where ul.user.id = :userId and UserLan.priority = 1)")
+            " = (select ul.language.id from UserLan ul where ul.user.id = :userId and ul.priority = 1)")
     List<Tip> findAllByUserId(@Param("userId") Long userId);
 }
