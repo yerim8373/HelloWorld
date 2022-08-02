@@ -13,6 +13,7 @@
 
 .imageWrapper {
   cursor: pointer;
+  display: flex;
   background-color: white;
   opacity: 1;
   transition: opacity 0.1s;
