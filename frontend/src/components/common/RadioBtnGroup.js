@@ -1,3 +1,13 @@
+/**
+ * 라디오 버튼 & 그룹 컴포넌트
+ *
+ * name {string}: 라디오 버튼 그룹을 구분하는 이름
+ * items {array}: 라디오 버튼의 정보를 담는 객체 리스트
+ * items[].name {string}: 라디오 버튼 텍스트
+ * items[].value {string}: 라디오 버튼 클릭 시 받는 값
+ * vertical {boolean}: 아이템 세로 정렬 여부 (기본값은 false)
+ */
+
 import { useState } from 'react'
 import classes from './RadioBtnGroup.module.css'
 import PropTypes from 'prop-types'
@@ -24,14 +34,16 @@ function RadioBtn({ id, name, children, selectedValue, handleChange }) {
   )
 }
 
-export default function RadioBtnGroup({ name, items }) {
+export default function RadioBtnGroup({ name, items, vertical }) {
   const [value, setValue] = useState(items[0].value)
   const handleChange = e => {
     setValue(e.target.value)
   }
 
   return (
-    <div className={classes.radioBtnGroup}>
+    <div
+      className={`${classes.radioBtnGroup} ${vertical ? classes.vertical : ''}`}
+    >
       {items.map(item => (
         <RadioBtn
           key={item.value}
@@ -59,9 +71,12 @@ RadioBtn.propTypes = {
 }
 
 RadioBtnGroup.propTypes = {
-  name: PropTypes.string,
-  items: PropTypes.arrayOf({
-    name: PropTypes.string,
-    value: PropTypes.string,
-  }),
+  name: PropTypes.string.isRequired,
+  items: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      value: PropTypes.string.isRequired,
+    }).isRequired,
+  ).isRequired,
+  vertical: PropTypes.bool,
 }
