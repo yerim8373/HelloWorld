@@ -33,7 +33,6 @@ function SignupForm3() {
               </font>
             </font>
           </div>
-          <p>회원가입 3//selectbox css 수정 필요 </p>
           <div>
             <p className={classes.signup_input_label}>사용 언어</p>
             <SelectBox></SelectBox>
@@ -60,12 +59,17 @@ function SignupForm3() {
         <div>
           <div>
             <tr>
-              <td>
-                <Button onEvent={routerPushHandler2} text="이전" />
+              <td className={classes.signup_table_width}>
+                <Button
+                  size="small"
+                  color="neutral"
+                  onEvent={routerPushHandler2}
+                  text="이전"
+                />
               </td>
-              <td>
+              <td className={classes.signup_table_width2}>
                 {' '}
-                <Button onEvent={routerPushHandler} text="다음" />
+                <Button size="small" onEvent={routerPushHandler} text="다음" />
               </td>
             </tr>
           </div>
