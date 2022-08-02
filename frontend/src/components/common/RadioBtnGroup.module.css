@@ -15,7 +15,7 @@
   display: none;
 }
 
-.invisibleRadio:checked + .visibleRadio .inner {
+.invisibleRadio:checked+.visibleRadio .inner {
   background-color: var(--color-primary);
 }
 

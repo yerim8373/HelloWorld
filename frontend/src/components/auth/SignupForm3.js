@@ -57,7 +57,7 @@ function SignupForm3() {
             </Checkbox>
           </div>
         </div>
-        <div className={classes.signup_btns}>
+        <div>
           <div>
             <tr>
               <td>
