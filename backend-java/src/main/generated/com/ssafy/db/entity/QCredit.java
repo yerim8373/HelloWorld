@@ -11,52 +11,48 @@ import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
- * QUserLan is a Querydsl query type for UserLan
+ * QCredit is a Querydsl query type for Credit
  */
 @Generated("com.querydsl.codegen.EntitySerializer")
-public class QUserLan extends EntityPathBase<UserLan> {
+public class QCredit extends EntityPathBase<Credit> {
 
-    private static final long serialVersionUID = -700953652L;
+    private static final long serialVersionUID = 1262243131L;
 
     private static final PathInits INITS = PathInits.DIRECT2;
 
-    public static final QUserLan userLan = new QUserLan("userLan");
+    public static final QCredit credit = new QCredit("credit");
 
     public final QBaseEntity _super = new QBaseEntity(this);
-
-    public final NumberPath<Integer> fluent = createNumber("fluent", Integer.class);
 
     //inherited
     public final NumberPath<Long> id = _super.id;
 
-    public final QLanguage language;
-
-    public final NumberPath<Integer> priority = createNumber("priority", Integer.class);
-
     //inherited
     public final DateTimePath<java.time.LocalDateTime> regDate = _super.regDate;
 
+    public final QSubscribe subscribe;
+
     public final QUser user;
 
-    public QUserLan(String variable) {
-        this(UserLan.class, forVariable(variable), INITS);
+    public QCredit(String variable) {
+        this(Credit.class, forVariable(variable), INITS);
     }
 
-    public QUserLan(Path<? extends UserLan> path) {
+    public QCredit(Path<? extends Credit> path) {
         this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
     }
 
-    public QUserLan(PathMetadata metadata) {
+    public QCredit(PathMetadata metadata) {
         this(metadata, PathInits.getFor(metadata, INITS));
     }
 
-    public QUserLan(PathMetadata metadata, PathInits inits) {
-        this(UserLan.class, metadata, inits);
+    public QCredit(PathMetadata metadata, PathInits inits) {
+        this(Credit.class, metadata, inits);
     }
 
-    public QUserLan(Class<? extends UserLan> type, PathMetadata metadata, PathInits inits) {
+    public QCredit(Class<? extends Credit> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.language = inits.isInitialized("language") ? new QLanguage(forProperty("language")) : null;
+        this.subscribe = inits.isInitialized("subscribe") ? new QSubscribe(forProperty("subscribe")) : null;
         this.user = inits.isInitialized("user") ? new QUser(forProperty("user"), inits.get("user")) : null;
     }
 

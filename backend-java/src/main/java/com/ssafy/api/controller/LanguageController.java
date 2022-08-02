@@ -15,20 +15,20 @@ public class LanguageController {
     private final LanguageService languageService;
     private final Response response;
 
-    @GetMapping("/")
+    @GetMapping("")
     public ResponseEntity<?> getAllLanguage(){
     return response.success(languageService.getAllLanguage()
                             ,"All language success"
                             , HttpStatus.OK);
     }
 
-    @PutMapping("/insert")
+    @PutMapping("")
     public ResponseEntity<?> insertLanguage(@RequestBody LanguageDto languageDto){
         languageService.insertLanguage(languageDto);
         return response.success(HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> removeLanguage(Long id){
         languageService.removeLanguage(id);
         return response.success(HttpStatus.OK);
