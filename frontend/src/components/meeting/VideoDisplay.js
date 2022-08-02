@@ -8,13 +8,14 @@ import classes from './VideoDisplay.module.css'
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 
-const VideoDisplay = ({ size, userData, streamData }) => {
+const VideoDisplay = ({ size, userData, streamManager }) => {
   const videoRef = useRef(null)
 
   useEffect(() => {
-    if (!streamData) return
-    videoRef.current.srcObject = streamData
-  }, [streamData])
+    if (!streamManager) return
+    streamManager.addVideoElement(videoRef.current)
+    console.log(streamManager)
+  }, [streamManager])
 
   return (
     <div className={classes.video_display}>
@@ -38,9 +39,12 @@ const VideoDisplay = ({ size, userData, streamData }) => {
           </div>
           <div className={classes.video_section}>
             <div className={classes.video_wrapper}>
-              <video ref={videoRef} autoPlay playsInline>
-                {/* 영상 배치 */}
-              </video>
+              <video
+                className={classes.video}
+                ref={videoRef}
+                autoPlay
+                playsInline
+              ></video>
             </div>
           </div>
         </section>
@@ -57,7 +61,7 @@ VideoDisplay.propTypes = {
     nickName: PropTypes.string.isRequired,
     hearts: PropTypes.number.isRequired,
   }),
-  streamData: PropTypes.object,
+  streamManager: PropTypes.object,
 }
 
 export default VideoDisplay
