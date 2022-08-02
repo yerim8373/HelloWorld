@@ -19,7 +19,7 @@ public class TipController {
 
     private final JwtTokenUtil jwtTokenUtil;
 
-    @GetMapping("/all")
+    @GetMapping("")
     public ResponseEntity<?> getAllTipByEmail(@RequestHeader("Authorization") String bearerToken){
         String email = jwtTokenUtil.getEmailFromToken(bearerToken);
 
@@ -38,14 +38,14 @@ public class TipController {
                 , HttpStatus.OK);
     }
 
-    @PostMapping("/insert")
+    @PostMapping("")
     public ResponseEntity<?> insertTip(@RequestBody TipDto tipDto){
         tipService.insertTip(tipDto);
         return response.success(HttpStatus.OK);
     }
 
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> removeTip(@PathVariable Long id){
         tipService.removeTip(id);
         return response.success(HttpStatus.OK);
