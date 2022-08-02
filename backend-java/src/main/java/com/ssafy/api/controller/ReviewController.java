@@ -38,19 +38,19 @@ public class ReviewController {
         return response.success(reviewService.getAllReviews(), "getAllReviews success", HttpStatus.OK);
     }
 
-    @GetMapping("/email")
+    @GetMapping("")
     public ResponseEntity<?> getReviewsByEmail(@RequestHeader("Authorization") String bearerToken){
         return response.success(reviewService.getReviewsByEmail(jwtTokenUtil.getEmailFromToken(bearerToken)), "getPostById success", HttpStatus.OK);
     }
 
-    @PostMapping("/insert")
+    @PostMapping("")
     public ResponseEntity<?> insertReview(@RequestHeader("Authorization") String bearerToken
             ,@RequestBody ReviewDto reviewDto) {
         reviewService.insertReview(reviewDto, jwtTokenUtil.getEmailFromToken(bearerToken));
         return response.success(HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> removeReview(@PathVariable Long id){
         reviewService.removeReview(id);
         return response.success(HttpStatus.OK);

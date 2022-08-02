@@ -22,15 +22,17 @@ public class QSubscribe extends EntityPathBase<Subscribe> {
 
     public final QBaseEntity _super = new QBaseEntity(this);
 
-    public final DateTimePath<java.time.LocalDateTime> expireDate = createDateTime("expireDate", java.time.LocalDateTime.class);
+    public final ListPath<Credit, QCredit> creditList = this.<Credit, QCredit>createList("creditList", Credit.class, QCredit.class, PathInits.DIRECT2);
 
     //inherited
     public final NumberPath<Long> id = _super.id;
 
+    public final NumberPath<Long> period = createNumber("period", Long.class);
+
+    public final NumberPath<Integer> price = createNumber("price", Integer.class);
+
     //inherited
     public final DateTimePath<java.time.LocalDateTime> regDate = _super.regDate;
-
-    public final ListPath<User, QUser> user = this.<User, QUser>createList("user", User.class, QUser.class, PathInits.DIRECT2);
 
     public QSubscribe(String variable) {
         super(Subscribe.class, forVariable(variable));

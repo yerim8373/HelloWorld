@@ -25,12 +25,14 @@ public class QLanguage extends EntityPathBase<Language> {
     //inherited
     public final NumberPath<Long> id = _super.id;
 
-    public final StringPath name = createString("name");
+    public final StringPath lan = createString("lan");
 
     public final ListPath<Question, QQuestion> questionList = this.<Question, QQuestion>createList("questionList", Question.class, QQuestion.class, PathInits.DIRECT2);
 
     //inherited
     public final DateTimePath<java.time.LocalDateTime> regDate = _super.regDate;
+
+    public final ListPath<Tip, QTip> tipList = this.<Tip, QTip>createList("tipList", Tip.class, QTip.class, PathInits.DIRECT2);
 
     public QLanguage(String variable) {
         super(Language.class, forVariable(variable));

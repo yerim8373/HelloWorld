@@ -47,19 +47,19 @@ public class PostController {
         return response.success(postService.getPostById(id), "getPostById success", HttpStatus.OK);
     }
 
-    @PutMapping("/update")
+    @PutMapping("")
     public ResponseEntity<?> modifyPost(@RequestBody PostDto postDto){
         postService.modifyPost(postDto);
         return response.success(HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> removePost(@PathVariable Long id){
         postService.removePost(id);
         return response.success(HttpStatus.OK);
     }
 
-    @PostMapping("/insert")
+    @PostMapping("")
     public ResponseEntity<?> insertPost(@RequestHeader("Authorization") String bearerToken
             ,@RequestBody PostDto postDto) {
         postService.insertPost(postDto, jwtTokenUtil.getEmailFromToken(bearerToken));
