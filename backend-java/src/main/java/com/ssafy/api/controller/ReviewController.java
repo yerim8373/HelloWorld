@@ -38,7 +38,7 @@ public class ReviewController {
         return response.success(reviewService.getAllReviews(), "getAllReviews success", HttpStatus.OK);
     }
 
-    @GetMapping("")
+    @GetMapping("/email")
     public ResponseEntity<?> getReviewsByEmail(@RequestHeader("Authorization") String bearerToken){
         return response.success(reviewService.getReviewsByEmail(jwtTokenUtil.getEmailFromToken(bearerToken)), "getPostById success", HttpStatus.OK);
     }

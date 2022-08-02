@@ -5,6 +5,7 @@ import com.ssafy.db.entity.Language;
 import com.ssafy.db.entity.Tip;
 import com.ssafy.db.entity.User;
 import com.ssafy.db.entity.UserLan;
+import com.ssafy.db.repository.LanguageRepository;
 import com.ssafy.db.repository.TipRepository;
 import com.ssafy.db.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -21,10 +22,12 @@ public class TipServiceImpl implements TipService {
 
     private final TipRepository tipRepository;
     private final UserRepository userRepository;
+    private final LanguageService languageService;
     @Override
     public List<TipDto> getAllTipByEmail(String email) {
         List<TipDto> list = new ArrayList<>();
         User user = userRepository.findByEmail(email).get();
+//        Language language = languageService.getLanguageById(user.getId());
         for(Tip tip : tipRepository.findAllByUserId(user.getId())){
             list.add(TipDto.of(tip));
         }

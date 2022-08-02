@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 public class Report extends BaseEntity{
 
     private String src;
-
+    private Boolean isCheckNY;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId")
     private User user;
