@@ -1,4 +1,4 @@
-package com.ssafy.common.exception.handler;
+package com.ssafy.common.exception;
 
 public class InvalidEmailAndPasswordException extends RuntimeException{
     public InvalidEmailAndPasswordException() {

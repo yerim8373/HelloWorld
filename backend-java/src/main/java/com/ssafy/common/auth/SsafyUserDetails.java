@@ -1,11 +1,14 @@
 package com.ssafy.common.auth;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.ssafy.db.entity.User;
@@ -20,12 +23,15 @@ public class SsafyUserDetails implements UserDetails {
     boolean accountNonLocked;
     boolean credentialNonExpired;
     boolean enabled = false;
-    List<GrantedAuthority> roles = new ArrayList<>();
+    List<? extends GrantedAuthority> roles = new ArrayList<>();
     
     public SsafyUserDetails(User user) {
     		super();
     		this.user = user;
-    }
+		List<? extends GrantedAuthority> authorities = user.getAuthorities().stream().map(auth -> new SimpleGrantedAuthority(auth.toString()))
+				.collect(Collectors.toList());
+		this.roles = authorities;
+	}
     
     public User getUser() {
     		return this.user;
@@ -58,7 +64,7 @@ public class SsafyUserDetails implements UserDetails {
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return this.roles;
 	}
-	public void setAuthorities(List<GrantedAuthority> roles) {
+	public void setAuthorities(List<? extends GrantedAuthority> roles) {
 		this.roles = roles;
 	}
 }
