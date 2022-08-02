@@ -35,7 +35,6 @@ function SignupForm2() {
               </font>
             </font>
           </div>
-          <p>회원가입2 //휴대폰, 국적 컴포넌트 x</p>
           <div>
             <Input id="이름" type="text" placeholder="본명을 입력해주세요" />
           </div>
@@ -82,16 +81,18 @@ function SignupForm2() {
         <div>
           <div>
             <tr>
-              <td>
+              <td className={classes.signup_table_width}>
                 <Button
                   size="small"
+                  color="neutral"
                   className={classes.button_error}
                   onEvent={routerPushHandler2}
                   text="이전"
                 />
               </td>
-              <Button size="small" onEvent={routerPushHandler} text="다음" />
-              <td></td>
+              <td className={classes.signup_table_width2}>
+                <Button size="small" onEvent={routerPushHandler} text="다음" />
+              </td>
             </tr>
           </div>
         </div>
