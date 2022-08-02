@@ -4,6 +4,8 @@ import com.ssafy.api.service.CustomUserDetailService;
 import com.ssafy.api.service.UserService;
 import com.ssafy.common.auth.JwtAuthenticationFilter;
 import com.ssafy.common.auth.SsafyUserDetailService;
+import com.ssafy.common.exception.handler.JwtAccessDeniedHandler;
+import com.ssafy.common.exception.handler.JwtAuthenticationEntryPoint;
 import com.ssafy.common.model.response.Response;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +36,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final PasswordEncoder passwordEncoder;
     // Password 인코딩 방식에 BCrypt 암호화 방식 사용
 
+
+    private final JwtAccessDeniedHandler accessDeniedHandler;
+    private final JwtAuthenticationEntryPoint authenticationEntryPoint;
 
     // DAO 기반으로 Authentication Provider를 생성
     // BCrypt Password Encoder와 UserDetailService 구현체를 설정
@@ -68,6 +73,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .httpBasic().disable()
                 .csrf().disable()
+                .exceptionHandling()
+                .accessDeniedHandler(accessDeniedHandler)
+                .authenticationEntryPoint(authenticationEntryPoint)
+                .and()
+
+                .headers()
+                .frameOptions()
+                .sameOrigin()
+                .and()
+
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // 토큰 기반 인증이므로 세션 사용 하지않음
                 .and()
 
