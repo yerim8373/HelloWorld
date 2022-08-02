@@ -5,8 +5,10 @@ import Input from '../common/Input'
 import Button from '../common/Button'
 import classes from './SignupForm.module.css'
 
+import Dropdown from '../common/Dropdown'
+
 import RadioBtnGroup from '../common/RadioBtnGroup'
-//단순히 넣기만 해도 오류뜹니다
+//단순히 넣기만 해도 오류뜹니다 => 다시확인하기
 
 //////////////////////////////////////////////////////////////////
 function SignupForm2() {
@@ -33,7 +35,7 @@ function SignupForm2() {
               </font>
             </font>
           </div>
-          <p>회원가입2 //휴대폰, 성별, 국적 컴포넌트 x</p>
+          <p>회원가입2 //휴대폰, 국적 컴포넌트 x</p>
           <div>
             <Input id="이름" type="text" placeholder="본명을 입력해주세요" />
           </div>
@@ -51,20 +53,28 @@ function SignupForm2() {
               placeholder="전화번호 (하이픈 제외)"
             />
           </div>
+          <div></div>
+          <p className={classes.signup_input_label}>성별</p>
           <div>
-            <Input
-              id="성별"
-              type="text"
-              placeholder="여기는 radio, but 적용하면 오류뜸"
-            />
+            <tr>
+              <td>
+                <RadioBtnGroup
+                  items={[
+                    { name: '남자', value: '남자' },
+                    { name: '여자', value: '여자' },
+                    { name: '그 외', value: '그 외' },
+                  ]}
+                ></RadioBtnGroup>
+              </td>
+            </tr>
           </div>
           <div>
             <tr>
               <td>
-                <Input id="국적" type="text" placeholder="국적" />
+                <Input id="국적" type="text" placeholder="dropdown" />
               </td>
               <td>
-                <Input id="나이" type="text" placeholder="나이" />
+                {/* <Input id="나이" type="text" placeholder="나이" /> */}
               </td>
             </tr>
           </div>
@@ -74,12 +84,13 @@ function SignupForm2() {
             <tr>
               <td>
                 <Button
+                  size="small"
                   className={classes.button_error}
                   onEvent={routerPushHandler2}
                   text="이전"
                 />
               </td>
-              <Button onEvent={routerPushHandler} text="다음" />
+              <Button size="small" onEvent={routerPushHandler} text="다음" />
               <td></td>
             </tr>
           </div>
