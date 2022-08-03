@@ -46,6 +46,7 @@ public class PostController {
         return response.success(HttpStatus.OK);
     }
 
+    //이 메서드 어드민인지 확인하는 로직이 더 필요해보임.
     @DeleteMapping("/{id}")
     public ResponseEntity<?> removePost(@PathVariable Long id){
         postService.removePost(id);
