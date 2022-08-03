@@ -38,9 +38,18 @@
 }
 
 .valid_label_true {
-  color : var(--color-success);
+  color: var(--color-success);
 }
 
 .valid_label_error {
-  color : var(--color-error);
+  color: var(--color-error);
+}
+
+.input_small {
+  display: block;
+  width: 130px;
+  border: none;
+  outline: none;
+  border-bottom: 1px solid #000000;
+  padding: 8px 0;
 }
