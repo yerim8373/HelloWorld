@@ -42,6 +42,10 @@
   line-height: 1.5;
 }
 
+.scroll {
+  overflow-y: scroll;
+}
+
 .actionsContainer {
   display: flex;
   justify-content: center;
