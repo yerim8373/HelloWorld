@@ -1,26 +1,14 @@
 import PropTypes from 'prop-types'
-import { NavLink } from 'react-router-dom'
-import Checkbox from '../common/Checkbox'
-import ProfileImageSelector from '../common/ProfileImageSelector'
+import Input from '../common/Input'
 import SelectBox from '../common/SelectBox'
 import classes from './SignupStep.module.css'
 
 function SignupStep3({ step }) {
   return (
     <div className={`${classes.signupStepContainer} ${classes['step' + step]}`}>
+      <Input id="국적" type="text" placeholder="dropdown" />
       <p className={classes.signup_input_label}>사용 언어</p>
       <SelectBox />
-      <p className={classes.signup_input_label}>프로필 이미지 </p>
-      <ProfileImageSelector />
-      <Checkbox id="privacy-policy">
-        <p>
-          {' '}
-          <NavLink to="/auth/find-info">
-            <span className={classes.signup_find_info}> 개인정보 처리방침</span>
-          </NavLink>
-          에 동의합니다
-        </p>
-      </Checkbox>
     </div>
   )
 }
