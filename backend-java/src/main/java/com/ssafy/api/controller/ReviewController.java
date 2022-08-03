@@ -1,6 +1,5 @@
 package com.ssafy.api.controller;
 
-import com.ssafy.api.dto.PostDto;
 import com.ssafy.api.dto.ReviewDto;
 import com.ssafy.api.service.ReviewService;
 import com.ssafy.api.service.UserService;
@@ -40,17 +39,17 @@ public class ReviewController {
 
     @GetMapping("/email")
     public ResponseEntity<?> getReviewsByEmail(@RequestHeader("Authorization") String bearerToken){
-        return response.success(reviewService.getReviewsByEmail(jwtTokenUtil.getEmailFromToken(bearerToken)), "getPostById success", HttpStatus.OK);
+        return response.success(reviewService.getReviewsByEmail(jwtTokenUtil.getEmailFromBearerToken(bearerToken)), "getPostById success", HttpStatus.OK);
     }
 
-    @PostMapping("/insert")
+    @PostMapping("")
     public ResponseEntity<?> insertReview(@RequestHeader("Authorization") String bearerToken
             ,@RequestBody ReviewDto reviewDto) {
-        reviewService.insertReview(reviewDto, jwtTokenUtil.getEmailFromToken(bearerToken));
+        reviewService.insertReview(reviewDto, jwtTokenUtil.getEmailFromBearerToken(bearerToken));
         return response.success(HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> removeReview(@PathVariable Long id){
         reviewService.removeReview(id);
         return response.success(HttpStatus.OK);

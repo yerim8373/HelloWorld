@@ -19,9 +19,9 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 public class Subscribe extends BaseEntity{
-
-    private LocalDateTime expireDate;
+    private int price;
+    private long period;
 
     @OneToMany(mappedBy = "subscribe")
-    private List<User> user = new ArrayList<>();
+    private List<Credit> creditList = new ArrayList<>();
 }

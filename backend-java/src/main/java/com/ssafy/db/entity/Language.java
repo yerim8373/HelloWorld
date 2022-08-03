@@ -16,5 +16,6 @@ public class Language extends BaseEntity{
 
     @OneToMany(mappedBy = "language")
     private List<Question> questionList = new ArrayList<>();
-
+    @OneToMany(mappedBy = "language")
+    private List<Tip> tipList = new ArrayList<>();
 }

@@ -40,7 +40,7 @@ public class User{
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "userAuth",
             joinColumns = {
@@ -54,21 +54,17 @@ public class User{
     private boolean activated;
 
     private Boolean blackListNY;
-    private LocalDate blackExpireDate;
-
+    private LocalDateTime blackExpireDate;
+    private LocalDateTime membershipExpireDate;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="countryId")
     private Country country;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="subscribeId")
-    private Subscribe subscribe;
 
     @OneToMany(mappedBy = "user")
     private List<Report> reportList = new ArrayList<>();
     @OneToMany(mappedBy = "user")
     private List<Review> reviewList = new ArrayList<>();
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "toUser")
     private List<HeartHistory> heartHistoryList = new ArrayList<>();
     @OneToMany(mappedBy = "user")
     private List<Notification> notificationList = new ArrayList<>();
@@ -78,13 +74,19 @@ public class User{
     private List<Runtime> runtimeList = new ArrayList<>();
     @OneToMany(mappedBy = "user" )
     private List<UserLan> userLanList = new ArrayList<>();
-
+    @OneToMany(mappedBy = "user")
+    private List<Credit> creditList = new ArrayList<>();
 
     public void setCountry(Country country){
         this.country = country;
     }
-    public void setSubscribe(Subscribe subscribe){
-        this.subscribe = subscribe;
-        subscribe.getUser().add(this);
+
+    public void addPeriod(long period) {
+        if(this.membershipExpireDate == null || this.membershipExpireDate.isBefore(LocalDateTime.now())){
+            this.membershipExpireDate = LocalDateTime.now().plusMonths(period);
+        }
+        else{
+            this.membershipExpireDate = this.membershipExpireDate.plusMonths(period);
+        }
     }
 }

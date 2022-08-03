@@ -13,14 +13,12 @@ import java.time.format.DateTimeFormatter;
 @NoArgsConstructor
 public class LanguageDto {
     private Long languageId;
-    private String regDate;
     private String lan;
 
     public static LanguageDto of(Language language){
         return new LanguageDtoBuilder()
                 .lan(language.getLan())
                 .languageId(language.getId())
-                .regDate(language.getRegDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss")))
                 .build();
     }
 }

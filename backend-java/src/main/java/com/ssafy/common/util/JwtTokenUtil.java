@@ -5,10 +5,8 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.*;
 
-import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.ssafy.api.dto.SignInDTO;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
@@ -139,7 +137,6 @@ public class JwtTokenUtil {
         String authorities = auth.getAuthorities().stream().map(GrantedAuthority::getAuthority)
                 .collect(Collectors.joining(","));
 
-
         String accessToken = JWT.create()
                 .withSubject(signInDTO.getEmail())
                 .withClaim("auth", authorities)
@@ -162,12 +159,37 @@ public class JwtTokenUtil {
                 .refreshToken(refreshToken)
                 .build();
     }
-    public String getEmailFromToken(String bearerToken) {
+
+    public JWToken reissueAccessToken(String email, Authentication auth){
+        Date date = new Date();
+        Long accessExpires = 30*60*1000L; // 30minutes
+
+        String authorities = auth.getAuthorities().stream().map(GrantedAuthority::getAuthority)
+                .collect(Collectors.joining(","));
+
+        String accessToken = JWT.create()
+                .withSubject(email)
+                .withClaim("auth", authorities)
+                .withExpiresAt(new Date(date.getTime() + accessExpires))
+                .withIssuer(ISSUER)
+                .withIssuedAt(Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()))
+                .sign(Algorithm.HMAC512(secretKey.getBytes()));
+
+        return JWToken.builder()
+                .accessToken(accessToken)
+                .build();
+    }
+
+    public String getEmailFromBearerToken(String bearerToken) {
         if(bearerToken.startsWith(TOKEN_PREFIX)) {
             String token = bearerToken.substring(TOKEN_PREFIX.length());
             return decodeToken(token).getSubject();
         }
         throw new RuntimeException();
+    }
+
+    public String getEmailFromRefreshToken(String refreshToken){
+        return decodeToken(refreshToken).getSubject();
     }
 
     public static DecodedJWT decodeToken(String token) {

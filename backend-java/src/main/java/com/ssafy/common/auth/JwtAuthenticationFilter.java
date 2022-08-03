@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.ssafy.common.model.response.Response;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -27,7 +29,7 @@ import com.ssafy.db.entity.User;
  */
 public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
 	private final UserService userService;
-
+    private static final Logger logger= LoggerFactory.getLogger(JwtAuthenticationFilter.class);
 	
 	public JwtAuthenticationFilter(AuthenticationManager authenticationManager, UserService userService) {
 		super(authenticationManager);
@@ -39,13 +41,12 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
 			throws ServletException, IOException {
 		// Read the Authorization header, where the JWT Token should be
         String header = req.getHeader(JwtTokenUtil.HEADER_STRING);
-
         // If header does not contain BEARER or is null delegate to Spring impl and exit
         if (header == null || !header.startsWith(JwtTokenUtil.TOKEN_PREFIX)) {
             filterChain.doFilter(req, resp);
             return;
         }
-        
+
         try {
             // If header is present, try grab user principal from database and perform authorization
             Authentication authentication = getAuthentication(req);
@@ -69,7 +70,7 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
             JwtTokenUtil.handleError(token);
             DecodedJWT decodedJWT = verifier.verify(token.replace(JwtTokenUtil.TOKEN_PREFIX, ""));
             String email = decodedJWT.getSubject();
-            
+
             // Search in the DB if we find the user by token subject (username)
             // If so, then grab user details and create spring auth token using username, pass, authorities/roles
             if (email != null) {
@@ -81,6 +82,7 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
                 		UsernamePasswordAuthenticationToken jwtAuthentication = new UsernamePasswordAuthenticationToken(email,
                 				null, userDetails.getAuthorities());
                 		jwtAuthentication.setDetails(userDetails);
+
                 		return jwtAuthentication;
                 }
             }
