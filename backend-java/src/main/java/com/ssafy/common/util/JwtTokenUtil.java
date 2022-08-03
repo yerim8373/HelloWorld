@@ -5,10 +5,8 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.*;
 
-import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.ssafy.api.dto.SignInDTO;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
@@ -182,12 +180,16 @@ public class JwtTokenUtil {
                 .build();
     }
 
-    public String getEmailFromToken(String bearerToken) {
+    public String getEmailFromBearerToken(String bearerToken) {
         if(bearerToken.startsWith(TOKEN_PREFIX)) {
             String token = bearerToken.substring(TOKEN_PREFIX.length());
             return decodeToken(token).getSubject();
         }
         throw new RuntimeException();
+    }
+
+    public String getEmailFromRefreshToken(String refreshToken){
+        return decodeToken(refreshToken).getSubject();
     }
 
     public static DecodedJWT decodeToken(String token) {

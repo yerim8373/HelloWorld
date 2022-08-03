@@ -1,6 +1,7 @@
 package com.ssafy.api.service;
 
 import com.ssafy.api.dto.SignInDTO;
+import com.ssafy.common.auth.SsafyUserDetails;
 import com.ssafy.common.exception.handler.InvalidEmailAndPasswordException;
 import com.ssafy.common.util.JWToken;
 import com.ssafy.common.util.JwtTokenUtil;
@@ -56,8 +57,26 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public JWToken reissue(String email, String refreshToken) {
-        if(redisUtil.get())
-        return jwtTokenUtil.reissueAccessToken(email)
+    public JWToken reissue(String refreshToken) {
+        String email = jwtTokenUtil.getEmailFromRefreshToken(refreshToken);
+
+        if(email==null){
+            //예외처리
+            return null;
+        }
+
+        if(!refreshToken.equals(redisUtil.get(email))){
+            //예외처리
+            return null;
+        }
+
+        User user = userService.getUserByEmail(email);
+        SsafyUserDetails userDetails = new SsafyUserDetails(user);
+        UsernamePasswordAuthenticationToken jwtAuthentication = new UsernamePasswordAuthenticationToken(email,
+                null, userDetails.getAuthorities());
+
+        Authentication auth = authenticationManagerBuilder.getObject().authenticate(jwtAuthentication);
+
+        return jwtTokenUtil.reissueAccessToken(email, auth);
     }
 }
