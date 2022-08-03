@@ -23,3 +23,13 @@
 .step4 {
   transform: translateX(calc(var(--signup-form-width) * -3));
 }
+
+.signup_text_center {
+  text-align: center;
+  align-items: center;
+  align-content: center;
+}
+
+.signup_find_info {
+  color: blue;
+}
