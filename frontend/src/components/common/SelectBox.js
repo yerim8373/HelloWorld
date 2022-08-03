@@ -1,3 +1,5 @@
+//이 SelectBox는 멀티 선택이 가능합니다.
+
 import React, { useState } from 'react'
 import Select from 'react-select'
 import './SelectBox.module.css'

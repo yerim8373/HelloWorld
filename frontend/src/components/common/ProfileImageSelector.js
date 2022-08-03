@@ -62,9 +62,7 @@ export default function ProfileImageSelector() {
           <div
             key={img}
             data-idx={idx}
-            className={`${classes.imageWrapper} ${
-              currImage === img ? classes.selected : ''
-            }`}
+            className={classes.imageWrapper}
             onClick={handleClick}
           >
             <ProfileImage src={img} size="small" />

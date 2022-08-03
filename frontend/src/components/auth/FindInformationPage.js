@@ -2,8 +2,8 @@
 
 import React from 'react'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
-import Sheet from './Sheet'
-import Button from './Button'
+import Sheet from '../common/Sheet'
+import Button from '../common/Button'
 import classes from './FindInformationPage.module.css'
 
 function FindInformationPage() {
