@@ -4,7 +4,7 @@
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1rem;
   transition: transform 0.2s;
 }
 
@@ -18,4 +18,8 @@
 
 .step3 {
   transform: translateX(calc(var(--signup-form-width) * -2));
+}
+
+.step4 {
+  transform: translateX(calc(var(--signup-form-width) * -3));
 }

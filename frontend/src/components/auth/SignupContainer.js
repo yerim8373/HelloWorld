@@ -4,12 +4,13 @@ import SignupPicture from '../../components/common/SignupPicture'
 import SignupStep1 from './SignupStep1'
 import SignupStep2 from './SignupStep2'
 import SignupStep3 from './SignupStep3'
-/*import StepIndicatorSignup from '../common/StepIndicatorSignup'*/
+import SignupStep4 from './SignupStep4'
+import StepIndicator from '../common/StepIndicator'
 import Sheet from '../common/Sheet'
 import Button from '../common/Button'
 import classes from './SignupContainer.module.css'
 
-//나중에 여기에 stepindicator_signup.js import하기
+const MAX_STEP = 4
 
 export default function SignupContainer() {
   const [step, setStep] = useState(1)
@@ -33,7 +34,8 @@ export default function SignupContainer() {
     const currStep = queryString.get('step')
 
     // 쿼리스트링이 없거나 범위 밖이라면 리다이렉트
-    if (!currStep || currStep < 1 || currStep > 3) navigate('/signup?step=1')
+    if (!currStep || currStep < 1 || currStep > MAX_STEP)
+      navigate('/signup?step=1')
 
     setStep(parseInt(currStep))
   }, [search, navigate])
@@ -41,7 +43,8 @@ export default function SignupContainer() {
   return (
     <div className="flex_row">
       <SignupPicture></SignupPicture>
-      <div className="flex_row_center width_50vw">
+      <div className={`${classes.signupContainer} flex_row_center width_50vw`}>
+        <StepIndicator path="/signup" step={step} max={MAX_STEP} />
         <Sheet size="large">
           {created ? (
             <div className={classes.successContainer}>
@@ -65,12 +68,13 @@ export default function SignupContainer() {
                 <SignupStep1 step={step} />
                 <SignupStep2 step={step} />
                 <SignupStep3 step={step} />
+                <SignupStep4 step={step} />
               </div>
               <div className={classes.stepActions}>
                 {step > 1 && (
                   <Button onEvent={moveToPrev} text="이전" color="neutral" />
                 )}
-                {step === 3 ? (
+                {step === MAX_STEP ? (
                   <Button onEvent={handleSubmit} text="가입하기" />
                 ) : (
                   <Button onEvent={moveToNext} text="다음" />
