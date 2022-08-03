@@ -2,7 +2,6 @@ package com.ssafy.api.service;
 
 import com.ssafy.api.dto.SignInDTO;
 import com.ssafy.common.auth.SsafyUserDetails;
-import com.ssafy.common.exception.handler.InvalidEmailAndPasswordException;
 import com.ssafy.common.exception.InvalidEmailAndPasswordException;
 import com.ssafy.common.util.JWToken;
 import com.ssafy.common.util.JwtTokenUtil;
