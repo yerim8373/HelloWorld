@@ -268,7 +268,7 @@ function PrivacyPolicyContainer({ handleModal }) {
         </p>
       </>
       <div className={classes.buttons}>
-        <Button text="돌아가기" onEvent={handleModal}></Button>
+        <Button text="돌아가기" onEvent={handleModal} color="neutral"></Button>
       </div>
     </div>
   )
