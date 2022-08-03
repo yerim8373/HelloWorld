@@ -37,7 +37,7 @@ function ModalSection({ children, opened, handleModal, contents, locked }) {
       <section className={classes.modal}>
         {contents ? (
           <>
-            <header>
+            <header className={classes.modalHeader}>
               <h1 className="subtitle">{contents.title}</h1>
               {contents.subInfo && (
                 <div className={classes.subInfo}>
