@@ -3,11 +3,11 @@ package com.ssafy.api.service;
 import com.ssafy.api.dto.ReviewDto;
 import com.ssafy.db.entity.Review;
 import com.ssafy.db.repository.ReviewRepository;
-import com.ssafy.db.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,11 +41,12 @@ public class ReviewServiceImpl implements ReviewService{
     // 리뷰 작성
     @Override
     public void insertReview(ReviewDto reviewDto, String email) {
-        reviewRepository.save(Review.builder()
-                        .content(reviewDto.getContent())
-                        .score(reviewDto.getScore())
-                        .build())
-                .setUser(userService.getUserByEmail(email));
+        Review review = reviewRepository.save(Review.builder()
+                .content(reviewDto.getContent())
+                .score(reviewDto.getScore())
+                .build());
+        review.setUser(userService.getUserByEmail(email));
+        review.setRegDate(LocalDateTime.now());
     }
 
     @Override
