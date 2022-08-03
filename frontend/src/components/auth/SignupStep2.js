@@ -26,6 +26,7 @@ function SignupStep2({ step }) {
           { name: '그 외', value: '그 외' },
         ]}
       />
+      <Input id="나이" type="number" placeholder="나이를 입력해주세요" />
       <Input id="국적" type="text" placeholder="dropdown" />
     </div>
   )
