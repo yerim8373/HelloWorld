@@ -2,14 +2,8 @@ import { Routes, Route, useLocation } from 'react-router-dom'
 import HeaderNavAuth from './components/common/HeaderNavAuth'
 import HeaderNav from './components/common/HeaderNav'
 
-import Login from './pages/auth/login'
+import LoginPage from './pages/auth/LoginPage'
 import SignupPage from './pages/auth/SignupPage'
-import SignupStep1 from './components/auth/SignupStep1'
-import SignupStep2 from './components/auth/SignupStep2'
-import Signup from './pages/auth/signup'
-import Signup2 from './pages/auth/signup2'
-import Signup3 from './pages/auth/signup3'
-import Signup4 from './pages/auth/signup4'
 import LandingPage from './pages/landingPage'
 import FindInfo from './pages/auth/find-info'
 import FindEmail from './pages/auth/find-email'
@@ -26,11 +20,7 @@ import HeartPage from './pages/settings/HeartPage'
 import WithdrawalPage from './pages/settings/WithdrawalPage'
 
 const authPathSet = new Set([
-  '/auth',
-  '/auth/signup',
-  '/auth/signup2',
-  '/auth/signup3',
-  '/auth/signup4',
+  '/login',
   '/auth/find-info',
   '/auth/find-email',
   '/auth/find-password',
@@ -57,12 +47,8 @@ function App() {
       <main>
         <Routes>
           <Route path="/" element={<LandingPage />} />
-          <Route path="/auth" element={<Login />} />
+          <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
-          <Route path="/auth/signup" element={<Signup />} />
-          <Route path="/auth/signup2" element={<Signup2 />} />
-          <Route path="/auth/signup3" element={<Signup3 />} />
-          <Route path="/auth/signup4" element={<Signup4 />} />
           <Route path="/auth/find-info" element={<FindInfo />} />
           <Route path="/auth/find-email" element={<FindEmail />} />
           <Route path="/auth/find-password" element={<FindPassword />} />
