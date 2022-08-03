@@ -1,11 +1,11 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+
+import { NavLink, useNavigate } from 'react-router-dom'
 import MenuBtn from './MenuBtn'
 import classes from './HeaderNav.module.css'
 import Logo from './Logo'
 import ProfileImage from './ProfileImage'
 import Button from './Button'
-import profile from '../../images/profile.jpg'
 
 // import Link from "next/link";
 // import { useRouter } from "next/router";
