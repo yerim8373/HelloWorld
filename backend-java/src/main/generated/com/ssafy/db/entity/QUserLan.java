@@ -31,6 +31,8 @@ public class QUserLan extends EntityPathBase<UserLan> {
 
     public final QLanguage language;
 
+    public final NumberPath<Integer> priority = createNumber("priority", Integer.class);
+
     //inherited
     public final DateTimePath<java.time.LocalDateTime> regDate = _super.regDate;
 

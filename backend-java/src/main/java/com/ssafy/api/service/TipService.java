@@ -7,8 +7,8 @@ import com.ssafy.db.entity.Post;
 import java.util.List;
 
 public interface TipService {
-    List<TipDto> getAllTipsByLan(String lan);
-    TipDto getTipByLan(String lan);
+    List<TipDto> getAllTipByEmail(String email);
+    TipDto getRandomTipByEmail(String email);
     void removeTip(Long id);
     void insertTip(TipDto tipDto);
 

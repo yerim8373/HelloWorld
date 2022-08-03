@@ -6,4 +6,6 @@ import com.ssafy.common.util.JWToken;
 public interface AuthService {
     JWToken login(SignInDTO signInDTO);
     boolean checkRightPw (SignInDTO signInDTO);
+    void logout(String refreshToken);
+    JWToken reissue(String refreshToken);
 }

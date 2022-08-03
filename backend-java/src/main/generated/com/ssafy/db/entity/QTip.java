@@ -7,6 +7,7 @@ import com.querydsl.core.types.dsl.*;
 import com.querydsl.core.types.PathMetadata;
 import javax.annotation.Generated;
 import com.querydsl.core.types.Path;
+import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
@@ -17,6 +18,8 @@ public class QTip extends EntityPathBase<Tip> {
 
     private static final long serialVersionUID = -1219619431L;
 
+    private static final PathInits INITS = PathInits.DIRECT2;
+
     public static final QTip tip = new QTip("tip");
 
     public final QBaseEntity _super = new QBaseEntity(this);
@@ -26,19 +29,30 @@ public class QTip extends EntityPathBase<Tip> {
     //inherited
     public final NumberPath<Long> id = _super.id;
 
+    public final QLanguage language;
+
     //inherited
     public final DateTimePath<java.time.LocalDateTime> regDate = _super.regDate;
 
     public QTip(String variable) {
-        super(Tip.class, forVariable(variable));
+        this(Tip.class, forVariable(variable), INITS);
     }
 
     public QTip(Path<? extends Tip> path) {
-        super(path.getType(), path.getMetadata());
+        this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
     }
 
     public QTip(PathMetadata metadata) {
-        super(Tip.class, metadata);
+        this(metadata, PathInits.getFor(metadata, INITS));
+    }
+
+    public QTip(PathMetadata metadata, PathInits inits) {
+        this(Tip.class, metadata, inits);
+    }
+
+    public QTip(Class<? extends Tip> type, PathMetadata metadata, PathInits inits) {
+        super(type, metadata, inits);
+        this.language = inits.isInitialized("language") ? new QLanguage(forProperty("language")) : null;
     }
 
 }
