@@ -3,6 +3,9 @@ import HeaderNavAuth from './components/common/HeaderNavAuth'
 import HeaderNav from './components/common/HeaderNav'
 
 import Login from './pages/auth/login'
+import SignupPage from './pages/auth/SignupPage'
+import SignupStep1 from './components/auth/SignupStep1'
+import SignupStep2 from './components/auth/SignupStep2'
 import Signup from './pages/auth/signup'
 import Signup2 from './pages/auth/signup2'
 import Signup3 from './pages/auth/signup3'
@@ -22,21 +25,27 @@ import PasswordPage from './pages/settings/PasswordPage'
 import HeartPage from './pages/settings/HeartPage'
 import WithdrawalPage from './pages/settings/WithdrawalPage'
 
+const authPathSet = new Set([
+  '/auth',
+  '/auth/signup',
+  '/auth/signup2',
+  '/auth/signup3',
+  '/auth/signup4',
+  '/auth/find-info',
+  '/auth/find-email',
+  '/auth/find-password',
+  '/signup',
+])
+
 function App() {
-  const location = useLocation()
+  const { pathname: path } = useLocation()
 
   let selectedNav = ''
-  if (location.pathname.includes('auth')) {
-    if (
-      location.pathname === '/auth' ||
-      location.pathname === '/auth/signup' ||
-      location.pathname === '/auth/signup2' ||
-      location.pathname === '/auth/signup3' ||
-      location.pathname === '/auth/signup4'
-    ) {
-      selectedNav = <HeaderNavAuth color="white" fixed />
-    } else {
+  if (authPathSet.has(path)) {
+    if (path.includes('find-email') || path.includes('find-password')) {
       selectedNav = <HeaderNavAuth color="black" />
+    } else {
+      selectedNav = <HeaderNavAuth color="white" fixed />
     }
   } else {
     selectedNav = <HeaderNav />
@@ -49,6 +58,7 @@ function App() {
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/auth" element={<Login />} />
+          <Route path="/signup" element={<SignupPage />} />
           <Route path="/auth/signup" element={<Signup />} />
           <Route path="/auth/signup2" element={<Signup2 />} />
           <Route path="/auth/signup3" element={<Signup3 />} />
