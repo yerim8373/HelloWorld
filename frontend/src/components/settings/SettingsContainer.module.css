@@ -1,0 +1,27 @@
+.settingsContainer {
+  display: flex;
+  justify-content: center;
+  gap: 4rem;
+}
+
+.leftContainer {
+  flex: 1;
+}
+
+.rightContainer {
+  flex: 4;
+}
+
+.menuContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 8rem;
+}
+
+.safeItems,
+.unsafeItem {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2rem;
+}
