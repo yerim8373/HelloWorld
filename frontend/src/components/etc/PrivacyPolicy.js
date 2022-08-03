@@ -23,5 +23,3 @@ export default function MeetingEntrySection() {
     </>
   )
 }
-
-//이게 사실 signup3으로 가야하는 내용임! 이걸 성찬오빠가 깃에 올리면 추가적으로 수정=> 충돌방지!!

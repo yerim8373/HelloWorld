@@ -2,9 +2,6 @@ import PropTypes from 'prop-types'
 import Input from '../common/Input'
 import SelectBox from '../common/SelectBox'
 import classes from './SignupForm.module.css'
-import Modal from '../common/Modal'
-
-import PrivacyPolicyContainer from '../etc/PrivacyPolicyContainer'
 
 function SignupStep3({ step }) {
   return (
