@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -17,12 +18,12 @@ import java.util.Optional;
 public class UserLanServiceImpl implements UserLanService{
 
     private final UserLanRepository userLanRepository;
-    private final UserService userService;
     private final LanguageService languageService;
 
     @Override
     public List<UserLanDto> getUserLanByEmail(String email) {
         List<UserLanDto> list = new ArrayList<>();
+
         for (UserLan userLan : userLanRepository.findUserLanByEmail(email)){
             list.add(UserLanDto.of(userLan));
         }
@@ -31,19 +32,21 @@ public class UserLanServiceImpl implements UserLanService{
 
 
     @Override
-    public void insertUserLan(UserLanDto userLanDto) {
+    public UserLan insertUserLan(UserLanDto userLanDto) {
         UserLan userLan = userLanRepository.save(UserLan.builder()
                 .fluent(userLanDto.getFluent())
                 .priority(userLanDto.getPriority())
                 .build());
-        userLan.setUser(userService.getUserById(userLanDto.getUserId()));
         userLan.setLanguage(languageService.getLanguageById(userLanDto.getLanguage().getLanguageId()));
+//        userLan.setUser(userLanDto.);
+        userLan.setRegDate(LocalDateTime.now());
+        return userLan;
     }
 
     @Override
     public void modifyUserLan(UserLanDto userLanDto) {
-        UserLan userLan = getOne(userLanDto.getUserId());
-        userLan.modify(userLanDto);
+//        UserLan userLan = getOne(userLanDto.getUserId());
+//        userLan.modify(userLanDto);
     }
 
     @Override

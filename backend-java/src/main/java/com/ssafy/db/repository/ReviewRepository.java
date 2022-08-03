@@ -9,6 +9,6 @@ import java.util.List;
 
 @Repository
 public interface ReviewRepository extends JpaRepository<Review, Long> {
-    @Query("select r from Review r join fetch User u where u.email = :email")
+    @Query("select r from Review r where r.user.email = :email")
     List<Review> findReviewByEmail(@Param("email")String Email);
 }

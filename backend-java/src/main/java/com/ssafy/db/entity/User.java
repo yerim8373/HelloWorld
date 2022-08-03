@@ -3,7 +3,6 @@ package com.ssafy.db.entity;
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -73,7 +72,7 @@ public class User{
     @OneToMany(mappedBy = "user")
     private List<Runtime> runtimeList = new ArrayList<>();
     @OneToMany(mappedBy = "user" )
-    private List<UserLan> userLanList = new ArrayList<>();
+    private final List<UserLan> userLanList = new ArrayList<>();
     @OneToMany(mappedBy = "user")
     private List<Credit> creditList = new ArrayList<>();
 

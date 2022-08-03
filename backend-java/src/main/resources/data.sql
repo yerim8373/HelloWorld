@@ -11,6 +11,18 @@ insert into
     value
     (1,'ROLE_ADMIN');
 insert into
+    user_auth
+    value
+    (1,'ROLE_USER');
+insert into
+    user_auth
+    value
+    (1,'ROLE_VIP');
+insert into
     country
     values
     (0, now(), 'KOR'), (0, now(), 'ENG'), (0, now(), 'JPN'), (0, now(), 'FRN'), (0, now(), 'CHN');
+insert into
+    language
+    values
+    (0, now(), 'KOR'),(0, now(), 'ENG');

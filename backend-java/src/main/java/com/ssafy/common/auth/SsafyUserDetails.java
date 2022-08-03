@@ -1,17 +1,13 @@
 package com.ssafy.common.auth;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
-
+import com.ssafy.db.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.ssafy.db.entity.User;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * 현재 액세스 토큰으로 부터 인증된 유저의 부가 상세정보(활성화 여부, 만료, 롤 등) 정의.
@@ -28,9 +24,9 @@ public class SsafyUserDetails implements UserDetails {
     public SsafyUserDetails(User user) {
     		super();
     		this.user = user;
-		List<? extends GrantedAuthority> authorities = user.getAuthorities().stream().map(auth -> new SimpleGrantedAuthority(auth.toString()))
-				.collect(Collectors.toList());
-		this.roles = authorities;
+//		List<? extends GrantedAuthority> authorities = user.getAuthorities().stream().map(auth -> new SimpleGrantedAuthority(auth.toString()))
+//				.collect(Collectors.toList());
+//		this.roles = authorities;
 	}
     
     public User getUser() {
