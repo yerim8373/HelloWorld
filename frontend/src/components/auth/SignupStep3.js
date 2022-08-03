@@ -4,6 +4,9 @@ import Checkbox from '../common/Checkbox'
 import ProfileImageSelector from '../common/ProfileImageSelector'
 import SelectBox from '../common/SelectBox'
 import classes from './SignupStep.module.css'
+import Modal from '../common/Modal'
+
+import PrivacyPolicyContainer from '../etc/PrivacyPolicyContainer'
 
 function SignupStep3({ step }) {
   return (
