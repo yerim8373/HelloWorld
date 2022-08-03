@@ -8,6 +8,9 @@ import SelectBox from '../common/SelectBox'
 import ProfileImage from '../common/ProfileImage'
 import ProfileImageSelector from '../common/ProfileImageSelector'
 import Checkbox from '../common/Checkbox'
+import Modal from '../common/Modal'
+
+import PrivacyPolicyContainer from '../etc/PrivacyPolicyContainer'
 //////////////////////////////////////////////////////////////////
 function SignupForm3() {
   const navigate = useNavigate()
@@ -19,6 +22,17 @@ function SignupForm3() {
   }
 
   ///////////////////////
+  const [modalState, setModalState] = useState(false)
+  const handleModal = () => setModalState(!modalState)
+
+  const contents = {
+    content: (
+      <PrivacyPolicyContainer
+        handleModal={handleModal}
+      ></PrivacyPolicyContainer>
+    ),
+  }
+
   return (
     <Sheet size="large">
       <form onSubmit={e => e.preventDefault()}>
@@ -45,14 +59,24 @@ function SignupForm3() {
             <Checkbox>
               <p>
                 {' '}
-                <NavLink to="/auth/find-info">
-                  <span className={classes.signup_find_info}>
-                    {' '}
-                    개인정보 처리방침
-                  </span>
-                </NavLink>{' '}
+                <span
+                  className={classes.signup_find_info}
+                  onClick={() => {
+                    handleModal(true)
+                  }}
+                >
+                  {' '}
+                  개인정보 처리방침
+                </span>
                 에 동의합니다
               </p>
+              <Modal
+                opened={modalState}
+                handleModal={handleModal}
+                contents={contents}
+                locked
+                scroll={true}
+              />
             </Checkbox>
           </div>
         </div>
@@ -79,3 +103,27 @@ function SignupForm3() {
   )
 }
 export default SignupForm3
+
+/*
+export default function MeetingEntrySection() {
+  const [modalState, setModalState] = useState(false)
+  const handleModal = () => setModalState(!modalState)
+
+  const contents = {
+    content: <LoadingContainer handleModal={handleModal}></LoadingContainer>,
+  }
+
+  return (
+    <>
+      <Button text="랜덤 매칭 시작하기" onEvent={handleModal}></Button>
+      <Modal
+        opened={modalState}
+        handleModal={handleModal}
+        contents={contents}
+        locked
+      />
+    </>
+  )
+}
+
+*/
