@@ -14,6 +14,7 @@
 
   /* 길이 변수 */
   --header-height: 6rem;
+  --signup-form-width: 384px;
 }
 
 html,
