@@ -7,7 +7,7 @@ import {
   passwordValidIncludeLetterHandler,
   passwordValidLengthHandler,
 } from '../utils/validation/passwordValid'
-import classes from './SignupStep.module.css'
+import classes from './SignupForm.module.css'
 
 //이메일 확인
 const emailValidObj = {

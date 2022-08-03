@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import SignupPicture from '../../components/common/SignupPicture'
-import SignupStep1 from './SignupStep1'
-import SignupStep2 from './SignupStep2'
-import SignupStep3 from './SignupStep3'
-import SignupStep4 from './SignupStep4'
+import SignupForm1 from './SignupForm1'
+import SignupForm2 from './SignupForm2'
+import SignupForm3 from './SignupForm3'
+import SignupForm4 from './SignupForm4'
 import StepIndicator from '../common/StepIndicator'
 import Sheet from '../common/Sheet'
 import Button from '../common/Button'
@@ -21,7 +21,7 @@ export default function SignupContainer() {
 
   const moveToNext = () => navigate(`/signup?step=${step + 1}`)
   const moveToPrev = () => navigate(`/signup?step=${step - 1}`)
-  const moveToLogin = () => navigate('/auth')
+  const moveToLogin = () => navigate('/login')
 
   const handleSubmit = e => {
     e.preventDefault()
@@ -65,10 +65,10 @@ export default function SignupContainer() {
                 </p>
               </header>
               <div className={classes.stepContainer}>
-                <SignupStep1 step={step} />
-                <SignupStep2 step={step} />
-                <SignupStep3 step={step} />
-                <SignupStep4 step={step} />
+                <SignupForm1 step={step} />
+                <SignupForm2 step={step} />
+                <SignupForm3 step={step} />
+                <SignupForm4 step={step} />
               </div>
               <div className={classes.stepActions}>
                 {step > 1 && (

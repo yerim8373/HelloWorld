@@ -44,7 +44,7 @@ function LoginForm() {
 
   const navigate = useNavigate()
   function routerPushHandler() {
-    navigate('/auth/signup')
+    navigate('/signup')
   }
 
   const loginHandler = () => {
