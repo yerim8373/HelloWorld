@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -56,21 +55,11 @@ public class PostServiceImpl implements PostService{
 
     @Override
     public void insertPost(PostDto postDto, String email) {
-
-        System.out.println("-------------------------------------");
-        System.out.println(userService.getUserByEmail(email));
-        System.out.println(userService.getUserByEmail(email).getEmail());
-        System.out.println(userService.getUserByEmail(email).getId());
-        //여기까지는 잘 뜨는데 왜 대체 안들어가는걸까?
-        System.out.println("-------------------------------------");
-
          postRepository.save(
                  Post.builder()
                 .content(postDto.getContent())
                 .title(postDto.getTitle())
                 .build())
                     .setUser(userService.getUserByEmail(email));
-         //남은건 setUser 밖에 없다.
-
     }
 }

@@ -15,7 +15,6 @@ import java.util.Set;
  */
 @Entity
 @Builder @Getter
-@ToString
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 public class User{

@@ -4,6 +4,7 @@ import com.ssafy.api.dto.PostDto;
 import lombok.*;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -29,13 +30,10 @@ public class Post extends BaseEntity{
     private LocalDateTime lastModifiedAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    //eager로 바꿔도 안들어간다....
     @JoinColumn(name = "userId")
     private User user;
 
     public void setUser(User user){
-        //여기서도 잘 나온다.
-        System.out.println(user);
         this.user = user;
         user.getPostList().add(this);
     }
