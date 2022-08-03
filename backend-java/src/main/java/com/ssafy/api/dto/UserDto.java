@@ -41,7 +41,8 @@ public class UserDto {
         userDto.age = user.getAge();
         userDto.gender = user.getGender();
         userDto.blackListNY = user.getBlackListNY();
-        userDto.blackExpireDate = user.getBlackExpireDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss"));
+        if(user.getBlackExpireDate()!=null){
+        userDto.blackExpireDate = user.getBlackExpireDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss"));}
         userDto.country = CountryDto.of(user.getCountry());
 
         return userDto;

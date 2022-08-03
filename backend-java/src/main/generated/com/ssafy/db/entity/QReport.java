@@ -27,6 +27,8 @@ public class QReport extends EntityPathBase<Report> {
     //inherited
     public final NumberPath<Long> id = _super.id;
 
+    public final BooleanPath isCheckNY = createBoolean("isCheckNY");
+
     //inherited
     public final DateTimePath<java.time.LocalDateTime> regDate = _super.regDate;
 

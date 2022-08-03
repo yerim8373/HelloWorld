@@ -14,7 +14,7 @@ import java.util.Optional;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
     // 아래와 같이, Query Method 인터페이스(반환값, 메소드명, 인자) 정의를 하면 자동으로 Query Method 구현됨.
-    @Query("select u from User u join fetch Country y left join fetch Subscribe s left join fetch UserLan l where u.email =:email")
+    @Query("select u from User u where u.email =:email")
     Optional<User> findByEmail(@Param("email")String Email);
     Optional<User> findUserById(Long id);
 }

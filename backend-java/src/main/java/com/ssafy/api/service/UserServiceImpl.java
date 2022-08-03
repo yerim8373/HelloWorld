@@ -10,8 +10,7 @@ import com.ssafy.common.util.UserRole;
 import com.ssafy.db.entity.Authority;
 import com.ssafy.db.entity.HeartHistory;
 import com.ssafy.db.entity.Route;
-import com.ssafy.db.repository.CountryRepository;
-import com.ssafy.db.repository.HeartHistoryRepository;
+import com.ssafy.db.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,8 +19,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.ssafy.db.entity.User;
-import com.ssafy.db.repository.UserRepository;
-import com.ssafy.db.repository.UserRepositorySupport;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
@@ -44,6 +41,7 @@ public class UserServiceImpl implements UserService {
 	private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 	private final UserRepository userRepository;
 	private final CountryRepository countryRepository;
+	private final UserLanRepository userLanRepository;
 	private final UserRepositorySupport userRepositorySupport;
 	private final HeartHistoryRepository heartHistoryRepository;
 	private final PasswordEncoder passwordEncoder;
@@ -62,15 +60,14 @@ public class UserServiceImpl implements UserService {
 				.mobileNumber(signUpDto.getMobileNumber())
 				.name(signUpDto.getName())
 				.nickname(signUpDto.getNickName())
-//				.country(countryRepository.findById(signUpDto.getCountry()).get())
+				.country(countryRepository.findById(signUpDto.getCountry()).get())
 				.authorities(
 						Collections.singleton(Authority.builder()
 								.authName(UserRole.ROLE_USER)
 								.build())
 				)
-
 				.regDate(LocalDateTime.now())
-//				.userLanList(signUpDto.getLanguageList())
+				.userLanList(userLanRepository.findAllById(signUpDto.getLanguageList()))
 				.build());
 	}
 
