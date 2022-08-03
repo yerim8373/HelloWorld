@@ -1,12 +1,37 @@
+//index.js = Dropdown.js
+//app.js = auth/Findinfotestpage.js
+
 import React from 'react'
-import Select from 'react-select'
+import PropTypes from 'prop-types'
 
-const options = [
-  { value: 'chocolate', label: 'Chocolate' },
-  { value: 'strawberry', label: 'Strawberry' },
-  { value: 'vanilla', label: 'Vanilla' },
-]
+const Dropdown = ({ value, data, placeholder, onChange }) => {
+  const handleChange = event => {
+    const [value] = event.target
+    onChange(value)
+  }
+  return (
+    <div>
+      <select value={value} className="form-control" onChange={handleChange}>
+        <option value="">{placeholder}</option>
+        {data.map((item, key) => (
+          <option key={key} value={item.value}>
+            {item.lable}
+          </option>
+        ))}
+      </select>
+    </div>
+  )
+}
 
-const MyComponent = () => <Select options={options} />
+Dropdown.propTypes = {
+  value: PropTypes.string,
+  placeholder: PropTypes.string,
+  data: PropTypes.array.isRequired,
+  onChange: PropTypes.func.isRequired,
+}
 
-export default MyComponent
+Dropdown.defaultProps = {
+  value: '',
+  placeholder: '',
+}
+export default Dropdown
