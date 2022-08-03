@@ -5,12 +5,10 @@ import SignupStep1 from './SignupStep1'
 import SignupStep2 from './SignupStep2'
 import SignupStep3 from './SignupStep3'
 import SignupStep4 from './SignupStep4'
-/*import StepIndicatorSignup from '../common/StepIndicatorSignup'*/
+import StepIndicator from '../common/StepIndicator'
 import Sheet from '../common/Sheet'
 import Button from '../common/Button'
 import classes from './SignupContainer.module.css'
-
-//나중에 여기에 stepindicator_signup.js import하기
 
 const MAX_STEP = 4
 
@@ -45,7 +43,8 @@ export default function SignupContainer() {
   return (
     <div className="flex_row">
       <SignupPicture></SignupPicture>
-      <div className="flex_row_center width_50vw">
+      <div className={`${classes.signupContainer} flex_row_center width_50vw`}>
+        <StepIndicator path="/signup" step={step} max={MAX_STEP} />
         <Sheet size="large">
           {created ? (
             <div className={classes.successContainer}>
