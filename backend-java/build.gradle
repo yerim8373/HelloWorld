@@ -195,3 +195,7 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+
+bootJar {
+    mainClass = 'com.ssafy.GroupCallApplication'
+}
