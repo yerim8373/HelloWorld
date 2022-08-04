@@ -6,8 +6,10 @@ import Button from '../common/Button'
 import classes from './LoginForm.module.css'
 
 import { FcGoogle } from 'react-icons/fc'
+import { RiKakaoTalkFill } from 'react-icons/ri'
 
 import GoggleLogin from 'react-google-login'
+import KakaoLogin from 'react-kakao-login'
 
 import {
   emailLengthValidHandler,
@@ -141,6 +143,33 @@ function LoginForm() {
               </button>
             )}
           ></GoggleLogin>
+          <KakaoLogin
+            clientId="d7451d7c4bae58ea8f09b10860ab199e"
+            onSuccess={console.log}
+            onFail={console.log}
+            render={renderProps => (
+              <button
+                style={{
+                  borderRadius: '25px',
+                  width: '50px',
+                  height: '50px',
+                  border: 'none',
+                  background: '#ffeb00',
+                  boxShadow: '0px 0px 10px 0px rgba(0,0,0,0.1)',
+                  cursor: 'pointer',
+                }}
+                onClick={renderProps.onClick}
+              >
+                <RiKakaoTalkFill
+                  style={{
+                    fontSize: '1.3rem',
+                    position: 'relative',
+                    top: '3%',
+                  }}
+                />
+              </button>
+            )}
+          ></KakaoLogin>
         </div>
         <p className={classes.login_tip}>
           이메일이나 비밀번호를 잊었다면{' '}

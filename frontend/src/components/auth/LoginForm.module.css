@@ -29,8 +29,8 @@
   text-decoration: underline;
 }
 
-
-
 .auth_login_wrapper {
   margin-top: 3rem;
+  display: flex;
+  justify-content: space-evenly;
 }
