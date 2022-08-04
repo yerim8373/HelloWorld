@@ -6,9 +6,9 @@ import classes from './SignupForm.module.css'
 function SignupStep3({ step }) {
   return (
     <div className={`${classes.signupStepContainer} ${classes['step' + step]}`}>
-      <Input id="국적" type="text" placeholder="dropdown" />
+      <Input id="국적" type="text" placeholder="dropdown" required />
       <p className={classes.signup_input_label}>사용 언어</p>
-      <SelectBox />
+      <SelectBox required />
     </div>
   )
 }

@@ -42,12 +42,14 @@ function SignupStep1({ step }) {
         placeholder="example@example.com"
         onValid={emailValidObj}
         onData={emailData => setEmail(emailData)}
+        required
       />
       <Input
         id="비밀번호"
         type="password"
         onValid={passwordValidObj}
         onData={passwordData => setPassword(passwordData)}
+        required
       />
       <Input
         id="비밀번호 확인"
@@ -55,6 +57,7 @@ function SignupStep1({ step }) {
         placeholder="비밀번호 확인"
         onValid={passwordValidObj}
         onData={passwordData => setPassword(passwordData)}
+        required
       />
     </div>
   )

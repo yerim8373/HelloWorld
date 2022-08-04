@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { NavLink } from 'react-router-dom'
 import Checkbox from '../common/Checkbox'
 import ProfileImageSelector from '../common/ProfileImageSelector'
 import classes from './SignupForm.module.css'
