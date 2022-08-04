@@ -1,110 +1,48 @@
-/* Nav Styles */
-
-nav {
-    width: 100%;
-    padding: 20px 30px;
-    background: #333;
-}
-
-nav a {
-    margin-right: 10px;
-    text-decoration: none;
-    display: inline-block;
-    color: #fff;
-}
-
-/* Home Title Styles */
-
-.homeTitle {
-    margin: 18px 30px;
-    font-size: 30px;
-    line-height: 1;
-}
-
-/* Signup styles */
-
-.signup {
-    width: 100%;
-    min-height: calc(100vh - 58px);
+.stepIndicator {
+    width: 40%;
+    height: 3rem;
+    position: relative;
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    justify-content: center;
 }
 
-.signup .mainContainer {
+.circleContainer {
     width: 100%;
-    max-width: 776px;
-    margin: 0 auto;
-    padding: 70px 0;
-}
-
-.signup .output {
-    margin: 60px 0 0 0;
-    padding: 30px;
-    width: 100%;
-    min-height: 500px;
-    background: #fff;
-    border-radius: 12px;
-    box-shadow: 0px 3px 12px rgb(160, 181, 238);
+    position: absolute;
     display: flex;
-    flex-direction: column;
     justify-content: space-between;
 }
 
-/* Step Indicator Styles */
-
-.stepIndicator {
-    width: 100%;
+.stepCircle {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
     display: flex;
-    align-items: center;
-}
-
-.stepIndicator hr {
-    width: 160px;
-    background: #fafafa;
-    height: 2px;
-    border-width: 0;
-    margin: 0 16px;
-}
-
-.stepIndicator hr:last-of-type {
-    display: none;
-}
-
-.stepIndicator a {
-    text-decoration: none;
-    width: 50px;
-    height: 50px;
-    background: #fff;
-    color: lightblue;
-    box-shadow: 0px 3px 12px rgba(161, 161, 161, 0.25);
-    align-items: center;
     justify-content: center;
-    /*cursor: pointer;*/
-    cursor: default;
-    user-select: none;
-    position: relative;
-    font-weight: bold;
-    font-size: 22px;
-    transition: all 600ms ease-in-out;
+    align-items: center;
+    background-color: var(--color-grey-300);
+    font-size: 1.25rem;
+    font-weight: 600;
 }
 
-.stepIndicator .activeLink {
-    background: #5778ec;
-    color: #fff;
+.stepCircle.passed {
+    background-color: var(--color-secondary);
+    color: white;
 }
 
-/* Button Container Styles */
-.btnContainer {
-    width: 100%;
+.backgroundContainer {
+    width: 90%;
+    height: 3rem;
     display: flex;
-    justify-content: flex-end;
     align-items: center;
 }
 
-.btnContainer a {
-    text-decoration: none;
-    display: inline-block;
-    margin-left: 10px;
-    color: #000;
+.background {
+    width: calc(100% - 1.5rem);
+    height: 0.5rem;
+    background-color: var(--color-grey-300);
+}
+
+.background.passed {
+    background-color: var(--color-secondary);
 }

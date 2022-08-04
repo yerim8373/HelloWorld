@@ -1,32 +1,56 @@
 import React, { useState } from 'react'
-import { NavLink, useNavigate } from 'react-router-dom'
-import Sheet from '../common/Sheet'
-import Input from '../common/Input'
-import Button from '../common/Button'
+import PropTypes from 'prop-types'
+import { NavLink } from 'react-router-dom'
+import Checkbox from '../common/Checkbox'
+import ProfileImageSelector from '../common/ProfileImageSelector'
 import classes from './SignupForm.module.css'
+import Modal from '../common/Modal'
+import PrivacyPolicyContainer from '../etc/PrivacyPolicyContainer'
 
-//////////////////////////////////////////////////////////////////
-function SignupForm3() {
-  const navigate = useNavigate()
-  function routerPushHandler() {
-    navigate('/auth')
+function SignupStep4({ step }) {
+  const [modalState, setModalState] = useState(false)
+  const handleModal = () => setModalState(!modalState)
+
+  const contents = {
+    content: (
+      <PrivacyPolicyContainer
+        handleModal={handleModal}
+      ></PrivacyPolicyContainer>
+    ),
   }
 
-  //////////////////////////////////////////////////////////////////
   return (
-    <Sheet size="large">
-      <form onSubmit={e => e.preventDefault()}>
-        <div className={classes.signup_main}>
-          <h2 className={classes.signup_title}>회원가입이 완료되었습니다! </h2>
-          <h2 className={classes.signup_title}>지금바로 시작해볼까요? </h2>
-        </div>
-        <div className={classes.signup_btns}>
-          <div>
-            <Button onEvent={routerPushHandler} text="로그인 페이지로 이동" />
-          </div>
-        </div>
-      </form>
-    </Sheet>
+    <div className={`${classes.signupStepContainer} ${classes['step' + step]}`}>
+      <p className={classes.signup_input_label}>프로필 이미지 </p>
+      <ProfileImageSelector />
+      <Checkbox id="privacy-policy">
+        <p>
+          {' '}
+          <span
+            className={classes.signup_find_info}
+            onClick={() => {
+              handleModal(true)
+            }}
+          >
+            {' '}
+            개인정보 처리방침
+          </span>
+          에 동의합니다
+        </p>
+        <Modal
+          opened={modalState}
+          handleModal={handleModal}
+          contents={contents}
+          locked
+          scroll={true}
+        />
+      </Checkbox>
+    </div>
   )
 }
-export default SignupForm3
+
+SignupStep4.propTypes = {
+  step: PropTypes.number,
+}
+
+export default SignupStep4

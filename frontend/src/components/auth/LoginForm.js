@@ -5,7 +5,10 @@ import Input from '../common/Input'
 import Button from '../common/Button'
 import classes from './LoginForm.module.css'
 
-import { emailValidHandler } from '../utils/validation/emailValid'
+import {
+  emailLengthValidHandler,
+  emailValidHandler,
+} from '../utils/validation/emailValid'
 import {
   passwordValidIncludeLetterHandler,
   passwordValidLengthHandler,
@@ -44,7 +47,7 @@ function LoginForm() {
 
   const navigate = useNavigate()
   function routerPushHandler() {
-    navigate('/auth/signup')
+    navigate('/signup')
   }
 
   const loginHandler = () => {
@@ -75,7 +78,7 @@ function LoginForm() {
                 id="Email"
                 type="email"
                 placeholder="example@example.com"
-                onValid={emailValidObj}
+                onValid={(emailValidObj, emailLengthValidHandler)}
                 onData={emailData => setEmail(emailData)}
               />
             </div>

@@ -1,33 +1,43 @@
-import React from 'react'
 import { NavLink } from 'react-router-dom'
+import PropTypes from 'prop-types'
+import classes from './StepIndicator.module.css'
 
-const StepIndicator = () => {
-  const steps = [
-    {
-      path: '/auth/signup1',
-    },
-    {
-      path: '/auth/signup2',
-    },
-    {
-      path: '/auth/signup3',
-    },
-  ]
+function StepIndicator({ path, step, max }) {
+  const stepRange = new Array(max).fill(0).map((_, idx) => idx + 1)
 
   return (
-    <div className="stepIndicator">
-      {steps.map((step, index) => {
-        return (
-          <>
-            <NavLink activeClassName="activeLink" key={index} to={step.path}>
-              {index + 1}
-            </NavLink>
-            <hr />
-          </>
-        )
-      })}
+    <div className={classes.stepIndicator}>
+      <div className={classes.backgroundContainer}>
+        {stepRange.slice(0, max - 1).map(s => (
+          <div
+            key={s}
+            className={`${classes.background} ${
+              s < step ? classes.passed : ''
+            }`}
+          ></div>
+        ))}
+      </div>
+      <div className={classes.circleContainer}>
+        {stepRange.map(s => (
+          <NavLink
+            key={s}
+            to={`${path}?step=${s}`}
+            className={`${classes.stepCircle} ${
+              s <= step ? classes.passed : ''
+            }`}
+          >
+            {s}
+          </NavLink>
+        ))}
+      </div>
     </div>
   )
+}
+
+StepIndicator.propTypes = {
+  path: PropTypes.string.isRequired,
+  step: PropTypes.number.isRequired,
+  max: PropTypes.number.isRequired,
 }
 
 export default StepIndicator

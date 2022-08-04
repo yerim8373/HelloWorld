@@ -2,11 +2,9 @@
 
 export default function FindInfoPage() {
   return (
-    <h1>찾기 페이지</h1>
-    /*
-    <div className="flex_row">
-      <FindInformationPage />
-    </div>
-    */
+    <>
+      <h1>정보 찾기 페이지</h1>
+      <div></div>
+    </>
   )
 }

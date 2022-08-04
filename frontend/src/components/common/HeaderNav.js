@@ -1,11 +1,11 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+
+import { NavLink, useNavigate } from 'react-router-dom'
 import MenuBtn from './MenuBtn'
 import classes from './HeaderNav.module.css'
 import Logo from './Logo'
 import ProfileImage from './ProfileImage'
 import Button from './Button'
-import profile from '../../images/profile.jpg'
 
 // import Link from "next/link";
 // import { useRouter } from "next/router";
@@ -19,8 +19,7 @@ function HeaderNav() {
   const navigate = useNavigate()
 
   function routerPushHandler() {
-    // router.push("/auth/signup");
-    navigate('/auth/signup')
+    navigate('/signup')
   }
 
   return (
@@ -49,7 +48,7 @@ function HeaderNav() {
           <div
             className={`${classes.HeaderNav_link_btns} ${classes.hover_color}`}
           >
-            <MenuBtn text="로그인" link="/auth" />
+            <MenuBtn text="로그인" link="/login" />
             <Button
               size="small"
               text="회원가입"
