@@ -1,12 +1,7 @@
-import { createSlice, current } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 
 import { OpenVidu } from 'openvidu-browser'
 
-import { getToken } from './ov-server'
-// import { axios } from 'axios'
-
-// let OPENVIDU = new OpenVidu()
-// let STATE_DATA
 const ovSlice = createSlice({
   name: 'openvidu',
   initialState: {
@@ -20,11 +15,9 @@ const ovSlice = createSlice({
   },
   reducers: {
     createOpenvidu: (state, action) => {
-      if (state.OV === null) {
+      if (!state.OV) {
         state.OV = new OpenVidu()
         state.session = state.OV.initSession()
-      } else {
-        return
       }
     },
 
@@ -36,12 +29,12 @@ const ovSlice = createSlice({
     },
 
     enteredSubscriber: (state, action) => {
-      state.subscribers.push(action.payload)
-      console.log(current(state))
+      const subscriber = state.session.subscribe(action.payload, undefined)
+      state.subscribers.push(subscriber)
     },
 
     deleteSubscriber: (state, action) => {
-      let index = state.subscribers.indexOf(action.payload.streamManager, 0)
+      let index = state.subscribers.indexOf(action.payload, 0)
       if (index > -1) {
         state.subscribers.splice(index, 1)
       }

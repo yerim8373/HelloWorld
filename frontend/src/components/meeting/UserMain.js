@@ -1,6 +1,3 @@
-import { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { ovActions } from '../../store/ov-slice'
 import MainLeftArea from './MainLeftArea'
 import PostSection from './PostSection'
 import classes from './UserMain.module.css'
@@ -37,12 +34,6 @@ const getTempPosts = num => {
 }
 
 export default function UserMain() {
-  const { session } = useSelector(state => state.openvidu)
-  const dispatch = useDispatch()
-  useEffect(() => {
-    dispatch(ovActions.createOpenvidu())
-    // dispatch(ovActions.joinSession())
-  }, [dispatch])
   return (
     <div className="flex_row_center">
       <div className={classes.mainPageContents}>
