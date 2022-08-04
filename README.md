@@ -175,6 +175,9 @@
 - signup(2), signup(3), signup(4) 생성 및 작성
 - radioBtnGroup usecallback 진행
 
+#### 종현
+- 로그인 로직 리팩토링
+
 ### 220801
 
 #### 성찬
@@ -189,6 +192,11 @@
 - signup 구성 완료
 - indicator 작업 중 중단(페이지 공간 문제)
 
+#### 종현
+
+- login 작업, 회원가입 api 작업 -> 실패
+- 서버 리팩토링 작업 후 api 작업 진행하는 걸로
+
 ### 220802
 
 #### 성찬
@@ -202,6 +210,11 @@
 
 - signup 페이지 추가 파트 구성
 - common component 중 구현되지 않은 단일 선택 요소 작업 30%
+
+#### 종현
+
+- openvidu 조사
+- openvidu tutorial 코드 적용
 
 ### 220803
 
@@ -220,3 +233,24 @@
 - 모달창 이용한 privacy policy 작업 완료
 - 변환된 라우트에 privacy policy 병합 완료
 - 유효성 검사 6개 작업 중
+
+#### 종현
+
+- redux 조사
+- redux 세팅
+- redux openvidu tutorial 코드 커스텀 완료
+- openvidu subscriber 이벤트 이슈 발생
+
+
+### 220804
+
+#### 종현
+
+- openvidu subscriber 이벤트 이슈 해결
+- redux openvidu 반영 완료
+- kakao login 버튼 구현
+  - 로그인 api 로직 설계 후, 다시 확인하기
+- google login 버튼 구현
+  - 로그인 api 로직 설계 후, 다시 확인하기
+
+### 220805
