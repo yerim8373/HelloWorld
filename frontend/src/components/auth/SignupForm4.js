@@ -11,14 +11,15 @@ function SignupStep4({ step }) {
   const [modalState, setModalState] = useState(false)
 
   const handleChange = () => setAccepted(!accepted)
-  const handleModal = () => {
+  const handleModal = () => setModalState(!modalState)
+  const handleAccept = () => {
     if (modalState) setAccepted(!accepted)
     setModalState(!modalState)
   }
 
   const contents = {
     content: (
-      <PrivacyPolicyContainer accepted={accepted} handleModal={handleModal} />
+      <PrivacyPolicyContainer accepted={accepted} handleModal={handleAccept} />
     ),
     actions: [],
   }
