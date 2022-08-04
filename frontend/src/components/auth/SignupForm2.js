@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { inputObj } from '../utils/helper/inputObj'
 import PropTypes from 'prop-types'
-import { useState } from 'react'
 import Input from '../common/Input'
 import RadioBtnGroup from '../common/RadioBtnGroup'
 import classes from './SignupForm.module.css'
