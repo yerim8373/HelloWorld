@@ -73,16 +73,15 @@ const ageValidObj = {
 }
 
 const genderList = [
-  { name: '남자', value: '남자' },
-  { name: '여자', value: '여자' },
-  { name: '직접 입력', value: '직접 입력' },
+  { name: '남자', value: 'MALE' },
+  { name: '여자', value: 'FEMALE' },
+  { name: '그 외', value: 'ETC' },
 ]
 function SignupStep2({ step }) {
   const [name, setName] = useState(inputObj)
   const [nickname, setNickname] = useState(inputObj)
   const [age, setAge] = useState(inputObj)
   const [gender, setGender] = useState(genderList[0].value)
-  const handleChange = e => setGender(e.target.value)
   const [phone, setPhone] = useState(inputObj)
 
   return (
@@ -115,16 +114,8 @@ function SignupStep2({ step }) {
         name="gender"
         items={genderList}
         selected={gender}
-        handleChange={handleChange}
+        handleChange={e => setGender(e.target.value)}
       />
-      {gender === '직접 입력' && (
-        <Input
-          id="기타 성별"
-          type="text"
-          placeholder="성별을 입력해주세요"
-          required
-        />
-      )}
       <Input
         id="나이"
         type="number"
