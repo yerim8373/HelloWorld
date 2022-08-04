@@ -1,3 +1,6 @@
+//사실상 쓰레기 페이지. - dropdown test용도 였습니다
+//하지만 일단 놔둬주세요!@!@
+
 import React, { Component } from 'react'
 
 import './FindInformationPage.module.css'
