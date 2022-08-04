@@ -4,12 +4,17 @@ import PropTypes from 'prop-types'
 import Input from '../common/Input'
 import RadioBtnGroup from '../common/RadioBtnGroup'
 import classes from './SignupForm.module.css'
-import { nameValidLengthHandler } from '../utils/validation/nameValid'
+import {
+  nameValidLengthHandler,
+  nameValidHandler,
+  nameValidOtherLetterHandler,
+} from '../utils/validation/nameValid'
 import {
   nickNameValidLengthHandler,
   nickNameValidOtherLetterHandler,
   nickNameValidStartLetterHandler,
 } from '../utils/validation/nickNameValid'
+import { phoneValidHandler } from '../utils/validation/phoneValid'
 import {
   ageValidHandler,
   ageLengthValidHandler,
@@ -20,6 +25,14 @@ const nameValidObj = {
   func0: {
     func: inputValue => nameValidLengthHandler(inputValue),
     message: '이름을 2자 이상 입력해주세요.',
+  },
+  func1: {
+    func: inputValue => nameValidOtherLetterHandler(inputValue),
+    message: '이름은 특수문자를 사용해서는 안됩니다.',
+  },
+  func2: {
+    func: inputValue => nameValidHandler(inputValue),
+    message: '이름은 한글 및 영어만 입력이 가능합니다',
   },
 }
 
@@ -36,6 +49,14 @@ const nicknameValidObj = {
   func2: {
     func: inputValue => nickNameValidStartLetterHandler(inputValue),
     message: '닉네임의 첫문자는 영어 혹은 한글이어야 합니다.',
+  },
+}
+
+//핸드폰 확인
+const phoneValidObj = {
+  func0: {
+    func: inputValue => phoneValidHandler(inputValue),
+    message: '휴대폰 번호는 숫자만 입력하실 수 있습니다.',
   },
 }
 
@@ -62,6 +83,7 @@ function SignupStep2({ step }) {
   const [age, setAge] = useState(inputObj)
   const [gender, setGender] = useState(genderList[0].value)
   const handleChange = e => setGender(e.target.value)
+  const [phone, setPhone] = useState(inputObj)
 
   return (
     <div className={`${classes.signupStepContainer} ${classes['step' + step]}`}>
@@ -85,7 +107,8 @@ function SignupStep2({ step }) {
         id="휴대폰 번호"
         type="text"
         placeholder="전화번호 (하이픈 제외)"
-        required
+        onValid={phoneValidObj}
+        onData={phoneData => setPhone(phoneData)}
       />
       <RadioBtnGroup
         label="성별"
