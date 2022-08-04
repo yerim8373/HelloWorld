@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { inputObj } from '../utils/helper/inputObj'
 import PropTypes from 'prop-types'
+import { useState } from 'react'
 import Input from '../common/Input'
 import RadioBtnGroup from '../common/RadioBtnGroup'
 import classes from './SignupForm.module.css'
@@ -51,10 +52,17 @@ const ageValidObj = {
   },
 }
 
+const genderList = [
+  { name: '남자', value: '남자' },
+  { name: '여자', value: '여자' },
+  { name: '직접 입력', value: '직접 입력' },
+]
 function SignupStep2({ step }) {
   const [name, setName] = useState(inputObj)
   const [nickname, setNickname] = useState(inputObj)
   const [age, setAge] = useState(inputObj)
+  const [gender, setGender] = useState(genderList[0].value)
+  const handleChange = e => setGender(e.target.value)
 
   return (
     <div className={`${classes.signupStepContainer} ${classes['step' + step]}`}>
@@ -64,6 +72,7 @@ function SignupStep2({ step }) {
         placeholder="본명을 입력해주세요"
         onValid={nameValidObj}
         onData={nameData => setName(nameData)}
+        required
       />
       <Input
         id="닉네임"
@@ -71,27 +80,36 @@ function SignupStep2({ step }) {
         placeholder="2자 이상을 입력해주세요. 특수문자를 입력할 수 없어요"
         onValid={nicknameValidObj}
         onData={nicknameData => setNickname(nicknameData)}
+        required
       />
       <Input
         id="휴대폰 번호"
         type="text"
         placeholder="전화번호 (하이픈 제외)"
+        required
       />
-      <p className={classes.signup_input_label}>성별</p>
       <RadioBtnGroup
+        label="성별"
         name="gender"
-        items={[
-          { name: '남자', value: '남자' },
-          { name: '여자', value: '여자' },
-          { name: '그 외', value: '그 외' },
-        ]}
+        items={genderList}
+        selected={gender}
+        handleChange={handleChange}
       />
+      {gender === '직접 입력' && (
+        <Input
+          id="기타 성별"
+          type="text"
+          placeholder="성별을 입력해주세요"
+          required
+        />
+      )}
       <Input
         id="나이"
         type="number"
         placeholder="나이를 입력해주세요"
         onValid={ageValidObj}
         onData={ageData => setAge(ageData)}
+        required
       />
     </div>
   )

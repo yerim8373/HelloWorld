@@ -14,8 +14,16 @@ import { useRef } from 'react'
 // 해당 input의 type 설정, 적용x 시 기본 값은 text
 // props.placeHolder (선택)
 // placeHolder 적용
+// required 필수 입력 여부 (레이블 옆에 * 표시 추가)
 
-function Input({ id, type = 'text', placeholder = '', onValid, onData }) {
+function Input({
+  id,
+  type = 'text',
+  placeholder = '',
+  onValid,
+  onData,
+  required,
+}) {
   const inputRef = useRef()
   const [errorComponent, setErrorComponent] = useState(null)
 
@@ -28,12 +36,12 @@ function Input({ id, type = 'text', placeholder = '', onValid, onData }) {
       colorLabelClass = ''
       break
     case '':
-      colorInputClass = classes.valid_input_true
-      colorLabelClass = classes.valid_label_true
+      colorInputClass = classes.validInput
+      colorLabelClass = classes.validLabel
       break
     default:
-      colorInputClass = classes.valid_input_error
-      colorLabelClass = classes.valid_label_error
+      colorInputClass = classes.invalidInput
+      colorLabelClass = classes.invalidLabel
   }
 
   let checkValid
@@ -57,12 +65,13 @@ function Input({ id, type = 'text', placeholder = '', onValid, onData }) {
   }
 
   return (
-    <div className={classes.input_wrapper}>
+    <div className={classes.inputContainer}>
       <label
-        className={`${classes.input_label} ${colorLabelClass}`}
+        className={`${classes.inputLabel} ${colorLabelClass}`}
         htmlFor={id}
       >
         {id}
+        {required && <span className={classes.requiredMark}>*</span>}
       </label>
       <input
         className={`${classes.input} ${colorInputClass}`}
@@ -84,12 +93,13 @@ Input.propTypes = {
   placeholder: PropTypes.string,
   onValid: PropTypes.object,
   onData: PropTypes.func,
+  required: PropTypes.bool,
 }
 
 export default Input
 
 function ErrorComponent({ text }) {
-  return <div className={classes.error_component}>{text}</div>
+  return <div className={classes.errorComponent}>{text}</div>
 }
 
 ErrorComponent.propTypes = {

@@ -1,3 +1,15 @@
+.groupContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.label {
+  display: flex;
+  gap: 2px;
+  font-weight: 700;
+}
+
 .radioBtnGroup {
   display: flex;
   gap: 16px;

@@ -9,7 +9,7 @@ import {
 import { inputObj } from '../utils/helper/inputObj'
 import { useState } from 'react'
 
-const items = [
+const reasons = [
   {
     name: '삭제하고 싶은 기록이 있어요',
     value: '1',
@@ -49,6 +49,7 @@ const passwordValidObj = {
 
 export default function UserWithdrawal() {
   const [password, setPassword] = useState(inputObj)
+  const [reason, setReason] = useState(reasons[0].value)
 
   const isValid = obj => obj.value && obj.valid
   const handleSubmit = e => {
@@ -57,6 +58,7 @@ export default function UserWithdrawal() {
       console.log('회원 탈퇴 API 호출')
     }
   }
+  const handleChange = e => setReason(e.target.value)
 
   return (
     <form className={classes.userWithdrawal} onSubmit={handleSubmit}>
@@ -72,7 +74,13 @@ export default function UserWithdrawal() {
         </p>
       </div>
       <div className={classes.radioBtnContainer}>
-        <RadioBtnGroup name="reason" items={items} vertical />
+        <RadioBtnGroup
+          name="reason"
+          items={reasons}
+          vertical
+          selected={reason}
+          handleChange={handleChange}
+        />
       </div>
       <p className={classes.warning}>
         계정을 삭제하면 회원님의 모든 콘텐츠와 활동 기록, 구독 정보, 적립 사용

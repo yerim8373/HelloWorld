@@ -6,7 +6,7 @@ import Button from '../common/Button'
 
 const tips = ['일단 pp 테스트페이지입니다만 모달이 나왔으면 좋겠어요']
 
-function PrivacyPolicyContainer({ handleModal }) {
+function PrivacyPolicyContainer({ accepted, handleModal }) {
   const [loading, setLoading] = useState(true)
   const navigate = useNavigate()
 
@@ -268,13 +268,19 @@ function PrivacyPolicyContainer({ handleModal }) {
         </p>
       </>
       <div className={classes.buttons}>
-        <Button text="돌아가기" onEvent={handleModal} color="neutral"></Button>
+        <Button
+          text={accepted ? '거부' : '동의'}
+          onEvent={handleModal}
+          size="small"
+          color={accepted ? 'error' : 'default'}
+        ></Button>
       </div>
     </div>
   )
 }
 
 PrivacyPolicyContainer.propTypes = {
+  accepted: PropTypes.bool.isRequired,
   handleModal: PropTypes.func.isRequired,
 }
 

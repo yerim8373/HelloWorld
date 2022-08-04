@@ -1,47 +1,51 @@
-.input_wrapper {
-  padding: 10px;
-  display: inline-block;
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .input {
   display: block;
-  width: 300px;
+  width: 100%;
   border: none;
   outline: none;
-  border-bottom: 1px solid #000000;
-  padding: 8px 0;
-}
-
-.input_label {
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: #000000;
+  border-bottom: 2px solid var(--color-grey-500);
+  padding: 0.5rem 0;
+  font-size: 0.9rem;
 }
 
 .input::placeholder {
   color: var(--color-grey-500);
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   font-family: 100;
   font-style: italic;
 }
 
-.error_component {
+.inputLabel {
+  display: flex;
+  gap: 2px;
+  font-weight: 700;
+}
+
+.errorComponent {
+  font-size: 0.75rem;
+  font-weight: 500;
   color: var(--color-error);
 }
 
-.valid_input_true {
-  border-bottom: 1px solid var(--color-success);
+.validInput {
+  border-bottom: 2px solid var(--color-success);
 }
 
-.valid_input_error {
-  border-bottom: 1px solid var(--color-error);
+.invalidInput {
+  border-bottom: 2px solid var(--color-error);
 }
 
-.valid_label_true {
+.validLabel {
   color: var(--color-success);
 }
 
-.valid_label_error {
+.invalidLabel {
   color: var(--color-error);
 }
 
@@ -52,4 +56,8 @@
   outline: none;
   border-bottom: 1px solid #000000;
   padding: 8px 0;
+}
+
+.requiredMark {
+  color: var(--color-caution);
 }

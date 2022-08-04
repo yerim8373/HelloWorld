@@ -39,7 +39,7 @@ function AddImageBtn({ handleChange }) {
 /**
  * 프로필 이미지 셀렉터 컴포넌트
  */
-export default function ProfileImageSelector() {
+function ProfileImageSelector({ label }) {
   const [currImage, setCurrImage] = useState(imageList[0])
 
   const handleClick = e => {
@@ -56,6 +56,7 @@ export default function ProfileImageSelector() {
 
   return (
     <div className={classes.profileImageSelector}>
+      <div className={classes.label}>{label}</div>
       <ProfileImage src={currImage} size="large" />
       <div className={classes.imageList}>
         {imageList.map((img, idx) => (
@@ -79,3 +80,9 @@ export default function ProfileImageSelector() {
 AddImageBtn.propTypes = {
   handleChange: PropTypes.func.isRequired,
 }
+
+ProfileImageSelector.propTypes = {
+  label: PropTypes.string,
+}
+
+export default ProfileImageSelector
