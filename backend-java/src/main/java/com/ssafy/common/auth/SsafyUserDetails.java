@@ -3,7 +3,6 @@ package com.ssafy.common.auth;
 import com.ssafy.db.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
@@ -26,9 +25,8 @@ public class SsafyUserDetails implements UserDetails {
     public SsafyUserDetails(User user) {
     		super();
     		this.user = user;
-//		List<? extends GrantedAuthority> authorities = user.getAuthorities().stream().map(auth -> new SimpleGrantedAuthority(auth.getAuthName()))
-//				.collect(Collectors.toList());
-//		this.roles = authorities;
+		List<? extends GrantedAuthority> authorities = user.getAuthorities().stream().map(auth -> new SimpleGrantedAuthority(auth.getAuthName())).collect(Collectors.toList());			
+		this.roles = authorities;
 	}
     
     public User getUser() {

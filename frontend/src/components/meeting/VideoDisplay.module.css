@@ -1,0 +1,42 @@
+.video_display {
+  margin: 2rem;
+}
+
+.section_size_wide {
+  width: 40vw;
+  min-width: 800px;
+  min-height: 600px;
+  height: 70vh;
+}
+
+.section_size_narrow {
+  width: 40vw;
+  min-height: 300px;
+  min-width: 600px;
+  height: 35vh;
+}
+
+.user_info_section {
+  height: 2rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.video_section {
+  height: 90%;
+}
+
+.heart_icon {
+  color: var(--color-error);
+}
+
+.video_wrapper {
+  height: 100%;
+  background-color: var(--color-grey-300);
+}
+
+.video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
