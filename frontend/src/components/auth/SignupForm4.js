@@ -26,8 +26,7 @@ function SignupStep4({ step }) {
 
   return (
     <div className={`${classes.signupStepContainer} ${classes['step' + step]}`}>
-      <p className={classes.signup_input_label}>프로필 이미지 </p>
-      <ProfileImageSelector />
+      <ProfileImageSelector label="프로필 이미지" />
       <Checkbox
         id="privacy-policy"
         checked={accepted}
