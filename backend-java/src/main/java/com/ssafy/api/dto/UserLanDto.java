@@ -13,7 +13,6 @@ public class UserLanDto {
     int fluent;
     int priority;
     LanguageDto language;
-    Long userId;
 
     public static UserLanDto of(UserLan userLan){
         return UserLanDto.builder()
@@ -21,7 +20,6 @@ public class UserLanDto {
                 .fluent(userLan.getFluent())
                 .priority(userLan.getPriority())
                 .language(LanguageDto.of(userLan.getLanguage()))
-                .userId(userLan.getUser().getId())
                 .build();
     }
 }

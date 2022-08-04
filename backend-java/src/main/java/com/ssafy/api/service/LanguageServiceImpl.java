@@ -2,14 +2,12 @@ package com.ssafy.api.service;
 
 import com.ssafy.api.dto.LanguageDto;
 import com.ssafy.db.entity.Language;
-import com.ssafy.db.entity.User;
 import com.ssafy.db.repository.LanguageRepository;
-import com.ssafy.db.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.codec.language.bm.Languages;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -42,9 +40,11 @@ public class LanguageServiceImpl implements LanguageService{
 
     @Override
     public void insertLanguage(LanguageDto languageDto) {
-        languageRepository.save(Language.builder()
+        Language language = languageRepository.save(Language.builder()
                 .lan(languageDto.getLan())
                 .build());
+        language.setRegDate(LocalDateTime.now());
+
     }
 
 
