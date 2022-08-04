@@ -2,16 +2,24 @@ import { useState } from 'react'
 import PropTypes from 'prop-types'
 import Input from '../common/Input'
 import { inputObj } from '../utils/helper/inputObj'
-import { emailValidHandler } from '../utils/validation/emailValid'
+import {
+  emailValidHandler,
+  emailLengthValidHandler,
+} from '../utils/validation/emailValid'
 import {
   passwordValidIncludeLetterHandler,
   passwordValidLengthHandler,
 } from '../utils/validation/passwordValid'
+import { passwordConfirmValidLengthHandler } from '../utils/validation/passwordConfirmValid'
 import classes from './SignupForm.module.css'
 
 //이메일 확인
 const emailValidObj = {
   func0: {
+    func: inputValue => emailLengthValidHandler(inputValue),
+    message: '사용할 이메일을 입력해주세요.',
+  },
+  func1: {
     func: inputValue => emailValidHandler(inputValue),
     message: '올바른 이메일 형식이 아닙니다.',
   },
@@ -26,6 +34,14 @@ const passwordValidObj = {
   func1: {
     func: inputValue => passwordValidIncludeLetterHandler(inputValue),
     message: '비밀번호는 영문자,숫자,특수문자를 포함해야 합니다',
+  },
+}
+
+//비밀번호 동일한지 확인
+const passwordConfirmValidObj = {
+  func0: {
+    func: inputValue => passwordConfirmValidLengthHandler(inputValue),
+    message: '비밀번호 확인은 8자 이상이어야 합니다.',
   },
 }
 
@@ -55,8 +71,8 @@ function SignupStep1({ step }) {
         id="비밀번호 확인"
         type="password"
         placeholder="비밀번호 확인"
-        onValid={passwordValidObj}
-        onData={passwordData => setPassword(passwordData)}
+        onValid={passwordConfirmValidObj}
+        onData={passwordConfirmData => setPasswordConfirm(passwordConfirmData)}
         required
       />
     </div>
