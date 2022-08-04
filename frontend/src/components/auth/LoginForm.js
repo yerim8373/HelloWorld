@@ -5,6 +5,10 @@ import Input from '../common/Input'
 import Button from '../common/Button'
 import classes from './LoginForm.module.css'
 
+import { FcGoogle } from 'react-icons/fc'
+
+import GoggleLogin from 'react-google-login'
+
 import {
   emailLengthValidHandler,
   emailValidHandler,
@@ -108,6 +112,36 @@ function LoginForm() {
             </div>
           </div>
         </form>
+        <div className={classes.auth_login_wrapper}>
+          <GoggleLogin
+            clientId="328089679872-9ta66fgsgan0e34jo3sflkcigcq29krt.apps.googleusercontent.com"
+            buttonText="Login"
+            onSuccess={response => console.log(response)}
+            onFailure={response => console.log(response)}
+            render={renderProps => (
+              <button
+                style={{
+                  borderRadius: '25px',
+                  width: '50px',
+                  height: '50px',
+                  border: 'none',
+                  background: 'transparent',
+                  boxShadow: '0px 0px 10px 0px rgba(0,0,0,0.1)',
+                  cursor: 'pointer',
+                }}
+                onClick={renderProps.onClick}
+              >
+                <FcGoogle
+                  style={{
+                    fontSize: '1.3rem',
+                    position: 'relative',
+                    top: '3%',
+                  }}
+                />
+              </button>
+            )}
+          ></GoggleLogin>
+        </div>
         <p className={classes.login_tip}>
           이메일이나 비밀번호를 잊었다면{' '}
           <NavLink to="/auth/find-info">
