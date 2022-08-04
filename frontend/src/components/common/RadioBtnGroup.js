@@ -6,9 +6,10 @@
  * items[].name {string}: 라디오 버튼 텍스트
  * items[].value {string}: 라디오 버튼 클릭 시 받는 값
  * vertical {boolean}: 아이템 세로 정렬 여부 (기본값은 false)
+ * selected {string}: 선택된 아이템의 value 값
+ * handleChange {function}: 라디오 박스 이벤트 핸들러
  */
 
-import { useState } from 'react'
 import classes from './RadioBtnGroup.module.css'
 import PropTypes from 'prop-types'
 
@@ -34,12 +35,14 @@ function RadioBtn({ id, name, children, selectedValue, handleChange }) {
   )
 }
 
-export default function RadioBtnGroup({ id, name, items, vertical }) {
-  const [value, setValue] = useState(items[0].value)
-  const handleChange = e => {
-    setValue(e.target.value)
-  }
-
+export default function RadioBtnGroup({
+  id,
+  name,
+  items,
+  vertical,
+  selected,
+  handleChange,
+}) {
   return (
     <div className={classes.groupContainer}>
       <div className={classes.label}>{id}</div>
@@ -53,7 +56,7 @@ export default function RadioBtnGroup({ id, name, items, vertical }) {
             key={item.value}
             id={item.value}
             name={name}
-            selectedValue={value}
+            selectedValue={selected}
             handleChange={handleChange}
           >
             {item.name}
@@ -85,4 +88,6 @@ RadioBtnGroup.propTypes = {
     }).isRequired,
   ).isRequired,
   vertical: PropTypes.bool,
+  selected: PropTypes.string.isRequired,
+  handleChange: PropTypes.func.isRequired,
 }
