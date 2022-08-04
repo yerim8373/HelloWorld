@@ -21,7 +21,7 @@ public class TipController {
 
     @GetMapping("")
     public ResponseEntity<?> getAllTipByEmail(@RequestHeader("Authorization") String bearerToken){
-        String email = jwtTokenUtil.getEmailFromToken(bearerToken);
+        String email = jwtTokenUtil.getEmailFromBearerToken(bearerToken);
 
         return response.success(tipService.getAllTipByEmail(email)
                 , "All tip success"
@@ -31,7 +31,7 @@ public class TipController {
 
     @GetMapping("/random")
     public ResponseEntity<?> getTipByEmail(@RequestHeader("Authorization") String bearerToken){
-        String email = jwtTokenUtil.getEmailFromToken(bearerToken);
+        String email = jwtTokenUtil.getEmailFromBearerToken(bearerToken);
 
         return response.success(tipService.getRandomTipByEmail(email)
                 , "random tip success"

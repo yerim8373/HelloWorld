@@ -39,7 +39,7 @@ public class User{
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "userAuth",
             joinColumns = {

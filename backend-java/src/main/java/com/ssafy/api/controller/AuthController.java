@@ -7,6 +7,7 @@ import com.ssafy.common.model.response.Response;
 import com.ssafy.common.util.JWToken;
 import com.ssafy.common.util.JwtTokenUtil;
 import lombok.RequiredArgsConstructor;
+import org.checkerframework.checker.units.qual.C;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -60,19 +61,31 @@ public class AuthController {
 				.path("/")
 				.sameSite("None")
 				.build();
+
 		resp.setHeader("Set-Cookie", cookie.toString());
 		return response.success(JWTokenDto.of(jwt));
 	}
 
 	@PostMapping("/signout")
-	public ResponseEntity<?> signout(HttpServletRequest req){
-//		return response.success(authService.logout(req));
-		return null;
+	public ResponseEntity<?> signout(@CookieValue(value="refresh-token", required = false) String refreshToken, HttpServletResponse resp){
+		authService.logout(refreshToken);
+
+		ResponseCookie cookie = ResponseCookie.from("refresh-token",null)
+				.maxAge(0)
+				.httpOnly(true)
+				.secure(true)
+				.domain("")
+				.path("/")
+				.sameSite("None")
+				.build();
+
+		resp.setHeader("Set-Cookie",cookie.toString());
+		return response.success();
 	}
 
 	@PostMapping("/reissue")
-	public ResponseEntity<?> reissue(HttpServletRequest req){
-//		authService.reissue(req);
-		return null;
+	public ResponseEntity<?> reissue(@CookieValue(value="refresh-token", required = false) String refreshToken){
+		JWToken jwt = authService.reissue(refreshToken);
+		return response.success(JWTokenDto.of(jwt));
 	}
 }

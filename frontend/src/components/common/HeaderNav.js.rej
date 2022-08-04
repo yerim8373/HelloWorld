@@ -1,0 +1,7 @@
+diff a/frontend/src/components/common/HeaderNav.js b/frontend/src/components/common/HeaderNav.js	(rejected hunks)
+@@ -1,5 +1,4 @@
+ import { useState } from 'react'
+-
+ import { NavLink, useNavigate } from 'react-router-dom'
+ import MenuBtn from './MenuBtn'
+ import classes from './HeaderNav.module.css'

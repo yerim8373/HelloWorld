@@ -97,7 +97,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public List<HeartHistory> getUserHeartHistory(String bearerToken) {
-		User user = getUserByEmail(jwtTokenUtil.getEmailFromToken(bearerToken));
+		User user = getUserByEmail(jwtTokenUtil.getEmailFromBearerToken(bearerToken));
 		return user.getHeartHistoryList();
 	}
 

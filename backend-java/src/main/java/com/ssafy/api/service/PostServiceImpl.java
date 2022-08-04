@@ -2,14 +2,11 @@ package com.ssafy.api.service;
 
 import com.ssafy.api.dto.PostDto;
 import com.ssafy.db.entity.Post;
-import com.ssafy.db.entity.User;
 import com.ssafy.db.repository.PostRepository;
-import com.ssafy.db.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -17,6 +14,9 @@ import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service("postService")
+//혹시 트랜젝셔널 안붙여서???
+//이게 왜 돼?
+@Transactional
 public class PostServiceImpl implements PostService{
 
     private final PostRepository postRepository;
@@ -42,8 +42,9 @@ public class PostServiceImpl implements PostService{
 
     @Override
     public void modifyPost(PostDto postDto) {
-        Post post = postRepository.findById(postDto.getPostNo()).get();
+        Post post = postRepository.findById(postDto.getPostId()).get();
         post.setPost(postDto);
+
     }
 
     @Override
@@ -58,7 +59,6 @@ public class PostServiceImpl implements PostService{
                  Post.builder()
                 .content(postDto.getContent())
                 .title(postDto.getTitle())
-                .lastModifiedAt(LocalDateTime.now())
                 .build())
                     .setUser(userService.getUserByEmail(email));
     }

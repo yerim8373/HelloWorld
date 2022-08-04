@@ -58,7 +58,7 @@ public class UserController {
     })
 	public ResponseEntity<?> getUserInfo(@RequestHeader("Authorization") String bearerToken) {
 		//Dto로 넘기는 이유가 뭐랬지..?
-		return response.success(UserDto.of(userService.getUserByEmail(jwtTokenUtil.getEmailFromToken(bearerToken)))
+		return response.success(UserDto.of(userService.getUserByEmail(jwtTokenUtil.getEmailFromBearerToken(bearerToken)))
 						,"user information success"
 						,HttpStatus.OK);
 	}
@@ -115,7 +115,7 @@ public class UserController {
 
 	@GetMapping("/lan")
 	public ResponseEntity<?> getAllLan(@RequestHeader("Authorization") String bearerToken){
-		return response.success(userLanService.getUserLanByEmail(jwtTokenUtil.getEmailFromToken(bearerToken)));
+		return response.success(userLanService.getUserLanByEmail(jwtTokenUtil.getEmailFromBearerToken(bearerToken)));
 	}
 
 	@DeleteMapping("/lan/{id}")
