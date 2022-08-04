@@ -34,6 +34,10 @@ const emailValidObj = {
     func: inputValue => emailValidHandler(inputValue),
     message: '올바른 이메일 형식이 아닙니다.',
   },
+  func1: {
+    func: inputValue => emailLengthValidHandler(inputValue),
+    message: '이메일을 입력해주세요.',
+  },
 }
 
 const passwordValidObj = {
@@ -84,7 +88,7 @@ function LoginForm() {
                 id="Email"
                 type="email"
                 placeholder="example@example.com"
-                onValid={(emailValidObj, emailLengthValidHandler)}
+                onValid={emailValidObj}
                 onData={emailData => setEmail(emailData)}
               />
             </div>
