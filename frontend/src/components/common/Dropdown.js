@@ -1,22 +1,24 @@
 import PropTypes from 'prop-types'
 import classes from './Dropdown.module.css'
 
-const Dropdown = ({ id, value, data, placeholder, onChange }) => {
-  const handleChange = event => {
-    const { value } = event.target
-    onChange(value)
-  }
+const Dropdown = ({ id, value, items, placeholder, handleChange }) => {
   return (
     <div className={classes.dropdownContainer}>
-      <label htmlFor={id}>{id}</label>
+      <label htmlFor={id} className={classes.label}>
+        {id}
+      </label>
       <select
         id={id}
         value={value}
-        className="form-control"
+        className={classes.dropdown}
         onChange={handleChange}
       >
-        <option value="">{placeholder}</option>
-        {data.map((item, key) => (
+        {placeholder && (
+          <option value="" className={classes.placeholder} disabled>
+            {placeholder}
+          </option>
+        )}
+        {items.map((item, key) => (
           <option key={key} value={item.value}>
             {item.label}
           </option>
@@ -28,15 +30,10 @@ const Dropdown = ({ id, value, data, placeholder, onChange }) => {
 
 Dropdown.propTypes = {
   id: PropTypes.string,
-  value: PropTypes.string,
+  value: PropTypes.string.isRequired,
   placeholder: PropTypes.string,
-  data: PropTypes.array.isRequired,
-  onChange: PropTypes.func.isRequired,
-}
-
-Dropdown.defaultProps = {
-  value: '',
-  placeholder: '',
+  items: PropTypes.array.isRequired,
+  handleChange: PropTypes.func.isRequired,
 }
 
 export default Dropdown
