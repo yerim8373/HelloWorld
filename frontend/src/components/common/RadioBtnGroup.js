@@ -1,6 +1,7 @@
 /**
  * 라디오 버튼 & 그룹 컴포넌트
  *
+ * label {string}: 라디오 버튼 그룹 레이블 (생략할 경우 렌더링하지 않음)
  * name {string}: 라디오 버튼 그룹을 구분하는 이름
  * items {array}: 라디오 버튼의 정보를 담는 객체 리스트
  * items[].name {string}: 라디오 버튼 텍스트
@@ -36,7 +37,7 @@ function RadioBtn({ id, name, children, selectedValue, handleChange }) {
 }
 
 export default function RadioBtnGroup({
-  id,
+  label,
   name,
   items,
   vertical,
@@ -45,7 +46,7 @@ export default function RadioBtnGroup({
 }) {
   return (
     <div className={classes.groupContainer}>
-      <div className={classes.label}>{id}</div>
+      <div className={classes.label}>{label}</div>
       <div
         className={`${classes.radioBtnGroup} ${
           vertical ? classes.vertical : ''
@@ -79,7 +80,7 @@ RadioBtn.propTypes = {
 }
 
 RadioBtnGroup.propTypes = {
-  id: PropTypes.string,
+  label: PropTypes.string,
   name: PropTypes.string.isRequired,
   items: PropTypes.arrayOf(
     PropTypes.shape({

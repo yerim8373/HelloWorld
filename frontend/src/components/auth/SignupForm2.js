@@ -29,7 +29,7 @@ function SignupStep2({ step }) {
         required
       />
       <RadioBtnGroup
-        id="성별"
+        label="성별"
         name="gender"
         items={genderList}
         selected={gender}
