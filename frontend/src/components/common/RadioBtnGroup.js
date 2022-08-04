@@ -34,27 +34,32 @@ function RadioBtn({ id, name, children, selectedValue, handleChange }) {
   )
 }
 
-export default function RadioBtnGroup({ name, items, vertical }) {
+export default function RadioBtnGroup({ id, name, items, vertical }) {
   const [value, setValue] = useState(items[0].value)
   const handleChange = e => {
     setValue(e.target.value)
   }
 
   return (
-    <div
-      className={`${classes.radioBtnGroup} ${vertical ? classes.vertical : ''}`}
-    >
-      {items.map(item => (
-        <RadioBtn
-          key={item.value}
-          id={item.value}
-          name={name}
-          selectedValue={value}
-          handleChange={handleChange}
-        >
-          {item.name}
-        </RadioBtn>
-      ))}
+    <div className={classes.groupContainer}>
+      <div className={classes.label}>{id}</div>
+      <div
+        className={`${classes.radioBtnGroup} ${
+          vertical ? classes.vertical : ''
+        }`}
+      >
+        {items.map(item => (
+          <RadioBtn
+            key={item.value}
+            id={item.value}
+            name={name}
+            selectedValue={value}
+            handleChange={handleChange}
+          >
+            {item.name}
+          </RadioBtn>
+        ))}
+      </div>
     </div>
   )
 }
@@ -71,6 +76,7 @@ RadioBtn.propTypes = {
 }
 
 RadioBtnGroup.propTypes = {
+  id: PropTypes.string,
   name: PropTypes.string.isRequired,
   items: PropTypes.arrayOf(
     PropTypes.shape({
