@@ -174,3 +174,4 @@
 - signup 페이지 상단에 표시될 step indicator 작성 및 적용 시도
 - signup(2), signup(3), signup(4) 생성 및 작성
 - radioBtnGroup usecallback 진행
+
