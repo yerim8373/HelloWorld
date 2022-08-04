@@ -24,12 +24,16 @@
   transform: translateX(calc(var(--signup-form-width) * -3));
 }
 
-.signup_text_center {
-  text-align: center;
-  align-items: center;
-  align-content: center;
+.privacyPolicyLink {
+  cursor: pointer;
+  padding: 2px 0;
+  border-top: 2px solid transparent;
+  border-bottom: 2px solid transparent;
+  color: var(--color-secondary);
+  font-weight: 600;
+  transition: border 0.15s;
 }
 
-.signup_find_info {
-  color: blue;
+.privacyPolicyLink:hover {
+  border-bottom: 2px solid var(--color-secondary);
 }

@@ -7,41 +7,44 @@ import Modal from '../common/Modal'
 import PrivacyPolicyContainer from '../etc/PrivacyPolicyContainer'
 
 function SignupStep4({ step }) {
+  const [accepted, setAccepted] = useState(false)
   const [modalState, setModalState] = useState(false)
-  const handleModal = () => setModalState(!modalState)
+
+  const handleChange = () => setAccepted(!accepted)
+  const handleModal = () => {
+    if (modalState) setAccepted(!accepted)
+    setModalState(!modalState)
+  }
 
   const contents = {
     content: (
-      <PrivacyPolicyContainer
-        handleModal={handleModal}
-      ></PrivacyPolicyContainer>
+      <PrivacyPolicyContainer accepted={accepted} handleModal={handleModal} />
     ),
+    actions: [],
   }
 
   return (
     <div className={`${classes.signupStepContainer} ${classes['step' + step]}`}>
       <p className={classes.signup_input_label}>프로필 이미지 </p>
       <ProfileImageSelector />
-      <Checkbox id="privacy-policy">
-        <p>
-          {' '}
-          <span
-            className={classes.signup_find_info}
-            onClick={() => {
-              handleModal(true)
-            }}
-          >
-            {' '}
-            개인정보 처리방침
-          </span>
-          에 동의합니다
-        </p>
+      <Checkbox
+        id="privacy-policy"
+        checked={accepted}
+        handleChange={handleChange}
+        locked
+      >
+        <span
+          className={classes.privacyPolicyLink}
+          onClick={() => handleModal(true)}
+        >
+          개인정보 처리방침
+        </span>
+        에 동의합니다
         <Modal
           opened={modalState}
           handleModal={handleModal}
           contents={contents}
-          locked
-          scroll={true}
+          scroll
         />
       </Checkbox>
     </div>

@@ -6,12 +6,6 @@
   margin: 0 2rem;
 }
 
-.buttons {
-  width: 100%;
-  display: flex;
-  gap: 2rem;
-}
-
 .tip {
   color: var(--color-grey-500);
   font-weight: 500;
