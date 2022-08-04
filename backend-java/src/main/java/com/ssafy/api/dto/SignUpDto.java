@@ -1,7 +1,6 @@
 package com.ssafy.api.dto;
 
 import com.ssafy.db.entity.Gender;
-import com.ssafy.db.entity.UserLan;
 import lombok.*;
 
 import java.util.List;
@@ -20,5 +19,5 @@ public class SignUpDto {
     private String name;
     private String nickName;
     private Long country;
-    private List<Long> languageList;
+    private List<UserLanDto> languageList;
 }

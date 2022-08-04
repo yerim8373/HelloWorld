@@ -1,17 +1,15 @@
 package com.ssafy.api.service;
 
 import com.ssafy.api.dto.TipDto;
-import com.ssafy.db.entity.Language;
 import com.ssafy.db.entity.Tip;
 import com.ssafy.db.entity.User;
-import com.ssafy.db.entity.UserLan;
-import com.ssafy.db.repository.LanguageRepository;
 import com.ssafy.db.repository.TipRepository;
 import com.ssafy.db.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,13 +40,11 @@ public class TipServiceImpl implements TipService {
 
     @Override
     public void insertTip(TipDto tipDto) {
-        tipRepository.save(Tip.builder()
-                        .content(tipDto.getContent())
-                        .build())
-                .setLanguage(Language
-                        .builder()
-                        .lan(tipDto.getLanguage().getLan())
-                        .build());
+        Tip tip = tipRepository.save(Tip.builder()
+                .content(tipDto.getContent())
+                .build());
+        tip.setLanguage(languageService.getLanguageById(tipDto.getLanguage().getLanguageId()));
+        tip.setRegDate(LocalDateTime.now());
     }
 
     @Override

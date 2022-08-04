@@ -3,13 +3,12 @@ package com.ssafy.api.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.api.dto.HeartDto;
 import com.ssafy.api.dto.SignUpDto;
+import com.ssafy.api.dto.UserLanDto;
 import com.ssafy.common.exception.InvalidValueException;
 import com.ssafy.common.util.JwtTokenUtil;
 import com.ssafy.common.util.RedisUtil;
 import com.ssafy.common.util.UserRole;
-import com.ssafy.db.entity.Authority;
-import com.ssafy.db.entity.HeartHistory;
-import com.ssafy.db.entity.Route;
+import com.ssafy.db.entity.*;
 import com.ssafy.db.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -17,8 +16,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import com.ssafy.db.entity.User;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
@@ -43,6 +40,7 @@ public class UserServiceImpl implements UserService {
 	private final CountryRepository countryRepository;
 	private final UserLanRepository userLanRepository;
 	private final UserRepositorySupport userRepositorySupport;
+	private final UserLanService userLanService;
 	private final HeartHistoryRepository heartHistoryRepository;
 	private final PasswordEncoder passwordEncoder;
 	private final JwtTokenUtil jwtTokenUtil;
@@ -51,7 +49,12 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User createUser(SignUpDto signUpDto) {
 
-		return userRepository.save(User.builder()
+//		List<UserLan> list = userLanRepository.findAllById(signUpDto.getLanguageList());
+//		for (int i = 0; i < list.size(); i++){
+//			System.out.println(list.get(i));
+//		}
+
+		User user = userRepository.save(User.builder()
 				.email(signUpDto.getEmail())
 				.pw(passwordEncoder.encode(signUpDto.getPw()))
 				.age(signUpDto.getAge())
@@ -67,8 +70,15 @@ public class UserServiceImpl implements UserService {
 								.build())
 				)
 				.regDate(LocalDateTime.now())
-				.userLanList(userLanRepository.findAllById(signUpDto.getLanguageList()))
 				.build());
+
+		for (UserLanDto userLanDto: signUpDto.getLanguageList()
+			 ) {
+			UserLan userLan = userLanService.insertUserLan(userLanDto);
+			userLan.setUser(user);
+		}
+
+		return user;
 	}
 
 	@Override

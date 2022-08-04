@@ -1,6 +1,5 @@
 package com.ssafy.api.dto;
 
-import com.ssafy.db.entity.Language;
 import com.ssafy.db.entity.Tip;
 import lombok.*;
 
@@ -11,7 +10,6 @@ import lombok.*;
 @NoArgsConstructor
 public class TipDto {
     private Long tipId;
-    private String regDate;
     private LanguageDto language;
     private String content;
 
