@@ -35,8 +35,14 @@ function SignupStep2({ step }) {
         selected={gender}
         handleChange={handleChange}
       />
-      {/* "직접 입력"을 클릭했을 때 렌더링 */}
-      {/* <Input id="기타 성별" type="text" placeholder="성별을 입력해주세요" /> */}
+      {gender === '직접 입력' && (
+        <Input
+          id="기타 성별"
+          type="text"
+          placeholder="성별을 입력해주세요"
+          required
+        />
+      )}
       <Input
         id="나이"
         type="number"
