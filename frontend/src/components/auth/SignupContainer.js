@@ -59,7 +59,7 @@ export default function SignupContainer() {
               noValidate
             >
               <header className={classes.stepHeader}>
-                <h1>회원가입 {step}</h1>
+                <h1>회원가입</h1>
                 <p>
                   <span className={classes.colored}>*</span>은 필수 입력
                 </p>

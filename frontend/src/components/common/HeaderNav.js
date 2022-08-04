@@ -7,6 +7,8 @@ import Logo from './Logo'
 import ProfileImage from './ProfileImage'
 import Button from './Button'
 
+import profile from '../../images/profile.jpg'
+
 // import Link from "next/link";
 // import { useRouter } from "next/router";
 
