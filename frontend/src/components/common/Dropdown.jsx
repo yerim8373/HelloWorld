@@ -12,6 +12,7 @@ const Dropdown = ({ id, value, items, placeholder, handleChange }) => {
         value={value}
         className={classes.dropdown}
         onChange={handleChange}
+        tabIndex="-1"
       >
         {placeholder && (
           <option value="" className={classes.placeholder} disabled>

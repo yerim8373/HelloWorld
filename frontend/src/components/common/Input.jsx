@@ -83,6 +83,7 @@ function Input({
         placeholder={placeholder}
         onKeyUp={inputValidHandler}
         ref={inputRef}
+        tabIndex="-1"
       />
       {/* 에레가 렌더링 되는 창 */}
       {errorComponent && errorComponent}
