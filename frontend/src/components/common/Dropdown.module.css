@@ -1,5 +1,21 @@
 .dropdownContainer {
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+}
+
+.label {
+  font-weight: 700;
+}
+
+.dropdown {
+  padding: 0.5rem 0;
+  border: none;
+  border-bottom: 2px solid var(--color-grey-500);
+}
+
+.placeholder {
+  color: var(--color-grey-500);
+  font-style: italic;
 }

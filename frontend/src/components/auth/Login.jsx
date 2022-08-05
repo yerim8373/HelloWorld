@@ -1,5 +1,5 @@
-import WelcomePicture from '../../components/common/WelcomePicture'
-import LoginForm from '../../components/auth/LoginForm'
+import WelcomePicture from '../common/WelcomePicture'
+import LoginForm from './LoginForm'
 
 const Login = () => {
   return (
