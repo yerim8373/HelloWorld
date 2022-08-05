@@ -28,6 +28,7 @@ const SelectBox = () => {
       isLoading={false}
       isRtl={false}
       closeMenuOnSelect={false}
+      tabIndex="-1"
     />
   )
 }
