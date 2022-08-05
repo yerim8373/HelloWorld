@@ -254,3 +254,10 @@
   - 로그인 api 로직 설계 후, 다시 확인하기
 
 ### 220805
+
+#### 종현
+
+- redux user-slice,auth-slice 세팅
+- redux thunk 세팅
+- 로그인, 유저 정보, 유저 언어 정보 api 연결 완료
+ 

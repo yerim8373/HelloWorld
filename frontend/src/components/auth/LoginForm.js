@@ -22,10 +22,9 @@ import {
 
 import { inputObj } from '../utils/helper/inputObj'
 
-import { useDispatch, useSelector } from 'react-redux'
-import { authActions } from '../../store/auth-slice'
+import { useDispatch } from 'react-redux'
 import { login } from '../../store/auth-thunkActions'
-import { getUserData } from '../../store/user-thunkActions'
+import { getLanguageData, getUserData } from '../../store/user-thunkActions'
 
 // 유효성 검사 설정
 // useRef를 통한 현재 input 값 읽기
@@ -60,7 +59,6 @@ function LoginForm() {
   const [email, setEmail] = useState(inputObj)
   const [password, setPassword] = useState(inputObj)
   const dispatch = useDispatch()
-  const state = useSelector(state => state.auth)
 
   const navigate = useNavigate()
   function routerPushHandler() {
@@ -73,8 +71,12 @@ function LoginForm() {
       password: password.value,
     }
 
+    // 토큰 발급 받기
     const { payload } = await dispatch(login(userData))
+
+    // User Data 가져오기
     await dispatch(getUserData(payload.data.accessToken))
+    await dispatch(getLanguageData(payload.data.accessToken))
   }
 
   const loginErrorHandler = () => {

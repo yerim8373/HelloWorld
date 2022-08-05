@@ -1,5 +1,5 @@
 import { createSlice, current } from '@reduxjs/toolkit'
-import { getUserData } from './user-thunkActions'
+import { getUserData, getLanguageData } from './user-thunkActions'
 
 const userSlice = createSlice({
   name: 'user',
@@ -15,19 +15,20 @@ const userSlice = createSlice({
   reducers: {},
   extraReducers: {
     [getUserData.fulfilled]: (state, { payload }) => {
-      console.log(payload)
       state.name = payload.data.name
       state.age = payload.data.age
       state.nickname = payload.data.nickname
       state.country = payload.data.country.name
       state.subscribe = payload.data.subscribe ? true : false
-      // state.isAuthenticated = true
-      // state.token = payload.data.accessToken
-      console.log(current(state))
     },
     [getUserData.rejected]: (state, { payload }) => {
       // state.isError = true
       // state.message = payload.message
+    },
+    [getLanguageData.fulfilled]: (state, { payload }) => {
+      // state.languages.push(payload)
+      console.log(payload)
+      state.languages = payload.data
     },
   },
 })
