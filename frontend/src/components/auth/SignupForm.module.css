@@ -50,3 +50,9 @@
   margin-bottom: 2px;
   background-color: var(--color-grey-100);
 }
+
+.phoneContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}

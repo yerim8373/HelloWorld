@@ -1,7 +1,9 @@
 import { useState } from 'react'
+import codes from 'country-calling-code'
 import { inputObj } from '../utils/helper/inputObj'
 import PropTypes from 'prop-types'
 import Input from '../common/Input'
+import Dropdown from '../common/Dropdown'
 import RadioBtnGroup from '../common/RadioBtnGroup'
 import classes from './SignupForm.module.css'
 import {
@@ -72,6 +74,13 @@ const ageValidObj = {
   },
 }
 
+// 국제전화 코드 리스트
+const countries = codes.map(c => ({
+  label: `+${c.countryCodes} (${c.country})`,
+  value: c.countryCodes,
+}))
+
+// 성별 리스트
 const genderList = [
   { name: '남자', value: 'MALE' },
   { name: '여자', value: 'FEMALE' },
@@ -81,6 +90,7 @@ function SignupStep2({ step }) {
   const [name, setName] = useState(inputObj)
   const [nickname, setNickname] = useState(inputObj)
   const [age, setAge] = useState(inputObj)
+  const [callingCode, setCallingCode] = useState('')
   const [gender, setGender] = useState(genderList[0].value)
   const [phone, setPhone] = useState(inputObj)
 
@@ -102,13 +112,25 @@ function SignupStep2({ step }) {
         onData={nicknameData => setNickname(nicknameData)}
         required
       />
-      <Input
-        id="휴대폰 번호"
-        type="text"
-        placeholder="전화번호 (하이픈 제외)"
-        onValid={phoneValidObj}
-        onData={phoneData => setPhone(phoneData)}
-      />
+      <div className={classes.phoneContainer}>
+        <Dropdown
+          id="휴대폰 번호"
+          value={callingCode}
+          items={countries}
+          handleChange={e => setCallingCode(e.target.value)}
+          placeholder="국제전화 코드"
+        />
+        <div className={classes.phoneNumber}>
+          <Input
+            id="휴대폰 번호 (실제 입력)"
+            type="text"
+            placeholder="전화번호 (하이픈 제외)"
+            onValid={phoneValidObj}
+            onData={phoneData => setPhone(phoneData)}
+            noLabel
+          />
+        </div>
+      </div>
       <RadioBtnGroup
         label="성별"
         name="gender"
