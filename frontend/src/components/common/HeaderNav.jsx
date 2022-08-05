@@ -8,16 +8,16 @@ import ProfileImage from './ProfileImage'
 import Button from './Button'
 
 import profile from '../../images/profile.jpg'
+import { useSelector } from 'react-redux'
 
 // import Link from "next/link";
 // import { useRouter } from "next/router";
 
 function HeaderNav() {
-  // 임시 로그인 용 useStaet
-  // 후에 redux 공유객체로 바뀔 예정!
+  const state = useSelector(state => state.user)
 
   // eslint-disable-next-line no-unused-vars
-  const [isLogined, setIsLogin] = useState(false)
+  // const [isLogined, setIsLogin] = useState(false)
   const navigate = useNavigate()
 
   function routerPushHandler() {
@@ -25,11 +25,11 @@ function HeaderNav() {
   }
 
   return (
-    <nav className={`${classes.headerNav} ${isLogined ? classes.auth : ''}`}>
+    <nav className={`${classes.headerNav} ${state.id ? classes.auth : ''}`}>
       <div className={classes.navWrapper}>
         <div className={classes.HeaderNav_link_btns}>
-          <Logo withText={!isLogined} />
-          {isLogined && (
+          <Logo withText={!state.id} />
+          {state.id && (
             <div
               className={`${classes.HeaderNav_link_btns} ${classes.hover_color}`}
             >
@@ -44,7 +44,7 @@ function HeaderNav() {
           )}
         </div>
 
-        {isLogined ? (
+        {state.id ? (
           // eslint-disable-next-line
           <ProfileImage src={profile} size="small" />
         ) : (

@@ -6,8 +6,16 @@ import Sheet from '../common/Sheet'
 import Badge from '../common/Badge'
 import Heart from '../common/Heart'
 import classes from './ProfileSection.module.css'
+import { useSelector } from 'react-redux'
 
 function ProfileSection({ user }) {
+  // 한줄소개
+  // 이미지 파일
+  // 하트
+  // 컨츄리
+  // 아직 반영안됨, 추후 이슈 개선 전까지는 해당 부분은 더미 데이터 활용하겠음
+
+  const state = useSelector(state => state.user)
   return (
     <Sheet size="large">
       <div className={classes.profileContainer}>
@@ -15,9 +23,9 @@ function ProfileSection({ user }) {
           <div className={classes.mainInfo}>
             <div className={classes.title}>
               <h1 className="title">
-                안녕하세요, <strong>{user.name}</strong>님!
+                안녕하세요, <strong>{state.name}</strong>님!
               </h1>
-              {user.subscribed && <Badge />}
+              {state.subscribed && <Badge />}
             </div>
             <div className={classes.description}>{user.description}</div>
           </div>
@@ -37,9 +45,9 @@ function ProfileSection({ user }) {
                 }}
               />
               <div className={classes.languages}>
-                {user.languages.map(lang => (
-                  <div key={lang} className={classes.language}>
-                    {lang}
+                {state.languages.map(({ language }) => (
+                  <div key={language.lan} className={classes.language}>
+                    {language.lan}
                   </div>
                 ))}
               </div>
