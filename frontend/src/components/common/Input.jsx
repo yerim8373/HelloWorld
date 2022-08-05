@@ -1,9 +1,8 @@
 //email input 맞춤형 컴포넌트 진행
 
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import PropTypes from 'prop-types'
 import classes from './Input.module.css'
-import { useRef } from 'react'
 // Input-Component /////////////////////////
 /// /////////////////////////////////////////
 /// /////////////////////////////////////////
@@ -15,6 +14,7 @@ import { useRef } from 'react'
 // props.placeHolder (선택)
 // placeHolder 적용
 // required 필수 입력 여부 (레이블 옆에 * 표시 추가)
+// noLabel 레이블 표시 비활성화 여부
 
 function Input({
   id,
@@ -23,6 +23,7 @@ function Input({
   onValid,
   onData,
   required,
+  noLabel,
 }) {
   const inputRef = useRef()
   const [errorComponent, setErrorComponent] = useState(null)
@@ -66,13 +67,15 @@ function Input({
 
   return (
     <div className={classes.inputContainer}>
-      <label
-        className={`${classes.inputLabel} ${colorLabelClass}`}
-        htmlFor={id}
-      >
-        {id}
-        {required && <span className={classes.requiredMark}>*</span>}
-      </label>
+      {noLabel || (
+        <label
+          className={`${classes.inputLabel} ${colorLabelClass}`}
+          htmlFor={id}
+        >
+          {id}
+          {required && <span className={classes.requiredMark}>*</span>}
+        </label>
+      )}
       <input
         className={`${classes.input} ${colorInputClass}`}
         name={id}
@@ -94,6 +97,7 @@ Input.propTypes = {
   onValid: PropTypes.object,
   onData: PropTypes.func,
   required: PropTypes.bool,
+  noLabel: PropTypes.bool,
 }
 
 export default Input
