@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import SignupPicture from '../../components/common/SignupPicture'
+import SignupPicture from '../common/SignupPicture'
 import SignupForm1 from './SignupForm1'
 import SignupForm2 from './SignupForm2'
 import SignupForm3 from './SignupForm3'

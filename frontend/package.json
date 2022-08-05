@@ -9,6 +9,7 @@
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^0.27.2",
+    "country-calling-code": "^0.0.3",
     "net": "^1.0.2",
     "openvidu-browser": "^2.22.0",
     "prop-types": "^15.8.1",
