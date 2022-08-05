@@ -4,6 +4,7 @@ import { getUserData, getLanguageData } from './user-thunkActions'
 const userSlice = createSlice({
   name: 'user',
   initialState: {
+    id: undefined,
     name: undefined,
     age: undefined,
     nickname: undefined,
@@ -15,6 +16,7 @@ const userSlice = createSlice({
   reducers: {},
   extraReducers: {
     [getUserData.fulfilled]: (state, { payload }) => {
+      state.id = payload.data.id
       state.name = payload.data.name
       state.age = payload.data.age
       state.nickname = payload.data.nickname
@@ -26,8 +28,6 @@ const userSlice = createSlice({
       // state.message = payload.message
     },
     [getLanguageData.fulfilled]: (state, { payload }) => {
-      // state.languages.push(payload)
-      console.log(payload)
       state.languages = payload.data
     },
   },

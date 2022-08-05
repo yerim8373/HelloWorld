@@ -260,4 +260,11 @@
 - redux user-slice,auth-slice 세팅
 - redux thunk 세팅
 - 로그인, 유저 정보, 유저 언어 정보 api 연결 완료
- 
+- redux issue -> F5 시 리셋
+- 로그인 후 headerNav 변환
+- 유저 데이터 profile section에 반영
+- 유저 데이터 이슈
+  - 한줄 소개
+  - 하트
+  - 국적
+  - 프로필 이미지

@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
-export const login = createAsyncThunk('auth/userLogin', async userData => {
+export const login = createAsyncThunk('auth/login', async userData => {
   try {
     const response = await axios.post(
       'https://i7b106.p.ssafy.io/api/v1/auth/signin',

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import Sheet from '../common/Sheet'
 import Input from '../common/Input'
@@ -59,25 +59,33 @@ function LoginForm() {
   const [email, setEmail] = useState(inputObj)
   const [password, setPassword] = useState(inputObj)
   const dispatch = useDispatch()
-
   const navigate = useNavigate()
+
   function routerPushHandler() {
     navigate('/signup')
   }
 
-  const loginHandler = async () => {
-    const userData = {
-      email: email.value,
-      password: password.value,
+  const loginHandler = useCallback(async () => {
+    try {
+      const userData = {
+        email: email.value,
+        password: password.value,
+      }
+
+      // 토큰 발급 받기
+      const { payload } = await dispatch(login(userData))
+
+      // User Data 가져오기
+      await dispatch(getUserData(payload.data.accessToken))
+      await dispatch(getLanguageData(payload.data.accessToken))
+
+      if (payload.data.accessToken) {
+        navigate('/meeting')
+      }
+    } catch (error) {
+      alert('로그인에 실패했습니다!')
     }
-
-    // 토큰 발급 받기
-    const { payload } = await dispatch(login(userData))
-
-    // User Data 가져오기
-    await dispatch(getUserData(payload.data.accessToken))
-    await dispatch(getLanguageData(payload.data.accessToken))
-  }
+  }, [dispatch, email.value, navigate, password.value])
 
   const loginErrorHandler = () => {
     alert('아이디 혹은 비밀번호가 유효하지 않습니다. 다시 작성해주세요')
