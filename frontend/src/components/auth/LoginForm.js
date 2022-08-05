@@ -22,6 +22,11 @@ import {
 
 import { inputObj } from '../utils/helper/inputObj'
 
+import { useDispatch, useSelector } from 'react-redux'
+import { authActions } from '../../store/auth-slice'
+import { login } from '../../store/auth-thunkActions'
+import { getUserData } from '../../store/user-thunkActions'
+
 // 유효성 검사 설정
 // useRef를 통한 현재 input 값 읽기
 // useEffect를 통한 useRef 변경마다, 유효성 체크
@@ -54,22 +59,26 @@ const passwordValidObj = {
 function LoginForm() {
   const [email, setEmail] = useState(inputObj)
   const [password, setPassword] = useState(inputObj)
+  const dispatch = useDispatch()
+  const state = useSelector(state => state.auth)
 
   const navigate = useNavigate()
   function routerPushHandler() {
     navigate('/signup')
   }
 
-  const loginHandler = () => {
-    if (email.value === 'test@test.com' && password.value === 'test1234!') {
-      navigate('/meeting', {
-        state: {
-          email: email.value,
-        },
-      })
-    } else {
-      console.log('데이터 못찾음')
+  const loginHandler = async () => {
+    const userData = {
+      email: email.value,
+      password: password.value,
     }
+
+    const { payload } = await dispatch(login(userData))
+    await dispatch(getUserData(payload.data.accessToken))
+  }
+
+  const loginErrorHandler = () => {
+    alert('아이디 혹은 비밀번호가 유효하지 않습니다. 다시 작성해주세요')
   }
 
   return (
@@ -104,9 +113,13 @@ function LoginForm() {
           <div className={classes.login_btns}>
             <div>
               {email.valid && password.valid ? (
-                <Button text="로그인" />
+                <Button text="로그인" onEvent={loginHandler} />
               ) : (
-                <Button text="로그인" color="neutral" />
+                <Button
+                  text="로그인"
+                  color="neutral"
+                  onEvent={loginErrorHandler}
+                />
               )}
             </div>
             <div>
