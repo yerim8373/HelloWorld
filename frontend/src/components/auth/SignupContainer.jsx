@@ -28,17 +28,24 @@ export default function SignupContainer() {
   const { search } = useLocation()
   const navigate = useNavigate()
 
-  const moveToNext = () => {
+  const checkValidation = (fields, success, failure) => {
     let isAllValid = true
-    for (const field of fieldsByStep[step - 1]) {
+    for (const field of fields) {
       if (!formData[field]) {
         isAllValid = false
         break
       }
     }
-    if (isAllValid) navigate(`/signup?step=${step + 1}`)
-    else alert('현재 페이지의 모든 값을 입력해주세요.')
+    if (isAllValid) success()
+    else failure()
   }
+
+  const moveToNext = () =>
+    checkValidation(
+      fieldsByStep[step - 1],
+      () => navigate(`/signup?step=${step + 1}`),
+      () => alert('현재 페이지의 모든 값을 입력해주세요.'),
+    )
   const moveToPrev = () => navigate(`/signup?step=${step - 1}`)
   const moveToLogin = () => navigate('/login')
 
@@ -48,15 +55,11 @@ export default function SignupContainer() {
     let fields = []
     for (const fieldList of fieldsByStep) fields = fields.concat(...fieldList)
 
-    let isAllValid = true
-    for (const field of fields) {
-      if (!formData[field]) {
-        isAllValid = false
-        break
-      }
-    }
-    if (isAllValid) setCreated(true)
-    else alert('입력되지 않은 값이 있습니다. 모든 값을 입력해주세요.')
+    checkValidation(
+      fields,
+      () => setCreated(true),
+      () => alert('입력되지 않은 값이 있습니다. 모든 값을 입력해주세요.'),
+    )
   }
 
   const handleNext = data => {
@@ -72,8 +75,8 @@ export default function SignupContainer() {
     const queryString = new URLSearchParams(search)
     const currStep = queryString.get('step')
 
-    // 쿼리스트링이 없거나 범위 밖이라면 리다이렉트
-    if (!currStep || currStep < 1 || currStep > MAX_STEP)
+    // 쿼리스트링이 없거나 숫자 값이 아니거나 범위 밖이라면 리다이렉트
+    if (!currStep || isNaN(currStep) || currStep < 1 || currStep > MAX_STEP)
       navigate('/signup?step=1')
 
     setStep(parseInt(currStep))
