@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import SignupPicture from '../common/SignupPicture'
 import SignupForm1 from './SignupForm1'
@@ -11,22 +11,62 @@ import Button from '../common/Button'
 import classes from './SignupContainer.module.css'
 
 const MAX_STEP = 4
+const fieldsByStep = [
+  // ['email', 'password', 'passwordConfirm'],
+  ['email', 'password'],
+  ['name', 'nickname', 'callingCode', 'phone', 'gender', 'age'],
+  // ['country', 'languages'],
+  ['country'],
+  ['profileImage', 'accepted'],
+]
 
 export default function SignupContainer() {
   const [step, setStep] = useState(1)
   const [created, setCreated] = useState(false)
+  const [formData, setFormData] = useState({})
 
   const { search } = useLocation()
   const navigate = useNavigate()
 
-  const moveToNext = () => navigate(`/signup?step=${step + 1}`)
+  const moveToNext = () => {
+    let isAllValid = true
+    for (const field of fieldsByStep[step - 1]) {
+      if (!formData[field]) {
+        isAllValid = false
+        break
+      }
+    }
+    if (isAllValid) navigate(`/signup?step=${step + 1}`)
+    else alert('현재 페이지의 모든 값을 입력해주세요.')
+  }
   const moveToPrev = () => navigate(`/signup?step=${step - 1}`)
   const moveToLogin = () => navigate('/login')
 
   const handleSubmit = e => {
     e.preventDefault()
-    console.log('대충 전체 유효성을 검사하는 로직')
-    setCreated(true)
+
+    let fields = []
+    for (const fieldList of fieldsByStep) fields = fields.concat(...fieldList)
+
+    let isAllValid = true
+    for (const field of fields) {
+      console.log(field, formData[field])
+      if (!formData[field]) {
+        isAllValid = false
+        break
+      }
+    }
+    if (isAllValid) setCreated(true)
+    else alert('입력되지 않은 값이 있습니다. 모든 값을 입력해주세요.')
+  }
+
+  const handleNext = data => {
+    setFormData(prev => {
+      return {
+        ...prev,
+        ...data,
+      }
+    })
   }
 
   useEffect(() => {
@@ -42,7 +82,7 @@ export default function SignupContainer() {
 
   return (
     <div className="flex_row">
-      <SignupPicture></SignupPicture>
+      <SignupPicture />
       <div className={`${classes.signupContainer} flex_row_center width_50vw`}>
         <StepIndicator path="/signup" step={step} max={MAX_STEP} />
         <Sheet size="large">
@@ -65,10 +105,10 @@ export default function SignupContainer() {
                 </p>
               </header>
               <div className={classes.stepContainer}>
-                <SignupForm1 step={step} />
-                <SignupForm2 step={step} />
-                <SignupForm3 step={step} />
-                <SignupForm4 step={step} />
+                <SignupForm1 step={step} handleNext={handleNext} />
+                <SignupForm2 step={step} handleNext={handleNext} />
+                <SignupForm3 step={step} handleNext={handleNext} />
+                <SignupForm4 step={step} handleNext={handleNext} />
               </div>
               <div className={classes.stepActions}>
                 {step > 1 && (

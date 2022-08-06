@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import codes from 'country-calling-code'
 import CountryFlag from 'react-country-flag'
@@ -11,9 +11,13 @@ const countries = codes.map(c => ({
   value: c.isoCode2,
 }))
 
-function SignupStep3({ step }) {
-  const [country, setCountry] = useState('')
+function SignupStep3({ step, handleNext }) {
+  const [country, setCountry] = useState(countries[0].value)
   const handleChange = e => setCountry(e.target.value)
+
+  useEffect(() => {
+    handleNext({ country })
+  }, [country])
 
   return (
     <div className={`${classes.signupStepContainer} ${classes['step' + step]}`}>
@@ -48,7 +52,8 @@ function SignupStep3({ step }) {
 }
 
 SignupStep3.propTypes = {
-  step: PropTypes.number,
+  step: PropTypes.number.isRequired,
+  handleNext: PropTypes.func.isRequired,
 }
 
 export default SignupStep3
