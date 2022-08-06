@@ -19,3 +19,35 @@
   color: var(--color-grey-500);
   font-style: italic;
 }
+
+.dropdownLabel {
+  display: flex;
+  gap: 2px;
+  font-weight: 700;
+}
+
+.errorComponent {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--color-error);
+}
+
+.validDropdown {
+  border-bottom: 2px solid var(--color-success);
+}
+
+.invalidDropdown {
+  border-bottom: 2px solid var(--color-error);
+}
+
+.validLabel {
+  color: var(--color-success);
+}
+
+.invalidLabel {
+  color: var(--color-error);
+}
+
+.requiredMark {
+  color: var(--color-caution);
+}

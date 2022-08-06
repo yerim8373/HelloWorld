@@ -1,26 +1,56 @@
 import { useState } from 'react'
+import { inputObj } from '../utils/helper/inputObj'
+import { dropdownObj } from '../utils/helper/dropdownObj'
+import { dropdownObj2 } from '../utils/helper/dropdownObj2'
 import PropTypes from 'prop-types'
 import codes from 'country-calling-code'
 import CountryFlag from 'react-country-flag'
-import Dropdown from '../common/Dropdown'
+// import Dropdown from '../common/Dropdown'
+
+import RenewDropdown from '../common/RenewDropdown'
 import classes from './SignupForm.module.css'
+import { countryValidHandler } from '../utils/validation/countryValid'
+import { languageValidHandler } from '../utils/validation/languageValid'
+
+//국가 유효성 확인
+const countryValidObj = {
+  func0: {
+    func: dropdownValue => countryValidHandler(dropdownValue),
+    message: '국가를 입력해주세요.',
+  },
+}
+
+//언어 유효성 확인
+const languageValidObj = {
+  func0: {
+    func: dropdownValue => languageValidHandler(dropdownValue),
+    message: '사용언어를 입력해주세요.',
+  },
+}
 
 const countries = codes.map(c => ({
   label: c.country,
   value: c.isoCode2,
 }))
 
-const languages = [
+const languages_1 = [
   { value: '1', label: 'English' },
   { value: '2', label: 'Korean' },
   { value: '3', label: 'Spanish' },
 ]
 
+const languages_2 = [
+  { value: '1', label: '없음' },
+  { value: '2', label: 'English' },
+  { value: '3', label: 'Korean' },
+  { value: '4', label: 'Spanish' },
+]
+
 function SignupStep3({ step }) {
-  const [country, setCountry] = useState('')
-  const [language1, setLanguage1] = useState('')
-  const [language2, setLanguage2] = useState('')
-  const [language3, setLanguage3] = useState('')
+  const [country, setCountry] = useState(inputObj)
+  const [language1, setLanguage1] = useState(dropdownObj)
+  const [language2, setLanguage2] = useState(dropdownObj2)
+  const [language3, setLanguage3] = useState(dropdownObj2)
   const handleChange = e => setCountry(e.target.value)
   const handleChange2 = e => setLanguage1(e.target.value)
   const handleChange3 = e => setLanguage2(e.target.value)
@@ -29,12 +59,15 @@ function SignupStep3({ step }) {
   return (
     <div className={`${classes.signupStepContainer} ${classes['step' + step]}`}>
       <div className={classes.countryContainer}>
-        <Dropdown
+        <RenewDropdown
           id="국적"
           value={country}
           items={countries}
           handleChange={handleChange}
+          onValid={countryValidObj}
           placeholder="국적을 선택해주세요"
+          onData={countryData => setCountry(countryData)}
+          required
         />
         {country ? (
           <CountryFlag
@@ -52,25 +85,26 @@ function SignupStep3({ step }) {
         )}
       </div>
 
-      {/* <p className={classes.signup_input_label}>1순위 사용 언어</p> */}
-      <Dropdown
+      <RenewDropdown
         id="1순위 사용 언어"
         value={language1}
-        items={languages}
+        items={languages_1}
+        onValid={languageValidObj}
         handleChange={handleChange2}
         placeholder="언어를 선택해주세요"
+        required
       />
-      <Dropdown
+      <RenewDropdown
         id="2순위 사용 언어"
         value={language2}
-        items={languages}
+        items={languages_2}
         handleChange={handleChange3}
         placeholder="언어를 선택해주세요"
       />
-      <Dropdown
+      <RenewDropdown
         id="3순위 사용 언어"
         value={language3}
-        items={languages}
+        items={languages_2}
         handleChange={handleChange4}
         placeholder="언어를 선택해주세요"
       />

@@ -43,9 +43,6 @@ const passwordConfirmValidObj = {
     func: inputValue => passwordConfirmValidLengthHandler(inputValue),
     message: '비밀번호 확인은 8자 이상이어야 합니다.',
   },
-  func1: {
-    //이 안에 비밀번호 확인ㅇ
-  },
 }
 
 function SignupStep1({ step }) {

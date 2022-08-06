@@ -86,6 +86,7 @@ const genderList = [
   { name: '여자', value: 'FEMALE' },
   { name: '그 외', value: 'ETC' },
 ]
+
 function SignupStep2({ step }) {
   const [name, setName] = useState(inputObj)
   const [nickname, setNickname] = useState(inputObj)

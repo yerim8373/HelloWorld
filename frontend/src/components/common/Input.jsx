@@ -1,5 +1,3 @@
-//email input 맞춤형 컴포넌트 진행
-
 import React, { useState, useRef } from 'react'
 import PropTypes from 'prop-types'
 import classes from './Input.module.css'
@@ -85,7 +83,7 @@ function Input({
         ref={inputRef}
         tabIndex="-1"
       />
-      {/* 에레가 렌더링 되는 창 */}
+      {/* 에러가 렌더링 되는 창 */}
       {errorComponent && errorComponent}
     </div>
   )
