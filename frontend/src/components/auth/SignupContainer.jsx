@@ -19,11 +19,14 @@ const fieldsByStep = [
   ['country'],
   ['profileImage', 'accepted'],
 ]
+const initialFormData = {
+  description: '처음 뵙겠습니다. 잘 부탁드립니다.',
+}
 
 export default function SignupContainer() {
   const [step, setStep] = useState(1)
   const [created, setCreated] = useState(false)
-  const [formData, setFormData] = useState({})
+  const [formData, setFormData] = useState(initialFormData)
 
   const { search } = useLocation()
   const navigate = useNavigate()
