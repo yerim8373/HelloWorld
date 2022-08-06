@@ -1,7 +1,4 @@
-import { useState } from 'react'
-import { inputObj } from '../utils/helper/inputObj'
-import { dropdownObj } from '../utils/helper/dropdownObj'
-import { dropdownObj2 } from '../utils/helper/dropdownObj2'
+import { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import codes from 'country-calling-code'
 import CountryFlag from 'react-country-flag'
@@ -39,22 +36,20 @@ const languages_1 = [
   { value: '3', label: 'Spanish' },
 ]
 
-const languages_2 = [
-  { value: '1', label: '없음' },
-  { value: '2', label: 'English' },
-  { value: '3', label: 'Korean' },
-  { value: '4', label: 'Spanish' },
-]
+function SignupStep3({ step, handleNext }) {
+  const [country, setCountry] = useState(countries[0].value)
+  const [language1, setLanguage1] = useState('')
+  const [language2, setLanguage2] = useState('')
+  const [language3, setLanguage3] = useState('')
 
-function SignupStep3({ step }) {
-  const [country, setCountry] = useState(inputObj)
-  const [language1, setLanguage1] = useState(dropdownObj)
-  const [language2, setLanguage2] = useState(dropdownObj2)
-  const [language3, setLanguage3] = useState(dropdownObj2)
   const handleChange = e => setCountry(e.target.value)
   const handleChange2 = e => setLanguage1(e.target.value)
   const handleChange3 = e => setLanguage2(e.target.value)
   const handleChange4 = e => setLanguage3(e.target.value)
+
+  useEffect(() => {
+    handleNext({ country })
+  }, [country])
 
   return (
     <div className={`${classes.signupStepContainer} ${classes['step' + step]}`}>
@@ -113,7 +108,8 @@ function SignupStep3({ step }) {
 }
 
 SignupStep3.propTypes = {
-  step: PropTypes.number,
+  step: PropTypes.number.isRequired,
+  handleNext: PropTypes.func.isRequired,
 }
 
 export default SignupStep3
