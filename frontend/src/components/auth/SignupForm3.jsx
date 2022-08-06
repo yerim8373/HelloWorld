@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import codes from 'country-calling-code'
 import CountryFlag from 'react-country-flag'
 import Dropdown from '../common/Dropdown'
-import SelectBox from '../common/SelectBox'
 import classes from './SignupForm.module.css'
 
 const countries = codes.map(c => ({
@@ -11,9 +10,21 @@ const countries = codes.map(c => ({
   value: c.isoCode2,
 }))
 
+const languages = [
+  { value: '1', label: 'English' },
+  { value: '2', label: 'Korean' },
+  { value: '3', label: 'Spanish' },
+]
+
 function SignupStep3({ step }) {
   const [country, setCountry] = useState('')
+  const [language1, setLanguage1] = useState('')
+  const [language2, setLanguage2] = useState('')
+  const [language3, setLanguage3] = useState('')
   const handleChange = e => setCountry(e.target.value)
+  const handleChange2 = e => setLanguage1(e.target.value)
+  const handleChange3 = e => setLanguage2(e.target.value)
+  const handleChange4 = e => setLanguage3(e.target.value)
 
   return (
     <div className={`${classes.signupStepContainer} ${classes['step' + step]}`}>
@@ -41,8 +52,28 @@ function SignupStep3({ step }) {
         )}
       </div>
 
-      <p className={classes.signup_input_label}>사용 언어</p>
-      <SelectBox required />
+      {/* <p className={classes.signup_input_label}>1순위 사용 언어</p> */}
+      <Dropdown
+        id="1순위 사용 언어"
+        value={language1}
+        items={languages}
+        handleChange={handleChange2}
+        placeholder="언어를 선택해주세요"
+      />
+      <Dropdown
+        id="2순위 사용 언어"
+        value={language2}
+        items={languages}
+        handleChange={handleChange3}
+        placeholder="언어를 선택해주세요"
+      />
+      <Dropdown
+        id="3순위 사용 언어"
+        value={language3}
+        items={languages}
+        handleChange={handleChange4}
+        placeholder="언어를 선택해주세요"
+      />
     </div>
   )
 }
