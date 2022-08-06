@@ -1,4 +1,4 @@
-import { Routes, Route, useLocation } from 'react-router-dom'
+import { Routes, Route, useLocation, Navigate } from 'react-router-dom'
 import HeaderNavAuth from './components/common/HeaderNavAuth'
 import HeaderNav from './components/common/HeaderNav'
 
@@ -19,7 +19,8 @@ import PasswordPage from './pages/settings/PasswordPage'
 import HeartPage from './pages/settings/HeartPage'
 import WithdrawalPage from './pages/settings/WithdrawalPage'
 
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { validToken } from './store/auth-thunkActions'
 
 const authPathSet = new Set([
   '/login',
@@ -44,18 +45,35 @@ function App() {
     selectedNav = <HeaderNav />
   }
 
+  // token 여부 확인
   const state = useSelector(state => state.auth)
+  const dispatch = useDispatch()
 
-  // const init = () => {
-  //   if(state.token)
-  // }
-  // init()
+  const checkToken = () => {
+    if (state.token) {
+      // 서버 리프레시 토큰 에러
+      // 요청만 만들고 에러 처리되면 확인하자
+      // dispatch(validToken(state.token))
+      return true
+    }
+    return false
+  }
+
   return (
     <>
       {selectedNav}
       <main>
         <Routes>
-          <Route path="/" element={<LandingPage />}></Route>
+          <Route
+            path="/"
+            element={
+              checkToken() ? (
+                <Navigate replace to="/meeting" />
+              ) : (
+                <LandingPage />
+              )
+            }
+          />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/auth/find-info" element={<FindInfo />} />
