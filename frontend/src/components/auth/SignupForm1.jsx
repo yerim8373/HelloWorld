@@ -1,7 +1,5 @@
-import { useState } from 'react'
 import PropTypes from 'prop-types'
 import Input from '../common/Input'
-import { inputObj } from '../utils/helper/inputObj'
 import {
   emailValidHandler,
   emailLengthValidHandler,
@@ -48,11 +46,7 @@ const passwordConfirmValidObj = {
   },
 }
 
-function SignupStep1({ step }) {
-  const [email, setEmail] = useState(inputObj)
-  const [password, setPassword] = useState(inputObj)
-  const [passwordConfirm, setPasswordConfirm] = useState(inputObj)
-
+function SignupStep1({ step, handleNext }) {
   return (
     <div className={`${classes.signupStepContainer} ${classes['step' + step]}`}>
       <Input
@@ -60,14 +54,18 @@ function SignupStep1({ step }) {
         type="email"
         placeholder="example@example.com"
         onValid={emailValidObj}
-        onData={emailData => setEmail(emailData)}
+        onData={data =>
+          handleNext({ email: data.valid ? data.value : undefined })
+        }
         required
       />
       <Input
         id="비밀번호"
         type="password"
         onValid={passwordValidObj}
-        onData={passwordData => setPassword(passwordData)}
+        onData={data =>
+          handleNext({ password: data.valid ? data.value : undefined })
+        }
         required
       />
       <Input
@@ -75,7 +73,9 @@ function SignupStep1({ step }) {
         type="password"
         placeholder="비밀번호 확인"
         onValid={passwordConfirmValidObj}
-        onData={passwordConfirmData => setPasswordConfirm(passwordConfirmData)}
+        onData={data =>
+          handleNext({ passwordConfirm: data.valid ? data.value : undefined })
+        }
         required
       />
     </div>
@@ -83,7 +83,8 @@ function SignupStep1({ step }) {
 }
 
 SignupStep1.propTypes = {
-  step: PropTypes.number,
+  step: PropTypes.number.isRequired,
+  handleNext: PropTypes.func.isRequired,
 }
 
 export default SignupStep1

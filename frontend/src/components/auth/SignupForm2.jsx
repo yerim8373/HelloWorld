@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import codes from 'country-calling-code'
 import { inputObj } from '../utils/helper/inputObj'
 import PropTypes from 'prop-types'
@@ -77,7 +77,7 @@ const ageValidObj = {
 // 국제전화 코드 리스트
 const countries = codes.map(c => ({
   label: `+${c.countryCodes} (${c.country})`,
-  value: c.countryCodes,
+  value: c.countryCodes[0],
 }))
 
 // 성별 리스트
@@ -86,13 +86,14 @@ const genderList = [
   { name: '여자', value: 'FEMALE' },
   { name: '그 외', value: 'ETC' },
 ]
-function SignupStep2({ step }) {
-  const [name, setName] = useState(inputObj)
-  const [nickname, setNickname] = useState(inputObj)
-  const [age, setAge] = useState(inputObj)
-  const [callingCode, setCallingCode] = useState('')
+
+function SignupStep2({ step, handleNext }) {
+  const [callingCode, setCallingCode] = useState(countries[0].value)
   const [gender, setGender] = useState(genderList[0].value)
-  const [phone, setPhone] = useState(inputObj)
+
+  useEffect(() => {
+    handleNext({ gender, callingCode })
+  }, [gender, callingCode])
 
   return (
     <div className={`${classes.signupStepContainer} ${classes['step' + step]}`}>
@@ -101,7 +102,9 @@ function SignupStep2({ step }) {
         type="text"
         placeholder="본명을 입력해주세요"
         onValid={nameValidObj}
-        onData={nameData => setName(nameData)}
+        onData={data =>
+          handleNext({ name: data.valid ? data.value : undefined })
+        }
         required
       />
       <Input
@@ -109,7 +112,9 @@ function SignupStep2({ step }) {
         type="text"
         placeholder="2자 이상을 입력해주세요. 특수문자를 입력할 수 없어요"
         onValid={nicknameValidObj}
-        onData={nicknameData => setNickname(nicknameData)}
+        onData={data =>
+          handleNext({ nickname: data.valid ? data.value : undefined })
+        }
         required
       />
       <div className={classes.phoneContainer}>
@@ -126,7 +131,9 @@ function SignupStep2({ step }) {
             type="text"
             placeholder="전화번호 (하이픈 제외)"
             onValid={phoneValidObj}
-            onData={phoneData => setPhone(phoneData)}
+            onData={data =>
+              handleNext({ phone: data.valid ? data.value : undefined })
+            }
             noLabel
           />
         </div>
@@ -143,7 +150,9 @@ function SignupStep2({ step }) {
         type="number"
         placeholder="나이를 입력해주세요"
         onValid={ageValidObj}
-        onData={ageData => setAge(ageData)}
+        onData={data =>
+          handleNext({ age: data.valid ? data.value : undefined })
+        }
         required
       />
     </div>
@@ -151,7 +160,8 @@ function SignupStep2({ step }) {
 }
 
 SignupStep2.propTypes = {
-  step: PropTypes.number,
+  step: PropTypes.number.isRequired,
+  handleNext: PropTypes.func.isRequired,
 }
 
 export default SignupStep2
