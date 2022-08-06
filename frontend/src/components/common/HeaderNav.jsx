@@ -1,6 +1,4 @@
-import { useState } from 'react'
-
-import { NavLink, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import MenuBtn from './MenuBtn'
 import classes from './HeaderNav.module.css'
 import Logo from './Logo'
@@ -10,14 +8,9 @@ import Button from './Button'
 import profile from '../../images/profile.jpg'
 import { useSelector } from 'react-redux'
 
-// import Link from "next/link";
-// import { useRouter } from "next/router";
-
 function HeaderNav() {
   const state = useSelector(state => state.user)
 
-  // eslint-disable-next-line no-unused-vars
-  // const [isLogined, setIsLogin] = useState(false)
   const navigate = useNavigate()
 
   function routerPushHandler() {

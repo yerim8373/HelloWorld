@@ -19,6 +19,8 @@ import PasswordPage from './pages/settings/PasswordPage'
 import HeartPage from './pages/settings/HeartPage'
 import WithdrawalPage from './pages/settings/WithdrawalPage'
 
+import { useSelector } from 'react-redux'
+
 const authPathSet = new Set([
   '/login',
   '/auth/find-info',
@@ -30,6 +32,7 @@ const authPathSet = new Set([
 function App() {
   const { pathname: path } = useLocation()
 
+  // 사용 nav 설정
   let selectedNav = ''
   if (authPathSet.has(path)) {
     if (path.includes('find-email') || path.includes('find-password')) {
@@ -41,12 +44,18 @@ function App() {
     selectedNav = <HeaderNav />
   }
 
+  const state = useSelector(state => state.auth)
+
+  // const init = () => {
+  //   if(state.token)
+  // }
+  // init()
   return (
     <>
       {selectedNav}
       <main>
         <Routes>
-          <Route path="/" element={<LandingPage />} />
+          <Route path="/" element={<LandingPage />}></Route>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/auth/find-info" element={<FindInfo />} />
