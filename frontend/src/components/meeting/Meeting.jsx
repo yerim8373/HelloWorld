@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import VideoDisplay from './VideoDisplay'
 import VideoControlBtns from './VideoControlBtns'
 import Chatting from './Chatting'
 import classes from './Meeting.module.css'
 import Button from '../common/Button'
 
-import { ovActions } from '../../store/ov-slice'
+import { useNavigate } from 'react-router-dom'
 
-import { useSelector, useDispatch } from 'react-redux'
+// import axios from 'axios'
+import { OpenVidu } from 'openvidu-browser'
 import { getToken } from '../utils/helper/ovServer'
 
 const DUMMYUSER_1 = {
@@ -22,75 +23,154 @@ const DUMMYUSER_2 = {
   hearts: 200,
 }
 
+// let socket = new SockJS()
+// let client = Stomp.over(socket)
+
 const Meeting = () => {
-  const dispatch = useDispatch()
-  const [chat, setChat] = useState('')
-  const { publisher, subscribers, OV, session, mySessionId, myUserName } =
-    useSelector(state => state.openvidu)
+  const navigate = useNavigate()
+
+  const [openVidu, setOpenVidu] = useState({
+    OV: null,
+    mySessionId: 'SessionA',
+    myUserName: 'Participant' + Math.floor(Math.random() * 100),
+    session: undefined,
+    mainStreamManager: undefined,
+    publisher: undefined,
+    subscribers: [],
+  })
+
+  const { OV, session, subscribers, myUserName, mySessionId } = openVidu
 
   useEffect(() => {
-    async function init() {
-      if (!OV) {
-        dispatch(ovActions.createOpenvidu())
-      }
-
+    if (OV === null) {
+      setOpenVidu(prevState => ({
+        ...prevState,
+        OV: new OpenVidu(),
+      }))
+    } else if (session === undefined) {
+      setOpenVidu(prevState => ({
+        ...prevState,
+        session: OV.initSession(),
+      }))
+    } else {
       session.on('streamCreated', event => {
-        dispatch(ovActions.enteredSubscriber(event.stream))
+        let subscriber = session.subscribe(event.stream, undefined)
+        subscribers.push(subscriber)
+        setOpenVidu(prevState => ({
+          ...prevState,
+          subscribers,
+        }))
       })
 
       session.on('streamDestroyed', event => {
-        dispatch(ovActions.deleteSubscriber(event.stream.streamManager))
+        deleteSubscriber(event.stream.streamManager)
       })
 
       session.on('exception', exception => {
         console.warn(exception)
       })
 
-      const token = await getToken(mySessionId)
-      await session.connect(token, { clientData: myUserName })
+      getToken(mySessionId)
+        .then(token => {
+          session.connect(token, { clientData: myUserName }).then(async () => {
+            let devices = await OV.getDevices()
+            let videoDevices = devices.filter(
+              device => device.kind === 'videoinput',
+            )
 
-      // session.signal({
-      //   data: chat,
-      //   to: subscribers,
-      //   type: 'my-chat',
-      // })
+            let publisher = OV.initPublisher(undefined, {
+              audioSource: undefined, // The source of audio. If undefined default microphone
+              videoSource: videoDevices[0].deviceId, // The source of video. If undefined default webcam
+              publishAudio: true, // Whether you want to start publishing with your audio unmuted or not
+              publishVideo: true, // Whether you want to start publishing with your video enabled or not
+              resolution: '1280x720', // The resolution of your video
+              frameRate: 60, // The frame rate of your video
+              insertMode: 'APPEND', // How the video is inserted in the target element 'video-container'
+              mirror: false, // Whether to mirror your local video
+            })
 
-      // session.on('signal:my-chat', event => {
-      //   console.log(event.data)
-      //   console.log(event.from)
-      //   console.log(event.type)
-      // })
+            session.publish(publisher)
 
-      // session.on('signal', event => {
-      //   console.log(event.data)
-      //   console.log(event.from)
-      //   console.log(event.type)
-      // })
-
-      // session.on('connectionCreated', event => {
-      //   console.log(event.connection)
-      // })
-
-      let devices = await OV.getDevices()
-      let videoDevices = devices.filter(device => device.kind === 'videoinput')
-
-      let publisher = OV.initPublisher(undefined, {
-        audioSource: undefined, // The source of audio. If undefined default microphone
-        videoSource: videoDevices[0].deviceId, // The source of video. If undefined default webcam
-        publishAudio: true, // Whether you want to start publishing with your audio unmuted or not
-        publishVideo: true, // Whether you want to start publishing with your video enabled or not
-        resolution: '1280x720', // The resolution of your video
-        frameRate: 30, // The frame rate of your video
-        insertMode: 'APPEND', // How the video is inserted in the target element 'video-container'
-        mirror: false, // Whether to mirror your local video
-      })
-
-      const paylaod = [videoDevices[0], publisher]
-
-      dispatch(ovActions.createPublisher(paylaod))
+            setOpenVidu(prevState => ({
+              ...prevState,
+              currentVideoDevice: videoDevices[0],
+              mainStreamManager: publisher,
+              publisher,
+            }))
+          })
+        })
+        .catch(error => {
+          console.log(
+            'There was an error connecting to the session:',
+            error.code,
+            error.message,
+          )
+        })
     }
-    init()
-  }, [dispatch, session, OV, mySessionId, myUserName, subscribers, chat])
+
+    function deleteSubscriber(streamManager) {
+      let index = subscribers.indexOf(streamManager, 0)
+      if (index > -1) {
+        subscribers.splice(index, 1)
+        setOpenVidu(prevState => ({
+          ...prevState,
+          subscribers,
+        }))
+      }
+    }
+  }, [session, subscribers, myUserName, OV, mySessionId])
+
+  function leaveSession() {
+    const mySession = openVidu.session
+    if (mySession) {
+      mySession.disconnect()
+    }
+
+    OV = null
+    setOpenVidu({
+      session: undefined,
+      subscribers: [],
+      mySessionId: 'SessionA',
+      myUserName: 'Participant' + Math.floor(Math.random() * 100),
+      mainStreamManager: undefined,
+      publisher: undefined,
+    })
+
+    navigate('/meeting')
+  }
+
+  async function switchCamera() {
+    try {
+      const devices = await OV.getDevices()
+      let videoDevices = devices.filter(device => device.kind === 'videoinput')
+      if (videoDevices && videoDevices.length > 1) {
+        let newVideoDevice = videoDevices.filter(
+          device => device.deviceId !== openVidu.currentVideoDevice.deviceId,
+        )
+
+        if (newVideoDevice.length > 0) {
+          let newPublisher = OV.initPublisher(undefined, {
+            videoSource: newVideoDevice[0].deviceId,
+            publishAudio: true,
+            publishVideo: true,
+            mirror: true,
+          })
+
+          await openVidu.session.unpublish(openVidu.mainStreamManager)
+
+          await openVidu.session.publish(newPublisher)
+          setOpenVidu(prevState => ({
+            ...prevState,
+            currentVideoDevice: newVideoDevice,
+            mainStreamManager: newPublisher,
+            publisher: newPublisher,
+          }))
+        }
+      }
+    } catch (e) {
+      console.error(e)
+    }
+  }
 
   return (
     <div className={classes.meeting_wrapper}>
@@ -98,23 +178,20 @@ const Meeting = () => {
         <VideoDisplay
           size="wide"
           userData={DUMMYUSER_1}
-          streamManager={subscribers[0]}
+          streamManager={openVidu.subscribers[0]}
         />
         <div className={classes.right_display}>
           <div>
             <VideoDisplay
               size="narrow"
               userData={DUMMYUSER_2}
-              streamManager={publisher}
+              streamManager={openVidu.publisher}
             />
 
             <VideoControlBtns />
-            <Button
-              text="나가기"
-              // onEvent={dispatch(ovActions.leaveSession)}
-            ></Button>
+            <Button text="나가기" onEvent={leaveSession}></Button>
           </div>
-          <Chatting chat={setChat} />
+          <Chatting />
         </div>
       </div>
     </div>

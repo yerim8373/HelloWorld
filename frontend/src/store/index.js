@@ -1,7 +1,6 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 
 import authSlice from './auth-slice'
-import ovSlice from './ov-slice'
 import userSlice from './user-slice'
 
 import {
@@ -22,7 +21,6 @@ const persistConfig = {
 }
 
 const rootReducer = combineReducers({
-  openvidu: ovSlice.reducer,
   user: userSlice.reducer,
   auth: authSlice.reducer,
 })
