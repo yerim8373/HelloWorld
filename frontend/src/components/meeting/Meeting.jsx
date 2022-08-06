@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import VideoDisplay from './VideoDisplay'
 import VideoControlBtns from './VideoControlBtns'
 import Chatting from './Chatting'
@@ -24,7 +24,7 @@ const DUMMYUSER_2 = {
 
 const Meeting = () => {
   const dispatch = useDispatch()
-
+  const [chat, setChat] = useState('')
   const { publisher, subscribers, OV, session, mySessionId, myUserName } =
     useSelector(state => state.openvidu)
 
@@ -49,6 +49,28 @@ const Meeting = () => {
       const token = await getToken(mySessionId)
       await session.connect(token, { clientData: myUserName })
 
+      // session.signal({
+      //   data: chat,
+      //   to: subscribers,
+      //   type: 'my-chat',
+      // })
+
+      // session.on('signal:my-chat', event => {
+      //   console.log(event.data)
+      //   console.log(event.from)
+      //   console.log(event.type)
+      // })
+
+      // session.on('signal', event => {
+      //   console.log(event.data)
+      //   console.log(event.from)
+      //   console.log(event.type)
+      // })
+
+      // session.on('connectionCreated', event => {
+      //   console.log(event.connection)
+      // })
+
       let devices = await OV.getDevices()
       let videoDevices = devices.filter(device => device.kind === 'videoinput')
 
@@ -68,7 +90,7 @@ const Meeting = () => {
       dispatch(ovActions.createPublisher(paylaod))
     }
     init()
-  }, [dispatch, session, OV, mySessionId, myUserName])
+  }, [dispatch, session, OV, mySessionId, myUserName, subscribers, chat])
 
   return (
     <div className={classes.meeting_wrapper}>
@@ -92,7 +114,7 @@ const Meeting = () => {
               // onEvent={dispatch(ovActions.leaveSession)}
             ></Button>
           </div>
-          <Chatting />
+          <Chatting chat={setChat} />
         </div>
       </div>
     </div>

@@ -1,10 +1,16 @@
-import React from 'react'
+import { useRef } from 'react'
 import Sheet from '../common/Sheet'
 import classes from './Chatting.module.css'
 import ChattingLog from './ChattingLog'
+import PropTypes from 'prop-types'
 
-const Chatting = () => {
-  const chattingSubmitHandler = event => event.preventDefault()
+const Chatting = ({ chat }) => {
+  const input = useRef()
+
+  // const chattingSubmitHandler = event => {
+  //   event.preventDefault()
+  //   chat(input.current.value)
+  // }
 
   return (
     <div className={classes.chatting}>
@@ -36,14 +42,19 @@ const Chatting = () => {
         <Sheet size="small">
           <form
             className={classes.chatting_input_form}
-            onSubmit={chattingSubmitHandler}
+            // onSubmit={chattingSubmitHandler}
           >
-            <input className={classes.chatting_input}></input>
+            <input className={classes.chatting_input} ref={input}></input>
+            {/* <Button onEvent={sendMessageHandler}></Button> */}
           </form>
         </Sheet>
       </div>
     </div>
   )
+}
+
+Chatting.propTypes = {
+  chat: PropTypes.func,
 }
 
 export default Chatting
