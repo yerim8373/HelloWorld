@@ -50,7 +50,6 @@ export default function SignupContainer() {
 
     let isAllValid = true
     for (const field of fields) {
-      console.log(field, formData[field])
       if (!formData[field]) {
         isAllValid = false
         break
@@ -84,7 +83,7 @@ export default function SignupContainer() {
     <div className="flex_row">
       <SignupPicture />
       <div className={`${classes.signupContainer} flex_row_center width_50vw`}>
-        <StepIndicator path="/signup" step={step} max={MAX_STEP} />
+        {created || <StepIndicator path="/signup" step={step} max={MAX_STEP} />}
         <Sheet size="large">
           {created ? (
             <div className={classes.successContainer}>
