@@ -3,14 +3,28 @@ import Sheet from '../common/Sheet'
 import classes from './Chatting.module.css'
 import ChattingLog from './ChattingLog'
 import PropTypes from 'prop-types'
+import { useEffect } from 'react'
+import { useState } from 'react'
 
-const Chatting = ({ chat }) => {
+const Chatting = ({ user }) => {
   const input = useRef()
+  const [chat, setChat] = useState({
+    messageList: [],
+    message: '',
+  })
 
-  // const chattingSubmitHandler = event => {
-  //   event.preventDefault()
-  //   chat(input.current.value)
-  // }
+  useEffect(() => {
+    user.session.on('signal:chat', event => {
+      const data = JSON.parse(event.data)
+      let messageList = chat.messageList
+      messageList.push({
+        connetionId: event.from.connetionId,
+        nickname: data.nickname,
+        message: data.message,
+      })
+      setChat({ messageList: messageList })
+    })
+  }, [])
 
   return (
     <div className={classes.chatting}>
@@ -23,7 +37,7 @@ const Chatting = ({ chat }) => {
             <ChattingLog
               textData={{ userId: 'ssafy', text: 'what can i do for you?' }}
             ></ChattingLog>
-            <ChattingLog
+            {/* <ChattingLog
               textData={{
                 userId: 'ssafy',
                 text: '얼마나 길게 써야 200px을 넘어가서 내려오려나 한번 봅시다얼마나 길게 써야 200px을 넘어가서 내려오려나 한번 봅시다 블라블라얼마나 길게 써야 200px을 넘어가서 내려오려나 한번 봅시다 블라블라',
@@ -34,7 +48,7 @@ const Chatting = ({ chat }) => {
                 userId: 'ssafy',
                 text: '얼마나 길게 써야 200px을 넘어가서 내려오려나 한번 봅시다얼마나 길게 써야 200px을 넘어가서 내려오려나 한번 봅시다 블라블라얼마나 길게 써야 200px을 넘어가서 내려오려나 한번 봅시다 블라블라',
               }}
-            ></ChattingLog>
+            ></ChattingLog> */}
           </div>
         </Sheet>
       </div>
@@ -54,7 +68,7 @@ const Chatting = ({ chat }) => {
 }
 
 Chatting.propTypes = {
-  chat: PropTypes.func,
+  user: PropTypes.object,
 }
 
 export default Chatting

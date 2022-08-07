@@ -55,6 +55,7 @@ const Meeting = () => {
     } else {
       session.on('streamCreated', event => {
         let subscriber = session.subscribe(event.stream, undefined)
+
         subscribers.push(subscriber)
         setOpenVidu(prevState => ({
           ...prevState,
@@ -63,7 +64,14 @@ const Meeting = () => {
       })
 
       session.on('streamDestroyed', event => {
-        deleteSubscriber(event.stream.streamManager)
+        let index = subscribers.indexOf(event.stream.streamManager, 0)
+        if (index > -1) {
+          subscribers.splice(index, 1)
+          setOpenVidu(prevState => ({
+            ...prevState,
+            subscribers,
+          }))
+        }
       })
 
       session.on('exception', exception => {
@@ -107,17 +115,6 @@ const Meeting = () => {
           )
         })
     }
-
-    function deleteSubscriber(streamManager) {
-      let index = subscribers.indexOf(streamManager, 0)
-      if (index > -1) {
-        subscribers.splice(index, 1)
-        setOpenVidu(prevState => ({
-          ...prevState,
-          subscribers,
-        }))
-      }
-    }
   }, [session, subscribers, myUserName, OV, mySessionId])
 
   function leaveSession() {
@@ -126,8 +123,8 @@ const Meeting = () => {
       mySession.disconnect()
     }
 
-    OV = null
     setOpenVidu({
+      OV: null,
       session: undefined,
       subscribers: [],
       mySessionId: 'SessionA',
@@ -191,7 +188,7 @@ const Meeting = () => {
             <VideoControlBtns />
             <Button text="나가기" onEvent={leaveSession}></Button>
           </div>
-          <Chatting />
+          <Chatting user={openVidu.publisher} />
         </div>
       </div>
     </div>
