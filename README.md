@@ -268,3 +268,23 @@
   - 하트
   - 국적
   - 프로필 이미지
+
+### 220806
+
+#### 종현
+
+- redux-persist 설정
+- openvidu & redux-persist 병합 이슈
+  - openvidu 상태관리 제거 (미팅페이지에서만 사용되는 기능이므로 굳이 상태관리를 할 의미가 없음)
+- useState를 활용한 openvidu 비디오 연결완료
+
+### 220807
+
+#### 종현
+
+- openvidu 에러 확인 (해결 보류)
+  - react-router를 통한 미팅 페이지 진입 시 openvidu connection 안됨
+  - 임시방편 아이디어 : 미팅 페이지만 window.location을 통해 진입하자!
+  - 혹시 우리 서버에서 openvidu 작업이 끝나면 이슈가 사라질지도??
+  - 서버 openvidu 작업 끝나고 재확인 하기로 
+- openvidu 채팅 기능 연결 작업
