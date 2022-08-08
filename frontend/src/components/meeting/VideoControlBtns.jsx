@@ -9,7 +9,11 @@ import {
 } from 'react-icons/bs'
 import classes from './VideoControlBtns.module.css'
 
-const VideoControlBtns = () => {
+import Button from '../common/Button'
+
+import PropTypes from 'prop-types'
+
+const VideoControlBtns = ({ onLeaveSession }) => {
   const [mic, setMic] = useState(true)
   const [camera, setCamera] = useState(true)
 
@@ -38,8 +42,25 @@ const VideoControlBtns = () => {
           <BsStopwatch />
         </span>
       </div>
+      <div className={'flex_row'}>
+        <Button
+          size="small"
+          text="다음으로"
+          onEvent={() => onLeaveSession(true)}
+        ></Button>
+        <Button
+          size="small"
+          color="error"
+          text="나가기"
+          onEvent={() => onLeaveSession(false)}
+        ></Button>
+      </div>
     </div>
   )
+}
+
+VideoControlBtns.propTypes = {
+  onLeaveSession: PropTypes.func,
 }
 
 export default VideoControlBtns

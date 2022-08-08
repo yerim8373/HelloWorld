@@ -11,7 +11,7 @@
 }
 
 .flex_item_input {
-  margin: 2rem;
+  margin: 1rem 2rem 2rem 2rem;
   flex-shrink: -1;
   flex-grow: 0;
 }
@@ -21,8 +21,8 @@
 }
 
 .chatting_logs {
-  max-height: 400px;
-  height: 300px;
+  max-height: 300px;
+  height: 250px;
   padding: 2rem;
   overflow-y: scroll;
 }

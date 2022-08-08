@@ -123,7 +123,7 @@ const Meeting = () => {
     init()
   }, [session, subscribers, myUserName, OV, mySessionId])
 
-  function leaveSession() {
+  function leaveSession(reMatching) {
     const mySession = openVidu.session
     if (mySession) {
       mySession.disconnect()
@@ -139,12 +139,48 @@ const Meeting = () => {
       publisher: undefined,
     })
 
-    navigate('/meeting')
+    reMatching
+      ? navigate('/meeting', { state: { reMatching: true } })
+      : navigate('/meeting')
   }
 
   async function switchCamera() {
     try {
       const devices = await OV.getDevices()
+      let videoDevices = devices.filter(device => device.kind === 'videoinput')
+      if (videoDevices && videoDevices.length > 1) {
+        let newVideoDevice = videoDevices.filter(
+          device => device.deviceId !== openVidu.currentVideoDevice.deviceId,
+        )
+
+        if (newVideoDevice.length > 0) {
+          let newPublisher = OV.initPublisher(undefined, {
+            videoSource: newVideoDevice[0].deviceId,
+            publishAudio: true,
+            publishVideo: true,
+            mirror: true,
+          })
+
+          await openVidu.session.unpublish(openVidu.mainStreamManager)
+
+          await openVidu.session.publish(newPublisher)
+          setOpenVidu(prevState => ({
+            ...prevState,
+            currentVideoDevice: newVideoDevice,
+            mainStreamManager: newPublisher,
+            publisher: newPublisher,
+          }))
+        }
+      }
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
+  async function toggleMic() {
+    try {
+      const devices = await OV.getDevices()
+      console.log(devices)
       let videoDevices = devices.filter(device => device.kind === 'videoinput')
       if (videoDevices && videoDevices.length > 1) {
         let newVideoDevice = videoDevices.filter(
@@ -191,8 +227,7 @@ const Meeting = () => {
               streamManager={openVidu.publisher}
             />
 
-            <VideoControlBtns />
-            <Button text="나가기" onEvent={leaveSession}></Button>
+            <VideoControlBtns onLeaveSession={leaveSession} />
           </div>
           <Chatting openVidu={openVidu} />
         </div>
