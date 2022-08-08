@@ -190,6 +190,9 @@ dependencies {
     //인터셉터
     implementation 'javax.interceptor:javax.interceptor-api:1.2.2'
 
+
+    implementation group: 'io.openvidu', name: 'openvidu-java-client', version: '2.18.0'
+
 }
 
 test {

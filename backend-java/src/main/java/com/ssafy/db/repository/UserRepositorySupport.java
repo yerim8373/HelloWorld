@@ -14,14 +14,14 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class UserRepositorySupport {
-    @Autowired
-    private JPAQueryFactory jpaQueryFactory;
-    QUser qUser = QUser.user;
-
-    public Optional<User> findUserByEmail(String email) {
-        User user = jpaQueryFactory.select(qUser).from(qUser)
-                .where(qUser.email.eq(email)).fetchOne();
-        if(user == null) return Optional.empty();
-        return Optional.ofNullable(user);
-    }
+//    @Autowired
+//    private JPAQueryFactory jpaQueryFactory;
+//    QUser qUser = QUser.user;
+//
+//    public Optional<User> findUserByEmail(String email) {
+//        User user = jpaQueryFactory.select(qUser).from(qUser)
+//                .where(qUser.email.eq(email)).fetchOne();
+//        if(user == null) return Optional.empty();
+//        return Optional.ofNullable(user);
+//    }
 }

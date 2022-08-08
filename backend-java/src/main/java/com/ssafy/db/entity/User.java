@@ -54,7 +54,7 @@ public class User{
 
     private Boolean blackListNY;
     private LocalDateTime blackExpireDate;
-    private LocalDateTime membershipExpireDate;
+//    private LocalDateTime membershipExpireDate;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="countryId")
     private Country country;
@@ -80,12 +80,12 @@ public class User{
         this.country = country;
     }
 
-    public void addPeriod(long period) {
-        if(this.membershipExpireDate == null || this.membershipExpireDate.isBefore(LocalDateTime.now())){
-            this.membershipExpireDate = LocalDateTime.now().plusMonths(period);
-        }
-        else{
-            this.membershipExpireDate = this.membershipExpireDate.plusMonths(period);
-        }
-    }
+//    public void addPeriod(long period) {
+//        if(this.membershipExpireDate == null || this.membershipExpireDate.isBefore(LocalDateTime.now())){
+//            this.membershipExpireDate = LocalDateTime.now().plusMonths(period);
+//        }
+//        else{
+//            this.membershipExpireDate = this.membershipExpireDate.plusMonths(period);
+//        }
+//    }
 }
