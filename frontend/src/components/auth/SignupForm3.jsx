@@ -9,6 +9,8 @@ import classes from './SignupForm.module.css'
 import { countryValidHandler } from '../utils/validation/countryValid'
 import { languageValidHandler } from '../utils/validation/languageValid'
 
+import languageData from '../utils/languages.json'
+
 //국가 유효성 확인
 const countryValidObj = {
   func0: {
@@ -30,18 +32,16 @@ const countries = codes.map(c => ({
   value: c.isoCode2,
 }))
 
-const languages = [
-  { value: '0', label: '없음' },
-  { value: '1', label: 'Korean' },
-  { value: '2', label: 'English' },
-  { value: '3', label: 'Spanish' },
-]
+const languages = languageData.map((lang, index) => ({
+  value: index.toString(),
+  label: lang,
+}))
 
 function SignupStep3({ step, handleNext }) {
   const [country, setCountry] = useState(countries[0].value)
-  const [language1, setLanguage1] = useState('1')
-  const [language2, setLanguage2] = useState('0')
-  const [language3, setLanguage3] = useState('0')
+  const [language1, setLanguage1] = useState(languages[1].value)
+  const [language2, setLanguage2] = useState(languages[0].value)
+  const [language3, setLanguage3] = useState(languages[0].value)
 
   const handleChange = e => setCountry(e.target.value)
   const handleChange2 = e => setLanguage1(e.target.value)
