@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react'
 import codes from 'country-calling-code'
-import { inputObj } from '../utils/helper/inputObj'
 import PropTypes from 'prop-types'
 import Input from '../common/Input'
-import Dropdown from '../common/Dropdown'
 import RadioBtnGroup from '../common/RadioBtnGroup'
+import RenewDropdown from '../common/RenewDropdown'
 import classes from './SignupForm.module.css'
 import {
   nameValidLengthHandler,
@@ -118,12 +117,13 @@ function SignupStep2({ step, handleNext }) {
         required
       />
       <div className={classes.phoneContainer}>
-        <Dropdown
+        <RenewDropdown
           id="휴대폰 번호"
           value={callingCode}
           items={countries}
           handleChange={e => setCallingCode(e.target.value)}
           placeholder="국제전화 코드"
+          required
         />
         <div className={classes.phoneNumber}>
           <Input
