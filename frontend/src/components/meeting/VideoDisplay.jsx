@@ -14,7 +14,6 @@ const VideoDisplay = ({ size, userData, streamManager }) => {
   useEffect(() => {
     if (!streamManager) return
     streamManager.addVideoElement(videoRef.current)
-    console.log(streamManager)
   }, [streamManager])
 
   return (
