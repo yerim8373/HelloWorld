@@ -31,23 +31,18 @@ const countries = codes.map(c => ({
 }))
 
 const languages_1 = [
-  { value: '1', label: 'English' },
-  { value: '2', label: 'Korean' },
-  { value: '3', label: 'Spanish' },
-]
-
-const languages_2 = [
   { value: '1', label: '없음' },
   { value: '2', label: 'Korean' },
-  { value: '3', label: 'Spanish' },
-  { value: '4', label: 'English' },
+  { value: '3', label: 'English' },
+  { value: '4', label: 'Spanish' },
+  { value: '4', label: 'Spanish' },
 ]
 
 function SignupStep3({ step, handleNext }) {
   const [country, setCountry] = useState(countries[0].value)
-  const [language1, setLanguage1] = useState('')
-  const [language2, setLanguage2] = useState('')
-  const [language3, setLanguage3] = useState('')
+  const [language1, setLanguage1] = useState('3')
+  const [language2, setLanguage2] = useState('1')
+  const [language3, setLanguage3] = useState('1')
 
   const handleChange = e => setCountry(e.target.value)
   const handleChange2 = e => setLanguage1(e.target.value)
@@ -99,14 +94,14 @@ function SignupStep3({ step, handleNext }) {
       <RenewDropdown
         id="2순위 사용 언어"
         value={language2}
-        items={languages_2}
+        items={languages_1}
         handleChange={handleChange3}
         placeholder="언어를 선택해주세요"
       />
       <RenewDropdown
         id="3순위 사용 언어"
         value={language3}
-        items={languages_2}
+        items={languages_1}
         handleChange={handleChange4}
         placeholder="언어를 선택해주세요"
       />
