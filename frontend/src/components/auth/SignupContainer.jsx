@@ -12,8 +12,7 @@ import classes from './SignupContainer.module.css'
 
 const MAX_STEP = 4
 const fieldsByStep = [
-  // ['email', 'password', 'passwordConfirm'],
-  ['email', 'password'],
+  ['email', 'password', 'passwordConfirm'],
   ['name', 'nickname', 'callingCode', 'phone', 'gender', 'age'],
   ['country', 'language1'],
   ['profileImage', 'accepted'],
