@@ -1,5 +1,8 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { signup } from '../../store/auth-thunkActions'
+
 import SignupPicture from '../common/SignupPicture'
 import SignupForm1 from './SignupForm1'
 import SignupForm2 from './SignupForm2'
@@ -10,13 +13,13 @@ import Sheet from '../common/Sheet'
 import Button from '../common/Button'
 import classes from './SignupContainer.module.css'
 
+import languageData from '../utils/languages.json'
+
 const MAX_STEP = 4
 const fieldsByStep = [
-  // ['email', 'password', 'passwordConfirm'],
-  ['email', 'password'],
+  ['email', 'password', 'passwordConfirm'],
   ['name', 'nickname', 'callingCode', 'phone', 'gender', 'age'],
-  // ['country', 'languages'],
-  ['country'],
+  ['country', 'language1'],
   ['profileImage', 'accepted'],
 ]
 const initialFormData = {
@@ -30,6 +33,7 @@ export default function SignupContainer() {
 
   const { search } = useLocation()
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const checkValidation = (fields, success, failure) => {
     let isAllValid = true
@@ -60,7 +64,48 @@ export default function SignupContainer() {
 
     checkValidation(
       fields,
-      () => setCreated(true),
+      async () => {
+        try {
+          // TODO: 사용 언어 리스트의 fluent, languageId, userLanId 수정
+          const languageList = []
+          for (let i = 1; i <= 3; i++) {
+            if (formData[`language${i}`]) {
+              const lang = {
+                fluent: 100 - 30 * (i - 1),
+                language: {
+                  lan: languageData[formData[`language${i}`]],
+                  languageId: formData[`language${i}`],
+                },
+                priority: i,
+                userLanId: 0,
+              }
+              languageList.push(lang)
+            }
+          }
+
+          const userData = {
+            age: formData.age,
+            avatar: formData.profileImage,
+            country: formData.country,
+            email: formData.email,
+            gender: formData.gender,
+            mobileNumber: formData.callingCode + ' ' + formData.phone,
+            name: formData.name,
+            nickName: formData.nickname,
+            pw: formData.password,
+            languageList,
+          }
+
+          await dispatch(signup(userData))
+          setCreated(true)
+          navigate('/signup?step=1')
+        } catch (e) {
+          console.error(e)
+          console.log(
+            '서버에 문제가 발생했습니다. 잠시 후에 다시 시도해주세요.',
+          )
+        }
+      },
       () => alert('입력되지 않은 값이 있습니다. 모든 값을 입력해주세요.'),
     )
   }

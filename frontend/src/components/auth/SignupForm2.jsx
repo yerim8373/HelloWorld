@@ -76,7 +76,7 @@ const ageValidObj = {
 // 국제전화 코드 리스트
 const countries = codes.map(c => ({
   label: `+${c.countryCodes} (${c.country})`,
-  value: c.countryCodes[0],
+  value: `+${c.countryCodes[0]}`,
 }))
 
 // 성별 리스트
