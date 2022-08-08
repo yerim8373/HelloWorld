@@ -3,25 +3,25 @@ import PropTypes from 'prop-types'
 
 import classes from './ChattingLog.module.css'
 
-const DUMMY_USER_ID = 'ssafy'
-
 const ChattingLog = ({ textData }) => {
-  const check = textData.userId !== DUMMY_USER_ID
+  const check = textData.connectionId !== textData.myStreamId
+  console.log(textData.connectionId, textData.myStreamId)
   return (
     <div
       className={`${classes.chatting_log} ${
         check ? '' : classes.right_aligned
       }`}
     >
-      <span className={classes.chatting_log_text}> {textData.text}</span>
+      <span className={classes.chatting_log_text}> {textData.message}</span>
     </div>
   )
 }
 
 ChattingLog.propTypes = {
   textData: PropTypes.shape({
-    userId: PropTypes.string,
-    text: PropTypes.string,
+    myStreamId: PropTypes.string,
+    connectionId: PropTypes.string,
+    message: PropTypes.string,
   }),
 }
 
