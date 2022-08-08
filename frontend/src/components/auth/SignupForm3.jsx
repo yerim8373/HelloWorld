@@ -36,6 +36,13 @@ const languages_1 = [
   { value: '3', label: 'Spanish' },
 ]
 
+const languages_2 = [
+  { value: '1', label: '없음' },
+  { value: '2', label: 'Korean' },
+  { value: '3', label: 'Spanish' },
+  { value: '4', label: 'English' },
+]
+
 function SignupStep3({ step, handleNext }) {
   const [country, setCountry] = useState(countries[0].value)
   const [language1, setLanguage1] = useState('')
