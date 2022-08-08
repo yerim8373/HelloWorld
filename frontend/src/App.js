@@ -32,7 +32,11 @@ function App() {
 
   let selectedNav = ''
   if (authPathSet.has(path)) {
-    if (path.includes('find-email') || path.includes('find-password')) {
+    if (
+      path.includes('find-email') ||
+      path.includes('find-password') ||
+      path.includes('find-info')
+    ) {
       selectedNav = <HeaderNavAuth color="black" />
     } else {
       selectedNav = <HeaderNavAuth color="white" fixed />

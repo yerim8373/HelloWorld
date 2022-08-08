@@ -20,3 +20,29 @@
     flex: 1 1 40%;
 }
 */
+.info_text_align {
+    text-align: center;
+    padding-bottom: 4rem;
+    padding-top: 15rem;
+}
+
+.info_tip {
+    text-align: center;
+    padding-top: 2rem;
+    padding-bottom: 0.5rem;
+}
+
+.info_tip2 {
+    text-align: center;
+    padding-top: 0.4rem;
+    padding-bottom: 0.5rem;
+}
+
+
+.info_box_padding_right {
+    padding-right: 4rem;
+}
+
+.info_box_padding_left {
+    padding-left: 4rem;
+}
