@@ -15,8 +15,7 @@ const fieldsByStep = [
   // ['email', 'password', 'passwordConfirm'],
   ['email', 'password'],
   ['name', 'nickname', 'callingCode', 'phone', 'gender', 'age'],
-  // ['country', 'languages'],
-  ['country'],
+  ['country', 'language1'],
   ['profileImage', 'accepted'],
 ]
 const initialFormData = {
