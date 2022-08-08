@@ -26,9 +26,10 @@ public class SsafyUserDetails implements UserDetails {
     public SsafyUserDetails(User user) {
     		super();
     		this.user = user;
-//		List<? extends GrantedAuthority> authorities = user.getAuthorities().stream().map(auth -> new SimpleGrantedAuthority(auth.getAuthName()))
-//				.collect(Collectors.toList());
-//		this.roles = authorities;
+		List<? extends GrantedAuthority> authorities = user.getAuthorities().stream().map(auth -> new SimpleGrantedAuthority(auth.getAuthName()))
+				.collect(Collectors.toList());
+
+		this.roles = authorities;
 	}
     
     public User getUser() {
