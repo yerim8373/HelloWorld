@@ -12,28 +12,33 @@ import classes from './VideoControlBtns.module.css'
 import Button from '../common/Button'
 
 import PropTypes from 'prop-types'
+import { useEffect } from 'react'
 
-const VideoControlBtns = ({ onLeaveSession }) => {
+const VideoControlBtns = ({ onLeaveSession, onToggleDevice, devices }) => {
   const [mic, setMic] = useState(true)
   const [camera, setCamera] = useState(true)
 
+  useEffect(() => {
+    onToggleDevice(mic, camera)
+  }, [mic, camera])
+
   // 마이크 설정 로직
-  const checkMicHandler = () => {
-    return setMic(prevMic => !prevMic)
+  const toggleMicHandler = () => {
+    setMic(prevMic => !prevMic)
   }
 
   // 비디오 설정 로직
-  const checkCameraHandler = () => {
-    return setCamera(prevCamera => !prevCamera)
+  const toggleCameraHandler = () => {
+    setCamera(prevCamera => !prevCamera)
   }
 
   return (
     <div className={`flex_row_space_evenly ${classes.btns_wrapper}`}>
       <div>
-        <span onClick={checkMicHandler} className={classes.icon}>
+        <span onClick={toggleMicHandler} className={classes.icon}>
           {mic ? <BsFillMicFill /> : <BsFillMicMuteFill />}
         </span>
-        <span onClick={checkCameraHandler} className={classes.icon}>
+        <span onClick={toggleCameraHandler} className={classes.icon}>
           {camera ? <BsFillCameraVideoFill /> : <BsFillCameraVideoOffFill />}
         </span>
       </div>
@@ -61,6 +66,8 @@ const VideoControlBtns = ({ onLeaveSession }) => {
 
 VideoControlBtns.propTypes = {
   onLeaveSession: PropTypes.func,
+  onToggleDevice: PropTypes.func,
+  devices: PropTypes.object,
 }
 
 export default VideoControlBtns
