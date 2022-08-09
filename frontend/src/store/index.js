@@ -2,6 +2,7 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit'
 
 import authSlice from './auth-slice'
 import userSlice from './user-slice'
+import languageSlice from './language-slice'
 
 import {
   persistStore,
@@ -23,6 +24,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
   user: userSlice.reducer,
   auth: authSlice.reducer,
+  language: languageSlice.reducer,
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)

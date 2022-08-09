@@ -1,5 +1,5 @@
 import { createSlice, current } from '@reduxjs/toolkit'
-import { getUserData, getLanguageData } from './user-thunkActions'
+import { getUserData, getLanguageData, signup } from './user-thunkActions'
 
 const userSlice = createSlice({
   name: 'user',
@@ -29,6 +29,16 @@ const userSlice = createSlice({
     },
     [getLanguageData.fulfilled]: (state, { payload }) => {
       state.languages = payload.data
+    },
+    [signup.pending]: () => {
+      return
+    },
+    [signup.fulfilled]: () => {
+      return
+    },
+    [signup.rejected]: (state, { payload }) => {
+      state.isError = true
+      state.message = payload.message
     },
   },
 })
