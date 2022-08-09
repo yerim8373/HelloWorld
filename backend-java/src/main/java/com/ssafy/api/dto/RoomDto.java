@@ -11,6 +11,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RoomDto {
+
     @ApiModelProperty(name = "방 번호", example="QB8TKZC05P")
     private String roomId;
     private String language;
