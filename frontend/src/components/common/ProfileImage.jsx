@@ -13,7 +13,7 @@ const ProfileImage = ({ src, size, handleClick }) => {
     <img
       className={`${classes.image} ${size ? classes[size] : ''} ${
         handleClick ? classes.clickable : ''
-      }`}
+      } click-blocked`}
       src={src}
       alt="프로필 이미지"
       onClick={handleClick}
