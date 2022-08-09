@@ -1,0 +1,80 @@
+.profileContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.mainInfoContainer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.mainInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.title {
+  display: flex;
+  gap: 1rem;
+}
+
+.title > h1 {
+  font-weight: 400;
+}
+
+.title > h1 > strong {
+  font-weight: 600;
+}
+
+.description {
+  font-size: 1.25rem;
+  color: var(--color-grey-500);
+}
+
+.avatar {
+  width: 12rem;
+  height: 12rem;
+  border-radius: 6rem;
+}
+
+.subInfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.subInfoContents {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.countryAndLanguages {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.CountryFlag {
+  border: 2px solid var(--color-grey-200);
+}
+
+.languages {
+  display: flex;
+  gap: 0.5rem;
+  font-weight: 600;
+}
+
+.SettingsIcon {
+  display: flex;
+  align-items: center;
+  font-size: 2rem;
+  color: var(--color-grey-500);
+  transition: color 0.15s;
+}
+
+.SettingsIcon:hover {
+  color: var(--color-primary)
+}

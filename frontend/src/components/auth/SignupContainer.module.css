@@ -1,0 +1,42 @@
+.signupContainer {
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.formContainer {
+  width: var(--signup-form-width);
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.stepHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.colored {
+  color: var(--color-caution);
+}
+
+.stepContainer {
+  display: flex;
+  overflow: hidden;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+.stepActions {
+  display: flex;
+  gap: 2rem;
+}
+
+.successContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
