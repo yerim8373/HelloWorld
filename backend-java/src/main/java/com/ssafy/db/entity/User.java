@@ -1,5 +1,6 @@
 package com.ssafy.db.entity;
 
+import com.ssafy.api.dto.RoomDto;
 import lombok.*;
 
 import javax.persistence.*;
@@ -32,6 +33,10 @@ public class User{
     private String mobileNumber;
     @Column(unique = true, nullable = false)
     private String nickname;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "roomId")
+    private Room room;
 
     private Integer age;
     private String avatarSrc;
@@ -88,4 +93,9 @@ public class User{
 //            this.membershipExpireDate = this.membershipExpireDate.plusMonths(period);
 //        }
 //    }
+
+    public void setRoom(Room room) {
+        this.room = room;
+        room.getUserList().add(this);
+    }
 }
