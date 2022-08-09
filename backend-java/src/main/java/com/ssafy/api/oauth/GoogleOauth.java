@@ -29,7 +29,7 @@ public class GoogleOauth  implements SocialOauth{
 
         Map<String, String> params = new HashMap<>();
 
-        params.put("scope", GOOGLE_SCOPE);
+        params.put("scope", GOOGLE_SCOPE.replace(',', ' '));
         params.put("response_type", "code");
         params.put("client_id", GOOGLE_CLIENT_ID);
         params.put("redirect_uri", GOOGLE_CALLBACK_URL);
