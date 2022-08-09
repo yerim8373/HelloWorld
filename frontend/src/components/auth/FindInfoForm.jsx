@@ -4,7 +4,7 @@ import React from 'react'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import Sheet from '../common/Sheet'
 import Button from '../common/Button'
-import classes from './FindInformationPage.module.css'
+import classes from './FindInfoForm.module.css'
 
 function FindInformationPage() {
   const navigate = useNavigate()

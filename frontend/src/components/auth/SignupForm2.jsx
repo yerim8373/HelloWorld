@@ -3,7 +3,8 @@ import codes from 'country-calling-code'
 import PropTypes from 'prop-types'
 import Input from '../common/Input'
 import RadioBtnGroup from '../common/RadioBtnGroup'
-import RenewDropdown from '../common/RenewDropdown'
+// import RenewDropdown from '../common/RenewDropdown'
+import Dropdown from '../common/Dropdown'
 import classes from './SignupForm.module.css'
 import {
   nameValidLengthHandler,
@@ -76,7 +77,7 @@ const ageValidObj = {
 // 국제전화 코드 리스트
 const countries = codes.map(c => ({
   label: `+${c.countryCodes} (${c.country})`,
-  value: c.countryCodes[0],
+  value: `+${c.countryCodes[0]}`,
 }))
 
 // 성별 리스트
@@ -117,7 +118,7 @@ function SignupStep2({ step, handleNext }) {
         required
       />
       <div className={classes.phoneContainer}>
-        <RenewDropdown
+        <Dropdown
           id="휴대폰 번호"
           value={callingCode}
           items={countries}

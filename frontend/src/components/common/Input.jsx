@@ -13,6 +13,7 @@ import classes from './Input.module.css'
 // placeHolder 적용
 // required 필수 입력 여부 (레이블 옆에 * 표시 추가)
 // noLabel 레이블 표시 비활성화 여부
+// meta 유효성 검사에 사용할 외부 state 값 (ex: 비밀번호 확인)
 
 function Input({
   id,
@@ -22,6 +23,7 @@ function Input({
   onData,
   required,
   noLabel,
+  meta,
 }) {
   const inputRef = useRef()
   const [errorComponent, setErrorComponent] = useState(null)
@@ -49,7 +51,7 @@ function Input({
     checkValid = setTimeout(() => {
       let errorComponent = ''
       for (let func in onValid) {
-        if (!onValid[func].func(inputRef.current.value)) {
+        if (!onValid[func].func(inputRef.current.value, meta)) {
           errorComponent = <ErrorComponent text={onValid[func].message} />
           break
         }
@@ -97,6 +99,7 @@ Input.propTypes = {
   onData: PropTypes.func,
   required: PropTypes.bool,
   noLabel: PropTypes.bool,
+  meta: PropTypes.any,
 }
 
 export default Input
