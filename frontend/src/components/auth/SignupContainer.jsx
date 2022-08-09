@@ -89,7 +89,7 @@ export default function SignupContainer() {
           const userData = {
             age: parseInt(formData.age),
             avatar: formData.profileImage,
-            country: countryData.find(iso2 => iso2 === formData.country).id,
+            country: countryData.find(c => c.code === formData.country).id,
             email: formData.email,
             gender: formData.gender,
             mobileNumber: formData.callingCode + ' ' + formData.phone,
