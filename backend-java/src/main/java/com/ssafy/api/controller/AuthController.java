@@ -2,7 +2,9 @@ package com.ssafy.api.controller;
 
 import com.ssafy.api.dto.JWTokenDto;
 import com.ssafy.api.dto.SignInDTO;
+import com.ssafy.api.oauth.SocialLoginType;
 import com.ssafy.api.service.AuthService;
+import com.ssafy.api.service.OAuthService;
 import com.ssafy.common.model.response.Response;
 import com.ssafy.common.util.JWToken;
 import com.ssafy.common.util.JwtTokenUtil;
@@ -27,6 +29,8 @@ import io.swagger.annotations.ApiResponse;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.Locale;
 
 /**
  * 인증 관련 API 요청 처리를 위한 컨트롤러 정의.
@@ -39,7 +43,7 @@ public class AuthController {
 	private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
 	private final AuthService authService;
 	private final Response response;
-
+	private final OAuthService oAuthService;
 
 	@PostMapping("/signin")
 	@ApiOperation(value = "로그인", notes = "<strong>아이디와 패스워드</strong>를 통해 로그인 한다.")
@@ -87,5 +91,15 @@ public class AuthController {
 	public ResponseEntity<?> reissue(@CookieValue(value="refresh-token", required = false) String refreshToken){
 		JWToken jwt = authService.reissue(refreshToken);
 		return response.success(JWTokenDto.of(jwt));
+	}
+
+	@GetMapping("/oauth2/{type}")
+	public void socialLogin(@PathVariable String type) throws IOException {
+		oAuthService.request(SocialLoginType.valueOf(type.toUpperCase()));
+	}
+
+	@GetMapping("/oauth2/{type}/callback")
+	public void callback(@PathVariable String type, @RequestParam String code){
+		oAuthService.oauthLogin(SocialLoginType.valueOf(type.toUpperCase()),code);
 	}
 }
