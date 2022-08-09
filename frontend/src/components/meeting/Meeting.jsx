@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import VideoDisplay from './VideoDisplay'
 import VideoControlBtns from './VideoControlBtns'
 import Chatting from './Chatting'
@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom'
 // import axios from 'axios'
 import { OpenVidu } from 'openvidu-browser'
 import { getToken } from '../utils/helper/ovServer'
+import { func } from 'prop-types'
 
 const DUMMYUSER_1 = {
   country: '🇰🇷',
@@ -37,10 +38,18 @@ const Meeting = () => {
     mainStreamManager: undefined,
     publisher: undefined,
     subscribers: [],
+    devices: undefined,
   })
 
-  const { OV, session, subscribers, publisher, myUserName, mySessionId } =
-    openVidu
+  const {
+    OV,
+    session,
+    subscribers,
+    myUserName,
+    mySessionId,
+    mainStreamManager,
+    devices,
+  } = openVidu
 
   useEffect(() => {
     const init = async () => {
@@ -49,12 +58,19 @@ const Meeting = () => {
           ...prevState,
           OV: new OpenVidu(),
         }))
-      } else if (session === undefined) {
+      }
+
+      if (OV && session === undefined) {
+        const initSession = await OV.initSession()
+        const devices = await OV.getDevices()
         setOpenVidu(prevState => ({
           ...prevState,
-          session: OV.initSession(),
+          session: initSession,
+          devices,
         }))
-      } else {
+      }
+
+      if (session) {
         session.on('streamCreated', event => {
           let subscriber = session.subscribe(event.stream, undefined)
 
@@ -74,6 +90,14 @@ const Meeting = () => {
               subscribers,
             }))
           }
+        })
+
+        session.on('publisherStartSpeaking', event => {
+          console.log('나지금 말하고 있다!!')
+        })
+
+        session.on('publisherStopSpeaking', event => {
+          console.log('나지금 말 멈췄다!')
         })
 
         session.on('exception', exception => {
@@ -123,10 +147,11 @@ const Meeting = () => {
     init()
   }, [session, subscribers, myUserName, OV, mySessionId])
 
-  function leaveSession() {
-    const mySession = openVidu.session
-    if (mySession) {
-      mySession.disconnect()
+  // leaveSession(true) : 나가서 재매칭이 이루어진다.
+  // leaveSession(false) : 나가서 재매칭이 이루어지지 않는다.
+  function leaveSession(reMatching) {
+    if (session) {
+      session.disconnect()
     }
 
     setOpenVidu({
@@ -137,15 +162,58 @@ const Meeting = () => {
       myUserName: 'Participant' + Math.floor(Math.random() * 100),
       mainStreamManager: undefined,
       publisher: undefined,
+      devices: undefined,
     })
 
-    navigate('/meeting')
+    reMatching
+      ? navigate('/meeting', { state: { reMatching: true } })
+      : navigate('/meeting')
   }
 
-  async function switchCamera() {
+  // 기기 껐다 켰다
+  const toggleDevice = useCallback(
+    async (audio, video) => {
+      try {
+        let devices = await OV.getDevices()
+        let videoDevices = devices.filter(
+          device => device.kind === 'videoinput',
+        )
+
+        let newPublisher = OV.initPublisher(undefined, {
+          audioSource: undefined, // The source of audio. If undefined default microphone
+          videoSource: videoDevices[0].deviceId, // The source of video. If undefined default webcam
+          publishAudio: audio, // Whether you want to start publishing with your audio unmuted or not
+          publishVideo: video, // Whether you want to start publishing with your video enabled or not
+          resolution: '1280x720', // The resolution of your video
+          frameRate: 60, // The frame rate of your video
+          insertMode: 'APPEND', // How the video is inserted in the target element 'video-container'
+          mirror: false, // Whether to mirror your local video
+        })
+
+        await session.unpublish(mainStreamManager)
+
+        await session.publish(newPublisher)
+
+        setOpenVidu(prevState => ({
+          ...prevState,
+          currentVideoDevice: videoDevices[0],
+          mainStreamManager: newPublisher,
+          publisher: newPublisher,
+        }))
+      } catch (error) {
+        console.log(error)
+      }
+    },
+
+    [OV, mainStreamManager, session],
+  )
+
+  async function switchDevice() {
     try {
       const devices = await OV.getDevices()
       let videoDevices = devices.filter(device => device.kind === 'videoinput')
+      let audioDevices = devices.filter(device => device.kind === 'audioinput')
+
       if (videoDevices && videoDevices.length > 1) {
         let newVideoDevice = videoDevices.filter(
           device => device.deviceId !== openVidu.currentVideoDevice.deviceId,
@@ -190,9 +258,11 @@ const Meeting = () => {
               userData={DUMMYUSER_2}
               streamManager={openVidu.publisher}
             />
-
-            <VideoControlBtns />
-            <Button text="나가기" onEvent={leaveSession}></Button>
+            <VideoControlBtns
+              devices={OV && OV.getDevices()}
+              onLeaveSession={leaveSession}
+              onToggleDevice={toggleDevice}
+            />
           </div>
           <Chatting openVidu={openVidu} />
         </div>

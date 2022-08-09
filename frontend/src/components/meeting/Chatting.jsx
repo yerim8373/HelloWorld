@@ -8,6 +8,7 @@ import { useState } from 'react'
 
 const Chatting = ({ openVidu }) => {
   const input = useRef()
+  const chattingLog = useRef()
   const [chat, setChat] = useState({
     messageList: [],
     message: '',
@@ -26,10 +27,10 @@ const Chatting = ({ openVidu }) => {
           message: data.message,
         })
         setChat(prev => ({ ...prev, messageList }))
-        console.log(messageList)
+        scrollToBottom()
       })
     }
-  }, [openVidu.publisher])
+  }, [openVidu.publisher, messageList, openVidu.session])
 
   function handleChange(event) {
     // console.log(chat.message)
@@ -63,11 +64,19 @@ const Chatting = ({ openVidu }) => {
     }))
   }
 
+  function scrollToBottom() {
+    setTimeout(() => {
+      try {
+        chattingLog.current.scrollTop = chattingLog.current.scrollHeight
+      } catch (err) {}
+    }, 20)
+  }
+
   return (
     <div className={classes.chatting}>
       <div className={classes.flex_item_log}>
         <Sheet>
-          <div className={classes.chatting_logs}>
+          <div ref={chattingLog} className={classes.chatting_logs}>
             {messageList.map(({ message, connectionId }, idx) => (
               <ChattingLog
                 key={idx}

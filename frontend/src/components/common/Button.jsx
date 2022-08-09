@@ -56,8 +56,12 @@ function Button({
 
   if (closable) className += 'closable '
 
+  function clickHandler(params) {
+    params ? onEvent(params) : onEvent()
+  }
+
   return (
-    <button className={className} onClick={onEvent}>
+    <button className={className} onClick={clickHandler}>
       {text}
     </button>
   )
