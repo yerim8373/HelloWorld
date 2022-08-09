@@ -7,6 +7,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service("roomService")
 @RequiredArgsConstructor
 @Transactional
@@ -37,5 +40,14 @@ public class RoomServiceImpl implements RoomService {
     @Override
     public RoomDto getRoomDto(String roomId) {
         return RoomDto.of(roomRepository.findByRoomId(roomId));
+    }
+
+    @Override
+    public List<RoomDto> quickRoom(RoomDto roomDto) {
+        List<RoomDto> list = new ArrayList<>();
+        for(Room room : roomRepository.findAll()){
+            list.add(RoomDto.of(room));
+        }
+        return list;
     }
 }
