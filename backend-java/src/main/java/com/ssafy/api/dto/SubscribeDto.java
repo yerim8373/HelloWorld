@@ -1,6 +1,6 @@
 package com.ssafy.api.dto;
 
-import com.ssafy.db.entity.Subscribe;
+import com.google.common.eventbus.Subscribe;
 import lombok.*;
 
 @Builder
@@ -10,7 +10,4 @@ import lombok.*;
 @NoArgsConstructor
 public class SubscribeDto {
     private Long subscribeId;
-    public static SubscribeDto of(Subscribe subscribe){
-        return new SubscribeDto();
-    }
 }
