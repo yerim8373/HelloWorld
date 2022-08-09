@@ -4,6 +4,8 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -18,5 +20,8 @@ public class Room{
 
     @Column(name = "language")
     private String language;
+
+    @OneToMany(mappedBy = "room")
+    private List<User> userList = new ArrayList<>();
 
 }
