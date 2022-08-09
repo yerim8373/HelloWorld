@@ -13,7 +13,7 @@ insert into
 insert into
     user
     value
-    (0, true, 1000, null, null, null, 'admin', 'MALE', null, 'admin', 'admin', 'admin', '$2a$10$bCE.fZaerqsxjhyWfG6ctOKz6uQz1ZWed9q6Rdx5zCsv4z.Q8gD5e', now(), 1);
+    (0, true, 1000, null, null, false, 'admin', 'MALE', 'admin', 'admin', 'admin', '$2a$10$bCE.fZaerqsxjhyWfG6ctOKz6uQz1ZWed9q6Rdx5zCsv4z.Q8gD5e', now(), 1);
 insert into
     user_auth
     value
