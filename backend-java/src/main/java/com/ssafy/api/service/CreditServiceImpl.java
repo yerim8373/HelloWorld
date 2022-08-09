@@ -1,17 +1,11 @@
 package com.ssafy.api.service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ssafy.common.exception.InvalidValueException;
 import com.ssafy.common.util.RedisUtil;
 import com.ssafy.db.entity.User;
-import com.ssafy.db.repository.CreditRepository;
 import com.ssafy.db.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 @Service("creditService")
 @RequiredArgsConstructor
