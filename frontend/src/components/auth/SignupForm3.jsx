@@ -9,6 +9,7 @@ import classes from './SignupForm.module.css'
 import { countryValidHandler } from '../utils/validation/countryValid'
 import { languageValidHandler } from '../utils/validation/languageValid'
 
+import countryData from '../utils/countries.json'
 import languageData from '../utils/languages.json'
 
 //국가 유효성 확인
@@ -27,10 +28,12 @@ const languageValidObj = {
   },
 }
 
-const countries = codes.map(c => ({
-  label: c.country,
-  value: c.isoCode2,
-}))
+const countries = codes
+  .filter(c => countryData.includes(c.isoCode2))
+  .map(c => ({
+    label: c.country,
+    value: c.isoCode2,
+  }))
 
 const languages = languageData.map((lang, index) => ({
   value: index.toString(),

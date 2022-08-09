@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { signup } from '../../store/auth-thunkActions'
+import languageCodes from 'country-calling-code'
+import { signup } from '../../store/user-thunkActions'
 
 import SignupPicture from '../common/SignupPicture'
 import SignupForm1 from './SignupForm1'
@@ -13,6 +14,7 @@ import Sheet from '../common/Sheet'
 import Button from '../common/Button'
 import classes from './SignupContainer.module.css'
 
+import countryData from '../utils/countries.json'
 import languageData from '../utils/languages.json'
 
 const MAX_STEP = 4
@@ -36,6 +38,9 @@ export default function SignupContainer() {
   const dispatch = useDispatch()
 
   const checkValidation = (fields, success, failure) => {
+    console.log(formData)
+    console.log(countryData.findIndex(iso2 => iso2 === formData.country))
+
     let isAllValid = true
     for (const field of fields) {
       if (!formData[field]) {
@@ -46,6 +51,8 @@ export default function SignupContainer() {
     if (isAllValid) success()
     else failure()
   }
+
+  // const convert2Iso3 = iso2 => languageCodes.find(c => c.iso2 === iso2).isoCode3
 
   const moveToNext = () =>
     checkValidation(
@@ -84,9 +91,9 @@ export default function SignupContainer() {
           }
 
           const userData = {
-            age: formData.age,
+            age: parseInt(formData.age),
             avatar: formData.profileImage,
-            country: formData.country,
+            country: countryData.findIndex(iso2 => iso2 === formData.country),
             email: formData.email,
             gender: formData.gender,
             mobileNumber: formData.callingCode + ' ' + formData.phone,
@@ -96,9 +103,11 @@ export default function SignupContainer() {
             languageList,
           }
 
+          console.log(userData)
           await dispatch(signup(userData))
-          setCreated(true)
-          navigate('/signup?step=1')
+          // setCreated(true)
+          // navigate('/signup?step=1')
+          console.log('성공')
         } catch (e) {
           console.error(e)
           console.log(
