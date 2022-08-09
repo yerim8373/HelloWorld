@@ -57,7 +57,6 @@ function Button({
   if (closable) className += 'closable '
 
   function clickHandler(params) {
-    console.log(params)
     params ? onEvent(params) : onEvent()
   }
 

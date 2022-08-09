@@ -49,12 +49,17 @@ const Meeting = () => {
           ...prevState,
           OV: new OpenVidu(),
         }))
-      } else if (session === undefined) {
+      }
+
+      if (OV && session === undefined) {
+        const initSession = await OV.initSession()
         setOpenVidu(prevState => ({
           ...prevState,
-          session: OV.initSession(),
+          session: initSession,
         }))
-      } else {
+      }
+
+      if (session) {
         session.on('streamCreated', event => {
           let subscriber = session.subscribe(event.stream, undefined)
 
