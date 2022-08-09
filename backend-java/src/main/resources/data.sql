@@ -17,3 +17,4 @@ insert into
 insert into
     value
     (1,'ROLE_ADMIN'), (1,'ROLE_USER'), (1,'ROLE_VIP');
+
