@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.concurrent.TimeUnit;
 
 @Component
@@ -24,5 +25,9 @@ public class RedisUtil {
     }
     public boolean haskey(String key){
         return redisTemplate.hasKey(key);
+    }
+
+    public long getExpireTime(String key){
+        return redisTemplate.getExpire(key, TimeUnit.MILLISECONDS);
     }
 }
