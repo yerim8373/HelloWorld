@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,7 +36,7 @@ public class AuthServiceImpl implements AuthService {
 //            JwtTokenUtil.getToken(loginInfo.getEmail())
             UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(signInDTO.getEmail(), signInDTO.getPw());
             Authentication auth = authenticationManagerBuilder.getObject().authenticate(token);
-
+            SecurityContextHolder.getContext().setAuthentication(auth);
             return jwtTokenUtil.createToken(signInDTO, auth);
 //            return ResponseEntity.ok(UserLoginPostRes.of(200, "Success", JwtTokenUtil.getToken(loginInfo.getEmail())));
         }
@@ -69,13 +70,7 @@ public class AuthServiceImpl implements AuthService {
             //예외처리
             return null;
         }
-
-        User user = userService.getUserByEmail(email);
-        SsafyUserDetails userDetails = new SsafyUserDetails(user);
-        UsernamePasswordAuthenticationToken jwtAuthentication = new UsernamePasswordAuthenticationToken(email,
-                null, userDetails.getAuthorities());
-
-        Authentication auth = authenticationManagerBuilder.getObject().authenticate(jwtAuthentication);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
         return jwtTokenUtil.reissueAccessToken(email, auth);
     }

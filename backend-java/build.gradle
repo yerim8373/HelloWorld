@@ -190,8 +190,17 @@ dependencies {
     //인터셉터
     implementation 'javax.interceptor:javax.interceptor-api:1.2.2'
 
+// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-oauth2-client
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+
+    implementation group: 'io.openvidu', name: 'openvidu-java-client', version: '2.18.0'
+
 }
 
 test {
     useJUnitPlatform()
+}
+
+bootJar {
+    mainClass = 'com.ssafy.GroupCallApplication'
 }

@@ -32,7 +32,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @RequiredArgsConstructor
 @Transactional
 public class UserServiceImpl implements UserService {
-	public static final String INFO = "INFO::";
+	private static final String INFO = "INFO::";
 	private static final String HEART = "HEART";
 
 	private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
@@ -83,7 +83,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User getUserByEmail(String Email) {
-		Optional<User> user = userRepositorySupport.findUserByEmail(Email);
+		Optional<User> user = userRepository.findByEmail(Email);
 		if (!user.isPresent()) throw new UsernameNotFoundException("존재하지 않는 이메일입니다.");
 		return user.get();
 	}
@@ -119,11 +119,11 @@ public class UserServiceImpl implements UserService {
 		Map<String, Integer> map = null;
 
 		if(redisUtil.haskey(key)){
-			map = (Map<String,Integer>)redisUtil.get(key);
+			map = (Map<String, Integer>)redisUtil.get(key);
 			ObjectMapper mapper = new ObjectMapper();
 			Integer heart = mapper.convertValue(map.get(HEART), Integer.class);
 
-			cnt = heart == null ? heartDto.getCnt() : heart + heartDto.getCnt();
+			cnt = (heart == null) ? heartDto.getCnt() : heart + heartDto.getCnt();
 		}
 		else{
 			map = new ConcurrentHashMap<>();
@@ -133,6 +133,8 @@ public class UserServiceImpl implements UserService {
 		if(cnt < 0) throw new InvalidValueException("하트가 부족합니다.");
 
 		map.put(HEART, cnt);
+
+		//왜 1000L로 굳이 나눠줬나요???
 		redisUtil.set(key, map, Long.MAX_VALUE/ 1000L);
 	}
 	private void registHeartHistory(HeartDto heartDto){
