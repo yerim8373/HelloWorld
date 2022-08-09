@@ -8,7 +8,6 @@ build/
 ssafy-web.log
 application-secret.properties
 application-oauth2.properties
-
 ### STS ###
 .apt_generated
 .classpath
