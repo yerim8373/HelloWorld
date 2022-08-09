@@ -70,7 +70,7 @@ public class AuthController {
 		return response.success(JWTokenDto.of(jwt));
 	}
 
-	@PostMapping("/signout")
+	@GetMapping("/signout")
 	public ResponseEntity<?> signout(@CookieValue(value="refresh-token", required = false) String refreshToken, HttpServletResponse resp){
 		authService.logout(refreshToken);
 
@@ -87,7 +87,7 @@ public class AuthController {
 		return response.success();
 	}
 
-	@PostMapping("/reissue")
+	@GetMapping("/reissue")
 	public ResponseEntity<?> reissue(@CookieValue(value="refresh-token", required = false) String refreshToken){
 		JWToken jwt = authService.reissue(refreshToken);
 		return response.success(JWTokenDto.of(jwt));
