@@ -5,7 +5,7 @@ insert into
 insert into
     country
     values
-    (0, now(), 'KOREA'), (0, now(), 'ENGLAND'), (0,now(),'AUSTRAILIA'),(0, now(), 'JAPAN'), (0, now(), 'FRENCH'), (0, now(), 'CHINA');
+    (0, now(), 'KR'), (0, now(), 'US'), (0,now(),'AU'),(0, now(), 'JP'), (0, now(), 'FR'), (0, now(), 'CN');
 insert into
     language
     values
@@ -17,4 +17,4 @@ insert into
 insert into
     user_auth
     values
-    (1,'ROLE_ADMIN');
+    (1,'ROLE_ADMIN'), (1,'ROLE_USER');
