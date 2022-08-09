@@ -3,6 +3,7 @@ package com.ssafy.api.controller;
 import com.ssafy.api.dto.RoomDto;
 import com.ssafy.api.service.RoomService;
 import com.ssafy.common.util.RandomNumberUtil;
+import com.ssafy.db.entity.Room;
 import io.openvidu.java.client.OpenVidu;
 import io.openvidu.java.client.OpenViduHttpException;
 import io.openvidu.java.client.OpenViduJavaClientException;
@@ -12,13 +13,12 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -26,9 +26,9 @@ import java.util.concurrent.ConcurrentHashMap;
 @RestController
 @RequestMapping("/api/v1/room")
 //이거 왜 이름 리팩토링 안되냐.... ㅠㅠㅠㅠㅠㅠㅠ 도와줘요
-public class RoolController {
+public class RoomController {
 
-    private final int LIMIT = 6;
+    private final int LIMIT = 2;
     private final RoomService roomService;
 
     // 오픈비두 객체 SDK
@@ -42,7 +42,7 @@ public class RoolController {
     private String SECRET;
 
     @Autowired
-    public RoolController(RoomService roomService, @Value("${openvidu.url}") String openviduUrl, @Value("${openvidu.secret}") String secret) {
+    public RoomController(RoomService roomService, @Value("${openvidu.url}") String openviduUrl, @Value("${openvidu.secret}") String secret) {
         this.roomService = roomService;
         this.SECRET = secret;
         this.OPENVIDU_URL = openviduUrl;
@@ -102,34 +102,35 @@ public class RoolController {
         // 방 관리 map에 저장
         this.mapSessions.put(roomId, this.mapSessions.get(roomId) + 1);
 
-        return ResponseEntity.ok(roomService.getRoomRes(roomId, gameType));
+        return ResponseEntity.ok(roomService.getRoomDto(roomId));
     }
 
     @PostMapping("/quick")
     @ApiOperation(value = "빠른 시작을 할 때 사용", notes = "<strong>빠른 시작</strong>을 통해 선택한 종목의 방이 있으면 반환하고 없다면 새로 생성 후 토큰, 방이름, 게임종류, 닉네임 반환")
     @ApiResponses({
             @ApiResponse(code = 200, message = "빠른 시작 성공"),
-            @ApiResponse(code = 400, message = "input 오류", response = ErrorResponse.class),
-            @ApiResponse(code = 401, message = "토큰 만료 or 토큰 없음 or 토큰 오류 -> 권한 인증 오류", response = ErrorResponse.class),
-            @ApiResponse(code = 500, message = "서버 에러", response = ErrorResponse.class)
+            @ApiResponse(code = 400, message = "input 오류"),
+            @ApiResponse(code = 401, message = "토큰 만료 or 토큰 없음 or 토큰 오류 -> 권한 인증 오류"),
+            @ApiResponse(code = 500, message = "서버 에러")
     })
-    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
-    public ResponseEntity<RoomRes> quickRoom(@RequestBody QuickRoomReq quickRoomReq) throws OpenViduJavaClientException, OpenViduHttpException {
-        List<String> roomIds = roomService.quickRoom(quickRoomReq);
+//    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
+    public ResponseEntity<RoomDto> quickRoom(@RequestBody RoomDto RoomDto) throws OpenViduJavaClientException, OpenViduHttpException {
+
+        List<RoomDto> rooms = roomService.quickRoom(RoomDto);
 
         /************ 참가할 방이 존재한다면 ************/
-        if (!roomIds.isEmpty()) {
+        if (!rooms.isEmpty()) {
             int min = LIMIT;
             String minConnRoomId = null;
 
             // 해당 종목의 방마다 참가할 수 있는지 확인
-            for (String roomId : roomIds) {
+            for (RoomDto room : rooms) {
                 // 검색하는 방이 존재하지 않거나 인원초과일 경우
-                if (this.mapSessions.get(roomId) == null || this.mapSessions.get(roomId) >= LIMIT) continue;
+                if (this.mapSessions.get(room.getRoomId()) == null || this.mapSessions.get(room.getRoomId()) >= LIMIT) continue;
 
-                if (min > mapSessions.get(roomId)) {
-                    min = mapSessions.get(roomId);
-                    minConnRoomId = roomId;
+                if (min > mapSessions.get(room.getRoomId())) {
+                    min = mapSessions.get(room.getRoomId());
+                    minConnRoomId = room.getRoomId();
                 }
             }
 
@@ -138,7 +139,7 @@ public class RoolController {
                 // 방 관리 map에 저장
                 this.mapSessions.put(minConnRoomId, this.mapSessions.get(minConnRoomId) + 1);
 
-                return ResponseEntity.ok(roomService.getRoomRes(minConnRoomId, quickRoomReq.getGameType()));
+                return ResponseEntity.ok(roomService.getRoomDto(minConnRoomId));
             }
         }
         /************ 참가할 방이 존재하지 않다면 ************/
@@ -149,27 +150,28 @@ public class RoolController {
         this.mapSessions.put(roomId, 1);
 
         // DB 저장
-        roomService.makeRoom(roomId, quickRoomReq);
+        roomService.makeRoom(roomId, RoomDto);
 
-        return ResponseEntity.ok(roomService.getRoomRes(roomId, quickRoomReq.getGameType()));
+        return ResponseEntity.ok(roomService.getRoomDto(roomId));
     }
 
     @PutMapping("")
     @ApiOperation(value = "참가자가 방을 나갈 경우 사용", notes = "<strong>방 나가기</strong>를 통해 방 정보 OFF로 변경 및 방 관리 map에서 해당 정보 삭제")
     @ApiResponses({
             @ApiResponse(code = 200, message = "방 나가기 성공"),
-            @ApiResponse(code = 400, message = "input 오류", response = ErrorResponse.class),
-            @ApiResponse(code = 401, message = "토큰 만료 or 토큰 없음 or 토큰 오류 -> 권한 인증 오류", response = ErrorResponse.class),
-            @ApiResponse(code = 404, message = "방 정보가 없습니다.", response = ErrorResponse.class),
-            @ApiResponse(code = 500, message = "서버 에러", response = ErrorResponse.class)
+            @ApiResponse(code = 400, message = "input 오류"),
+            @ApiResponse(code = 401, message = "토큰 만료 or 토큰 없음 or 토큰 오류 -> 권한 인증 오류"),
+            @ApiResponse(code = 404, message = "방 정보가 없습니다."),
+            @ApiResponse(code = 500, message = "서버 에러")
     })
-    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
-    public ResponseEntity leaveRoom(@RequestBody LeaveRoomReq leaveRoomReq) {
-        String roomId = leaveRoomReq.getRoomId();
+//    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
+    public ResponseEntity leaveRoom(@RequestBody RoomDto roomDto) {
+        String roomId = roomDto.getRoomId();
 
         // 나가려는 방이 없다면
         if (this.mapSessions.get(roomId) == null || this.mapSessions.get(roomId) == null) {
-            throw new RoomNotFoundException(roomId);
+//            throw new RoomNotFoundException(roomId);
+            throw new RuntimeException();
         }
 
         int cnt = this.mapSessions.get(roomId);
@@ -179,8 +181,8 @@ public class RoolController {
             // 방 관리 map에서 삭제
             this.mapSessions.remove(roomId);
 
-            // DB에서 OFF로 업데이트
-            roomService.updateStatus(roomId);
+//            // DB에서 OFF로 업데이트
+//            roomService.updateStatus(roomId);
         } else {
             // 방 관리 map에서 인원수 갱신
             this.mapSessions.put(roomId, cnt - 1);

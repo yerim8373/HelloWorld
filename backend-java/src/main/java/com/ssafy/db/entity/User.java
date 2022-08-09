@@ -73,8 +73,8 @@ public class User{
     private List<Runtime> runtimeList = new ArrayList<>();
     @OneToMany(mappedBy = "user" )
     private final List<UserLan> userLanList = new ArrayList<>();
-    @OneToMany(mappedBy = "user")
-    private List<Credit> creditList = new ArrayList<>();
+//    @OneToMany(mappedBy = "user")
+//    private List<Credit> creditList = new ArrayList<>();
 
     public void setCountry(Country country){
         this.country = country;
