@@ -10,10 +10,14 @@ insert into
     language
     values
     (0, now(), 'KOR'),(0, now(), 'ENG'), (0,now(), 'JPN'), (0, now(), 'CHN');
+# insert into
+#     user
+#     value
+#     (0, true, 1000, null, null, false, 'admin', 'MALE', 'admin', 'admin','admin', '$2a$10$bCE.fZaerqsxjhyWfG6ctOKz6uQz1ZWed9q6Rdx5zCsv4z.Q8gD5e', now(), 1);
 insert into
-    user
+    user (id, activated, age, avatar_src, black_expire_date, black_listny, email, gender, mobile_number, name, nickname, pw, reg_date, country_id)
     value
-    (0, true, 1000, null, null, false, 'admin', 'MALE', 'admin', 'admin', 'admin', '$2a$10$bCE.fZaerqsxjhyWfG6ctOKz6uQz1ZWed9q6Rdx5zCsv4z.Q8gD5e', now(), 1);
+    (0, true, 1000, null, null, false, 'admin', 'MALE', 'admin', 'admin','admin', '$2a$10$bCE.fZaerqsxjhyWfG6ctOKz6uQz1ZWed9q6Rdx5zCsv4z.Q8gD5e', now(), 1);
 insert into
     user_auth
     value

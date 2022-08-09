@@ -25,7 +25,6 @@ import java.util.concurrent.ConcurrentHashMap;
 @Api(value = "ROOM API")
 @RestController
 @RequestMapping("/api/v1/room")
-//이거 왜 이름 리팩토링 안되냐.... ㅠㅠㅠㅠㅠㅠㅠ 도와줘요
 public class RoomController {
 
     private final int LIMIT = 2;
