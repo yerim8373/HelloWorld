@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import languageCodes from 'country-calling-code'
 import { signup } from '../../store/user-thunkActions'
 
 import SignupPicture from '../common/SignupPicture'
@@ -51,8 +50,6 @@ export default function SignupContainer() {
     else failure()
   }
 
-  // const convert2Iso3 = iso2 => languageCodes.find(c => c.iso2 === iso2).isoCode3
-
   const moveToNext = () =>
     checkValidation(
       fieldsByStep[step - 1],
@@ -72,7 +69,7 @@ export default function SignupContainer() {
       fields,
       async () => {
         try {
-          // TODO: 사용 언어 리스트의 fluent, languageId, userLanId 수정
+          // TODO: 사용 언어 리스트의 fluent, userLanId 수정
           const languageList = []
           for (let i = 1; i <= 3; i++) {
             if (formData[`language${i}`]) {
@@ -80,10 +77,10 @@ export default function SignupContainer() {
                 fluent: 100 - 30 * (i - 1),
                 language: {
                   lan: languageData[formData[`language${i}`]],
-                  languageId: formData[`language${i}`],
+                  languageId: parseInt(formData[`language${i}`]),
                 },
                 priority: i,
-                userLanId: 0,
+                userLanId: i,
               }
               languageList.push(lang)
             }
@@ -109,9 +106,7 @@ export default function SignupContainer() {
           console.log('성공')
         } catch (e) {
           console.error(e)
-          console.log(
-            '서버에 문제가 발생했습니다. 잠시 후에 다시 시도해주세요.',
-          )
+          alert('서버에 문제가 발생했습니다. 잠시 후에 다시 시도해주세요.')
         }
       },
       () => alert('입력되지 않은 값이 있습니다. 모든 값을 입력해주세요.'),
