@@ -1,0 +1,52 @@
+.membershipInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.table {
+  text-align: center;
+  font-size: 1.25rem;
+  font-weight: 500;
+  background-color: var(--color-grey-300);
+}
+
+.table th,
+.table td {
+  padding: 1.25rem;
+}
+
+.tableHead {
+  font-weight: 700;
+}
+
+.checkIcon {
+  color: var(--color-vip);
+}
+
+.content {
+  background-color: var(--color-grey-100);
+}
+
+.columnHead {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.subscribeBtn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.subscribeBtn p {
+  color: var(--color-error);
+  font-weight: 500;
+}
+
+.currentState {
+  color: white;
+  background-color: var(--color-vip);
+}
