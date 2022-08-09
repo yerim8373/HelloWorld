@@ -39,7 +39,6 @@ export default function SignupContainer() {
 
   const checkValidation = (fields, success, failure) => {
     console.log(formData)
-    console.log(countryData.findIndex(iso2 => iso2 === formData.country))
 
     let isAllValid = true
     for (const field of fields) {
@@ -93,7 +92,7 @@ export default function SignupContainer() {
           const userData = {
             age: parseInt(formData.age),
             avatar: formData.profileImage,
-            country: countryData.findIndex(iso2 => iso2 === formData.country),
+            country: countryData.find(iso2 => iso2 === formData.country).id,
             email: formData.email,
             gender: formData.gender,
             mobileNumber: formData.callingCode + ' ' + formData.phone,

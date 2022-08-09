@@ -29,7 +29,7 @@ const languageValidObj = {
 }
 
 const countries = codes
-  .filter(c => countryData.includes(c.isoCode2))
+  .filter(c => countryData.find(cl => cl.code === c.isoCode2))
   .map(c => ({
     label: c.country,
     value: c.isoCode2,

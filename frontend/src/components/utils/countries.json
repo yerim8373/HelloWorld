@@ -1,1 +1,30 @@
-[null, "KR", "EN", "AU", "JP", "FR", "CH"]
+[
+  {
+    "id": 0,
+    "code": null
+  },
+  {
+    "id": 1,
+    "code": "KR"
+  },
+  {
+    "id": 2,
+    "code": "EN"
+  },
+  {
+    "id": 3,
+    "code": "AU"
+  },
+  {
+    "id": 4,
+    "code": "JP"
+  },
+  {
+    "id": 5,
+    "code": "FR"
+  },
+  {
+    "id": 6,
+    "code": "CH"
+  }
+]
