@@ -1,9 +1,9 @@
-import FindInformationPage from './FindInformationPage'
+import FindInfoForm from './FindInfoForm'
 
 const FindInfo = () => {
   return (
     <div>
-      <FindInformationPage />
+      <FindInfoForm />
     </div>
   )
 }
