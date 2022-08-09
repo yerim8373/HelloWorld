@@ -1,0 +1,17 @@
+.meeting_wrapper {
+  height:  calc(100vh - 100px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.meeting {
+  display: flex;
+  justify-content: center;
+}
+
+.right_display {
+  display: grid;
+  grid-template-rows: 55% 45%;
+}
+

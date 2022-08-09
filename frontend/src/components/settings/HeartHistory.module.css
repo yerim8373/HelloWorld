@@ -1,0 +1,38 @@
+.heartHistory {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.histories {
+  display: flex;
+  flex-direction: column;
+}
+
+.history {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem;
+  font-weight: 500;
+}
+
+.history:nth-child(2n+1) {
+  background-color: var(--color-grey-100);
+}
+
+.dateAndMsg {
+  display: flex;
+  gap: 2rem;
+}
+
+.amount {
+  font-weight: 700;
+}
+
+.plus {
+  color: var(--color-primary);
+}
+
+.minus {
+  color: var(--color-error);
+}
