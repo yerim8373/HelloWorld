@@ -1,8 +1,8 @@
 // SERVER_SIDE
 import axios from 'axios'
 
-const OPENVIDU_SERVER_URL = 'https://' + window.location.hostname + ':4443'
-const OPENVIDU_SERVER_SECRET = 'MY_SECRET'
+const OPENVIDU_SERVER_URL = 'https://i7b106.p.ssafy.io:8443'
+const OPENVIDU_SERVER_SECRET = 'wndlfdP1051!'
 
 export async function getToken(mySessionId) {
   const sessionId = await createSession(mySessionId)
@@ -26,11 +26,11 @@ function createSession(sessionId) {
         },
       )
 
-      // 에러 처리 (초기 요청이 제대로 안 이루어지는 경우가 있다)
-      setTimeout(() => {
-        console.log('개발자 설정을 통한 강제 리턴')
-        return resolve(sessionId)
-      }, 1000)
+      // 에러 처리 (초기 요청이 제대로 안이루어지는 경우가 있다. 클라이언트 사이드를 통하)
+      // setTimeout(() => {
+      //   console.log('개발자 설정을 통한 강제 리턴')
+      //   return resolve(sessionId)
+      // }, 1000)
       return response
     } catch (response) {
       console.log(response)
