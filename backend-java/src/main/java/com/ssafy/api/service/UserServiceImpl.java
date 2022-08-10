@@ -13,16 +13,19 @@ import com.ssafy.db.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -32,7 +35,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @RequiredArgsConstructor
 @Transactional
 public class UserServiceImpl implements UserService {
-	private static final String INFO = "INFO::";
+	public static final String INFO = "INFO::";
 	private static final String HEART = "HEART";
 
 	private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
@@ -45,22 +48,20 @@ public class UserServiceImpl implements UserService {
 	private final JwtTokenUtil jwtTokenUtil;
 	private final RedisUtil redisUtil;
 
-	@Override
-	public User createUser(SignUpDto signUpDto) {
+	@Value("${spring.servlet.multipart.location}")
+	private String root;
 
-//		List<UserLan> list = userLanRepository.findAllById(signUpDto.getLanguageList());
-//		for (int i = 0; i < list.size(); i++){
-//			System.out.println(list.get(i));
-//		}
+	@Override
+	public User createUser(SignUpDto signUpDto){
 
 		User user = userRepository.save(User.builder()
 				.email(signUpDto.getEmail())
 				.pw(passwordEncoder.encode(signUpDto.getPw()))
 				.age(signUpDto.getAge())
 				.gender(signUpDto.getGender())
-				.avatarSrc(signUpDto.getAvatar())
 				.mobileNumber(signUpDto.getMobileNumber())
 				.name(signUpDto.getName())
+				.avatarSrc(signUpDto.getAvatar())
 				.nickname(signUpDto.getNickName())
 				.country(countryRepository.findById(signUpDto.getCountry()).get())
 				.authorities(
@@ -70,6 +71,7 @@ public class UserServiceImpl implements UserService {
 				)
 				.regDate(LocalDateTime.now())
 				.build());
+
 
 		for (UserLanDto userLanDto: signUpDto.getLanguageList()
 			 ) {
@@ -146,4 +148,18 @@ public class UserServiceImpl implements UserService {
 						.build());
 	}
 
+
+	public String saveImage(MultipartFile multipartFile) throws IOException {
+		String path = System.getProperty("user.dir")+"\\"+LocalDateTime.now().getMonthValue();
+		logger.info("path : {}",path);
+		String fileName = UUID.randomUUID().toString().substring(0, 10)+multipartFile.getOriginalFilename();
+
+		File dest = new File(path, fileName);
+		if(!dest.exists()){
+			dest.mkdirs();
+		}
+		multipartFile.transferTo(dest);
+
+		return LocalDateTime.now().getMonthValue()+"`"+fileName;
+	}
 }
