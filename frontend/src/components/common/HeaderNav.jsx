@@ -16,6 +16,9 @@ function HeaderNav() {
   function routerPushHandler() {
     navigate('/signup')
   }
+  function routerPushHandler2() {
+    navigate('/')
+  }
 
   return (
     <nav className={`${classes.headerNav} ${state.id ? classes.auth : ''}`}>
@@ -38,8 +41,10 @@ function HeaderNav() {
         </div>
 
         {state.id ? (
-          // eslint-disable-next-line
-          <ProfileImage src={profile} size="small" />
+          <>
+            <Button size="small" text="Logout" onEvent={routerPushHandler2} />
+            <ProfileImage src={profile} size="small" />
+          </>
         ) : (
           <div
             className={`${classes.HeaderNav_link_btns} ${classes.hover_color}`}
