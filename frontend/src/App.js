@@ -54,7 +54,8 @@ function App() {
 
   // token 여부 확인
   const state = useSelector(state => state.auth)
-  useInterval(() => dispatch(validToken(state.token)), 3000)
+  // 토큰 재평가하기 (이슈 있음)
+  // useInterval(() => dispatch(validToken(state.token)), 3000)
 
   return (
     <>
