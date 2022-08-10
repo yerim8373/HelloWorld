@@ -13,11 +13,12 @@ import axios from 'axios'
 
 // 4.룸을 찾거나, 룸을 만들어서 2명이 채워진 경우에 opnnvidu-server를 통해 비디오 렌더링과 채팅이 이루어지게 한다!
 
-export const findRoom = createAsyncThunk('room/findRoom', async data => {
+export const findRoom = createAsyncThunk('room/findRoom', async accessToken => {
   try {
     const response = await axios.post('https://i7b106.p.ssafy.io/api/v1/find', {
-      language: data.language,
-      user: data.user,
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
     })
     return response.data
   } catch (error) {
@@ -26,11 +27,12 @@ export const findRoom = createAsyncThunk('room/findRoom', async data => {
   }
 })
 
-export const makeRoom = createAsyncThunk('room/makeRoom', async data => {
+export const makeRoom = createAsyncThunk('room/makeRoom', async accessToken => {
   try {
     const response = await axios.post('https://i7b106.p.ssafy.io/api/v1/make', {
-      language: data.language,
-      user: data.user,
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
     })
     return response.data
   } catch (error) {
@@ -38,6 +40,24 @@ export const makeRoom = createAsyncThunk('room/makeRoom', async data => {
   }
 })
 
+export const leaveRoom = createAsyncThunk(
+  'room/leaveRoom',
+  async accessToken => {
+    try {
+      const response = await axios.post(
+        'https://i7b106.p.ssafy.io/api/v1/leave',
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        },
+      )
+      return response.data
+    } catch (error) {
+      console.log(error)
+    }
+  },
+)
 // export const login = createAsyncThunk('auth/login', async userData => {
 //   try {
 //     const response = await axios.post(

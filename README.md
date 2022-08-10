@@ -399,6 +399,10 @@
     - jpn 방이 없다면, language가 eng || jpn || kor 이면서, 룸이 아직 1명인 곳을 찾는다. (역시 동일하게 10초 정도)
     - 30초를 경과 해도 없다면, 룸을 생성한다. (이때도 client는 여전히 loading 중)
   - 룸을 찾거나, 룸을 만들어서 2명이 채워진 경우에 opnnvidu-server를 통해 비디오 렌더링과 채팅이 이루어지게 한다!
+- room logic 추가 (findRoom, makeRoom, leaveRoom)
+- refresh token api 연결 (reissue)
+  - 401 에러 나오는 중
+
 
 #### 성찬
 

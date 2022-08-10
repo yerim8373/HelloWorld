@@ -21,9 +21,6 @@ const authSlice = createSlice({
       state.isError = true
       state.message = payload.message
     },
-    [validToken.pending]: () => {
-      return
-    },
     [validToken.fulfilled]: (state, { payload }) => {
       state.token = payload.token
     },
