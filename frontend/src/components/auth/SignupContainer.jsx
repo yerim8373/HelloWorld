@@ -23,25 +23,23 @@ const fieldsByStep = [
   ['country', 'language1'],
   ['profileImage', 'accepted'],
 ]
-const initialFormData = {
+const initialUserData = {
   description: '처음 뵙겠습니다. 잘 부탁드립니다.',
 }
 
 export default function SignupContainer() {
   const [step, setStep] = useState(1)
   const [created, setCreated] = useState(false)
-  const [formData, setFormData] = useState(initialFormData)
+  const [userData, setUserData] = useState(initialUserData)
 
   const { search } = useLocation()
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
   const checkValidation = (fields, success, failure) => {
-    console.log(formData)
-
     let isAllValid = true
     for (const field of fields) {
-      if (!formData[field]) {
+      if (!userData[field]) {
         isAllValid = false
         break
       }
@@ -72,12 +70,12 @@ export default function SignupContainer() {
           // TODO: 사용 언어 리스트의 fluent, userLanId 수정
           const languageList = []
           for (let i = 1; i <= 3; i++) {
-            if (formData[`language${i}`]) {
+            if (userData[`language${i}`]) {
               const lang = {
                 fluent: 100 - 30 * (i - 1),
                 language: {
-                  lan: languageData[formData[`language${i}`]],
-                  languageId: parseInt(formData[`language${i}`]),
+                  lan: languageData[userData[`language${i}`]],
+                  languageId: parseInt(userData[`language${i}`]),
                 },
                 priority: i,
                 userLanId: i,
@@ -86,24 +84,43 @@ export default function SignupContainer() {
             }
           }
 
-          const userData = {
-            age: parseInt(formData.age),
-            avatar: formData.profileImage,
-            country: countryData.find(c => c.code === formData.country).id,
-            email: formData.email,
-            gender: formData.gender,
-            mobileNumber: formData.callingCode + ' ' + formData.phone,
-            name: formData.name,
-            nickName: formData.nickname,
-            pw: formData.password,
+          // 프로필 이미지 등록
+          const res = await fetch(userData.profileImage)
+          const blob = await res.blob()
+          const ext = blob.type.split('/')[1]
+          const filename = new Date().getTime() + '.' + ext
+
+          const imageFormData = new FormData()
+          imageFormData.append('file', new File([blob], filename))
+
+          const response = await fetch(
+            'http://localhost:8080/api/v1/user/image',
+            {
+              method: 'POST',
+              body: imageFormData,
+            },
+          )
+          const { data } = await response.json()
+          const profileImage = data.src
+
+          // 프로필 이미지를 제외한 나머지를 객체로 통합 후 서버로 요청
+          const formData = {
+            age: parseInt(userData.age),
+            avatar: profileImage,
+            country: countryData.find(c => c.code === userData.country).id,
+            email: userData.email,
+            gender: userData.gender,
+            mobileNumber: userData.callingCode + ' ' + userData.phone,
+            name: userData.name,
+            nickName: userData.nickname,
+            pw: userData.password,
             languageList,
           }
 
-          console.log(userData)
-          await dispatch(signup(userData))
-          // setCreated(true)
-          // navigate('/signup?step=1')
-          console.log('성공')
+          await dispatch(signup(formData))
+
+          setCreated(true)
+          navigate('/signup?step=1')
         } catch (e) {
           console.error(e)
           alert('서버에 문제가 발생했습니다. 잠시 후에 다시 시도해주세요.')
@@ -114,7 +131,7 @@ export default function SignupContainer() {
   }
 
   const handleNext = data => {
-    setFormData(prev => {
+    setUserData(prev => {
       return {
         ...prev,
         ...data,
