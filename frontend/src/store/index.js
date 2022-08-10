@@ -2,6 +2,7 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit'
 
 import authSlice from './auth-slice'
 import userSlice from './user-slice'
+import languageSlice from './language-slice'
 
 import {
   persistStore,
@@ -14,6 +15,7 @@ import {
   REGISTER,
 } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
+import roomSlice from './room-slice'
 
 const persistConfig = {
   key: 'root',
@@ -23,6 +25,8 @@ const persistConfig = {
 const rootReducer = combineReducers({
   user: userSlice.reducer,
   auth: authSlice.reducer,
+  language: languageSlice.reducer,
+  room: roomSlice.reducer,
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
