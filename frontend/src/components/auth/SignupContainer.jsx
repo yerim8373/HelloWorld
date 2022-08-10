@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { signup } from '../../store/user-thunkActions'
+import { setImage, signup } from '../../store/user-thunkActions'
 
 import SignupPicture from '../common/SignupPicture'
 import SignupForm1 from './SignupForm1'
@@ -93,15 +93,8 @@ export default function SignupContainer() {
           const imageFormData = new FormData()
           imageFormData.append('file', new File([blob], filename))
 
-          const response = await fetch(
-            'http://localhost:8080/api/v1/user/image',
-            {
-              method: 'POST',
-              body: imageFormData,
-            },
-          )
-          const { data } = await response.json()
-          const profileImage = data.src
+          const { payload } = await dispatch(setImage(imageFormData))
+          const profileImage = payload.data.src
 
           // 프로필 이미지를 제외한 나머지를 객체로 통합 후 서버로 요청
           const formData = {
