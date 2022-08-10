@@ -7,8 +7,8 @@ import java.util.List;
 
 public interface RoomService {
 
-    void makeRoom(String roomId, final RoomDto roomDto);
-    RoomDto findRoom(final RoomDto roomDto);
+    void makeRoom(String roomId, String email);
+    void joinRoom(String roomId, String email);
+    List<RoomDto> findRoom();
     RoomDto getRoomDto(String roomId);
-    List<RoomDto> quickRoom(final RoomDto roomDto);
 }
