@@ -23,6 +23,7 @@ import java.time.LocalDateTime;
 @EntityListeners(AuditingEntityListener.class)
 public class Post extends BaseEntity{
     private String title;
+    @Column(length = 4000)
     private String content;
 
     @LastModifiedDate
