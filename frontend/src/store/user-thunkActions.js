@@ -5,14 +5,11 @@ export const getUserData = createAsyncThunk(
   'user/getUserData',
   async accessToken => {
     try {
-      const response = await axios.get(
-        'https://i7b106.p.ssafy.io/api/v1/user/me',
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
+      const response = await axios.get('http://localhost:8080/api/v1/user/me', {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
         },
-      )
+      })
       return response.data
     } catch (error) {
       console.log(error)
@@ -25,7 +22,7 @@ export const getLanguageData = createAsyncThunk(
   async accessToken => {
     try {
       const response = await axios.get(
-        'https://i7b106.p.ssafy.io/api/v1/user/lan',
+        'http://localhost:8080/api/v1/user/lan',
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,
@@ -51,11 +48,30 @@ export const signup = createAsyncThunk('auth/signup', async userData => {
   }
 })
 
-export const logout = createAsyncThunk('auth/signout', async userData => {
+export const setImage = createAsyncThunk(
+  'auth/setImage',
+  async imageFormData => {
+    try {
+      const response = await axios.post(
+        'https://i7b106.p.ssafy.io/api/v1/user/image',
+        imageFormData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        },
+      )
+      return response.data
+    } catch (error) {
+      console.log(error)
+    }
+  },
+)
+
+export const getImage = createAsyncThunk('auth/getImage', async file => {
   try {
-    const response = await axios.post(
-      'https://i7b106.p.ssafy.io/api/v1/user',
-      userData,
+    const response = await axios.get(
+      `https://i7b106.p.ssafy.io/api/v1/user/image/${file}`,
     )
     return response.data
   } catch (error) {

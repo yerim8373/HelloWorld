@@ -3,7 +3,8 @@ import {
   getUserData,
   getLanguageData,
   signup,
-  logout,
+  setImage,
+  getImage,
 } from './user-thunkActions'
 
 const userSlice = createSlice({
@@ -35,13 +36,15 @@ const userSlice = createSlice({
     [getLanguageData.fulfilled]: (state, { payload }) => {
       state.languages = payload.data
     },
-    [signup.pending]: () => {
-      return
-    },
-    [signup.fulfilled]: () => {
-      return
-    },
     [signup.rejected]: (state, { payload }) => {
+      state.isError = true
+      state.message = payload.message
+    },
+    [setImage.rejected]: (state, { payload }) => {
+      state.isError = true
+      state.message = payload.message
+    },
+    [getImage.rejected]: (state, { payload }) => {
       state.isError = true
       state.message = payload.message
     },

@@ -1,5 +1,5 @@
 import { createSlice, current } from '@reduxjs/toolkit'
-import { findRoom, makeRoom } from './room-thunkActions'
+import { findRoom, leaveRoom, makeRoom } from './room-thunkActions'
 
 const roomSlice = createSlice({
   name: 'room',
@@ -29,6 +29,17 @@ const roomSlice = createSlice({
     },
 
     [makeRoom.rejected]: (state, { payload }) => {
+      state.isError = true
+      state.message = payload.message
+    },
+    [leaveRoom.fulfilled]: (state, { payload }) => {
+      state.roomId = undefined
+      state.languages = undefined
+      state.isCreatingRoom = undefined
+      state.isError = undefined
+      state.message = undefined
+    },
+    [leaveRoom.rejected]: (state, { payload }) => {
       state.isError = true
       state.message = payload.message
     },

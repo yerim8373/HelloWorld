@@ -21,6 +21,8 @@ import WithdrawalPage from './pages/settings/WithdrawalPage'
 
 import { useDispatch, useSelector } from 'react-redux'
 import { validToken } from './store/auth-thunkActions'
+import { useEffect } from 'react'
+import useInterval from './components/utils/hooks/useInterval'
 
 const authPathSet = new Set([
   '/login',
@@ -32,6 +34,7 @@ const authPathSet = new Set([
 
 function App() {
   const { pathname: path } = useLocation()
+  const dispatch = useDispatch()
 
   // 사용 nav 설정
   let selectedNav = ''
@@ -51,17 +54,8 @@ function App() {
 
   // token 여부 확인
   const state = useSelector(state => state.auth)
-  const dispatch = useDispatch()
-
-  const checkToken = () => {
-    if (state.token) {
-      // 서버 리프레시 토큰 에러
-      // 요청만 만들고 에러 처리되면 확인하자
-      // dispatch(validToken(state.token))
-      return true
-    }
-    return false
-  }
+  // 토큰 재평가하기 (이슈 있음)
+  // useInterval(() => dispatch(validToken(state.token)), 3000)
 
   return (
     <>
@@ -71,11 +65,7 @@ function App() {
           <Route
             path="/"
             element={
-              checkToken() ? (
-                <Navigate replace to="/meeting" />
-              ) : (
-                <LandingPage />
-              )
+              state.token ? <Navigate replace to="/meeting" /> : <LandingPage />
             }
           />
           <Route path="/login" element={<LoginPage />} />
