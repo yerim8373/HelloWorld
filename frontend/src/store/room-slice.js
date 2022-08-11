@@ -13,13 +13,16 @@ const roomSlice = createSlice({
   reducers: {},
   extraReducers: {
     [findRoom.fulfilled]: (state, { payload }) => {
-      const { roomId, languages } = payload
-      state.roomId = roomId
-      state.languages = languages
+      console.log(payload)
+      // console.log(payload)
+      // const { roomId, user } = payload
+      // state.roomId = roomId
+      // state.languages = languages
     },
 
     [findRoom.rejected]: (state, { payload }) => {
-      state.isCreatingRoom = true
+      // console.log(payload)
+      // state.isCreatingRoom = true
     },
 
     [makeRoom.fulfilled]: (state, { payload }) => {
