@@ -1,22 +1,17 @@
 import React, { useCallback, useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
-import Sheet from '../common/Sheet'
-import Input from '../common/Input'
 import Button from '../common/Button'
 import classes from './LoginForm.module.css'
 
-import { FcGoogle } from 'react-icons/fc'
-import { RiKakaoTalkFill } from 'react-icons/ri'
-
 import { useDispatch } from 'react-redux'
 import { logout } from '../../store/auth-thunkActions'
-import { getUserData } from '../../store/user-thunkActions'
+import { getUserData, logout } from '../../store/user-thunkActions'
 //13번째줄 이거는 그냥 유저 데이타를 가져오는 방식을 한다는건데 난 이미 store된 값을 가져와야하니까
-//로그아웃에 유저 데이터가 필요하냐는 상반된 질문이 존재 //그럼 어떻게만들어야하는거지??걍 이메일 비번 다빼도 괜찮은가??
+//로그아웃에 유저 데이터가 필요하냐는 상반된 질문이 존재 u//그럼 어떻게만들어야하는거지??걍 이메일 비번 다빼도 괜찮은가??
 
-function Logout() {
-  const [email, setEmail] = useState(/*fhkz*/)
-  const [password, setPassword] = useState(/*fhkz*/)
+// function Logout() {
+//   const [email, setEmail] = useState(null)
+//   const [password, setPassword] = useState(null)
   const dispatch = useDispatch()
   const navigate = useNavigate()
 

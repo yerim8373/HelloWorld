@@ -21,9 +21,11 @@ const authSlice = createSlice({
       state.isError = true
       state.message = payload.message
     },
-    [logout.fulfilled]: (state, { payload }) => {
+    [logout.fulfilled]: state => {
       state.isAuthenticated = false
-      state.token = payload.data.accessToken
+      state.token = undefined
+      state.isError = false
+      state.message = undefined
     },
     [validToken.pending]: () => {
       return
