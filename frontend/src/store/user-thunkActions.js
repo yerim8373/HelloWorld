@@ -50,3 +50,15 @@ export const signup = createAsyncThunk('auth/signup', async userData => {
     console.log(error)
   }
 })
+
+export const logout = createAsyncThunk('auth/signout', async userData => {
+  try {
+    const response = await axios.post(
+      'https://i7b106.p.ssafy.io/api/v1/user',
+      userData,
+    )
+    return response.data
+  } catch (error) {
+    console.log(error)
+  }
+})
