@@ -29,6 +29,9 @@ public class RoomServiceImpl implements RoomService {
         User user = userRepository.findByEmail(email).get();
         room.setUserJoin(user);
         room.setLanguage(language);
+        System.out.println("---------------------------------------------");
+        System.out.println(room);
+        System.out.println("---------------------------------------------");
     }
 
     @Override
@@ -52,7 +55,7 @@ public class RoomServiceImpl implements RoomService {
 
         List<RoomDto> list = new ArrayList<>();
         for (Room room : roomList) {
-            list.add(RoomDto.of(room));
+            list.add(RoomDto.oof(room));
         }
         return list;
     }

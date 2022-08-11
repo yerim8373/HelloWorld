@@ -10,6 +10,7 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class RoomDto {
 
     @ApiModelProperty(name = "방 번호", example="QB8TKZC05P")
@@ -25,6 +26,13 @@ public class RoomDto {
                 .language(room.getLanguage())
                 .userMake(UserDto.of(room.getUserMake()))
                 .userJoin(UserDto.of(room.getUserJoin()))
+                .build();
+    }
+
+    public static RoomDto oof(Room room){
+        return new RoomDtoBuilder()
+                .roomId(room.getRoomId())
+                .userMake(UserDto.of(room.getUserMake()))
                 .build();
     }
 }
