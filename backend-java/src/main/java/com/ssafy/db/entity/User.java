@@ -34,10 +34,6 @@ public class User{
     @Column(unique = true, nullable = false)
     private String nickname;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "roomId")
-    private Room room;
-
     private Integer age;
     private String avatarSrc;
 
