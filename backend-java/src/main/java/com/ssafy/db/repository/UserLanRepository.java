@@ -12,5 +12,6 @@ public interface UserLanRepository extends JpaRepository<UserLan, Long> {
     @Query("select ul from UserLan ul where ul.user.email = :email")
     List<UserLan> findUserLanByEmail(@Param("email") String Email);
 
-    List<Optional<UserLan>> findUserLanByEmailOrOrderByPriority(String Email);
+    @Query("select ul from UserLan ul where ul.user.email = :email order by ul.priority" )
+    List<UserLan> findUserLanByEmailOrderByPriority(@Param("email") String Email);
 }

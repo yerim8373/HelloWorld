@@ -87,17 +87,17 @@ public class RoomController {
                 // 검색하는 방이 존재하지 않거나 인원초과일 경우
                 if (this.mapSessions.get(roomDto.getRoomId()) == null || this.mapSessions.get(roomDto.getRoomId()) >= LIMIT) continue;
 
-                // 유저 랭귀지 같은게 있는지 확인 하는 로직 필요
-//                List<UserLan> yourList = userLanRepository.findUserLanByEmailOrOrderByPriority(roomDto.getUserMake().getEmail());
-//                List<UserLan> myList = userLanRepository.findUserLanByEmailOrOrderByPriority(email);
-//                outer : for(UserLan yourUserLan : yourList){
-//                    for(UserLan myUserLan : myList){
-//                        if(yourUserLan.getLanguage().getLan().equals(myUserLan.getLanguage().getLan())){
-//                            language = myUserLan.getLanguage().getLan();
-//                            break outer;
-//                        }
-//                    }
-//                }
+//                 유저 랭귀지 같은게 있는지 확인 하는 로직 필요
+                List<UserLan> yourList = userLanRepository.findUserLanByEmailOrderByPriority(roomDto.getUserMake().getEmail());
+                List<UserLan> myList = userLanRepository.findUserLanByEmailOrderByPriority(email);
+                outer : for(UserLan yourUserLan : yourList){
+                    for(UserLan myUserLan : myList){
+                        if(yourUserLan.getLanguage().getLan().equals(myUserLan.getLanguage().getLan())){
+                            language = myUserLan.getLanguage().getLan();
+                            break outer;
+                        }
+                    }
+                }
                 if(language == null) continue;
 
                 if (max > mapSessions.get(roomDto.getRoomId())) {
