@@ -18,10 +18,25 @@ public class Room{
     @Column(name = "room_id", length = 50)
     private String roomId;
 
-    @Column(name = "language")
-    private String language;
+    private String Language;
 
-    @OneToMany(mappedBy = "room")
-    private List<User> userList = new ArrayList<>();
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_make")
+    private User userMake;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_join")
+    private User userJoin;
+
+
+    public void setUserMake(User user){
+        this.userMake = user;
+    }
+    public void setUserJoin(User user){
+        this.userJoin = user;
+    }
+
+
+
 
 }
