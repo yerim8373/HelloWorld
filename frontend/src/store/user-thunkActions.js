@@ -5,11 +5,14 @@ export const getUserData = createAsyncThunk(
   'user/getUserData',
   async accessToken => {
     try {
-      const response = await axios.get('http://localhost:8080/api/v1/user/me', {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
+      const response = await axios.get(
+        `${process.env.REACT_APP_API_URL}/api/v1/user/me`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
         },
-      })
+      )
       return response.data
     } catch (error) {
       console.log(error)
@@ -22,7 +25,7 @@ export const getLanguageData = createAsyncThunk(
   async accessToken => {
     try {
       const response = await axios.get(
-        'http://localhost:8080/api/v1/user/lan',
+        `${process.env.REACT_APP_API_URL}/api/v1/user/lan`,
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,
@@ -39,7 +42,7 @@ export const getLanguageData = createAsyncThunk(
 export const signup = createAsyncThunk('auth/signup', async userData => {
   try {
     const response = await axios.post(
-      'https://i7b106.p.ssafy.io/api/v1/user',
+      `${process.env.REACT_APP_API_URL}/api/v1/user`,
       userData,
     )
     return response.data
