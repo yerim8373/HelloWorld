@@ -102,7 +102,7 @@ Input.propTypes = {
   required: PropTypes.bool,
   noLabel: PropTypes.bool,
   meta: PropTypes.any,
-  defaultValue: PropTypes.string,
+  defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 }
 
 function ErrorComponent({ text }) {
