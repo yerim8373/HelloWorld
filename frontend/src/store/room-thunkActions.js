@@ -15,11 +15,15 @@ import axios from 'axios'
 
 export const findRoom = createAsyncThunk('room/findRoom', async accessToken => {
   try {
-    const response = await axios.post('https://i7b106.p.ssafy.io/api/v1/find', {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
+    const response = await axios.post(
+      `${process.env.REACT_APP_API_URL}/api/v1/room/quick`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
       },
-    })
+    )
     return response.data
   } catch (error) {
     console.log(error)
@@ -29,11 +33,14 @@ export const findRoom = createAsyncThunk('room/findRoom', async accessToken => {
 
 export const makeRoom = createAsyncThunk('room/makeRoom', async accessToken => {
   try {
-    const response = await axios.post('https://i7b106.p.ssafy.io/api/v1/make', {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
+    const response = await axios.post(
+      `${process.env.REACT_APP_API_URL}/api/v1/make`,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
       },
-    })
+    )
     return response.data
   } catch (error) {
     console.log(error)
@@ -45,7 +52,7 @@ export const leaveRoom = createAsyncThunk(
   async accessToken => {
     try {
       const response = await axios.post(
-        'https://i7b106.p.ssafy.io/api/v1/leave',
+        `${process.env.REACT_APP_API_URL}/api/v1/leave`,
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,
