@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { login, validToken } from './auth-thunkActions'
+import { login, logout, validToken } from './auth-thunkActions'
 
 const authSlice = createSlice({
   name: 'auth',
@@ -20,6 +20,15 @@ const authSlice = createSlice({
     [login.rejected]: (state, { payload }) => {
       state.isError = true
       state.message = payload.message
+    },
+    [logout.fulfilled]: state => {
+      state.isAuthenticated = false
+      state.token = undefined
+      state.isError = false
+      state.message = undefined
+    },
+    [validToken.pending]: () => {
+      return
     },
     [validToken.fulfilled]: (state, { payload }) => {
       state.token = payload.token

@@ -48,8 +48,9 @@ function ProfileImageSelector({ label, images, currImage, handleImage }) {
             key={img}
             data-idx={idx}
             className={classes.imageWrapper}
-            onClick={e => {
-              const idx = e.target.parentNode.dataset.idx
+            onClick={({ target }) => {
+              if (target.tagName !== 'IMG') return
+              const idx = target.parentNode.dataset.idx
               handleImage(images[idx])
             }}
           >
