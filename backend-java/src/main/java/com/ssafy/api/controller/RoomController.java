@@ -3,6 +3,7 @@ package com.ssafy.api.controller;
 import com.ssafy.api.dto.RoomDto;
 import com.ssafy.api.service.RoomService;
 import com.ssafy.api.service.UserService;
+import com.ssafy.common.model.response.Response;
 import com.ssafy.common.util.JwtTokenUtil;
 import com.ssafy.common.util.RandomNumberUtil;
 import com.ssafy.db.entity.Room;
@@ -53,6 +54,8 @@ public class RoomController {
     // 오픈비두 서버 관련 변수
     private String OPENVIDU_URL;
     private String SECRET;
+
+    private Response response;
 
     @Autowired
     public RoomController(UserService userService, UserLanRepository userLanRepository, UserRepository userRepository, RoomRepository roomRepository, JwtTokenUtil jwtTokenUtil, RoomService roomService, @Value("${openvidu.url}") String openviduUrl, @Value("${openvidu.secret}") String secret) {
@@ -123,7 +126,9 @@ public class RoomController {
 
                 RoomDto roomDto = roomService.getRoomDto(maxConnRoomId);
 
-                return ResponseEntity.ok(roomDto);
+
+                return response.success(roomDto);
+
             }
         }
 
@@ -138,7 +143,8 @@ public class RoomController {
         // DB 저장
         roomService.makeRoom(roomId, email);
 
-        return ResponseEntity.ok(roomService.getRoomDto(roomId));
+
+        return response.success(roomService.getRoomDto(roomId));
     }
 
     @PutMapping("/leave")
