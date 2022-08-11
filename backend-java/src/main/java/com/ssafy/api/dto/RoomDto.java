@@ -1,6 +1,5 @@
 package com.ssafy.api.dto;
 
-import com.ssafy.db.entity.Review;
 import com.ssafy.db.entity.Room;
 import com.ssafy.db.entity.User;
 import io.swagger.annotations.ApiModelProperty;
@@ -20,6 +19,7 @@ public class RoomDto {
     private User userJoin;
 
     public static RoomDto of(Room room){
+        System.out.println(room);
         return new RoomDtoBuilder()
                 .roomId(room.getRoomId())
                 .language(room.getLanguage())

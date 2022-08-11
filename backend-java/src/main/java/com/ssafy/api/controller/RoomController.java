@@ -2,6 +2,7 @@ package com.ssafy.api.controller;
 
 import com.ssafy.api.dto.RoomDto;
 import com.ssafy.api.service.RoomService;
+import com.ssafy.api.service.UserService;
 import com.ssafy.common.util.JwtTokenUtil;
 import com.ssafy.common.util.RandomNumberUtil;
 import com.ssafy.db.entity.Room;
@@ -37,10 +38,11 @@ public class RoomController {
 
     private final int LIMIT = 2;
     private final RoomService roomService;
-    private RoomRepository roomRepository;
-    private UserRepository userRepository;
-    private UserLanRepository userLanRepository;
-    private JwtTokenUtil jwtTokenUtil;
+    private final RoomRepository roomRepository;
+    private final UserRepository userRepository;
+    private final UserLanRepository userLanRepository;
+    private final JwtTokenUtil jwtTokenUtil;
+    private final UserService userService;
 
     // 오픈비두 객체 SDK
     private OpenVidu openVidu;
@@ -53,7 +55,12 @@ public class RoomController {
     private String SECRET;
 
     @Autowired
-    public RoomController(RoomService roomService, @Value("${openvidu.url}") String openviduUrl, @Value("${openvidu.secret}") String secret) {
+    public RoomController(UserService userService, UserLanRepository userLanRepository, UserRepository userRepository, RoomRepository roomRepository, JwtTokenUtil jwtTokenUtil, RoomService roomService, @Value("${openvidu.url}") String openviduUrl, @Value("${openvidu.secret}") String secret) {
+        this.userService = userService;
+        this.userLanRepository = userLanRepository;
+        this.userRepository = userRepository;
+        this.roomRepository = roomRepository;
+        this.jwtTokenUtil = jwtTokenUtil;
         this.roomService = roomService;
         this.SECRET = secret;
         this.OPENVIDU_URL = openviduUrl;
@@ -69,9 +76,9 @@ public class RoomController {
             @ApiResponse(code = 500, message = "서버 에러")
     })
     // 아이디를 토큰에서 받아와서 유저 객체를 가져온다.
-    public ResponseEntity<RoomDto> quickRoom(@RequestHeader("Authorization") String bearerToken) throws OpenViduJavaClientException, OpenViduHttpException {
+    public ResponseEntity<?> quickRoom(@RequestHeader("Authorization") String bearerToken){
         String email = jwtTokenUtil.getEmailFromBearerToken(bearerToken);
-        User user = userRepository.findByEmail(email).get();
+        User user = userService.getUserByEmail(email);
 
         List<RoomDto> rooms = roomService.findRoom();
         String language = null;
@@ -112,9 +119,11 @@ public class RoomController {
                 // 방 관리 map에 저장
                 this.mapSessions.put(maxConnRoomId, 2);
 
-                roomService.joinRoom(maxConnRoomId, email);
+                roomService.joinRoom(maxConnRoomId, email, language);
 
-                return ResponseEntity.ok(roomService.getRoomDto(maxConnRoomId));
+                RoomDto roomDto = roomService.getRoomDto(maxConnRoomId);
+
+                return ResponseEntity.ok(roomDto);
             }
         }
 
@@ -132,7 +141,7 @@ public class RoomController {
         return ResponseEntity.ok(roomService.getRoomDto(roomId));
     }
 
-    @PutMapping("")
+    @PutMapping("/leave")
     @ApiOperation(value = "참가자가 방을 나갈 경우 사용", notes = "<strong>방 나가기</strong>를 통해 방 정보 OFF로 변경 및 방 관리 map에서 해당 정보 삭제")
     @ApiResponses({
             @ApiResponse(code = 200, message = "방 나가기 성공"),

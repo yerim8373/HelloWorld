@@ -3,13 +3,11 @@ package com.ssafy.db.entity;
 import lombok.*;
 
 import javax.persistence.*;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Getter
 @Builder
+@ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 public class Room{
@@ -18,14 +16,14 @@ public class Room{
     @Column(name = "room_id", length = 50)
     private String roomId;
 
-    private String Language;
+    private String language;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_make")
+    @JoinColumn(name = "user_make_id")
     private User userMake;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_join")
+    @JoinColumn(name = "user_join_id")
     private User userJoin;
 
 
@@ -35,8 +33,9 @@ public class Room{
     public void setUserJoin(User user){
         this.userJoin = user;
     }
-
-
+    public void setLanguage(String language){
+        this.language = language;
+    }
 
 
 }

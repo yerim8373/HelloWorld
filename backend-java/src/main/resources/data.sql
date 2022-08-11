@@ -23,6 +23,11 @@ insert into
     value
     (1,'ROLE_ADMIN'), (1,'ROLE_USER'), (1,'ROLE_VIP');
 insert into
+    user (id, activated, age, avatar_src, black_expire_date, black_listny, email, gender, mobile_number, name, nickname, pw, reg_date, country_id)
+    value
+    (0, true, 31, null, null, false, 'test@test.com', 'MALE', '01000000000', '박유저','초딩입니다', '$2a$10$EsBStUmjvWJz5eYbSLQ5LeM8PuV51b9EVnZbh17EX5z0qC8DHkD9G', now(), 1);
+
+insert into
     tip
 values
     (0, now(), '초면이라 무슨 대화를 할지 모르겠다구요??\nHelloWorld의 "키워드" 기능을 사용해보세요!', 1),
@@ -48,3 +53,4 @@ values
      now(), '[나라별 문화] 일본 문화', 1),
     (0, now(), '안녕하세요. HelloWorld 입니다.\n\n8월 11일 (목) 화상 채팅 서비스의 임시 점검이 진행될 예정입니다.\n자세한 사항은 아래 안내드리는 내용을 확인해 주시기 바랍니다.\n\n[점검 시간]\n2022-08-11(목) 00:00 ~ 2022-08-11(목) 01:00 (1시간)\n\n[점검 내용]\n- 화상 채팅 매칭 중, 같은 사용자가 반복해서 매칭되는 현상 수정\n\n[주의사항]\n점검이 진행되는 동안 화상 채팅 서비스를 이용하실 수 없으며, 점검은 조기 종료될 수 있습니다.\n\n\n점검이 완료되면 공지사항을 통해 안내해 드리도록 하겠습니다.\n서비스 이용에 불편을 드려 대단히 죄송합니다.',
      now(), '[공지사항] 8월 11일 (목) HelloWorld 임시 점검 안내', 1);
+
