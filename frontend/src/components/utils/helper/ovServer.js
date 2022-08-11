@@ -1,8 +1,8 @@
 // SERVER_SIDE
 import axios from 'axios'
 
-const OPENVIDU_SERVER_URL = 'https://i7b106.p.ssafy.io:8443'
-const OPENVIDU_SERVER_SECRET = 'wndlfdP1051!'
+const OPENVIDU_SERVER_URL = 'https://localhost:4443'
+const OPENVIDU_SERVER_SECRET = 'HELLO_WORLD'
 
 export async function getToken(mySessionId) {
   const sessionId = await createSession(mySessionId)
@@ -12,7 +12,7 @@ export async function getToken(mySessionId) {
 
 function createSession(sessionId) {
   return new Promise(async (resolve, reject) => {
-    let data = JSON.stringify({ customSessionId: sessionId })
+    let data = { customSessionId: sessionId }
     try {
       const response = await axios.post(
         OPENVIDU_SERVER_URL + '/openvidu/api/sessions',

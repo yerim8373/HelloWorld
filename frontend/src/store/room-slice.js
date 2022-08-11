@@ -6,7 +6,8 @@ const roomSlice = createSlice({
   initialState: {
     roomId: undefined,
     languages: undefined,
-    isCreatingRoom: undefined,
+    isCreatedRoom: undefined,
+    isJoinedRoom: undefined,
     isError: undefined,
     message: undefined,
   },
