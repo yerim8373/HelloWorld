@@ -89,13 +89,15 @@ export default function UserWithdrawal() {
         구독을 한 계정 삭제 시, 환불 신청 후 환불 처리가 완료되기 전 계정을
         삭제하는 경우 구독 기록을 확인할 수 없으므로 환불이 불가합니다.
       </p>
-      <Input
-        id="사용 중인 비밀번호"
-        type="password"
-        placeholder="현재 비밀번호를 입력해주세요."
-        onValid={passwordValidObj}
-        onData={pwd => setPassword(pwd)}
-      />
+      <div className={classes.passwordContainer}>
+        <Input
+          id="사용 중인 비밀번호"
+          type="password"
+          placeholder="현재 비밀번호를 입력해주세요."
+          onValid={passwordValidObj}
+          onData={pwd => setPassword(pwd)}
+        />
+      </div>
       {isValid(password) ? (
         <Button text="탈퇴하기" size="small" color="error" />
       ) : (
