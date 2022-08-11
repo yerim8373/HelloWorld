@@ -48,16 +48,16 @@ const userSlice = createSlice({
       state.isError = true
       state.message = payload.message
     },
-    [logout.fulfilled]: state => {
-      state.id = undefined
-      state.name = undefined
-      state.age = undefined
-      state.nickname = undefined
-      state.gender = undefined
-      state.country = undefined
-      state.languages = []
-      state.subscribe = undefined
-    },
+    // [logout.fulfilled]: state => {
+    //   state.id = undefined
+    //   state.name = undefined
+    //   state.age = undefined
+    //   state.nickname = undefined
+    //   state.gender = undefined
+    //   state.country = undefined
+    //   state.languages = []
+    //   state.subscribe = undefined
+    // },
   },
 })
 

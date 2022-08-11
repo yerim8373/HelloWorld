@@ -56,7 +56,7 @@ export const setImage = createAsyncThunk(
   async imageFormData => {
     try {
       const response = await axios.post(
-        'https://i7b106.p.ssafy.io/api/v1/user/image',
+        `${process.env.REACT_APP_API_URL}/api/v1/user/image`,
         imageFormData,
         {
           headers: {
@@ -74,7 +74,7 @@ export const setImage = createAsyncThunk(
 export const getImage = createAsyncThunk('auth/getImage', async file => {
   try {
     const response = await axios.get(
-      `https://i7b106.p.ssafy.io/api/v1/user/image/${file}`,
+      `${process.env.REACT_APP_API_URL}/api/v1/user/image/${file}`,
     )
     return response.data
   } catch (error) {
