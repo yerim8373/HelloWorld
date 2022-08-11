@@ -5,7 +5,10 @@ import com.ssafy.api.service.UserLanService;
 import com.ssafy.common.model.response.Response;
 import com.ssafy.common.util.JwtTokenUtil;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.io.IOUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +19,12 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import org.springframework.web.multipart.MultipartFile;
+import retrofit2.http.Multipart;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * 유저 관련 API 요청 처리를 위한 컨트롤러 정의.
@@ -30,6 +39,8 @@ public class UserController {
 	private final Response response;
 	private final JwtTokenUtil jwtTokenUtil;
 	private final UserLanService userLanService;
+	@Value("${spring.servlet.multipart.location}")
+	private String root;
 
 	@PostMapping()
 	@ApiOperation(value = "회원 가입", notes = "<strong>이메일와 패스워드</strong>를 통해 회원가입 한다.")
@@ -40,7 +51,7 @@ public class UserController {
         @ApiResponse(code = 500, message = "서버 오류")
     })
 	public ResponseEntity<?> register(
-			@RequestBody @ApiParam(value="회원가입 정보", required = true) SignUpDto signUpDto) {
+			@RequestBody @ApiParam(value="회원가입 정보", required = true)SignUpDto signUpDto) {
 		
 		//임의로 리턴된 User 인스턴스. 현재 코드는 회원 가입 성공 여부만 판단하기 때문에 굳이 Insert 된 유저 정보를 응답하지 않음.
 		userService.createUser(signUpDto);
@@ -122,5 +133,19 @@ public class UserController {
 	public ResponseEntity<?> removeLan(@PathVariable Long id){
 		userLanService.removeUserLan(id);
 		return response.success(HttpStatus.OK);
+	}
+
+	@PostMapping("/image")
+	public ResponseEntity<?> addImage(@RequestPart MultipartFile file)throws IOException{
+
+		return response.success(ImageDto.builder().src(userService.saveImage(file)).build());
+	}
+	@GetMapping(value = "/image/{src}", produces = {MediaType.IMAGE_JPEG_VALUE,MediaType.IMAGE_GIF_VALUE,MediaType.IMAGE_PNG_VALUE})
+	public byte[] getImage(@PathVariable String src) throws IOException {
+		String[] split = src.split("`");
+		InputStream in = new FileInputStream(System.getProperty("user.dir")+"/"+split[0]+"/"+split[1]);
+		byte[] bytes = IOUtils.toByteArray(in);
+		in.close();
+		return bytes;
 	}
 }
