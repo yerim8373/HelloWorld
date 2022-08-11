@@ -24,10 +24,11 @@ public class RoomServiceImpl implements RoomService {
 
 
     @Override
-    public void joinRoom(String roomId, String email) {
+    public void joinRoom(String roomId, String email, String language) {
         Room room = roomRepository.findByRoomId(roomId);
         User user = userRepository.findByEmail(email).get();
         room.setUserJoin(user);
+        room.setLanguage(language);
     }
 
     @Override

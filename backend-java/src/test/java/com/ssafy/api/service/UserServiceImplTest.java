@@ -70,7 +70,7 @@ class UserServiceImplTest {
                 .build();
         assertEquals(1, heart.getCnt());
         userService.plusHeart(heart);
-        redisUtil.delete(UserServiceImpl.INFO+user2.getId());
+//        redisUtil.delete(UserServiceImpl.INFO+user2.getId());
     }
 
     @Test

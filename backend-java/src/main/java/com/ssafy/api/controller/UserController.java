@@ -57,7 +57,7 @@ public class UserController {
         @ApiResponse(code = 500, message = "서버 오류")
     })
 	public ResponseEntity<?> getUserInfo(@RequestHeader("Authorization") String bearerToken) {
-		//Dto로 넘기는 이유가 뭐랬지..?
+		System.out.println(jwtTokenUtil.getEmailFromBearerToken(bearerToken));
 		return response.success(UserDto.of(userService.getUserByEmail(jwtTokenUtil.getEmailFromBearerToken(bearerToken)))
 						,"user information success"
 						,HttpStatus.OK);

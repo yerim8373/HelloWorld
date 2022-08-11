@@ -22,3 +22,7 @@ insert into
     user_auth
     value
     (1,'ROLE_ADMIN'), (1,'ROLE_USER'), (1,'ROLE_VIP');
+insert into
+    user (id, activated, age, avatar_src, black_expire_date, black_listny, email, gender, mobile_number, name, nickname, pw, reg_date, country_id)
+    value
+    (0, true, 31, null, null, false, 'test@test.com', 'MALE', '01000000000', '박유저','초딩입니다', '$2a$10$EsBStUmjvWJz5eYbSLQ5LeM8PuV51b9EVnZbh17EX5z0qC8DHkD9G', now(), 1);
