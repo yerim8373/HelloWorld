@@ -83,6 +83,12 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	public void updateUser(SignUpDto signUpDto) {
+		User user = getUserByEmail(signUpDto.getEmail());
+
+	}
+
+	@Override
 	public User getUserByEmail(String Email) {
 		Optional<User> user = userRepository.findByEmail(Email);
 		if (!user.isPresent()) throw new UsernameNotFoundException("존재하지 않는 이메일입니다.");

@@ -1,6 +1,6 @@
 package com.ssafy.db.entity;
 
-import com.ssafy.api.dto.RoomDto;
+import com.ssafy.api.dto.*;
 import lombok.*;
 
 import javax.persistence.*;
@@ -35,6 +35,9 @@ public class User{
     @Column(unique = true, nullable = false)
     private String nickname;
 
+    @Column(length = 500)
+    private String description;
+
     private Integer age;
     private String avatarSrc;
 
@@ -60,6 +63,7 @@ public class User{
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="countryId")
     private Country country;
+
 
     @OneToMany(mappedBy = "user")
     private List<Report> reportList = new ArrayList<>();
@@ -97,5 +101,26 @@ public class User{
 //    }
     public void setAvatarSrc(String src){
         this.avatarSrc = src;
+    }
+
+
+    public void changeUserInfo(UserDto userDto){
+
+        this.name = userDto.getName();
+        this.mobileNumber = userDto.getMobileNumber();
+        this.nickname = userDto.getNickname();
+        this.description = userDto.getDescription();
+        this.age = userDto.getAge();
+        this.avatarSrc = userDto.getAvatarSrc();
+        this.gender = userDto.getGender();
+        this.country = country.builder()
+                .name(userDto.getCountry().getName())
+                .build();
+        for(int i=0; i<userDto.getUserLanList().size(); i++){
+            this.userLanList.add(i, userDto.getUserLanList().get(i));
+        }
+        for(int i=userDto.getUserLanList().size(); i<3; i++){
+            this.userLanList.remove(i);
+        }
     }
 }
