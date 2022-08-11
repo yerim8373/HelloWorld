@@ -63,18 +63,9 @@ function LoadingContainer({ handleModal }) {
   const { mySessionId } = openvidu
   const moveToMeetingPage = () => navigate(`/meeting/${mySessionId}`)
 
-  const init = useCallback(async () => {
-    await dispatch(findRoom(token))
-  }, [dispatch, token])
   useEffect(() => {
-    init()
-  }, [init])
-
-  // useInterval(() => {
-  //   setLoading(false)
-  // }, 5000)
-
-  // 서버와 병합하는
+    dispatch(findRoom(token))
+  }, [])
 
   return (
     <div className={classes.loadingContainer}>

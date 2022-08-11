@@ -42,15 +42,14 @@ export const signup = createAsyncThunk('auth/signup', async userData => {
   }
 })
 
-// export const logout = createAsyncThunk('auth/signout', async userData => {
-//   try {
-//     const response = await axios.post(
-//       `${process.env.REACT_APP_API_URL}/api/v1/auth/signout`,
-//       userData,
-//     )
-//     return response.data
-//   } catch (error) {
-//     console.log(error)
-//   }
-// })
-
+export const logout = createAsyncThunk('auth/signout', async userData => {
+  try {
+    const response = await axios.post(
+      `${process.env.REACT_APP_API_URL}/api/v1/auth/signout`,
+      userData,
+    )
+    return response.data
+  } catch (error) {
+    console.log(error)
+  }
+})
