@@ -58,7 +58,8 @@ public class RoomController {
     private Response response;
 
     @Autowired
-    public RoomController(UserService userService, UserLanRepository userLanRepository, UserRepository userRepository, RoomRepository roomRepository, JwtTokenUtil jwtTokenUtil, RoomService roomService, @Value("${openvidu.url}") String openviduUrl, @Value("${openvidu.secret}") String secret) {
+    public RoomController(Response response, UserService userService, UserLanRepository userLanRepository, UserRepository userRepository, RoomRepository roomRepository, JwtTokenUtil jwtTokenUtil, RoomService roomService, @Value("${openvidu.url}") String openviduUrl, @Value("${openvidu.secret}") String secret) {
+        this.response = response;
         this.userService = userService;
         this.userLanRepository = userLanRepository;
         this.userRepository = userRepository;
@@ -126,7 +127,6 @@ public class RoomController {
 
                 RoomDto roomDto = roomService.getRoomDto(maxConnRoomId);
 
-
                 return response.success(roomDto);
 
             }
@@ -144,7 +144,7 @@ public class RoomController {
         roomService.makeRoom(roomId, email);
 
 
-        return response.success(roomService.getRoomDto(roomId));
+        return response.success("방이 생성됐습니다.");
     }
 
     @PutMapping("/leave")
