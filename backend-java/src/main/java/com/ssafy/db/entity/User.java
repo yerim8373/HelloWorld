@@ -90,10 +90,10 @@ public class User{
 //        }
 //    }
 
-    public void setRoom(Room room) {
-        this.room = room;
-        room.getUserList().add(this);
-    }
+//    public void setRoom(Room room) {
+//        this.room = room;
+//        room.getUserList().add(this);
+//    }
     public void setAvatarSrc(String src){
         this.avatarSrc = src;
     }
