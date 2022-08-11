@@ -18,3 +18,7 @@
   color: var(--color-error);
   font-weight: 500;
 }
+
+.passwordContainer {
+  width: 50%;
+}
