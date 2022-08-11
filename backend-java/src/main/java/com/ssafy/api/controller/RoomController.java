@@ -85,26 +85,33 @@ public class RoomController {
         User user = userService.getUserByEmail(email);
 
         List<RoomDto> rooms = roomService.findRoom();
+        System.out.println("가져온 room들 전체 확인 : " + rooms);
         String language = null;
 
         /************ 참가할 방이 존재한다면 ************/
         // 돌면서 내 선호하는 언어와 겹치는 것이 있다
         if (!rooms.isEmpty()) {
             int max = LIMIT;
-            String maxConnRoomId = null;
+            String ConnRoomId = null;
 
             // 방마다 참가할 수 있는지 확인
             for (RoomDto roomDto : rooms) {
+                System.out.println(this.mapSessions);
                 // 검색하는 방이 존재하지 않거나 인원초과일 경우
+                System.out.println("roomDto.getRoomId : " + roomDto.getRoomId());
+                System.out.println("검색하는 방이 존재하는지? : " + this.mapSessions.get(roomDto.getRoomId()));
                 if (this.mapSessions.get(roomDto.getRoomId()) == null || this.mapSessions.get(roomDto.getRoomId()) >= LIMIT) continue;
 
 //                 유저 랭귀지 같은게 있는지 확인 하는 로직 필요
                 List<UserLan> yourList = userLanRepository.findUserLanByEmailOrderByPriority(roomDto.getUserMake().getEmail());
+                System.out.println("yourList : " + yourList);
                 List<UserLan> myList = userLanRepository.findUserLanByEmailOrderByPriority(email);
+                System.out.println("myList : " + myList);
                 outer : for(UserLan yourUserLan : yourList){
                     for(UserLan myUserLan : myList){
                         if(yourUserLan.getLanguage().getLan().equals(myUserLan.getLanguage().getLan())){
                             language = myUserLan.getLanguage().getLan();
+                            System.out.println("language : " + language);
                             break outer;
                         }
                     }
@@ -112,22 +119,22 @@ public class RoomController {
                 if(language == null) continue;
 
                 if (max > mapSessions.get(roomDto.getRoomId())) {
-                    maxConnRoomId = roomDto.getRoomId();
+                    ConnRoomId = roomDto.getRoomId();
                     break;
                 }
 
             }
 
             // 참가할 수 있다면
-            if (maxConnRoomId != null) {
+            if (ConnRoomId != null) {
                 // 방 관리 map에 저장
-                this.mapSessions.put(maxConnRoomId, 2);
+                this.mapSessions.put(ConnRoomId, 2);
 
-                roomService.joinRoom(maxConnRoomId, email, language);
+                roomService.joinRoom(ConnRoomId, email, language);
 
-                RoomDto roomDto = roomService.getRoomDto(maxConnRoomId);
+                System.out.println("return RoomDto : " + roomService.getRoomDto(ConnRoomId));
 
-                return response.success(roomDto);
+                return response.success(roomService.getRoomDto(ConnRoomId));
 
             }
         }
