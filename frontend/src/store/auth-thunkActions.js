@@ -10,7 +10,6 @@ export const login = createAsyncThunk('auth/login', async userData => {
         pw: userData.password,
       },
     )
-    console.log(response.data)
     return response.data
   } catch (error) {
     console.log(error)
@@ -19,10 +18,10 @@ export const login = createAsyncThunk('auth/login', async userData => {
 
 export const validToken = createAsyncThunk('auth/validToken', async token => {
   try {
-    const response = await axios.get(
+    const response = await axios.post(
       `${process.env.REACT_APP_API_URL}/api/v1/auth/reissue`,
       {
-        params: { refreshToken: token },
+        refreshToken: token,
       },
     )
     return response.data

@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom'
 // import axios from 'axios'
 import { OpenVidu } from 'openvidu-browser'
 import { getToken } from '../utils/helper/ovServer'
-import { func } from 'prop-types'
+import { useSelector } from 'react-redux'
 
 const DUMMYUSER_1 = {
   country: '🇰🇷',
@@ -29,11 +29,12 @@ const DUMMYUSER_2 = {
 
 const Meeting = () => {
   const navigate = useNavigate()
+  const state = useSelector(state => state.user)
 
   const [openVidu, setOpenVidu] = useState({
     OV: null,
-    mySessionId: 'SessionA',
-    myUserName: 'Participant' + Math.floor(Math.random() * 100),
+    mySessionId: 'I6TCOQCRCH',
+    myUserName: state.nickname,
     session: undefined,
     mainStreamManager: undefined,
     publisher: undefined,
@@ -73,7 +74,7 @@ const Meeting = () => {
       if (session) {
         session.on('streamCreated', event => {
           let subscriber = session.subscribe(event.stream, undefined)
-
+          console.log(event.stream)
           subscribers.push(subscriber)
           setOpenVidu(prevState => ({
             ...prevState,
@@ -123,6 +124,8 @@ const Meeting = () => {
                   frameRate: 60, // The frame rate of your video
                   insertMode: 'APPEND', // How the video is inserted in the target element 'video-container'
                   mirror: false, // Whether to mirror your local video
+                  oppnUserNickname: state.nickName,
+                  oppnUserCountry: state.country,
                 })
 
                 await session.publish(publisher)
