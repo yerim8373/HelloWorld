@@ -12,51 +12,20 @@ import profile from '../../images/profile.jpg'
 import DropdownMenu from './DropdownMenu'
 
 import { logout } from '../../store/auth-thunkActions'
-import { logout2 } from '../../store/user-thunkActions'
+import { clear } from '../../store/user-slice'
 
 //로그아웃 작성때 참고할 것 : 로그인과 로그아웃 핸들러 작성해둔 곳
 
 function HeaderNav() {
-  // const state = useSelector(state => state.user)
-  const state = {
-    id: 'test',
-  }
+  const state = useSelector(state => state.user)
+  // const state = {
+  //   id: 'test',
+  // }
   const [showMenu, setShowMenu] = useState(false)
-  const [renewed, setRenewed] = useState(false)
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const routerPushHandler = () => navigate('/signup')
-
-  const LogouthandleSubmit = e => {
-    e.preventDefault()
-
-    logout(async () => {
-      try {
-        // 프로필 이미지를 제외한 나머지를 서버로 요청
-        const resetData = {
-          age: undefined,
-          avatar: undefined,
-          country: undefined,
-          email: undefined,
-          gender: undefined,
-          mobileNumber: undefined,
-          name: undefined,
-          nickName: undefined,
-          pw: undefined,
-          languageList: undefined,
-        }
-
-        await dispatch(logout(resetData))
-        await dispatch(logout2(resetData))
-
-        setRenewed(true)
-      } catch (e) {
-        console.error(e)
-        alert('잠시 후에 다시 시도해주세요.')
-      }
-    })
-  }
 
   const globalClickHandler = ({ target }) => {
     if (!target.classList.contains('click-blocked')) setShowMenu(!showMenu)
@@ -74,14 +43,12 @@ function HeaderNav() {
     {
       text: '로그아웃',
       color: 'error',
-      action() {
-        navigate('/')
-        console.log('로그아웃')
-        setRenewed(renewed)
-        //onClick = LogouthandleSubmit 이런식으로 누르면 작동되게됐으면좋겠는데??
+      async action() {
+        await dispatch(logout())
+        dispatch(clear())
 
         setShowMenu(!showMenu)
-        //headernav가 이제 바뀌어야하는데...?????
+        navigate('/')
       },
     },
   ]

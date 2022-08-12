@@ -5,7 +5,6 @@ import {
   signup,
   setImage,
   getImage,
-  logout2,
 } from './user-thunkActions'
 
 const userSlice = createSlice({
@@ -22,7 +21,20 @@ const userSlice = createSlice({
     email: undefined,
     mobileNumber: undefined,
   },
-  reducers: {},
+  reducers: {
+    clear(state) {
+      state.id = undefined
+      state.name = undefined
+      state.age = undefined
+      state.nickname = undefined
+      state.gender = undefined
+      state.country = undefined
+      state.languages = []
+      state.subscribe = undefined
+      state.email = undefined
+      state.mobileNumber = undefined
+    },
+  },
   extraReducers: {
     [getUserData.fulfilled]: (state, { payload }) => {
       state.id = payload.data.id
@@ -55,18 +67,8 @@ const userSlice = createSlice({
       state.isError = true
       state.message = payload.message
     },
-    [logout2.fulfilled]: state => {
-      state.id = undefined
-      state.name = undefined
-      state.age = undefined
-      state.nickname = undefined
-      state.gender = undefined
-      state.country = undefined
-      state.languages = []
-      state.subscribe = undefined
-    },
   },
 })
 
-export const userActions = userSlice.actions
+export const { clear } = userSlice.actions
 export default userSlice
