@@ -1,63 +1,69 @@
 // 죽은 코드
 
-// import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 
-// import { OpenVidu } from 'openvidu-browser'
+import { OpenVidu } from 'openvidu-browser'
+import { getToken } from '../components/utils/helper/ovServer'
 
-// const ovSlice = createSlice({
-//   name: 'openvidu',
-//   initialState: {
-//     OV: null,
-//     mySessionId: 'SessionA',
-//     myUserName: 'Participant' + Math.floor(Math.random() * 100),
-//     session: undefined,
-//     mainStreamManager: undefined,
-//     publisher: undefined,
-//     subscribers: [],
-//   },
-//   reducers: {
-//     createOpenvidu: (state, action) => {
-//       if (!state.OV) {
-//         state.OV = new OpenVidu()
-//         state.session = state.OV.initSession()
-//       }
-//     },
+const ovSlice = createSlice({
+  name: 'openvidu',
+  initialState: {
+    OV: null,
+    mySessionId: undefined,
+    myUserName: undefined,
+    session: undefined,
+    mainStreamManager: undefined,
+    publisher: undefined,
+    subscribers: [],
+    devices: undefined,
+    currentVideoDevice: undefined,
+  },
+  reducers: {
+    createOpenvidu: (state, { payload }) => {
+      if (!state.OV) {
+        state.myUserName = payload.nickname
+        state.mySessionId = payload.roomId
+        state.OV = new OpenVidu()
+        state.session = state.OV.initSession()
+        state.devices = state.OV.getDevices()
+      }
+    },
 
-//     createPublisher: (state, action) => {
-//       state.session.publish(action.payload[1])
-//       state.currentVideoDevice = action.payload[0]
-//       state.mainStreamManager = action.payload[1]
-//       state.publisher = action.payload[1]
-//     },
+    createPublisher: (state, { payload }) => {
+      state.session.publish(payload.publisher)
+      state.currentVideoDevice = payload.currentVideoDevice
+      state.mainStreamManager = payload.publisher
+      state.publisher = payload.publisher
+    },
 
-//     enteredSubscriber: (state, action) => {
-//       const subscriber = state.session.subscribe(action.payload, undefined)
-//       state.subscribers.push(subscriber)
-//     },
+    enteredSubscriber: (state, action) => {
+      const subscriber = state.session.subscribe(action.payload, undefined)
+      state.subscribers.push(subscriber)
+    },
 
-//     deleteSubscriber: (state, action) => {
-//       let index = state.subscribers.indexOf(action.payload, 0)
-//       if (index > -1) {
-//         state.subscribers.splice(index, 1)
-//       }
-//     },
-//   },
+    deleteSubscriber: (state, action) => {
+      let index = state.subscribers.indexOf(action.payload, 0)
+      if (index > -1) {
+        state.subscribers.splice(index, 1)
+      }
+    },
+  },
 
-//   leaveSession(state, action) {
-//     const mySession = state.session
-//     if (mySession) {
-//       mySession.disconnect()
-//     }
+  leaveSession(state, action) {
+    const mySession = state.session
+    if (mySession) {
+      mySession.disconnect()
+    }
 
-//     state.OV = null
-//     state.session = undefined
-//     state.subscribers = []
-//     state.mySessionId = 'SessionA'
-//     state.myUserName = 'Participant' + Math.floor(Math.random() * 100)
-//     state.mainStreamManager = undefined
-//     state.publisher = undefined
-//   },
-// })
+    state.OV = null
+    state.session = undefined
+    state.subscribers = []
+    state.mySessionId = 'SessionA'
+    state.myUserName = 'Participant' + Math.floor(Math.random() * 100)
+    state.mainStreamManager = undefined
+    state.publisher = undefined
+  },
+})
 
-// export const ovActions = ovSlice.actions
-// export default ovSlice
+export const ovActions = ovSlice.actions
+export default ovSlice

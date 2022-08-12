@@ -16,10 +16,11 @@ import {
 } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 import roomSlice from './room-slice'
+import ovSlice from './ov-slice'
 
 const persistConfig = {
   key: 'root',
-  blacklist: ['room'],
+  blacklist: ['room', 'openvidu'],
   storage,
 }
 
@@ -28,6 +29,7 @@ const persistingReducer = combineReducers({
   auth: authSlice.reducer,
   language: languageSlice.reducer,
   room: roomSlice.reducer,
+  openvidu: ovSlice.reducer,
 })
 
 // const normalReducer = combineReducers({})
@@ -40,6 +42,7 @@ const store = configureStore({
     getDefaultMiddleware({
       serializableCheck: {
         ignoreActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+        ovActions: false,
       },
     }),
 })

@@ -6,7 +6,6 @@ const OPENVIDU_SERVER_SECRET = 'HELLO_WORLD'
 
 export async function getToken(mySessionId) {
   const sessionId = await createSession(mySessionId)
-
   const token = await createToken(sessionId)
   return token
 }
@@ -31,10 +30,9 @@ function createSession(sessionId) {
       setTimeout(() => {
         console.log('개발자 설정을 통한 강제 리턴')
         return resolve(sessionId)
-      }, 500)
+      }, 1000)
       return response
     } catch (response) {
-      console.log(response)
       let error = Object.assign({}, response)
       if (error?.response?.status === 409) {
         return resolve(sessionId)
