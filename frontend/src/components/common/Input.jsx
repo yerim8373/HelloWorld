@@ -1,20 +1,21 @@
+/**
+ * 입력 창 컴포넌트
+ *
+ * id {string}: 입력 창의 ID 값 및 레이블에 표시될 텍스트
+ * type {string}: 입력 창의 타입, 기본 값은 text
+ * placeholder {string}: 전달 시 입력 창에 플레이스홀더 적용
+ * onValid {object}: 유효성 검사에 필요한 객체 (없으면 검사 불가)
+ * onData {func}: 유효성 검사에 성공했을 때 호출되는 함수
+ * required {bool}: 필수 입력 여부 (우측에 마크 표시), 기본 값은 false
+ * noLabel {bool}: 레이블 표시 비활성화 여부, 기본 값은 false
+ * meta {any}: 유효성 검사에 사용할 외부 state 값 (ex: 비밀번호 확인)
+ * defaultValue {string, number}: 최초로 입력되는 값 (placeholder와 다름)
+ * disabled {bool}: 입력 비활성화 여부, 기본 값은 false
+ */
+
 import React, { useState, useRef } from 'react'
 import PropTypes from 'prop-types'
 import classes from './Input.module.css'
-// Input-Component /////////////////////////
-/// /////////////////////////////////////////
-/// /////////////////////////////////////////
-// 설정
-// props.id
-// label 이름, input name 속성, label for 속성 설정
-// props.type (선택)
-// 해당 input의 type 설정, 적용x 시 기본 값은 text
-// props.placeHolder (선택)
-// placeHolder 적용
-// required 필수 입력 여부 (레이블 옆에 * 표시 추가)
-// noLabel 레이블 표시 비활성화 여부
-// meta 유효성 검사에 사용할 외부 state 값 (ex: 비밀번호 확인)
-
 function Input({
   id,
   type = 'text',
@@ -24,6 +25,8 @@ function Input({
   required,
   noLabel,
   meta,
+  defaultValue,
+  disabled,
 }) {
   const inputRef = useRef()
   const [errorComponent, setErrorComponent] = useState(null)
@@ -84,6 +87,8 @@ function Input({
         onKeyUp={inputValidHandler}
         ref={inputRef}
         tabIndex="-1"
+        defaultValue={defaultValue}
+        disabled={disabled}
       />
       {/* 에러가 렌더링 되는 창 */}
       {errorComponent && errorComponent}
@@ -100,9 +105,9 @@ Input.propTypes = {
   required: PropTypes.bool,
   noLabel: PropTypes.bool,
   meta: PropTypes.any,
+  defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  disabled: PropTypes.bool,
 }
-
-export default Input
 
 function ErrorComponent({ text }) {
   return <div className={classes.errorComponent}>{text}</div>
@@ -111,3 +116,5 @@ function ErrorComponent({ text }) {
 ErrorComponent.propTypes = {
   text: PropTypes.string.isRequired,
 }
+
+export default Input

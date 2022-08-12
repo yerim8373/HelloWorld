@@ -21,6 +21,11 @@
   font-style: italic;
 }
 
+.input:disabled {
+  background-color: white;
+  border-bottom: 2px solid var(--color-grey-200);
+}
+
 .inputLabel {
   display: flex;
   gap: 2px;

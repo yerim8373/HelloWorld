@@ -18,16 +18,35 @@ const userSlice = createSlice({
     country: undefined,
     languages: [],
     subscribe: undefined,
+    email: undefined,
+    mobileNumber: undefined,
   },
-  reducers: {},
+  reducers: {
+    clear(state) {
+      state.id = undefined
+      state.name = undefined
+      state.age = undefined
+      state.nickname = undefined
+      state.gender = undefined
+      state.country = undefined
+      state.languages = []
+      state.subscribe = undefined
+      state.email = undefined
+      state.mobileNumber = undefined
+    },
+  },
   extraReducers: {
     [getUserData.fulfilled]: (state, { payload }) => {
       state.id = payload.data.id
       state.name = payload.data.name
       state.age = payload.data.age
       state.nickname = payload.data.nickname
+      state.gender = payload.data.gender
       state.country = payload.data.country.name
+      state.languages = payload.data.languages
       state.subscribe = payload.data.subscribe ? true : false
+      state.email = payload.data.email
+      state.mobileNumber = payload.data.mobileNumber
     },
     [getUserData.rejected]: (state, { payload }) => {
       // state.isError = true
@@ -48,18 +67,8 @@ const userSlice = createSlice({
       state.isError = true
       state.message = payload.message
     },
-    // [logout.fulfilled]: state => {
-    //   state.id = undefined
-    //   state.name = undefined
-    //   state.age = undefined
-    //   state.nickname = undefined
-    //   state.gender = undefined
-    //   state.country = undefined
-    //   state.languages = []
-    //   state.subscribe = undefined
-    // },
   },
 })
 
-export const userActions = userSlice.actions
+export const { clear } = userSlice.actions
 export default userSlice

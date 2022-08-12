@@ -10,9 +10,12 @@ const authSlice = createSlice({
     message: undefined,
   },
   extraReducers: {
-    // [login.pending]: () => {
-    //   return
-    // },
+    [login.fulfilled]: (state, { payload }) => {
+      state.isAuthenticated = false
+      state.token = undefined
+      state.isError = false
+      state.message = undefined
+    },
     [login.fulfilled]: (state, { payload }) => {
       state.isAuthenticated = true
       state.token = payload.data.accessToken

@@ -21,7 +21,6 @@ import WithdrawalPage from './pages/settings/WithdrawalPage'
 
 import { useDispatch, useSelector } from 'react-redux'
 import { validToken } from './store/auth-thunkActions'
-import { useEffect } from 'react'
 import useInterval from './components/utils/hooks/useInterval'
 
 const authPathSet = new Set([
@@ -81,6 +80,10 @@ function App() {
             <Route path="password" element={<PasswordPage />} />
             <Route path="heart" element={<HeartPage />} />
             <Route path="withdrawal" element={<WithdrawalPage />} />
+            <Route
+              path="*"
+              element={<Navigate to="/settings/profile" replace />}
+            />
           </Route>
         </Routes>
       </main>

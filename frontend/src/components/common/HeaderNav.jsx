@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 
 import MenuBtn from './MenuBtn'
 import classes from './HeaderNav.module.css'
@@ -11,6 +11,11 @@ import Button from './Button'
 import profile from '../../images/profile.jpg'
 import DropdownMenu from './DropdownMenu'
 
+import { logout } from '../../store/auth-thunkActions'
+import { clear } from '../../store/user-slice'
+
+//로그아웃 작성때 참고할 것 : 로그인과 로그아웃 핸들러 작성해둔 곳
+
 function HeaderNav() {
   const state = useSelector(state => state.user)
   // const state = {
@@ -19,6 +24,7 @@ function HeaderNav() {
   const [showMenu, setShowMenu] = useState(false)
 
   const navigate = useNavigate()
+  const dispatch = useDispatch()
   const routerPushHandler = () => navigate('/signup')
 
   const globalClickHandler = ({ target }) => {
@@ -37,9 +43,12 @@ function HeaderNav() {
     {
       text: '로그아웃',
       color: 'error',
-      action() {
-        console.log('로그아웃')
+      async action() {
+        await dispatch(logout())
+        dispatch(clear())
+
         setShowMenu(!showMenu)
+        navigate('/')
       },
     },
   ]
