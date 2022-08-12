@@ -81,14 +81,3 @@ export const getImage = createAsyncThunk('auth/getImage', async file => {
     console.log(error)
   }
 })
-
-export const logout2 = createAsyncThunk('auth/signout', async userData => {
-  try {
-    const response = await axios.post(
-      `${process.env.REACT_APP_API_URL}/api/v1/user`,
-    )
-    return response.data
-  } catch (error) {
-    console.log(error)
-  }
-})
