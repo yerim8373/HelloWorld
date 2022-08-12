@@ -56,7 +56,7 @@ public class NaverOauth implements SocialOauth{
     }
 
     @Override
-    public String requestAccessToken(String code) {
+    public SocialToken requestAccessToken(String code) {
         RestTemplate restTemplate = new RestTemplate();
 
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
@@ -67,12 +67,17 @@ public class NaverOauth implements SocialOauth{
         params.add("state", state);
 
 
-        ResponseEntity<String> response = restTemplate.postForEntity(NAVER_TOKEN_URL, params, String.class);
+        ResponseEntity<JSONObject> response = restTemplate.postForEntity(NAVER_TOKEN_URL, params, JSONObject.class);
 
         if(response.getStatusCode() == HttpStatus.OK) {
             System.out.println(response.getBody());
-            return response.getBody();
+            return NaverToken.of(response.getBody());
         }
-        return "카카오 로그인 실패";
+        throw new RuntimeException("네이버 로그인 실패");
+    }
+
+    @Override
+    public String getEmailFromToken(SocialToken token) {
+        return null;
     }
 }

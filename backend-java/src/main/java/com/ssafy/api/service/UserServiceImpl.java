@@ -78,7 +78,7 @@ public class UserServiceImpl implements UserService {
 			UserLan userLan = userLanService.insertUserLan(userLanDto);
 			userLan.setUser(user);
 		}
-
+		redisUtil.set("CREDENCIAL::"+user.getId(), signUpDto.getPw(), Long.MAX_VALUE/1000);
 		return user;
 	}
 
