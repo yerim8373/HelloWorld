@@ -10,21 +10,29 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class RoomDto {
 
     @ApiModelProperty(name = "방 번호", example="QB8TKZC05P")
     private String roomId;
     private String language;
-    private User userMake;
-    private User userJoin;
+    private UserDto userMake;
+    private UserDto userJoin;
 
     public static RoomDto of(Room room){
         System.out.println(room);
         return new RoomDtoBuilder()
                 .roomId(room.getRoomId())
                 .language(room.getLanguage())
-                .userMake(room.getUserMake())
-                .userJoin(room.getUserJoin())
+                .userMake(UserDto.of(room.getUserMake()))
+                .userJoin(UserDto.of(room.getUserJoin()))
+                .build();
+    }
+
+    public static RoomDto oof(Room room){
+        return new RoomDtoBuilder()
+                .roomId(room.getRoomId())
+                .userMake(UserDto.of(room.getUserMake()))
                 .build();
     }
 }

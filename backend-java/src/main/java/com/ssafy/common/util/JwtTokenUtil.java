@@ -7,6 +7,8 @@ import com.auth0.jwt.exceptions.*;
 
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.ssafy.api.dto.SignInDTO;
+import com.ssafy.db.entity.User;
+import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
@@ -127,9 +129,7 @@ public class JwtTokenUtil {
     }
 
 
-
-
-    public JWToken createToken(SignInDTO signInDTO, Authentication auth) {
+    public JWToken createToken(String email, Authentication auth) {
         Date date = new Date();
         Long accessExpires = 30*60*1000L; // 30minutes
         Long refreshExpires = 60*60*24*15*1000L; // 15days
@@ -138,7 +138,7 @@ public class JwtTokenUtil {
                 .collect(Collectors.joining(","));
 
         String accessToken = JWT.create()
-                .withSubject(signInDTO.getEmail())
+                .withSubject(email)
                 .withClaim("auth", authorities)
                 .withExpiresAt(new Date(date.getTime() + accessExpires))
                 .withIssuer(ISSUER)
@@ -146,7 +146,7 @@ public class JwtTokenUtil {
                 .sign(Algorithm.HMAC512(secretKey.getBytes()));
 
         String refreshToken = JWT.create()
-                .withSubject(signInDTO.getEmail())
+                .withSubject(email)
                 .withExpiresAt(new Date(date.getTime() + refreshExpires))
                 .withIssuer(ISSUER)
                 .withIssuedAt(Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()))

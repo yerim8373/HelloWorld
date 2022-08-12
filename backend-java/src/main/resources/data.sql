@@ -10,10 +10,7 @@ insert into
     language
 values
     (0, now(), 'KOR'),(0, now(), 'ENG'), (0,now(), 'JPN'), (0, now(), 'CHN');
-# insert into
-#     user
-#     value
-#     (0, true, 1000, null, null, false, 'admin', 'MALE', 'admin', 'admin','admin', '$2a$10$bCE.fZaerqsxjhyWfG6ctOKz6uQz1ZWed9q6Rdx5zCsv4z.Q8gD5e', now(), 1);
+
 insert into
     user (id, activated, age, avatar_src, black_expire_date, black_listny, email, gender, mobile_number, name, nickname, pw, reg_date, country_id)
     value
@@ -38,6 +35,7 @@ values
     (0, now(), '대화 상대가 부적절한 행동이나 말을 한다면\n신고버튼을 눌러 바로 신고하세요!', 1),
     (0, now(), '설정 페이지에서 자신의\n하트 사용 내역을 볼 수 있어요!', 1),
     (0, now(), '채팅 메세지 옆 "번역" 버튼을 클릭하면\n번역된 채팅 메세지를 볼 수 있어요!', 1);
+
 -- insert into
 -- --     post
 -- --     values
@@ -52,3 +50,4 @@ values
 -- --      now(), '[나라별 문화] 일본 문화', 1),
 -- --     (0, now(), '안녕하세요. HelloWorld 입니다.\n\n8월 11일 (목) 화상 채팅 서비스의 임시 점검이 진행될 예정입니다.\n자세한 사항은 아래 안내드리는 내용을 확인해 주시기 바랍니다.\n\n[점검 시간]\n2022-08-11(목) 00:00 ~ 2022-08-11(목) 01:00 (1시간)\n\n[점검 내용]\n- 화상 채팅 매칭 중, 같은 사용자가 반복해서 매칭되는 현상 수정\n\n[주의사항]\n점검이 진행되는 동안 화상 채팅 서비스를 이용하실 수 없으며, 점검은 조기 종료될 수 있습니다.\n\n\n점검이 완료되면 공지사항을 통해 안내해 드리도록 하겠습니다.\n서비스 이용에 불편을 드려 대단히 죄송합니다.',
 -- --      now(), '[공지사항] 8월 11일 (목) HelloWorld 임시 점검 안내', 1);
+

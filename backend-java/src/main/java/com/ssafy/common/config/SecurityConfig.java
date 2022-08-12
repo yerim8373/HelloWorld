@@ -1,6 +1,8 @@
 package com.ssafy.common.config;
 
 import com.ssafy.api.service.CustomUserDetailService;
+import com.ssafy.api.service.OAuthService;
+import com.ssafy.api.service.OAuthServiceImpl;
 import com.ssafy.api.service.UserService;
 import com.ssafy.common.auth.JwtAuthenticationFilter;
 import com.ssafy.common.auth.SsafyUserDetailService;
@@ -36,7 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final PasswordEncoder passwordEncoder;
     // Password 인코딩 방식에 BCrypt 암호화 방식 사용
 
-
+    private final OAuthService oAuthService;
     private final JwtAccessDeniedHandler accessDeniedHandler;
     private final JwtAuthenticationEntryPoint authenticationEntryPoint;
 

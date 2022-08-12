@@ -110,7 +110,18 @@ public class AuthController {
 	}
 
 	@GetMapping("/oauth2/{type}/callback")
-	public void callback(@PathVariable String type, @RequestParam String code){
-		oAuthService.oauthLogin(SocialLoginType.valueOf(type.toUpperCase()),code);
+	public ResponseEntity<?> callback(@PathVariable String type, @RequestParam String code, HttpServletResponse resp){
+		JWToken jwt = oAuthService.oauthLogin(SocialLoginType.valueOf(type.toUpperCase()), code);
+		ResponseCookie cookie = ResponseCookie.from("refresh-token", jwt.getRefreshToken())
+				.maxAge(60*60*24*15)
+				.httpOnly(true)
+				.secure(true)
+				.domain("")
+				.path("/")
+				.sameSite("None")
+				.build();
+
+		resp.setHeader("Set-Cookie", cookie.toString());
+		return response.success(JWTokenDto.of(jwt));
 	}
 }

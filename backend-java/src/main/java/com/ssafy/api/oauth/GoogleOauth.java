@@ -1,6 +1,7 @@
 package com.ssafy.api.oauth;
 
 import lombok.RequiredArgsConstructor;
+import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,7 +42,7 @@ public class GoogleOauth  implements SocialOauth{
     }
 
     @Override
-    public String requestAccessToken(String code) {
+    public SocialToken requestAccessToken(String code) {
         RestTemplate restTemplate = new RestTemplate();
 
         Map<String, String> params = new HashMap<>();
@@ -51,12 +52,17 @@ public class GoogleOauth  implements SocialOauth{
         params.put("redirect_uri", GOOGLE_CALLBACK_URL);
         params.put("grant_type", "authorization_code");
 
-        ResponseEntity<String> responseEntity = restTemplate.postForEntity(GOOGLE_TOKEN_URL, params, String.class);
+        ResponseEntity<JSONObject> responseEntity = restTemplate.postForEntity(GOOGLE_TOKEN_URL, params, JSONObject.class);
 
         if(responseEntity.getStatusCode() == HttpStatus.OK) {
             System.out.println(responseEntity.getBody());
-            return responseEntity.getBody();
+            return GoogleToken.of(responseEntity.getBody());
         }
-        return "구글 로그인 실패";
+        throw new RuntimeException("구글 로그인 실패");
+    }
+
+    @Override
+    public String getEmailFromToken(SocialToken token) {
+        return null;
     }
 }
