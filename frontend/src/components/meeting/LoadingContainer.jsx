@@ -7,8 +7,9 @@ import classes from './LoadingContainer.module.css'
 import { findRoom } from '../../store/room-thunkActions'
 
 import { useDispatch, useSelector } from 'react-redux/es/exports'
-import { func } from 'prop-types'
-import { useCallback } from 'react'
+
+import { ovActions } from '../../store/ov-slice'
+import { getToken } from '../utils/helper/ovServer'
 
 const tips = [
   '초면이라 무슨 대화를 할지 모르겠다구요?\nHelloWorld의 “키워드” 기능을 사용해보세요!',
@@ -41,40 +42,109 @@ const getRandomTip = () => {
 //   }, [delay])
 // }
 
+// const OPENVIDU = new OpenVidu()
+
 function LoadingContainer({ handleModal }) {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const user = useSelector(state => state.user)
   const auth = useSelector(state => state.auth)
   const room = useSelector(state => state.room)
+  const openvidu = useSelector(state => state.openvidu)
   const [loading, setLoading] = useState(true)
-  const [openvidu, setOpenVidu] = useState({
-    OV: null,
-    mySessionId: undefined,
-    myUserName: user.nickname,
-    session: undefined,
-    mainStreamManager: undefined,
-    publisher: undefined,
-    subscribers: [],
-    devices: undefined,
-  })
 
   const { token } = auth
-  const { mySessionId } = openvidu
+  const { mySessionId, OV, session, myUserName } = openvidu
+  const { roomId } = room
+  const { nickname } = user
   const moveToMeetingPage = () => navigate(`/meeting/${mySessionId}`)
 
-  const init = useCallback(async () => {
-    await dispatch(findRoom(token))
-  }, [dispatch, token])
   useEffect(() => {
-    init()
-  }, [init])
+    dispatch(findRoom(token))
+  }, [])
 
-  // useInterval(() => {
-  //   setLoading(false)
-  // }, 5000)
+  useEffect(() => {
+    const initRoom = async () => {
+      if (roomId) {
+        const dataObj = {
+          roomId,
+          nickname,
+        }
+        dispatch(ovActions.createOpenvidu(dataObj))
+      }
+    }
+    initRoom()
+  }, [roomId])
 
-  // 서버와 병합하는
+  useEffect(() => {
+    const initToken = async () => {
+      getToken(mySessionId)
+        .then(token => {
+          session.connect(token, { clientData: myUserName }).then(async () => {
+            let devices = await OV.getDevices()
+            let videoDevices = devices.filter(
+              device => device.kind === 'videoinput',
+            )
+
+            let publisher = OV.initPublisher(undefined, {
+              audioSource: undefined, // The source of audio. If undefined default microphone
+              videoSource: videoDevices[0].deviceId, // The source of video. If undefined default webcam
+              publishAudio: true, // Whether you want to start publishing with your audio unmuted or not
+              publishVideo: true, // Whether you want to start publishing with your video enabled or not
+              resolution: '1280x720', // The resolution of your video
+              frameRate: 60, // The frame rate of your video
+              insertMode: 'APPEND', // How the video is inserted in the target element 'video-container'
+              mirror: false, // Whether to mirror your local video
+            })
+
+            const dataObj = {
+              currentVideoDevice: videoDevices[0],
+              publisher,
+            }
+
+            dispatch(ovActions.createPublisher(dataObj))
+          })
+        })
+        .catch(error => {
+          console.log(
+            'There was an error connecting to the session:',
+            error.code,
+            error.message,
+          )
+        })
+    }
+    initToken()
+  }, [mySessionId])
+
+  useEffect(() => {
+    const initSession = async () => {
+      if (session) {
+        session.on('streamCreated', event => {
+          dispatch(ovActions.enteredSubscriber(event.stream))
+          setLoading(false)
+        })
+
+        session.on('streamDestroyed', event => {
+          dispatch(ovActions.deleteSubscriber(event.stream.streamManager))
+        })
+
+        session.on('publisherStartSpeaking', event => {
+          console.log('나지금 말하고 있다!!')
+        })
+
+        session.on('publisherStopSpeaking', event => {
+          console.log('나지금 말 멈췄다!')
+        })
+
+        session.on('exception', exception => {
+          console.warn(exception)
+        })
+      }
+    }
+    initSession()
+  }, [session])
+
+  // connectSocket()
 
   return (
     <div className={classes.loadingContainer}>
