@@ -431,7 +431,11 @@
   - 이미지를 불러오는 API 엔드포인트 경로 끝에 위에서 받은 파일명(`src`)을 붙이면 프로필 이미지를 불러올 수 있음
 
 ### 220811
+- room_logic, openvidu-logic 병합중
+- react 도커라이징, 배포 시도
+- 병합 시나리오 생성
 
+### 220812
 #### 종현
 - room_logic, openvidu-logic 병합완료
 - 리덕스 openvidu-slice 재추가
