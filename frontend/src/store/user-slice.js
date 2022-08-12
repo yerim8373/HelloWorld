@@ -5,7 +5,6 @@ import {
   signup,
   setImage,
   getImage,
-  logout,
 } from './user-thunkActions'
 
 const userSlice = createSlice({

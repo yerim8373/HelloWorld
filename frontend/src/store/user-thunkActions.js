@@ -78,12 +78,3 @@ export const getImage = createAsyncThunk('auth/getImage', async file => {
     console.log(error)
   }
 })
-
-export const logout = createAsyncThunk('auth/signout', async userData => {
-  try {
-    const response = await axios.post(`https://i7b106.p.ssafy.io/api/v1/user`)
-    return response.data
-  } catch (error) {
-    console.log(error)
-  }
-})
