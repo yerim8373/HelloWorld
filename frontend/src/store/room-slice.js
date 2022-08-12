@@ -14,6 +14,11 @@ const roomSlice = createSlice({
   reducers: {},
   extraReducers: {
     [findRoom.fulfilled]: (state, { payload }) => {
+      if (payload.message) {
+        state.roomId = payload.data
+      } else {
+        state.roomId = payload.data.roomId
+      }
       console.log(payload)
       // const { roomId, user } = payload
       // state.roomId = roomId

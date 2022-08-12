@@ -19,17 +19,20 @@ import roomSlice from './room-slice'
 
 const persistConfig = {
   key: 'root',
+  blacklist: ['room'],
   storage,
 }
 
-const rootReducer = combineReducers({
+const persistingReducer = combineReducers({
   user: userSlice.reducer,
   auth: authSlice.reducer,
   language: languageSlice.reducer,
   room: roomSlice.reducer,
 })
 
-const persistedReducer = persistReducer(persistConfig, rootReducer)
+// const normalReducer = combineReducers({})
+
+const persistedReducer = persistReducer(persistConfig, persistingReducer)
 
 const store = configureStore({
   reducer: persistedReducer,

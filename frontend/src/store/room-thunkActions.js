@@ -24,7 +24,7 @@ export const findRoom = createAsyncThunk('room/findRoom', async accessToken => {
         },
       },
     )
-    return response
+    return response.data
   } catch (error) {
     console.log(error)
     // console.log('방이 존재하지 않습니다!, 방을 생성합니다.')

@@ -9,6 +9,8 @@ import { findRoom } from '../../store/room-thunkActions'
 import { useDispatch, useSelector } from 'react-redux/es/exports'
 import { func } from 'prop-types'
 import { useCallback } from 'react'
+import { OpenVidu } from 'openvidu-browser'
+import { getToken } from '../utils/helper/ovServer'
 
 const tips = [
   '초면이라 무슨 대화를 할지 모르겠다구요?\nHelloWorld의 “키워드” 기능을 사용해보세요!',
@@ -41,6 +43,8 @@ const getRandomTip = () => {
 //   }, [delay])
 // }
 
+// const OPENVIDU = new OpenVidu()
+
 function LoadingContainer({ handleModal }) {
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -48,6 +52,7 @@ function LoadingContainer({ handleModal }) {
   const auth = useSelector(state => state.auth)
   const room = useSelector(state => state.room)
   const [loading, setLoading] = useState(true)
+
   const [openvidu, setOpenVidu] = useState({
     OV: null,
     mySessionId: undefined,
@@ -60,12 +65,129 @@ function LoadingContainer({ handleModal }) {
   })
 
   const { token } = auth
-  const { mySessionId } = openvidu
+  const { mySessionId, OV, session, myUserName, subscribers, publisher } =
+    openvidu
+  const { roomId } = room
   const moveToMeetingPage = () => navigate(`/meeting/${mySessionId}`)
+
+  // const initRoom = useCallback(async () => {
+  //   await dispatch(findRoom(token))
+  //   setOpenVidu(prev => ({
+  //     ...prev,
+  //     mySessionId: roomId,
+  //   }))
+  // }, [])
+
+  // const connectSocket = useCallback(async () => {
+
+  // }, [OV, mySessionId, myUserName, session, subscribers])
 
   useEffect(() => {
     dispatch(findRoom(token))
   }, [])
+
+  useEffect(() => {
+    const initRoom = async () => {
+      if (roomId)
+        setOpenVidu(prevState => ({
+          ...prevState,
+          OV: new OpenVidu(),
+          mySessionId: roomId,
+        }))
+    }
+    initRoom()
+  }, [roomId])
+
+  useEffect(() => {
+    if (OV && !session)
+      setOpenVidu(prevState => ({
+        ...prevState,
+        session: OV.initSession(),
+        devices: OV.getDevices(),
+      }))
+  }, [session, OV])
+
+  useEffect(() => {
+    const initSession = async () => {
+      if (session) {
+        session.on('streamCreated', event => {
+          let subscriber = session.subscribe(event.stream, undefined)
+          console.log(subscriber)
+          subscribers.push(subscriber)
+          setOpenVidu(prevState => ({
+            ...prevState,
+            subscribers,
+          }))
+          setLoading(false)
+        })
+
+        session.on('streamDestroyed', event => {
+          let index = subscribers.indexOf(event.stream.streamManager, 0)
+          if (index > -1) {
+            subscribers.splice(index, 1)
+            setOpenVidu(prevState => ({
+              ...prevState,
+              subscribers,
+            }))
+          }
+        })
+
+        session.on('publisherStartSpeaking', event => {
+          console.log('나지금 말하고 있다!!')
+        })
+
+        session.on('publisherStopSpeaking', event => {
+          console.log('나지금 말 멈췄다!')
+        })
+
+        session.on('exception', exception => {
+          console.warn(exception)
+        })
+
+        await getToken(mySessionId)
+          .then(token => {
+            session
+              .connect(token, { clientData: myUserName })
+              .then(async () => {
+                let devices = await OV.getDevices()
+                let videoDevices = devices.filter(
+                  device => device.kind === 'videoinput',
+                )
+
+                let publisher = OV.initPublisher(undefined, {
+                  audioSource: undefined, // The source of audio. If undefined default microphone
+                  videoSource: videoDevices[0].deviceId, // The source of video. If undefined default webcam
+                  publishAudio: true, // Whether you want to start publishing with your audio unmuted or not
+                  publishVideo: true, // Whether you want to start publishing with your video enabled or not
+                  resolution: '1280x720', // The resolution of your video
+                  frameRate: 60, // The frame rate of your video
+                  insertMode: 'APPEND', // How the video is inserted in the target element 'video-container'
+                  mirror: false, // Whether to mirror your local video
+                })
+
+                await session.publish(publisher)
+
+                setOpenVidu(prevState => ({
+                  ...prevState,
+                  currentVideoDevice: videoDevices[0],
+                  mainStreamManager: publisher,
+                  publisher,
+                }))
+              })
+          })
+          .catch(error => {
+            console.log(
+              'There was an error connecting to the session:',
+              error.code,
+              error.message,
+            )
+          })
+      }
+    }
+    initSession()
+  }, [session])
+
+  // connectSocket()
 
   return (
     <div className={classes.loadingContainer}>
