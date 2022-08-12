@@ -10,6 +10,7 @@
  * noLabel {bool}: 레이블 표시 비활성화 여부, 기본 값은 false
  * meta {any}: 유효성 검사에 사용할 외부 state 값 (ex: 비밀번호 확인)
  * defaultValue {string}: 최초로 입력되는 값 (placeholder와 다름)
+ * disabled {bool}: 입력 비활성화 여부, 기본 값은 false
  */
 
 import React, { useState, useRef } from 'react'
@@ -25,6 +26,7 @@ function Input({
   noLabel,
   meta,
   defaultValue,
+  disabled,
 }) {
   const inputRef = useRef()
   const [errorComponent, setErrorComponent] = useState(null)
@@ -86,6 +88,7 @@ function Input({
         ref={inputRef}
         tabIndex="-1"
         defaultValue={defaultValue}
+        disabled={disabled}
       />
       {/* 에러가 렌더링 되는 창 */}
       {errorComponent && errorComponent}
@@ -103,6 +106,7 @@ Input.propTypes = {
   noLabel: PropTypes.bool,
   meta: PropTypes.any,
   defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  disabled: PropTypes.bool,
 }
 
 function ErrorComponent({ text }) {
