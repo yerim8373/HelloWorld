@@ -18,6 +18,8 @@ const userSlice = createSlice({
     country: undefined,
     languages: [],
     subscribe: undefined,
+    email: undefined,
+    mobileNumber: undefined,
   },
   reducers: {},
   extraReducers: {
@@ -26,8 +28,12 @@ const userSlice = createSlice({
       state.name = payload.data.name
       state.age = payload.data.age
       state.nickname = payload.data.nickname
+      state.gender = payload.data.gender
       state.country = payload.data.country.name
+      state.languages = payload.data.languages
       state.subscribe = payload.data.subscribe ? true : false
+      state.email = payload.data.email
+      state.mobileNumber = payload.data.mobileNumber
     },
     [getUserData.rejected]: (state, { payload }) => {
       // state.isError = true
@@ -48,16 +54,16 @@ const userSlice = createSlice({
       state.isError = true
       state.message = payload.message
     },
-    [logout.fulfilled]: state => {
-      state.id = undefined
-      state.name = undefined
-      state.age = undefined
-      state.nickname = undefined
-      state.gender = undefined
-      state.country = undefined
-      state.languages = []
-      state.subscribe = undefined
-    },
+    // [logout.fulfilled]: state => {
+    //   state.id = undefined
+    //   state.name = undefined
+    //   state.age = undefined
+    //   state.nickname = undefined
+    //   state.gender = undefined
+    //   state.country = undefined
+    //   state.languages = []
+    //   state.subscribe = undefined
+    // },
   },
 })
 
