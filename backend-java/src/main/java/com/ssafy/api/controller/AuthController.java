@@ -5,9 +5,12 @@ import com.ssafy.api.dto.SignInDTO;
 import com.ssafy.api.oauth.SocialLoginType;
 import com.ssafy.api.service.AuthService;
 import com.ssafy.api.service.OAuthService;
+import com.ssafy.api.service.UserService;
 import com.ssafy.common.model.response.Response;
 import com.ssafy.common.util.JWToken;
 import com.ssafy.common.util.JwtTokenUtil;
+import com.ssafy.common.util.RedisUtil;
+import com.ssafy.db.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.checkerframework.checker.units.qual.C;
 import org.slf4j.Logger;
@@ -44,6 +47,8 @@ public class AuthController {
 	private final AuthService authService;
 	private final Response response;
 	private final OAuthService oAuthService;
+	private final RedisUtil redisUtil;
+	private final UserService userService;
 
 	@PostMapping("/signin")
 	@ApiOperation(value = "로그인", notes = "<strong>아이디와 패스워드</strong>를 통해 로그인 한다.")
@@ -55,6 +60,12 @@ public class AuthController {
 	})
 	public ResponseEntity<?> login(@RequestBody @ApiParam(value = "로그인 정보", required = true) SignInDTO signInDTO, HttpServletResponse resp) {
 
+		User user = userService.getUserByEmail(signInDTO.getEmail());
+		String key = "BLACK::"+user.getId();
+		if(redisUtil.haskey(key)){
+			return response.fail("블랙리스트 회원입니다.", HttpStatus.FORBIDDEN);
+		}
+		
 		JWToken jwt = authService.login(signInDTO);
 
 		ResponseCookie cookie = ResponseCookie.from("refresh-token", jwt.getRefreshToken())
@@ -99,7 +110,18 @@ public class AuthController {
 	}
 
 	@GetMapping("/oauth2/{type}/callback")
-	public void callback(@PathVariable String type, @RequestParam String code){
-		oAuthService.oauthLogin(SocialLoginType.valueOf(type.toUpperCase()),code);
+	public ResponseEntity<?> callback(@PathVariable String type, @RequestParam String code, HttpServletResponse resp){
+		JWToken jwt = oAuthService.oauthLogin(SocialLoginType.valueOf(type.toUpperCase()), code);
+		ResponseCookie cookie = ResponseCookie.from("refresh-token", jwt.getRefreshToken())
+				.maxAge(60*60*24*15)
+				.httpOnly(true)
+				.secure(true)
+				.domain("")
+				.path("/")
+				.sameSite("None")
+				.build();
+
+		resp.setHeader("Set-Cookie", cookie.toString());
+		return response.success(JWTokenDto.of(jwt));
 	}
 }
