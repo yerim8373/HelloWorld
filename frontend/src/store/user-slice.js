@@ -18,6 +18,8 @@ const userSlice = createSlice({
     country: undefined,
     languages: [],
     subscribe: undefined,
+    email: undefined,
+    mobileNumber: undefined,
   },
   reducers: {},
   extraReducers: {
@@ -26,8 +28,12 @@ const userSlice = createSlice({
       state.name = payload.data.name
       state.age = payload.data.age
       state.nickname = payload.data.nickname
+      state.gender = payload.data.gender
       state.country = payload.data.country.name
+      state.languages = payload.data.languages
       state.subscribe = payload.data.subscribe ? true : false
+      state.email = payload.data.email
+      state.mobileNumber = payload.data.mobileNumber
     },
     [getUserData.rejected]: (state, { payload }) => {
       // state.isError = true

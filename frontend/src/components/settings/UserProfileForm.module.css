@@ -10,6 +10,7 @@
 }
 
 .mainProfile {
+  width: 50%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -44,4 +45,28 @@
 .buttons {
   display: flex;
   gap: 2rem;
+}
+
+.phoneInput {
+  display: flex;
+  align-items: flex-end;
+  gap: 1rem;
+}
+
+.phoneInput > div {
+  width: 50%;
+}
+
+.countryContainer {
+  width: 100%;
+    display: flex;
+    align-items: flex-end;
+    gap: 1rem;
+}
+
+.countryFlag {
+  width: 3rem;
+  height: 2rem;
+  margin-bottom: 2px;
+  background-color: var(--color-grey-100);
 }
