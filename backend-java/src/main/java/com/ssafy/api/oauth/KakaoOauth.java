@@ -1,9 +1,11 @@
 package com.ssafy.api.oauth;
 
-import org.apache.commons.collections4.MultiValuedMap;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import net.minidev.json.JSONObject;
+import net.minidev.json.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
@@ -32,7 +34,7 @@ public class KakaoOauth implements SocialOauth{
     private String KAKAO_GRANT_TYPE;
     @Value("${spring.security.oauth2.client.provider.kakao.token-uri}")
     private String KAKAO_TOKEN_URL;
-
+    private final String KAKAO_REQUEST = "https://kapi.kakao.com/v2/user/me";
     @Override
     public String getOauthRedirectURL() {
         Map<String, String> params = new HashMap<>();
@@ -50,7 +52,7 @@ public class KakaoOauth implements SocialOauth{
     }
 
     @Override
-    public String requestAccessToken(String code) {
+    public SocialToken requestAccessToken(String code) {
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
 
@@ -61,13 +63,35 @@ public class KakaoOauth implements SocialOauth{
         params.add("code", code);
         params.add("redirect_uri", KAKAO_REDIRECT_URI);
 
-        ResponseEntity<String> response = restTemplate.postForEntity(KAKAO_TOKEN_URL, params, String.class);
+        ResponseEntity<JSONObject> response = restTemplate.postForEntity(KAKAO_TOKEN_URL, params, JSONObject.class);
 
 
         if(response.getStatusCode() == HttpStatus.OK) {
             System.out.println(response.getBody());
-            return response.getBody();
+            KakaoToken token = KakaoToken.of(response.getBody());
+            token.setEmail(getEmailFromToken(token));
+            return token;
         }
-        return "카카오 로그인 실패";
+        throw new RuntimeException("카카오 로그인 실패");
+    }
+
+    @Override
+    public String getEmailFromToken(SocialToken token) {
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
+
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.set("Authorization", "Bearer "+token.getAccessToken());
+        HttpEntity<?> entity = new HttpEntity<>(httpHeaders);
+        ResponseEntity<JSONObject> response = restTemplate.exchange(KAKAO_REQUEST, HttpMethod.GET, entity, JSONObject.class);
+
+        if(response.getStatusCode() == HttpStatus.OK){
+            System.out.println(response.getBody().toJSONString());
+            JSONObject body = response.getBody();
+            Object kakao_account = body.get("kakao_account");
+            return ((LinkedHashMap)kakao_account).get("email").toString();
+
+        }
+        throw new RuntimeException("kakao 이메일 요청 실패");
     }
 }

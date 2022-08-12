@@ -37,7 +37,7 @@ public class AuthServiceImpl implements AuthService {
             UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(signInDTO.getEmail(), signInDTO.getPw());
             Authentication auth = authenticationManagerBuilder.getObject().authenticate(token);
             SecurityContextHolder.getContext().setAuthentication(auth);
-            return jwtTokenUtil.createToken(signInDTO, auth);
+            return jwtTokenUtil.createToken(signInDTO.getEmail(), auth);
 //            return ResponseEntity.ok(UserLoginPostRes.of(200, "Success", JwtTokenUtil.getToken(loginInfo.getEmail())));
         }
 

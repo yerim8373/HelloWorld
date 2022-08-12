@@ -2,8 +2,8 @@ package com.ssafy.api.oauth;
 
 public interface SocialOauth {
     String getOauthRedirectURL();
-    String requestAccessToken(String code);
-
+    SocialToken requestAccessToken(String code);
+    String getEmailFromToken(SocialToken token);
     default SocialLoginType type(){
         if(this instanceof GoogleOauth)
             return SocialLoginType.GOOGLE;
