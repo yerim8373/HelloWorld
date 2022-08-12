@@ -9,7 +9,7 @@
  * required {bool}: 필수 입력 여부 (우측에 마크 표시), 기본 값은 false
  * noLabel {bool}: 레이블 표시 비활성화 여부, 기본 값은 false
  * meta {any}: 유효성 검사에 사용할 외부 state 값 (ex: 비밀번호 확인)
- * defaultValue {string}: 최초로 입력되는 값 (placeholder와 다름)
+ * defaultValue {string, number}: 최초로 입력되는 값 (placeholder와 다름)
  * disabled {bool}: 입력 비활성화 여부, 기본 값은 false
  */
 
