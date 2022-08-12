@@ -433,4 +433,9 @@
 ### 220811
 
 #### 종현
-- room_logic, openvidu-logic 병합중
+- room_logic, openvidu-logic 병합완료
+- 리덕스 openvidu-slice 재추가
+- openvidu-logic 리팩토링
+- 새로운 이슈 확인
+  - 페이지 이동시 사전 렌더링
+  - serializable check

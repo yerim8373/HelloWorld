@@ -58,10 +58,12 @@ const ovSlice = createSlice({
     state.OV = null
     state.session = undefined
     state.subscribers = []
-    state.mySessionId = 'SessionA'
-    state.myUserName = 'Participant' + Math.floor(Math.random() * 100)
+    state.mySessionId = undefined
+    state.myUserName = undefined
     state.mainStreamManager = undefined
     state.publisher = undefined
+    state.devices = undefined
+    state.currentVideoDevice = undefined
   },
 })
 
