@@ -4,7 +4,7 @@ import axios from 'axios'
 export const getLanguages = createAsyncThunk('language/language', async () => {
   try {
     const response = await axios.get(
-      'https://i7b106.p.ssafy.io/api/v1/language',
+      `${process.env.REACT_APP_API_URL}/api/v1/language`,
     )
     return response.data
   } catch (error) {

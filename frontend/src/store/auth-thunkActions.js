@@ -4,7 +4,7 @@ import axios from 'axios'
 export const login = createAsyncThunk('auth/login', async userData => {
   try {
     const response = await axios.post(
-      'http://localhost:8080/api/v1/auth/signin',
+      `${process.env.REACT_APP_API_URL}/api/v1/auth/signin`,
       {
         email: userData.email,
         pw: userData.password,
@@ -18,9 +18,12 @@ export const login = createAsyncThunk('auth/login', async userData => {
 
 export const validToken = createAsyncThunk('auth/validToken', async token => {
   try {
-    const response = await axios.get('http://localhost:8080/v1/auth/reissue', {
-      params: { refreshToken: token },
-    })
+    const response = await axios.post(
+      `${process.env.REACT_APP_API_URL}/api/v1/auth/reissue`,
+      {
+        refreshToken: token,
+      },
+    )
     return response.data
   } catch (error) {
     console.log(error)
@@ -30,7 +33,7 @@ export const validToken = createAsyncThunk('auth/validToken', async token => {
 export const signup = createAsyncThunk('auth/signup', async userData => {
   try {
     const response = await axios.post(
-      'https://i7b106.p.ssafy.io/api/v1/user',
+      `${process.env.REACT_APP_API_URL}/api/v1/user`,
       userData,
     )
     return response.data
@@ -39,14 +42,15 @@ export const signup = createAsyncThunk('auth/signup', async userData => {
   }
 })
 
-export const logout = createAsyncThunk('auth/signout', async userData => {
-  try {
-    const response = await axios.post(
-      'https://i7b106.p.ssafy.io/api/v1/auth/signout',
-      userData,
-    )
-    return response.data
-  } catch (error) {
-    console.log(error)
-  }
-})
+// export const logout = createAsyncThunk('auth/signout', async userData => {
+//   try {
+//     const response = await axios.post(
+//       `${process.env.REACT_APP_API_URL}/api/v1/auth/signout`,
+//       userData,
+//     )
+//     return response.data
+//   } catch (error) {
+//     console.log(error)
+//   }
+// })
+

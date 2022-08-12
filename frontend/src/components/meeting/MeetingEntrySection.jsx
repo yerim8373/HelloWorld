@@ -6,6 +6,7 @@ import { useLocation } from 'react-router-dom'
 
 export default function MeetingEntrySection() {
   const [modalState, setModalState] = useState(false)
+
   const location = useLocation()
   useEffect(() => {
     if (location.state) {
@@ -13,6 +14,11 @@ export default function MeetingEntrySection() {
       location.state = null
     }
   }, [location])
+
+  // const roomHandler = () => {
+  //   // console.log(state.token)
+  //   dispatch(findRoom(state.token))
+  // }
 
   const handleModal = () => setModalState(!modalState)
 
@@ -22,6 +28,7 @@ export default function MeetingEntrySection() {
 
   return (
     <>
+      {/* <Button text="룸 테스트용 버튼" onEvent={roomHandler}></Button> */}
       <Button text="랜덤 매칭 시작하기" onEvent={handleModal}></Button>
       <Modal
         opened={modalState}
