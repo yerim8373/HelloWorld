@@ -15,7 +15,11 @@ const roomSlice = createSlice({
   extraReducers: {
     [findRoom.fulfilled]: (state, { payload }) => {
       console.log(payload)
-      // console.log(payload)
+      if (payload.message) {
+        state.roomId = payload.data
+      } else {
+        state.roomId = payload.data.roomId
+      }
       // const { roomId, user } = payload
       // state.roomId = roomId
       // state.languages = languages

@@ -27,13 +27,12 @@ function createSession(sessionId) {
       )
 
       // 에러 처리 (초기 요청이 제대로 안이루어지는 경우가 있다. 클라이언트 사이드를 통하)
-      // setTimeout(() => {
-      //   console.log('개발자 설정을 통한 강제 리턴')
-      //   return resolve(sessionId)
-      // }, 1000)
+      setTimeout(() => {
+        console.log('개발자 설정을 통한 강제 리턴')
+        return resolve(sessionId)
+      }, 1000)
       return response
     } catch (response) {
-      console.log(response)
       let error = Object.assign({}, response)
       if (error?.response?.status === 409) {
         return resolve(sessionId)
