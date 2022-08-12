@@ -68,7 +68,7 @@ export const leaveRoom = createAsyncThunk(
 // export const login = createAsyncThunk('auth/login', async userData => {
 //   try {
 //     const response = await axios.post(
-//       'https://i7b106.p.ssafy.io/api/v1/auth/signin',
+//       `${process.env.REACT_APP_API_URL}/api/v1/auth/signin`,
 //       {
 //         email: userData.email,
 //         pw: userData.password,
@@ -83,7 +83,7 @@ export const leaveRoom = createAsyncThunk(
 // export const validToken = createAsyncThunk('auth/validToken', async token => {
 //   try {
 //     const response = await axios.post(
-//       'https://i7b106.p.ssafy.io/api/v1/auth/reissue',
+//       `${process.env.REACT_APP_API_URL}/api/v1/auth/reissue`,
 //       {
 //         refreshToken: token,
 //       },
