@@ -14,10 +14,13 @@ import java.util.List;
  */
 public interface UserService {
 	User createUser(SignUpDto signUpDto);
+	void updateUser(SignUpDto signUpDto);
 	User getUserByEmail(String Email);
 	User getUserById(Long id);
 	List<HeartHistory> getUserHeartHistory(String bearerToken);
 	void plusHeart(HeartDto heartDto);
 	void minusHeart(HeartDto heartDto);
 	String saveImage(MultipartFile file) throws IOException;
+
+
 }
