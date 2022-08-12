@@ -12,10 +12,10 @@ import profile from '../../images/profile.jpg'
 import DropdownMenu from './DropdownMenu'
 
 function HeaderNav() {
-  const state = useSelector(state => state.user)
-  // const state = {
-  //   id: 'test',
-  // }
+  // const state = useSelector(state => state.user)
+  const state = {
+    id: 'test',
+  }
   const [showMenu, setShowMenu] = useState(false)
 
   const navigate = useNavigate()
@@ -76,6 +76,12 @@ function HeaderNav() {
 
         {state.id ? (
           <div className={classes.profileImageContainer}>
+            <Button
+              size="small"
+              text="회원가입"
+              color="success"
+              onEvent={routerPushHandler}
+            />
             <ProfileImage
               src={profile}
               size="small"
