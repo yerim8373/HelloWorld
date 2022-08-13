@@ -70,7 +70,7 @@ function Input({
 
   useEffect(() => {
     inputRef.current.value = defaultValue
-    inputValidHandler()
+    onData && inputValidHandler()
   }, [defaultValue])
 
   return (
