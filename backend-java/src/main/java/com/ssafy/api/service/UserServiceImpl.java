@@ -84,6 +84,12 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	public void deleteUser(String email) {
+		User user = userRepository.findByEmail(email).get();
+		userRepository.deleteById(user.getId());
+	}
+
+	@Override
 	public User modifyUser(UserDto userDto) {
 		User user = this.getUserById(userDto.getId());
 		user.changeUserInfo(userDto);

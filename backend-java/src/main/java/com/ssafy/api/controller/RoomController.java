@@ -151,8 +151,11 @@ public class RoomController {
         // DB 저장
         roomService.makeRoom(roomId, email);
 
+        RoomDto roomDto = new RoomDto();
 
-        return response.success("방이 생성됐습니다.");
+        roomDto.setRoomId(roomId);
+
+        return response.success(roomDto,"방이 생성됐습니다.",HttpStatus.OK);
     }
 
     @PutMapping("/leave")
