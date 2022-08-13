@@ -8,9 +8,8 @@ import Button from '../common/Button'
 import { useNavigate } from 'react-router-dom'
 
 // import axios from 'axios'
-import { OpenVidu } from 'openvidu-browser'
-import { getToken } from '../utils/helper/ovServer'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { ovActions } from '../../store/ov-slice'
 
 const DUMMYUSER_1 = {
   country: '🇰🇷',
@@ -31,6 +30,7 @@ const Meeting = () => {
   const navigate = useNavigate()
   const user = useSelector(state => state.user)
   const openvidu = useSelector(state => state.openvidu)
+  const dispatch = useDispatch()
 
   // const [openVidu, setOpenVidu] = useState({
   //   OV: null,
@@ -151,27 +151,14 @@ const Meeting = () => {
   //   init()
   // }, [session, subscribers, myUserName, OV, mySessionId])
 
-  // // leaveSession(true) : 나가서 재매칭이 이루어진다.
-  // // leaveSession(false) : 나가서 재매칭이 이루어지지 않는다.
-  // function leaveSession(reMatching) {
-  //   if (session) {
-  //     session.disconnect()
-  //   }
+  // leaveSession(true) : 나가서 재매칭이 이루어진다.
+  // leaveSession(false) : 나가서 재매칭이 이루어지지 않는다.
+  // function leaveSession() {
+  // dispatch(ovActions.leaveSession())
 
-  //   setOpenVidu({
-  //     OV: null,
-  //     session: undefined,
-  //     subscribers: [],
-  //     mySessionId: 'SessionA',
-  //     myUserName: 'Participant' + Math.floor(Math.random() * 100),
-  //     mainStreamManager: undefined,
-  //     publisher: undefined,
-  //     devices: undefined,
-  //   })
-
-  //   reMatching
-  //     ? navigate('/meeting', { state: { reMatching: true } })
-  //     : navigate('/meeting')
+  // reMatching
+  //   ? navigate('/meeting', { state: { reMatching: true } })
+  //   : navigate('/meeting')
   // }
 
   // // 기기 껐다 켰다
@@ -262,11 +249,11 @@ const Meeting = () => {
               userData={DUMMYUSER_2}
               streamManager={openvidu.publisher}
             />
-            {/* <VideoControlBtns
-              devices={OV && OV.getDevices()}
-              onLeaveSession={leaveSession}
-              onToggleDevice={toggleDevice}
-            /> */}
+            <VideoControlBtns
+            // devices={OV && OV.getDevices()}
+            // onLeaveSession={leaveSession}
+            // onToggleDevice={toggleDevice}
+            />
           </div>
           <Chatting openVidu={openvidu} />
         </div>

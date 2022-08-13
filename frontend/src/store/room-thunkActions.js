@@ -31,28 +31,29 @@ export const findRoom = createAsyncThunk('room/findRoom', async accessToken => {
   }
 })
 
-export const makeRoom = createAsyncThunk('room/makeRoom', async accessToken => {
-  try {
-    const response = await axios.post(
-      `${process.env.REACT_APP_API_URL}/api/v1/make`,
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      },
-    )
-    return response.data
-  } catch (error) {
-    console.log(error)
-  }
-})
+// export const makeRoom = createAsyncThunk('room/makeRoom', async accessToken => {
+//   try {
+//     const response = await axios.post(
+//       `${process.env.REACT_APP_API_URL}/api/v1/make`,
+//       {
+//         headers: {
+//           Authorization: `Bearer ${accessToken}`,
+//         },
+//       },
+//     )
+//     return response.data
+//   } catch (error) {
+//     console.log(error)
+//   }
+// })
 
 export const leaveRoom = createAsyncThunk(
   'room/leaveRoom',
-  async accessToken => {
+  async ({ accessToken, roomId }) => {
     try {
-      const response = await axios.post(
-        `${process.env.REACT_APP_API_URL}/api/v1/leave`,
+      const response = await axios.put(
+        `${process.env.REACT_APP_API_URL}/api/v1/room/leave`,
+        { roomId },
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,
