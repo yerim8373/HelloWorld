@@ -13,14 +13,22 @@ import Button from '../common/Button'
 
 import PropTypes from 'prop-types'
 import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { ovActions } from '../../store/ov-slice'
+import { useNavigate } from 'react-router-dom'
+import { leaveRoom } from '../../store/room-thunkActions'
 
 const VideoControlBtns = ({ onLeaveSession, onToggleDevice, devices }) => {
   const [mic, setMic] = useState(true)
   const [camera, setCamera] = useState(true)
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const auth = useSelector(state => state.auth)
+  const room = useSelector(state => state.room)
 
-  useEffect(() => {
-    onToggleDevice(mic, camera)
-  }, [mic, camera])
+  // useEffect(() => {
+  //   onToggleDevice(mic, camera)
+  // }, [mic, camera])
 
   // 마이크 설정 로직
   const toggleMicHandler = () => {
@@ -30,6 +38,18 @@ const VideoControlBtns = ({ onLeaveSession, onToggleDevice, devices }) => {
   // 비디오 설정 로직
   const toggleCameraHandler = () => {
     setCamera(prevCamera => !prevCamera)
+  }
+
+  const reMatchingUserHandler = async () => {
+    await dispatch(leaveRoom({ accessToken: auth.token, roomId: room.roomId }))
+    dispatch(ovActions.leaveSession())
+    navigate('/meeting', { state: { reMatching: true } })
+  }
+
+  const exitRoomHandler = () => {
+    dispatch(leaveRoom({ roomId: room.roomId }))
+    dispatch(ovActions.leaveSession())
+    navigate('/meeting')
   }
 
   return (
@@ -51,13 +71,13 @@ const VideoControlBtns = ({ onLeaveSession, onToggleDevice, devices }) => {
         <Button
           size="small"
           text="다음으로"
-          onEvent={() => onLeaveSession(true)}
+          onEvent={reMatchingUserHandler}
         ></Button>
         <Button
           size="small"
           color="error"
           text="나가기"
-          onEvent={() => onLeaveSession(false)}
+          onEvent={exitRoomHandler}
         ></Button>
       </div>
     </div>

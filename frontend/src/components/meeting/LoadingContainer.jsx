@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
-import { useNavigate } from 'react-router-dom'
+import { Navigate, useNavigate } from 'react-router-dom'
 import LoadingSpinner from '../common/LoadingSpinner'
 import Button from '../common/Button'
 import classes from './LoadingContainer.module.css'
@@ -126,6 +126,11 @@ function LoadingContainer({ handleModal }) {
 
         session.on('streamDestroyed', event => {
           dispatch(ovActions.deleteSubscriber(event.stream.streamManager))
+          // setTimeout(() => {
+          //   alert('사용자가 나갔습니다. 다음 매칭이 이루어집니다')
+          //   dispatch(ovActions.leaveSession())
+          //   setLoading(true)
+          // }, 5000)
         })
 
         session.on('publisherStartSpeaking', event => {
