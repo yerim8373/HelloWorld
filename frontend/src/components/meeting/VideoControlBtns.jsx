@@ -20,7 +20,7 @@ import { leaveRoom } from '../../store/room-thunkActions'
 
 const VideoControlBtns = ({ onLeaveSession, onToggleDevice, devices }) => {
   const [mic, setMic] = useState(true)
-  const [camera, setCamera] = useState(true)
+  const [camera, setCamera] = useState(false)
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const auth = useSelector(state => state.auth)
@@ -32,11 +32,13 @@ const VideoControlBtns = ({ onLeaveSession, onToggleDevice, devices }) => {
 
   // 마이크 설정 로직
   const toggleMicHandler = () => {
+    onToggleDevice(!mic, camera)
     setMic(prevMic => !prevMic)
   }
 
   // 비디오 설정 로직
   const toggleCameraHandler = () => {
+    onToggleDevice(mic, !camera)
     setCamera(prevCamera => !prevCamera)
   }
 

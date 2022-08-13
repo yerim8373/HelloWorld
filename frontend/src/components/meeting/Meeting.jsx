@@ -162,42 +162,42 @@ const Meeting = () => {
   // }
 
   // // 기기 껐다 켰다
-  // const toggleDevice = useCallback(
-  //   async (audio, video) => {
-  //     try {
-  //       let devices = await OV.getDevices()
-  //       let videoDevices = devices.filter(
-  //         device => device.kind === 'videoinput',
-  //       )
+  const toggleDevice = useCallback(async (audio, video) => {
+    try {
+      let devices = await openvidu.OV.getDevices()
+      let videoDevices = devices.filter(device => device.kind === 'videoinput')
 
-  //       let newPublisher = OV.initPublisher(undefined, {
-  //         audioSource: undefined, // The source of audio. If undefined default microphone
-  //         videoSource: videoDevices[0].deviceId, // The source of video. If undefined default webcam
-  //         publishAudio: audio, // Whether you want to start publishing with your audio unmuted or not
-  //         publishVideo: video, // Whether you want to start publishing with your video enabled or not
-  //         resolution: '1280x720', // The resolution of your video
-  //         frameRate: 60, // The frame rate of your video
-  //         insertMode: 'APPEND', // How the video is inserted in the target element 'video-container'
-  //         mirror: false, // Whether to mirror your local video
-  //       })
+      let newPublisher = openvidu.OV.initPublisher(undefined, {
+        audioSource: undefined, // The source of audio. If undefined default microphone
+        videoSource: videoDevices[0].deviceId, // The source of video. If undefined default webcam
+        publishAudio: audio, // Whether you want to start publishing with your audio unmuted or not
+        publishVideo: video, // Whether you want to start publishing with your video enabled or not
+        resolution: '640x480', // The resolution of your video
+        frameRate: 30, // The frame rate of your video
+        insertMode: 'APPEND', // How the video is inserted in the target element 'video-container'
+        mirror: false, // Whether to mirror your local video
+      })
 
-  //       await session.unpublish(mainStreamManager)
+      await openvidu.session.unpublish(openvidu.mainStreamManager)
 
-  //       await session.publish(newPublisher)
+      await openvidu.session.publish(newPublisher)
 
-  //       setOpenVidu(prevState => ({
-  //         ...prevState,
-  //         currentVideoDevice: videoDevices[0],
-  //         mainStreamManager: newPublisher,
-  //         publisher: newPublisher,
-  //       }))
-  //     } catch (error) {
-  //       console.log(error)
-  //     }
-  //   },
+      // setOpenVidu(prevState => ({
+      //   ...prevState,
+      //   currentVideoDevice: videoDevices[0],
+      //   mainStreamManager: newPublisher,
+      //   publisher: newPublisher,
+      // }))
 
-  //   [OV, mainStreamManager, session],
-  // )
+      const dataObj = {
+        currentVideoDevice: videoDevices[0],
+        publisher: newPublisher,
+      }
+      dispatch(ovActions.createPublisher(dataObj))
+    } catch (error) {
+      console.log(error)
+    }
+  }, [])
 
   // async function switchDevice() {
   //   try {
@@ -250,9 +250,9 @@ const Meeting = () => {
               streamManager={openvidu.publisher}
             />
             <VideoControlBtns
-            // devices={OV && OV.getDevices()}
-            // onLeaveSession={leaveSession}
-            // onToggleDevice={toggleDevice}
+              // devices={OV && OV.getDevices()}
+              // onLeaveSession={leaveSession}
+              onToggleDevice={toggleDevice}
             />
           </div>
           <Chatting openVidu={openvidu} />
