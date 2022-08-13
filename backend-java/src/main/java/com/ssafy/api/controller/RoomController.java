@@ -1,6 +1,7 @@
 package com.ssafy.api.controller;
 
 import com.ssafy.api.dto.RoomDto;
+import com.ssafy.api.dto.RoomReqDto;
 import com.ssafy.api.service.RoomService;
 import com.ssafy.api.service.UserService;
 import com.ssafy.common.model.response.Response;
@@ -164,7 +165,7 @@ public class RoomController {
             @ApiResponse(code = 500, message = "서버 에러")
     })
 //    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
-    public ResponseEntity leaveRoom(@RequestBody RoomDto roomDto) {
+    public ResponseEntity leaveRoom(@RequestBody RoomReqDto roomDto) {
         String roomId = roomDto.getRoomId();
 
         // 나가려는 방이 없다면
