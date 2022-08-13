@@ -14,12 +14,8 @@ const roomSlice = createSlice({
   reducers: {},
   extraReducers: {
     [findRoom.fulfilled]: (state, { payload }) => {
-      console.log(payload)
-      if (payload.message) {
-        state.roomId = payload.data
-      } else {
-        state.roomId = payload.data.roomId
-      }
+      // console.log(payload)
+      state.roomId = payload.data.roomId
       // const { roomId, user } = payload
       // state.roomId = roomId
       // state.languages = languages
@@ -30,16 +26,6 @@ const roomSlice = createSlice({
       // state.isCreatingRoom = true
     },
 
-    [makeRoom.fulfilled]: (state, { payload }) => {
-      const { roomId, languages } = payload
-      state.roomId = roomId
-      state.languages = languages
-    },
-
-    [makeRoom.rejected]: (state, { payload }) => {
-      state.isError = true
-      state.message = payload.message
-    },
     [leaveRoom.fulfilled]: (state, { payload }) => {
       state.roomId = undefined
       state.languages = undefined
@@ -48,8 +34,8 @@ const roomSlice = createSlice({
       state.message = undefined
     },
     [leaveRoom.rejected]: (state, { payload }) => {
-      state.isError = true
-      state.message = payload.message
+      // state.isError = true
+      // state.message = payload.message
     },
   },
 })

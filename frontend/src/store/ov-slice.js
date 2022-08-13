@@ -47,23 +47,25 @@ const ovSlice = createSlice({
         state.subscribers.splice(index, 1)
       }
     },
-  },
 
-  leaveSession(state, action) {
-    const mySession = state.session
-    if (mySession) {
-      mySession.disconnect()
-    }
+    leaveSession(state, { payload }) {
+      const mySession = state.session
+      if (mySession) {
+        mySession.disconnect()
+      }
 
-    state.OV = null
-    state.session = undefined
-    state.subscribers = []
-    state.mySessionId = undefined
-    state.myUserName = undefined
-    state.mainStreamManager = undefined
-    state.publisher = undefined
-    state.devices = undefined
-    state.currentVideoDevice = undefined
+      state.OV = null
+      state.session = undefined
+      state.subscribers = []
+      state.mySessionId = undefined
+      state.myUserName = undefined
+      state.mainStreamManager = undefined
+      state.publisher = undefined
+      state.devices = undefined
+      state.currentVideoDevice = undefined
+
+      return payload
+    },
   },
 })
 
