@@ -16,8 +16,11 @@ public class Question extends BaseEntity{
     @JoinColumn(name = "languageId")
     private Language language;
 
-    public void setUser(Language language){
+//    public void setUser(Language language){
+//        this.language = language;
+//        language.getQuestionList().add(this);
+//    }
+    public void setLanguage(Language language){
         this.language = language;
-        language.getQuestionList().add(this);
     }
 }
