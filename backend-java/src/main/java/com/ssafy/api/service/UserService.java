@@ -15,6 +15,7 @@ import java.util.List;
  */
 public interface UserService {
 	User createUser(SignUpDto signUpDto);
+	void deleteUser(String email);
 	User modifyUser(UserDto modifyUser);
 	User getUserByEmail(String Email);
 	User getUserById(Long id);

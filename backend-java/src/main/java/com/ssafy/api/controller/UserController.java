@@ -74,6 +74,19 @@ public class UserController {
 						,HttpStatus.OK);
 	}
 
+	@DeleteMapping("/delete")
+	@ApiOperation(value = "회원 본인 정보 조회", notes = "로그인한 회원 본인의 정보를 응답한다.")
+	@ApiResponses({
+			@ApiResponse(code = 200, message = "성공"),
+			@ApiResponse(code = 401, message = "인증 실패"),
+			@ApiResponse(code = 404, message = "사용자 없음"),
+			@ApiResponse(code = 500, message = "서버 오류")
+	})
+	public ResponseEntity<?> deleteUser(@RequestHeader("Authorization") String bearerToken) {
+		userService.deleteUser(jwtTokenUtil.getEmailFromBearerToken(bearerToken));
+		return response.success(HttpStatus.OK);
+	}
+
 	@PutMapping("")
 	public ResponseEntity<?> modifyUser(@RequestHeader("Authorization") String bearerToken, @RequestBody @ApiParam(value="수정정보", required = true) UserDto userDto) {
 		return response.success(UserDto.of(userService.modifyUser(userDto)));
