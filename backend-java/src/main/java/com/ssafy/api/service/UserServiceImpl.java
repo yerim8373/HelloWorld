@@ -106,7 +106,7 @@ public class UserServiceImpl implements UserService {
 		}
 
 		user.getUserLanList().stream().filter(ul->!isModified.contains(ul))
-						.forEach(ul->ul.setUser(null));
+						.forEach(ul->user.removeUserLan(ul));
 		willAdd.forEach(ul->{
 			UserLan userLan = userLanService.insertUserLan(ul);
 			userLan.setUser(user);

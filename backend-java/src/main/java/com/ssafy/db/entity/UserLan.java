@@ -25,6 +25,9 @@ public class UserLan extends BaseEntity {
         this.user = user;
         user.getUserLanList().add(this);
     }
+    public void deleteUser(){
+        this.user = null;
+    }
 
     public void setLanguage(Language language){
         this.language = language;
