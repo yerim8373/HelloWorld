@@ -18,3 +18,7 @@
   text-align: center;
   white-space: pre-wrap;
 }
+
+.timer {
+  color: var(--color-primary);
+}

@@ -45,11 +45,12 @@ function ProfileSection({ user }) {
                 }}
               />
               <div className={classes.languages}>
-                {state.languages.map(({ language }) => (
-                  <div key={language.lan} className={classes.language}>
-                    {language.lan}
-                  </div>
-                ))}
+                {state.languages &&
+                  state.languages.map(({ language }) => (
+                    <div key={language.lan} className={classes.language}>
+                      {language.lan}
+                    </div>
+                  ))}
               </div>
             </div>
           </div>

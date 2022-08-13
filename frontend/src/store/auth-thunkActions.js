@@ -8,27 +8,47 @@ export const login = createAsyncThunk('auth/login', async userData => {
       {
         email: userData.email,
         pw: userData.password,
+        withCredentials: true,
       },
     )
+    console.log(response)
     return response.data
   } catch (error) {
     console.log(error)
   }
 })
 
-export const validToken = createAsyncThunk('auth/validToken', async token => {
-  try {
-    const response = await axios.post(
-      `${process.env.REACT_APP_API_URL}/api/v1/auth/reissue`,
-      {
-        refreshToken: token,
-      },
-    )
-    return response.data
-  } catch (error) {
-    console.log(error)
-  }
-})
+export const validToken = createAsyncThunk(
+  'auth/validToken',
+  async accessToken => {
+    try {
+      const response = await axios.get(
+        `${process.env.REACT_APP_API_URL}/api/v1/auth/reissue`,
+        {
+          headers: { Authorizaion: `Bearer ${accessToken}` },
+          withCredentials: true,
+        },
+      )
+      // const requestHeaders = new Headers()
+      // requestHeaders.set('Content-Type', 'application/json')
+      // requestHeaders.set('Authrization', `Bearer ${accessToken}`)
+
+      // const response = await fetch(
+      //   `${process.env.REACT_APP_API_URL}/api/v1/auth/reissue`,
+      //   {
+      //     method: 'GET',
+      //     headers: {
+      //       Authorizaion: `Bearer ${accessToken}`,
+      //     },
+      //   },
+      // )
+      console.log(response)
+      return response.data
+    } catch (error) {
+      console.log(error)
+    }
+  },
+)
 
 export const signup = createAsyncThunk('auth/signup', async userData => {
   try {
