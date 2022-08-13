@@ -69,8 +69,8 @@ function Input({
   }
 
   useEffect(() => {
-    inputRef.current.value = defaultValue
-    onData && inputValidHandler()
+    inputRef.current.value = defaultValue || ''
+    onData && defaultValue && inputValidHandler()
   }, [defaultValue])
 
   return (
