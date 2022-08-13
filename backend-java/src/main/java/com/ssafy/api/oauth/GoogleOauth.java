@@ -1,5 +1,6 @@
 package com.ssafy.api.oauth;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
@@ -8,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -56,13 +58,24 @@ public class GoogleOauth  implements SocialOauth{
 
         if(responseEntity.getStatusCode() == HttpStatus.OK) {
             System.out.println(responseEntity.getBody());
-            return GoogleToken.of(responseEntity.getBody());
+            GoogleToken token = GoogleToken.of(responseEntity.getBody());
+            token.setEmail(getEmailFromToken(token));
+            return token;
         }
         throw new RuntimeException("구글 로그인 실패");
     }
 
     @Override
     public String getEmailFromToken(SocialToken token) {
-        return null;
+        String[] split = token.getRefreshToken().split("\\.");
+
+        String payload = new String(Base64.getDecoder().decode(split[1]));
+        System.out.println("payload = " + payload);
+        try{
+            return new ObjectMapper().readValue(payload,Map.class).get("email").toString();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        throw new RuntimeException("Google 이메일 요청 실패");
     }
 }
