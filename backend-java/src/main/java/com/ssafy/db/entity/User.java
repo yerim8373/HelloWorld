@@ -103,7 +103,10 @@ public class User{
         this.avatarSrc = src;
     }
 
-
+    public void removeUserLan(UserLan userLan){
+        this.userLanList.remove(userLan);
+        userLan.deleteUser();
+    }
     public void changeUserInfo(UserDto userDto){
 
         this.mobileNumber = userDto.getMobileNumber();
