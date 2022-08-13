@@ -3,6 +3,7 @@ package com.ssafy.api.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.api.dto.HeartDto;
 import com.ssafy.api.dto.SignUpDto;
+import com.ssafy.api.dto.UserDto;
 import com.ssafy.api.dto.UserLanDto;
 import com.ssafy.common.exception.InvalidValueException;
 import com.ssafy.common.util.JwtTokenUtil;
@@ -83,9 +84,34 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void updateUser(SignUpDto signUpDto) {
-		User user = getUserByEmail(signUpDto.getEmail());
+	public User modifyUser(UserDto userDto) {
+		User user = this.getUserById(userDto.getId());
+		user.changeUserInfo(userDto);
 
+		user.setCountry(countryRepository.findById(userDto.getCountry().getId()).get());
+
+		List<UserLanDto> willAdd = new ArrayList<>();
+		List<UserLan> isModified = new ArrayList<>();
+
+		for(UserLanDto userLanDto : userDto.getUserLanList()){
+			boolean flag = false;
+			for(UserLan userLan : user.getUserLanList()){
+				if(userLan.getLanguage().getId() == userLanDto.getLanguage().getLanguageId()){
+					flag = true;
+					userLan.modify(userLanDto);
+					isModified.add(userLan);
+				}
+			}
+			if(!flag) willAdd.add(userLanDto);
+		}
+
+		user.getUserLanList().stream().filter(ul->!isModified.contains(ul))
+						.forEach(ul->ul.setUser(null));
+		willAdd.forEach(ul->{
+			UserLan userLan = userLanService.insertUserLan(ul);
+			userLan.setUser(user);
+		});
+		return user;
 	}
 
 	@Override

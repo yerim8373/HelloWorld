@@ -77,7 +77,7 @@ public class User{
     private List<Post> postList = new ArrayList<>();
     @OneToMany(mappedBy = "user")
     private List<Runtime> runtimeList = new ArrayList<>();
-    @OneToMany(mappedBy = "user" )
+    @OneToMany(mappedBy = "user" , cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<UserLan> userLanList = new ArrayList<>();
 //    @OneToMany(mappedBy = "user")
 //    private List<Credit> creditList = new ArrayList<>();
@@ -106,21 +106,12 @@ public class User{
 
     public void changeUserInfo(UserDto userDto){
 
-        this.name = userDto.getName();
         this.mobileNumber = userDto.getMobileNumber();
         this.nickname = userDto.getNickname();
         this.description = userDto.getDescription();
         this.age = userDto.getAge();
         this.avatarSrc = userDto.getAvatarSrc();
         this.gender = userDto.getGender();
-        this.country = country.builder()
-                .name(userDto.getCountry().getName())
-                .build();
-        for(int i=0; i<userDto.getUserLanList().size(); i++){
-            this.userLanList.add(i, userDto.getUserLanList().get(i));
-        }
-        for(int i=userDto.getUserLanList().size(); i<3; i++){
-            this.userLanList.remove(i);
-        }
+
     }
 }
