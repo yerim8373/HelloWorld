@@ -3,10 +3,8 @@ package com.ssafy.api.oauth;
 import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.web.reactive.function.client.WebClientAutoConfiguration;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -16,6 +14,7 @@ import java.math.BigInteger;
 import java.net.URI;
 import java.security.SecureRandom;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -38,7 +37,7 @@ public class NaverOauth implements SocialOauth{
     private String NAVER_TOKEN_URL;
     @Value("${spring.oauth2.naver.state}")
     private String state;
-
+    private final String NAVER_REQUEST = "https://openapi.naver.com/v1/nid/me";
     @Override
     public String getOauthRedirectURL() {
         Map<String, String> params = new HashMap<>();
@@ -71,13 +70,28 @@ public class NaverOauth implements SocialOauth{
 
         if(response.getStatusCode() == HttpStatus.OK) {
             System.out.println(response.getBody());
-            return NaverToken.of(response.getBody());
+            NaverToken token = NaverToken.of(response.getBody());
+            token.setEmail(getEmailFromToken(token));
+            return token;
         }
         throw new RuntimeException("네이버 로그인 실패");
     }
 
     @Override
     public String getEmailFromToken(SocialToken token) {
-        return null;
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
+
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.set("Authorization", "Bearer "+token.getAccessToken());
+        HttpEntity<?> entity = new HttpEntity<>(httpHeaders);
+        ResponseEntity<JSONObject> response = restTemplate.exchange(NAVER_REQUEST, HttpMethod.GET, entity, JSONObject.class);
+        if(response.getStatusCode() == HttpStatus.OK){
+            System.out.println(response.getBody().toJSONString());
+            JSONObject body = response.getBody();
+            Object naver = body.get("response");
+            return ((LinkedHashMap)naver).get("email").toString();
+        }
+        throw new RuntimeException("Naver 이메일 요청 실패");
     }
 }

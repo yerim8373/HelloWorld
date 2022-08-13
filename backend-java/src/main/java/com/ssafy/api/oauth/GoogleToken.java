@@ -20,10 +20,14 @@ public class GoogleToken implements SocialToken{
         token.setAccessToken(object.get("access_token").toString());
         token.setTokenType(object.get("token_type").toString());
         token.setScope(object.get("scope").toString());
-        token.setIdToken(object.get("refresh_token").toString());
+        token.setIdToken(object.get("id_token").toString());
         token.setExpiresIn(Integer.parseInt(object.get("expires_in").toString()));
 
         return token;
     }
 
+    @Override
+    public String getRefreshToken() {
+        return this.idToken;
+    }
 }
