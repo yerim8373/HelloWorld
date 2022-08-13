@@ -20,6 +20,7 @@ const userSlice = createSlice({
     subscribe: undefined,
     email: undefined,
     mobileNumber: undefined,
+    avatar: undefined,
   },
   reducers: {
     clear(state) {
@@ -33,6 +34,7 @@ const userSlice = createSlice({
       state.subscribe = undefined
       state.email = undefined
       state.mobileNumber = undefined
+      state.avatar = undefined
     },
   },
   extraReducers: {
@@ -47,6 +49,7 @@ const userSlice = createSlice({
       state.subscribe = payload.data.subscribe ? true : false
       state.email = payload.data.email
       state.mobileNumber = payload.data.mobileNumber
+      state.avatar = payload.data.avatarSrc
     },
     [getUserData.rejected]: (state, { payload }) => {
       // state.isError = true
