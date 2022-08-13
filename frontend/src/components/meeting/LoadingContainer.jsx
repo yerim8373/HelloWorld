@@ -57,7 +57,8 @@ function LoadingContainer({ handleModal }) {
   const { mySessionId, OV, session, myUserName } = openvidu
   const { roomId } = room
   const { nickname } = user
-  const moveToMeetingPage = () => navigate(`/meeting/${mySessionId}`)
+  // const moveToMeetingPage = () => navigate(`/meeting/${mySessionId}`)
+  const [seconds, setSeconds] = useState(5000)
 
   useEffect(() => {
     dispatch(findRoom(token))
@@ -90,9 +91,9 @@ function LoadingContainer({ handleModal }) {
               audioSource: undefined, // The source of audio. If undefined default microphone
               videoSource: videoDevices[0].deviceId, // The source of video. If undefined default webcam
               publishAudio: true, // Whether you want to start publishing with your audio unmuted or not
-              publishVideo: true, // Whether you want to start publishing with your video enabled or not
-              resolution: '1280x720', // The resolution of your video
-              frameRate: 60, // The frame rate of your video
+              publishVideo: false, // Whether you want to start publishing with your video enabled or not
+              resolution: '640x480', // The resolution of your video
+              frameRate: 30, // The frame rate of your video
               insertMode: 'APPEND', // How the video is inserted in the target element 'video-container'
               mirror: false, // Whether to mirror your local video
             })
@@ -121,16 +122,19 @@ function LoadingContainer({ handleModal }) {
       if (session) {
         session.on('streamCreated', event => {
           dispatch(ovActions.enteredSubscriber(event.stream))
-          setLoading(false)
+          const timeEvent = setTimeout(() => {
+            setSeconds(5)
+            setLoading(false)
+          }, 1000)
+          return () => clearInterval(timeEvent)
         })
 
         session.on('streamDestroyed', event => {
+          // const timerEvent = setTimeout(() => {
           dispatch(ovActions.deleteSubscriber(event.stream.streamManager))
-          // setTimeout(() => {
-          //   alert('사용자가 나갔습니다. 다음 매칭이 이루어집니다')
-          //   dispatch(ovActions.leaveSession())
-          //   setLoading(true)
-          // }, 5000)
+          // dispatch(ovActions.leaveSession())
+          // }, 3000)
+          // clearTimeout(timerEvent)
         })
 
         session.on('publisherStartSpeaking', event => {
@@ -149,6 +153,18 @@ function LoadingContainer({ handleModal }) {
     initSession()
   }, [session])
 
+  // 시계 카운트
+  useEffect(() => {
+    const countdown = setInterval(() => {
+      if (parseInt(seconds) > 0) {
+        setSeconds(parseInt(seconds) - 1)
+      } else {
+        navigate(`/meeting/${mySessionId}`)
+      }
+    }, 1000)
+    return () => clearInterval(countdown)
+  }, [seconds])
+
   // connectSocket()
 
   return (
@@ -161,14 +177,18 @@ function LoadingContainer({ handleModal }) {
       ) : (
         <>
           <h1>당신과 이야기 하기를 원하는 대화 상대를 찾았어요!</h1>
-          <div className={classes.buttons}>
+          <h3>
+            <strong className={classes.timer}>{seconds}초</strong> 뒤에
+            미팅페이지로 이동합니다.{' '}
+          </h3>
+          {/* <div className={classes.buttons}>
             <Button text="대화 시작하기" onEvent={moveToMeetingPage}></Button>
             <Button
               text="취소하기"
               color="error"
               onEvent={handleModal}
             ></Button>
-          </div>
+          </div> */}
         </>
       )}
       <p className={classes.tip}>TIP. {getRandomTip()}</p>

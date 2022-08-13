@@ -34,7 +34,7 @@ const authSlice = createSlice({
       return
     },
     [validToken.fulfilled]: (state, { payload }) => {
-      state.token = payload.token
+      // state.token = payload.token
     },
     [validToken.rejected]: (state, { payload }) => {
       state.isError = true

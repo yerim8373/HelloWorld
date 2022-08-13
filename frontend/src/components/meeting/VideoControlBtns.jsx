@@ -20,25 +20,24 @@ import { leaveRoom } from '../../store/room-thunkActions'
 
 const VideoControlBtns = ({ onLeaveSession, onToggleDevice, devices }) => {
   const [mic, setMic] = useState(true)
-  const [camera, setCamera] = useState(true)
+  const [camera, setCamera] = useState(false)
+  const [minutes, setMinutes] = useState(0)
+  const [seconds, setSeconds] = useState(30)
+
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const auth = useSelector(state => state.auth)
   const room = useSelector(state => state.room)
 
-  // useEffect(() => {
-  //   onToggleDevice(mic, camera)
-  // }, [mic, camera])
+  useEffect(() => {
+    onToggleDevice(mic, camera)
+  }, [mic, camera])
 
   // 마이크 설정 로직
-  const toggleMicHandler = () => {
-    setMic(prevMic => !prevMic)
-  }
+  const toggleMicHandler = () => setMic(prevMic => !prevMic)
 
   // 비디오 설정 로직
-  const toggleCameraHandler = () => {
-    setCamera(prevCamera => !prevCamera)
-  }
+  const toggleCameraHandler = () => setCamera(prevCamera => !prevCamera)
 
   const reMatchingUserHandler = async () => {
     await dispatch(leaveRoom({ accessToken: auth.token, roomId: room.roomId }))
@@ -49,8 +48,27 @@ const VideoControlBtns = ({ onLeaveSession, onToggleDevice, devices }) => {
   const exitRoomHandler = () => {
     dispatch(leaveRoom({ roomId: room.roomId }))
     dispatch(ovActions.leaveSession())
-    navigate('/meeting')
+    window.location.replace('/meeting')
   }
+
+  // 시계 카운트
+  useEffect(() => {
+    const countdown = setInterval(() => {
+      if (parseInt(seconds) > 0) {
+        setSeconds(parseInt(seconds) - 1)
+      }
+      if (parseInt(seconds) === 0) {
+        if (parseInt(minutes) === 0) {
+          exitRoomHandler()
+          clearInterval(countdown)
+        } else {
+          setMinutes(parseInt(minutes) - 1)
+          setSeconds(59)
+        }
+      }
+    }, 1000)
+    return () => clearInterval(countdown)
+  }, [minutes, seconds])
 
   return (
     <div className={`flex_row_space_evenly ${classes.btns_wrapper}`}>
@@ -61,13 +79,15 @@ const VideoControlBtns = ({ onLeaveSession, onToggleDevice, devices }) => {
         <span onClick={toggleCameraHandler} className={classes.icon}>
           {camera ? <BsFillCameraVideoFill /> : <BsFillCameraVideoOffFill />}
         </span>
-      </div>
-      <div>
         <span className={classes.icon}>
           <BsStopwatch />
         </span>
+        <span className={classes.timer}>
+          {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
+        </span>
       </div>
-      <div className={'flex_row'}>
+
+      <div className={`flex_row ${classes.matching_event}`}>
         <Button
           size="small"
           text="다음으로"
