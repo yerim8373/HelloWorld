@@ -41,6 +41,7 @@ export const getLanguageData = createAsyncThunk(
 
 export const signup = createAsyncThunk('auth/signup', async userData => {
   try {
+    console.log(userData)
     const response = await axios.post(
       `${process.env.REACT_APP_API_URL}/api/v1/user`,
       userData,

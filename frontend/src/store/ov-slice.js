@@ -64,7 +64,7 @@ const ovSlice = createSlice({
       state.devices = undefined
       state.currentVideoDevice = undefined
 
-      return payload
+      // return payload
     },
   },
 })

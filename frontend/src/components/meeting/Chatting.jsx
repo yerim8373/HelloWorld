@@ -5,8 +5,9 @@ import ChattingLog from './ChattingLog'
 import PropTypes from 'prop-types'
 import { useEffect } from 'react'
 import { useState } from 'react'
+import { useSelector } from 'react-redux'
 
-const Chatting = ({ openVidu }) => {
+const Chatting = () => {
   const input = useRef()
   const chattingLog = useRef()
   const [chat, setChat] = useState({
@@ -14,12 +15,14 @@ const Chatting = ({ openVidu }) => {
     message: '',
   })
 
+  const openvidu = useSelector(state => state.openvidu)
+
   const { messageList, message } = chat
   // console.log(openVidu)
 
   useEffect(() => {
-    if (openVidu.publisher) {
-      openVidu.session.on('signal:chat', event => {
+    if (openvidu.publisher) {
+      openvidu.session.on('signal:chat', event => {
         const data = JSON.parse(event.data)
         messageList.push({
           connectionId: event.from.connectionId,
@@ -30,7 +33,7 @@ const Chatting = ({ openVidu }) => {
         scrollToBottom()
       })
     }
-  }, [openVidu.publisher, messageList, openVidu.session])
+  }, [messageList])
 
   function handleChange(event) {
     // console.log(chat.message)
@@ -51,9 +54,9 @@ const Chatting = ({ openVidu }) => {
     if (chat.message) {
       const data = {
         message: chat.message,
-        nickname: openVidu.myUserName,
+        nickname: openvidu.myUserName,
       }
-      openVidu.publisher.session.signal({
+      openvidu.publisher.session.signal({
         data: JSON.stringify(data),
         type: 'chat',
       })
@@ -81,7 +84,7 @@ const Chatting = ({ openVidu }) => {
               <ChattingLog
                 key={idx}
                 textData={{
-                  myStreamId: openVidu.session.connection.connectionId,
+                  myStreamId: openvidu.session.connection.connectionId,
                   connectionId: connectionId,
                   message: message,
                 }}
@@ -102,10 +105,6 @@ const Chatting = ({ openVidu }) => {
       </div>
     </div>
   )
-}
-
-Chatting.propTypes = {
-  openVidu: PropTypes.object,
 }
 
 export default Chatting
