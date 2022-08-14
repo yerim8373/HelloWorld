@@ -63,11 +63,15 @@ public class AuthServiceImpl implements AuthService {
 
         if(email==null){
             //예외처리
+            System.out.println("email is null");
             return null;
         }
 
         if(!refreshToken.equals(redisUtil.get(email))){
             //예외처리
+            System.out.println("refresh : "+ refreshToken);
+            System.out.println("refresh in redis : "+redisUtil.get(email));
+            System.out.println("refresh token is invalid");
             return null;
         }
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
