@@ -81,6 +81,10 @@ function LoadingContainer({ handleModal }) {
     const initToken = async () => {
       getToken(mySessionId)
         .then(token => {
+          navigator.mediaDevices.getUserMedia({
+            audio: true,
+            video: true,
+          })
           session.connect(token, { clientData: myUserName }).then(async () => {
             let devices = await OV.getDevices()
             let videoDevices = devices.filter(

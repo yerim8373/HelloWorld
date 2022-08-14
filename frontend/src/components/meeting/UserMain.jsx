@@ -1,6 +1,9 @@
+import { useDispatch, useSelector } from 'react-redux'
 import MainLeftArea from './MainLeftArea'
 import PostSection from './PostSection'
 import classes from './UserMain.module.css'
+import { validToken } from '../../store/auth-thunkActions'
+import { useEffect } from 'react'
 
 const dummy = {
   name: '김싸피',
@@ -34,6 +37,11 @@ const getTempPosts = num => {
 }
 
 export default function UserMain() {
+  const dispatch = useDispatch()
+  const auth = useSelector(state => state.auth)
+  useEffect(() => {
+    dispatch(validToken(auth.token))
+  }, [])
   return (
     <div className="flex_row_center">
       <div className={classes.mainPageContents}>
