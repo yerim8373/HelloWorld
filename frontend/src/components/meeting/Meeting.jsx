@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react'
 import VideoDisplay from './VideoDisplay'
 import VideoControlBtns from './VideoControlBtns'
 import Chatting from './Chatting'
+import QuestionSection from './QuestionSection'
 import classes from './Meeting.module.css'
 import Button from '../common/Button'
 
@@ -63,11 +64,14 @@ const Meeting = () => {
   return (
     <div className={classes.meeting_wrapper}>
       <div className={`${classes.meeting}`}>
-        <VideoDisplay
-          size="wide"
-          userData={DUMMYUSER_1}
-          streamManager={openvidu.subscribers[0]}
-        />
+        <div className={classes.left_display}>
+          <VideoDisplay
+            size="wide"
+            userData={DUMMYUSER_1}
+            streamManager={openvidu.subscribers[0]}
+          />
+          <QuestionSection />
+        </div>
         <div className={classes.right_display}>
           <div>
             <VideoDisplay
