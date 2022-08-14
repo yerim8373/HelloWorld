@@ -5,6 +5,7 @@ import {
   signup,
   setImage,
   getImage,
+  withDrawal,
 } from './user-thunkActions'
 
 const userSlice = createSlice({
