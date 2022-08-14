@@ -115,6 +115,7 @@ public class User{
         this.age = userDto.getAge();
         this.avatarSrc = userDto.getAvatarSrc();
         this.gender = userDto.getGender();
+        this.pw = userDto.getPw();
 
     }
 }
