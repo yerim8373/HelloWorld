@@ -2,7 +2,7 @@ import RadioBtnGroup from '../common/RadioBtnGroup'
 import Input from '../common/Input'
 import Button from '../common/Button'
 import classes from './UserWithdrawal.module.css'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import {
   passwordValidIncludeLetterHandler,
@@ -12,10 +12,8 @@ import { inputObj } from '../utils/helper/inputObj'
 import { useState, useCallback } from 'react'
 
 import { withDrawal } from '../../store/user-thunkActions'
-
 import { logout } from '../../store/auth-thunkActions'
 import { clear } from '../../store/user-slice'
-
 const reasons = [
   {
     name: '삭제하고 싶은 기록이 있어요',
@@ -71,11 +69,12 @@ export default function UserWithdrawal() {
   const handleChange = e => setReason(e.target.value)
 
   ////////////////////////////////////////////////////////////////////
+  const state = useSelector(state => state.auth)
   const deleteHandler = useCallback(async () => {
     try {
-      await dispatch(withDrawal())
-      // await dispatch(logout()) //되나 테스트로 넣어본것
-      // dispatch(clear())
+      await dispatch(withDrawal(state.token))
+      await dispatch(logout())
+      dispatch(clear())
       navigate('/')
     } catch (error) {
       alert('서버 문제로 회원탈퇴에 실패했습니다!')
