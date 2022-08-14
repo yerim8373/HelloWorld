@@ -82,25 +82,19 @@ public class AuthController {
 	}
 
 	@GetMapping("/signout")
-	public ResponseEntity<?> signout(@CookieValue(value="refresh-token", required = false) String refreshToken, HttpServletResponse resp){
-		authService.logout(refreshToken);
+	public ResponseEntity<?> signout(@CookieValue(value="refresh-token", required = false) Cookie cookie, HttpServletResponse resp){
+		authService.logout(cookie.getValue());
+		cookie.setMaxAge(0);
 
-		ResponseCookie cookie = ResponseCookie.from("refresh-token",null)
-				.maxAge(0)
-				.httpOnly(true)
-				.secure(true)
-				.domain("")
-				.path("/")
-				.sameSite("None")
-				.build();
-
-		resp.setHeader("Set-Cookie",cookie.toString());
 		return response.success();
 	}
 
 	@GetMapping("/reissue")
-	public ResponseEntity<?> reissue(@CookieValue(value="refresh-token", required = false) String refreshToken){
-		JWToken jwt = authService.reissue(refreshToken);
+	public ResponseEntity<?> reissue(@CookieValue(value="refresh-token", required = false) Cookie cookie){
+		System.out.println("cookie = " + cookie);
+
+		JWToken jwt = authService.reissue(cookie.getValue());
+		System.out.println("jwt = " + jwt.getAccessToken());
 		return response.success(JWTokenDto.of(jwt));
 	}
 
