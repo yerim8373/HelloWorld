@@ -6,19 +6,22 @@ const roomSlice = createSlice({
   initialState: {
     roomId: undefined,
     languages: undefined,
-    isCreatedRoom: undefined,
-    isJoinedRoom: undefined,
+    isCreatedRoom: false,
+    isJoinedRoom: false,
     isError: undefined,
     message: undefined,
   },
   reducers: {},
   extraReducers: {
     [findRoom.fulfilled]: (state, { payload }) => {
-      // console.log(payload)
       state.roomId = payload.data.roomId
-      // const { roomId, user } = payload
-      // state.roomId = roomId
-      // state.languages = languages
+      if (payload.message) {
+        state.isCreatedRoom = true
+        console.log('난 방 생성자')
+      } else {
+        state.isJoinedRoom = true
+        console.log('난 방 참여자')
+      }
     },
 
     [findRoom.rejected]: (state, { payload }) => {
@@ -32,6 +35,8 @@ const roomSlice = createSlice({
       state.isCreatingRoom = undefined
       state.isError = undefined
       state.message = undefined
+      state.isCreatedRoom = undefined
+      state.isJoinedRoom = undefined
     },
     [leaveRoom.rejected]: (state, { payload }) => {
       // state.isError = true
