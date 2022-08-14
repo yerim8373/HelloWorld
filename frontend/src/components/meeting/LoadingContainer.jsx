@@ -10,15 +10,7 @@ import { useDispatch, useSelector } from 'react-redux/es/exports'
 
 import { ovActions } from '../../store/ov-slice'
 import { getToken } from '../utils/helper/ovServer'
-
-const tips = [
-  '초면이라 무슨 대화를 할지 모르겠다구요?\nHelloWorld의 “키워드” 기능을 사용해보세요!',
-  '테스트용 TIP 메시지입니다.\n로딩은 5초 후에 끝납니다.',
-]
-const getRandomTip = () => {
-  const idx = Math.floor(Math.random() * tips.length)
-  return tips[idx]
-}
+import { getRandomTip } from '../../store/tip-thunkActions'
 
 //
 // 출처: https://velog.io/@jakeseo_me/%EB%B2%88%EC%97%AD-%EB%A6%AC%EC%95%A1%ED%8A%B8-%ED%9B%85%EC%8A%A4-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8%EC%97%90%EC%84%9C-setInterval-%EC%82%AC%EC%9A%A9-%EC%8B%9C%EC%9D%98-%EB%AC%B8%EC%A0%9C%EC%A0%90#interval-%EC%9D%BC%EC%8B%9C%EC%A0%95%EC%A7%80%ED%95%98%EA%B8%B0
@@ -45,23 +37,33 @@ const getRandomTip = () => {
 // const OPENVIDU = new OpenVidu()
 
 function LoadingContainer({ handleModal }) {
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
   const user = useSelector(state => state.user)
   const auth = useSelector(state => state.auth)
   const room = useSelector(state => state.room)
   const openvidu = useSelector(state => state.openvidu)
-  const [loading, setLoading] = useState(true)
 
   const { token } = auth
   const { mySessionId, OV, session, myUserName } = openvidu
   const { roomId } = room
   const { nickname } = user
-  // const moveToMeetingPage = () => navigate(`/meeting/${mySessionId}`)
+
+  const [loading, setLoading] = useState(true)
   const [seconds, setSeconds] = useState(5000)
+  const [tip, setTip] = useState('')
+
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+
+  // const moveToMeetingPage = () => navigate(`/meeting/${mySessionId}`)
 
   useEffect(() => {
     dispatch(findRoom(token))
+
+    const getTip = async () => {
+      const { payload } = await dispatch(getRandomTip(token))
+      setTip(payload.data.content)
+    }
+    getTip()
   }, [])
 
   useEffect(() => {
@@ -191,7 +193,7 @@ function LoadingContainer({ handleModal }) {
           </div> */}
         </>
       )}
-      <p className={classes.tip}>TIP. {getRandomTip()}</p>
+      <p className={classes.tip}>TIP. {tip}</p>
     </div>
   )
 }

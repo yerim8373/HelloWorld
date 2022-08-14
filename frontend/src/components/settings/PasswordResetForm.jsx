@@ -118,7 +118,6 @@ export default function PasswordResetForm() {
         placeholder="새 비밀번호를 입력해주세요."
         onValid={passwordValidObj}
         onData={({ value, valid }) => valid && setNewPassword(value)}
-        required
       />
       <Input
         id="새 비밀번호 확인"
@@ -126,7 +125,6 @@ export default function PasswordResetForm() {
         placeholder="새 비밀번호를 한 번 더 입력해주세요."
         onValid={passwordConfirmValidObj}
         onData={({ value, valid }) => valid && setNewPasswordConfirm(value)}
-        required
         meta={newPassword}
       />
 
