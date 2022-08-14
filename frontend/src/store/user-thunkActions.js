@@ -82,3 +82,66 @@ export const getImage = createAsyncThunk('auth/getImage', async file => {
     console.log(error)
   }
 })
+
+//회원탈퇴
+// export const withDrawal = createAsyncThunk(
+//   'auth/withDrawal',
+//   async userData => {
+//     try {
+//       console.log(userData)
+//       const response = await axios.delete(
+//         `${process.env.REACT_APP_API_URL}/api/v1/user/delete`,
+//         userData,
+//         {
+//           headers: {
+//             Authorization: `Bearer ${accessToken}`,
+//           },
+//         },
+//       )
+//       return response.data
+//     } catch (error) {
+//       console.log(error)
+//     }
+//   },
+// )
+
+// // 회원탈퇴
+export const withDrawal = createAsyncThunk(
+  'auth/withDrawal',
+  async accessToken => {
+    try {
+      console.log(accessToken)
+      const response = await axios.delete(
+        `${process.env.REACT_APP_API_URL}/api/v1/user/delete`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        },
+      )
+      return response.data
+    } catch (error) {
+      console.log(error)
+    }
+  },
+)
+
+export const updateUser = createAsyncThunk(
+  'user/updateUser',
+  async ({ token: accessToken, userData }) => {
+    try {
+      const response = await axios.put(
+        `${process.env.REACT_APP_API_URL}/api/v1/user`,
+        userData,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        },
+      )
+      return response.data
+    } catch (error) {
+      console.log(error)
+    }
+  },
+)

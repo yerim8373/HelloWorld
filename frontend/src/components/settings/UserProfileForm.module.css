@@ -70,3 +70,35 @@
   margin-bottom: 2px;
   background-color: var(--color-grey-100);
 }
+
+.profileImageContainer {
+  height: 12rem;
+  position: relative;
+}
+
+.profileImageCover {
+  width: 12rem;
+  height: 12rem;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  color: white;
+  font-size: 1.5rem;
+  transition: opacity 0.15s;
+}
+
+.profileImageCover:hover {
+  opacity: 1;
+}
+
+.profileImageCover > input[type="file"] {
+  width: 0;
+  height: 0;
+  opacity: 0;
+}

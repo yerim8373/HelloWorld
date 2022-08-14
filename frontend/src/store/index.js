@@ -3,6 +3,8 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import authSlice from './auth-slice'
 import userSlice from './user-slice'
 import languageSlice from './language-slice'
+import tipSlice from './tip-slice'
+import questionSlice from './question-slice'
 
 import {
   persistStore,
@@ -30,6 +32,8 @@ const persistingReducer = combineReducers({
   language: languageSlice.reducer,
   room: roomSlice.reducer,
   openvidu: ovSlice.reducer,
+  tip: tipSlice.reducer,
+  question: questionSlice.reducer,
 })
 
 // const normalReducer = combineReducers({})

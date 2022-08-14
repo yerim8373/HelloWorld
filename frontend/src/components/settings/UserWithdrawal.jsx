@@ -2,13 +2,18 @@ import RadioBtnGroup from '../common/RadioBtnGroup'
 import Input from '../common/Input'
 import Button from '../common/Button'
 import classes from './UserWithdrawal.module.css'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import {
   passwordValidIncludeLetterHandler,
   passwordValidLengthHandler,
 } from '../utils/validation/passwordValid'
 import { inputObj } from '../utils/helper/inputObj'
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
 
+import { withDrawal } from '../../store/user-thunkActions'
+import { logout } from '../../store/auth-thunkActions'
+import { clear } from '../../store/user-slice'
 const reasons = [
   {
     name: '삭제하고 싶은 기록이 있어요',
@@ -51,6 +56,9 @@ export default function UserWithdrawal() {
   const [password, setPassword] = useState(inputObj)
   const [reason, setReason] = useState(reasons[0].value)
 
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+
   const isValid = obj => obj.value && obj.valid
   const handleSubmit = e => {
     e.preventDefault()
@@ -59,6 +67,20 @@ export default function UserWithdrawal() {
     }
   }
   const handleChange = e => setReason(e.target.value)
+
+  ////////////////////////////////////////////////////////////////////
+  const state = useSelector(state => state.auth)
+  const deleteHandler = useCallback(async () => {
+    try {
+      await dispatch(withDrawal(state.token))
+      await dispatch(logout())
+      dispatch(clear())
+      navigate('/')
+    } catch (error) {
+      alert('서버 문제로 회원탈퇴에 실패했습니다!')
+    }
+  }, [dispatch, navigate])
+  //////////////////////////////////////////////////////////////////////////////
 
   return (
     <form className={classes.userWithdrawal} onSubmit={handleSubmit}>
@@ -99,7 +121,12 @@ export default function UserWithdrawal() {
         />
       </div>
       {isValid(password) ? (
-        <Button text="탈퇴하기" size="small" color="error" />
+        <Button
+          text="탈퇴하기"
+          size="small"
+          color="error"
+          onEvent={deleteHandler}
+        />
       ) : (
         <Button text="탈퇴하기" size="small" color="neutral" />
       )}

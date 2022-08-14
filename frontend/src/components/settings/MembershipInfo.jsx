@@ -1,19 +1,18 @@
-import { useState } from 'react'
+import { useSelector } from 'react-redux'
 import { BsCheckLg } from 'react-icons/bs'
 import Badge from '../common/Badge'
 import Button from '../common/Button'
 import classes from './MembershipInfo.module.css'
 
 export default function MembershipInfo() {
-  // TODO: SWR 적용 시 아래 부분을 교체할 것
-  const [subscribed, setSubscribed] = useState(true)
+  const subscribed = useSelector(state => state.user.subscribed)
 
   const handleSubscribe = () => {
-    setSubscribed(true)
+    alert('VIP를 구독하시겠어요?')
     console.log('subscribed')
   }
   const handleUnsubscribe = () => {
-    setSubscribed(false)
+    alert('VIP를 구독 해지하시겠어요?')
     console.log('unsubscribed')
   }
 
