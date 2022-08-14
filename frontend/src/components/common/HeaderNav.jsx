@@ -8,7 +8,6 @@ import Logo from './Logo'
 import ProfileImage from './ProfileImage'
 import Button from './Button'
 
-import profile from '../../images/profile.jpg'
 import DropdownMenu from './DropdownMenu'
 
 import { logout } from '../../store/auth-thunkActions'
@@ -22,6 +21,7 @@ function HeaderNav() {
   //   id: 'test',
   // }
   const [showMenu, setShowMenu] = useState(false)
+  const [profileImage, setProfileImage] = useState()
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -54,6 +54,13 @@ function HeaderNav() {
   ]
 
   useEffect(() => {
+    const getProfileImage = async () => {
+      setProfileImage(
+        `${process.env.REACT_APP_API_URL}/api/v1/user/image/${state.avatar}`,
+      )
+    }
+    getProfileImage()
+
     if (showMenu) {
       window.addEventListener('click', globalClickHandler)
     }
@@ -61,7 +68,7 @@ function HeaderNav() {
     return () => {
       window.removeEventListener('click', globalClickHandler)
     }
-  }, [showMenu])
+  }, [showMenu, state.avatar])
 
   return (
     <nav className={`${classes.headerNav} ${state.id ? classes.auth : ''}`}>
@@ -86,7 +93,7 @@ function HeaderNav() {
         {state.id ? (
           <div className={classes.profileImageContainer}>
             <ProfileImage
-              src={profile}
+              src={profileImage}
               size="small"
               handleClick={handleClick}
             />
