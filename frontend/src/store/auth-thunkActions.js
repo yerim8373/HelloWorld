@@ -11,7 +11,6 @@ export const login = createAsyncThunk('auth/login', async userData => {
         withCredentials: true,
       },
     )
-    console.log(response)
     return response.data
   } catch (error) {
     console.log(error)
@@ -26,22 +25,8 @@ export const validToken = createAsyncThunk(
         `${process.env.REACT_APP_API_URL}/api/v1/auth/reissue`,
         {
           headers: { Authorizaion: `Bearer ${accessToken}` },
-          withCredentials: true,
         },
       )
-      // const requestHeaders = new Headers()
-      // requestHeaders.set('Content-Type', 'application/json')
-      // requestHeaders.set('Authrization', `Bearer ${accessToken}`)
-
-      // const response = await fetch(
-      //   `${process.env.REACT_APP_API_URL}/api/v1/auth/reissue`,
-      //   {
-      //     method: 'GET',
-      //     headers: {
-      //       Authorizaion: `Bearer ${accessToken}`,
-      //     },
-      //   },
-      // )
       console.log(response)
       return response.data
     } catch (error) {
