@@ -5,6 +5,7 @@ import {
   signup,
   setImage,
   getImage,
+  updateUser,
 } from './user-thunkActions'
 
 const userSlice = createSlice({
@@ -21,6 +22,7 @@ const userSlice = createSlice({
     email: undefined,
     mobileNumber: undefined,
     avatar: undefined,
+    description: undefined,
   },
   reducers: {
     clear(state) {
@@ -35,6 +37,7 @@ const userSlice = createSlice({
       state.email = undefined
       state.mobileNumber = undefined
       state.avatar = undefined
+      state.description = undefined
     },
   },
   extraReducers: {
@@ -45,11 +48,11 @@ const userSlice = createSlice({
       state.nickname = payload.data.nickname
       state.gender = payload.data.gender
       state.country = payload.data.country.name
-      state.languages = payload.data.languages
       state.subscribe = payload.data.subscribe ? true : false
       state.email = payload.data.email
       state.mobileNumber = payload.data.mobileNumber
       state.avatar = payload.data.avatarSrc
+      state.description = payload.data.description
     },
     [getUserData.rejected]: (state, { payload }) => {
       // state.isError = true
@@ -67,6 +70,10 @@ const userSlice = createSlice({
       state.message = payload.message
     },
     [getImage.rejected]: (state, { payload }) => {
+      state.isError = true
+      state.message = payload.message
+    },
+    [updateUser.rejected]: (state, { payload }) => {
       state.isError = true
       state.message = payload.message
     },
