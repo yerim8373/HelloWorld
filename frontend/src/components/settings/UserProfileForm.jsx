@@ -26,6 +26,7 @@ import { languageValidHandler } from '../utils/validation/languageValid'
 import {
   getLanguageData,
   getUserData,
+  setImage,
   updateUser,
 } from '../../store/user-thunkActions'
 
@@ -143,6 +144,7 @@ export default function UserProfileForm() {
     try {
       e.preventDefault()
 
+      // 사용 언어 정리
       const userLanList = []
       const myLanguages = [language1, language2, language3]
       for (let i = 1; i <= myLanguages.length; i++) {
@@ -159,11 +161,22 @@ export default function UserProfileForm() {
         userLanList.push(lang)
       }
 
+      // 프로필 이미지 등록
+      const res = await fetch(profileImage)
+      const blob = await res.blob()
+      const ext = blob.type.split('/')[1]
+      const filename = new Date().getTime() + '.' + ext
+
+      const imageFormData = new FormData()
+      imageFormData.append('file', new File([blob], filename))
+
+      const { payload: imagePayload } = await dispatch(setImage(imageFormData))
+
       const userData = {
         id: user.id,
         email: user.email,
         name: user.name,
-        avatarSrc: user.avatar,
+        avatarSrc: imagePayload.data.src,
         description,
         nickname,
         gender,
@@ -205,6 +218,17 @@ export default function UserProfileForm() {
       setLanguage3(user.languages[2]?.language.languageId.toString() ?? '0')
     }
   }
+  const handleClick = () => {
+    const $file = document.querySelector('input[type="file"]')
+    $file.click()
+  }
+  const handleImage = ({ target }) => {
+    if (!target.files || !target.files[0]) return
+
+    const reader = new FileReader()
+    reader.onload = e => setProfileImage(e.target.result)
+    reader.readAsDataURL(target.files[0])
+  }
 
   useEffect(() => {
     const getProfileImage = async () => {
@@ -234,7 +258,19 @@ export default function UserProfileForm() {
           />
           <Heart count={0} />
         </div>
-        <ProfileImage src={profileImage} size="xLarge" />
+        <div className={classes.profileImageContainer}>
+          <ProfileImage src={profileImage} size="xLarge" />
+          <div className={classes.profileImageCover} onClick={handleClick}>
+            이미지 변경
+            <input
+              type="file"
+              name="new-image"
+              id="new-image"
+              accept=".jpg,.png"
+              onChange={handleImage}
+            />
+          </div>
+        </div>
       </div>
       <div className={classes.subProfileContainer}>
         <Input
