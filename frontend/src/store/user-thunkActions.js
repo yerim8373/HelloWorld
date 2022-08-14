@@ -83,7 +83,6 @@ export const getImage = createAsyncThunk('auth/getImage', async file => {
   }
 })
 
-<<<<<<< frontend/src/store/user-thunkActions.js
 //회원탈퇴
 // export const withDrawal = createAsyncThunk(
 //   'auth/withDrawal',
@@ -114,7 +113,6 @@ export const withDrawal = createAsyncThunk(
       console.log(accessToken)
       const response = await axios.delete(
         `${process.env.REACT_APP_API_URL}/api/v1/user/delete`,
-        accessToken,
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,
@@ -127,7 +125,6 @@ export const withDrawal = createAsyncThunk(
     }
   },
 )
-
 
 export const updateUser = createAsyncThunk(
   'user/updateUser',
