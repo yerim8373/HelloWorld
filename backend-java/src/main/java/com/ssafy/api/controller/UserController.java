@@ -92,6 +92,7 @@ public class UserController {
 		return response.success(UserDto.of(userService.modifyUser(userDto)));
 	}
 
+
 //  우아래 내용을 좀 더 보고 어떤 식으로 할 것인지 결정해보자.
 //	public ResponseEntity<?> getUserInfo(@ApiIgnore Authentication authentication) {
 //		/**
