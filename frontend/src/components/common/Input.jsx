@@ -65,7 +65,7 @@ function Input({
         value: inputRef.current.value,
         valid: errorComponent === '' ? true : false,
       })
-    }, 500)
+    }, 200)
   }
 
   return (
