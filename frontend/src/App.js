@@ -22,12 +22,6 @@ import WithdrawalPage from './pages/settings/WithdrawalPage'
 import { useDispatch, useSelector } from 'react-redux'
 import { validToken } from './store/auth-thunkActions'
 import useInterval from './components/utils/hooks/useInterval'
-import axios from 'axios'
-
-axios.defaults.withCredentials = true
-axios.defaults.baseURL = 'http://localhost:8000'
-axios.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8'
-axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*'
 
 const authPathSet = new Set([
   '/login',
@@ -60,7 +54,8 @@ function App() {
   // token 여부 확인
   const state = useSelector(state => state.auth)
   // 토큰 재평가하기 (이슈 있음)
-  useInterval(() => dispatch(validToken(state.token)), 900000)
+
+  useInterval(() => dispatch(validToken(state.token)), 300000)
 
   return (
     <>

@@ -40,10 +40,11 @@ const VideoControlBtns = ({ onLeaveSession, onToggleDevice, devices }) => {
   // 비디오 설정 로직
   const toggleCameraHandler = () => setCamera(prevCamera => !prevCamera)
 
-  const reMatchingUserHandler = async () => {
-    await dispatch(leaveRoom({ accessToken: auth.token, roomId: room.roomId }))
+  const reMatchingUserHandler = () => {
+    dispatch(leaveRoom({ roomId: room.roomId }))
     dispatch(ovActions.leaveSession())
-    navigate('/meeting', { state: { reMatching: true } })
+    window.location.replace('/meeting?rematching=true')
+    // navigate('/meeting', { state: { reMatching: true } })
   }
 
   const exitRoomHandler = () => {
@@ -147,7 +148,7 @@ const VideoControlBtns = ({ onLeaveSession, onToggleDevice, devices }) => {
         <Button
           size="small"
           text="다음으로"
-          // onEvent={reMatchingUserHandler}
+          onEvent={reMatchingUserHandler}
         ></Button>
         <Button
           size="small"
