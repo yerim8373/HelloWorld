@@ -13,7 +13,7 @@
  * disabled {bool}: 입력 비활성화 여부, 기본 값은 false
  */
 
-import React, { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import classes from './Input.module.css'
 function Input({
@@ -68,6 +68,11 @@ function Input({
     }, 200)
   }
 
+  useEffect(() => {
+    inputRef.current.value = defaultValue || ''
+    onData && defaultValue && inputValidHandler()
+  }, [defaultValue])
+
   return (
     <div className={classes.inputContainer}>
       {noLabel || (
@@ -87,7 +92,6 @@ function Input({
         onKeyUp={inputValidHandler}
         ref={inputRef}
         tabIndex="-1"
-        defaultValue={defaultValue}
         disabled={disabled}
       />
       {/* 에러가 렌더링 되는 창 */}
