@@ -5,11 +5,8 @@ import {
   signup,
   setImage,
   getImage,
-
   withDrawal,
-
   updateUser,
-
 } from './user-thunkActions'
 
 const userSlice = createSlice({
@@ -52,6 +49,7 @@ const userSlice = createSlice({
       state.nickname = payload.data.nickname
       state.gender = payload.data.gender
       state.country = payload.data.country.name
+      state.languages = payload.data.languages
       state.subscribe = payload.data.subscribe ? true : false
       state.email = payload.data.email
       state.mobileNumber = payload.data.mobileNumber
