@@ -148,7 +148,7 @@ public class UserController {
 	@GetMapping(value = "/image/{src}", produces = {MediaType.IMAGE_JPEG_VALUE,MediaType.IMAGE_GIF_VALUE,MediaType.IMAGE_PNG_VALUE})
 	public byte[] getImage(@PathVariable String src) throws IOException {
 		String[] split = src.split("`");
-		InputStream in = new FileInputStream(System.getProperty("user.dir")+"/"+split[0]+"/"+split[1]);
+		InputStream in = new FileInputStream("/home/ubuntu/ssafy/"+split[0]+"/"+split[1]);
 		byte[] bytes = IOUtils.toByteArray(in);
 		in.close();
 		return bytes;

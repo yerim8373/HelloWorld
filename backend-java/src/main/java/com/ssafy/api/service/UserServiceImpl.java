@@ -182,7 +182,7 @@ public class UserServiceImpl implements UserService {
 
 
 	public String saveImage(MultipartFile multipartFile) throws IOException {
-		String path = System.getProperty("user.dir")+"\\"+LocalDateTime.now().getMonthValue();
+		String path = "/home/ubuntu/ssafy/"+LocalDateTime.now().getMonthValue();
 		logger.info("path : {}",path);
 		String fileName = UUID.randomUUID().toString().substring(0, 10)+multipartFile.getOriginalFilename();
 
