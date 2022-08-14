@@ -22,7 +22,7 @@ const ProfileImage = ({ src, size, handleClick }) => {
 }
 
 ProfileImage.propTypes = {
-  src: PropTypes.string.isRequired,
+  src: PropTypes.string,
   size: PropTypes.oneOf(['xSmall', 'small', 'medium', 'large', 'xLarge']),
   handleClick: PropTypes.func,
 }
