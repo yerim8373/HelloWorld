@@ -9,7 +9,7 @@ export default function MeetingEntrySection() {
 
   const location = useLocation()
   useEffect(() => {
-    if (location.state) {
+    if (location.state || location.search === '?rematching=true') {
       handleModal()
       location.state = null
     }
@@ -21,6 +21,8 @@ export default function MeetingEntrySection() {
   // }
 
   const handleModal = () => setModalState(!modalState)
+
+  // if (location.search === '?rematching=true') handleModal()
 
   const contents = {
     content: <LoadingContainer handleModal={handleModal}></LoadingContainer>,

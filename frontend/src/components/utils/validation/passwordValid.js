@@ -6,11 +6,10 @@ export function passwordValidLengthHandler(inputValue) {
 }
 
 export function passwordValidIncludeLetterHandler(inputValue) {
-  const regxPassowrd = /^.*(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/
+  const regxPassowrd = /^.*(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=`~]).*$/
   if (!regxPassowrd.test(inputValue.trim())) {
     return false
   }
-
   return true
 }
 

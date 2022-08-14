@@ -65,7 +65,7 @@ function LoginForm() {
     navigate('/signup')
   }
 
-  const loginHandler = useCallback(async () => {
+  const loginHandler = async () => {
     try {
       const userData = {
         email: email.value,
@@ -85,7 +85,7 @@ function LoginForm() {
     } catch (error) {
       alert('로그인에 실패했습니다!')
     }
-  }, [dispatch, email.value, navigate, password.value])
+  }
 
   const loginErrorHandler = () => {
     alert('아이디 혹은 비밀번호가 유효하지 않습니다. 다시 작성해주세요')

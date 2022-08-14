@@ -30,11 +30,9 @@ const authSlice = createSlice({
       state.isError = false
       state.message = undefined
     },
-    [validToken.pending]: () => {
-      return
-    },
     [validToken.fulfilled]: (state, { payload }) => {
-      // state.token = payload.token
+      console.log(payload)
+      state.token = payload.data.accessToken
     },
     [validToken.rejected]: (state, { payload }) => {
       state.isError = true
