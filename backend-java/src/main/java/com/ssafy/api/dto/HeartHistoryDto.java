@@ -4,6 +4,8 @@ import com.ssafy.db.entity.HeartHistory;
 import com.ssafy.db.entity.Route;
 import lombok.*;
 
+import java.time.format.DateTimeFormatter;
+
 @Builder
 @Getter
 @Setter
@@ -16,6 +18,7 @@ public class HeartHistoryDto {
     private UserDto to;
     private String route;
     private String name;
+    private String regDate;
 
     public static HeartHistoryDto of(HeartHistory history){
         HeartHistoryDto hh = new HeartHistoryDto();
@@ -25,7 +28,7 @@ public class HeartHistoryDto {
         hh.setTo(UserDto.of(history.getToUser()));
         hh.setRoute(history.getRoute().toString());
         hh.setName(history.getName());
-
+        hh.setRegDate(history.getRegDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss")));
         return hh;
     }
 }

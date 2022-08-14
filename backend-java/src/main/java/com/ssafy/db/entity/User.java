@@ -2,6 +2,7 @@ package com.ssafy.db.entity;
 
 import com.ssafy.api.dto.*;
 import lombok.*;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -20,6 +21,7 @@ import java.util.Set;
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 public class User{
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -107,6 +109,7 @@ public class User{
         this.userLanList.remove(userLan);
         userLan.deleteUser();
     }
+
     public void changeUserInfo(UserDto userDto){
 
         this.mobileNumber = userDto.getMobileNumber();
@@ -115,7 +118,9 @@ public class User{
         this.age = userDto.getAge();
         this.avatarSrc = userDto.getAvatarSrc();
         this.gender = userDto.getGender();
-        this.pw = userDto.getPw();
+    }
 
+    public void setPw(String pw){
+        this.pw = pw;
     }
 }
