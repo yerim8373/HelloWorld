@@ -49,6 +49,8 @@ public class UserServiceImpl implements UserService {
 	private final JwtTokenUtil jwtTokenUtil;
 	private final RedisUtil redisUtil;
 
+
+
 	@Value("${spring.servlet.multipart.location}")
 	private String root;
 
@@ -93,6 +95,7 @@ public class UserServiceImpl implements UserService {
 	public User modifyUser(UserDto userDto) {
 		User user = this.getUserById(userDto.getId());
 		user.changeUserInfo(userDto);
+		user.setPw(passwordEncoder.encode(userDto.getPw()));
 
 		user.setCountry(countryRepository.findById(userDto.getCountry().getId()).get());
 
