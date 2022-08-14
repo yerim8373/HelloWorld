@@ -81,3 +81,23 @@ export const getImage = createAsyncThunk('auth/getImage', async file => {
     console.log(error)
   }
 })
+
+export const updateUser = createAsyncThunk(
+  'user/updateUser',
+  async ({ token: accessToken, userData }) => {
+    try {
+      const response = await axios.put(
+        `${process.env.REACT_APP_API_URL}/api/v1/user`,
+        userData,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        },
+      )
+      return response.data
+    } catch (error) {
+      console.log(error)
+    }
+  },
+)
