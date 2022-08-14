@@ -4,6 +4,7 @@ import authSlice from './auth-slice'
 import userSlice from './user-slice'
 import languageSlice from './language-slice'
 import tipSlice from './tip-slice'
+import questionSlice from './question-slice'
 
 import {
   persistStore,
@@ -32,6 +33,7 @@ const persistingReducer = combineReducers({
   room: roomSlice.reducer,
   openvidu: ovSlice.reducer,
   tip: tipSlice.reducer,
+  question: questionSlice.reducer,
 })
 
 // const normalReducer = combineReducers({})
