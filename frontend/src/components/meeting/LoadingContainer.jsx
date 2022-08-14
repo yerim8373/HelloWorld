@@ -45,23 +45,28 @@ const getRandomTip = () => {
 // const OPENVIDU = new OpenVidu()
 
 function LoadingContainer({ handleModal }) {
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
   const user = useSelector(state => state.user)
   const auth = useSelector(state => state.auth)
   const room = useSelector(state => state.room)
   const openvidu = useSelector(state => state.openvidu)
-  const [loading, setLoading] = useState(true)
 
   const { token } = auth
   const { mySessionId, OV, session, myUserName } = openvidu
   const { roomId } = room
   const { nickname } = user
-  // const moveToMeetingPage = () => navigate(`/meeting/${mySessionId}`)
+
+  const [loading, setLoading] = useState(true)
   const [seconds, setSeconds] = useState(5000)
+  const [tip, setTip] = useState('')
+
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+
+  // const moveToMeetingPage = () => navigate(`/meeting/${mySessionId}`)
 
   useEffect(() => {
     dispatch(findRoom(token))
+    setTip(getRandomTip())
   }, [])
 
   useEffect(() => {
@@ -191,7 +196,7 @@ function LoadingContainer({ handleModal }) {
           </div> */}
         </>
       )}
-      <p className={classes.tip}>TIP. {getRandomTip()}</p>
+      <p className={classes.tip}>TIP. {tip}</p>
     </div>
   )
 }
