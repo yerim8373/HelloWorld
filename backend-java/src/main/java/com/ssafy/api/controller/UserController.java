@@ -4,6 +4,8 @@ import com.ssafy.api.dto.*;
 import com.ssafy.api.service.UserLanService;
 import com.ssafy.common.model.response.Response;
 import com.ssafy.common.util.JwtTokenUtil;
+import com.ssafy.common.util.RedisUtil;
+import com.ssafy.common.util.UserRole;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Value;
@@ -41,6 +43,7 @@ public class UserController {
 	private final Response response;
 	private final JwtTokenUtil jwtTokenUtil;
 	private final UserLanService userLanService;
+	private final RedisUtil redisUtil;
 	@Value("${spring.servlet.multipart.location}")
 	private String root;
 
@@ -71,7 +74,9 @@ public class UserController {
     })
 	public ResponseEntity<?> getUserInfo(@RequestHeader("Authorization") String bearerToken) {
 		System.out.println(jwtTokenUtil.getEmailFromBearerToken(bearerToken));
-		return response.success(UserDto.of(userService.getUserByEmail(jwtTokenUtil.getEmailFromBearerToken(bearerToken)))
+		UserDto userDto = UserDto.of(userService.getUserByEmail(jwtTokenUtil.getEmailFromBearerToken(bearerToken)));
+		if(redisUtil.haskey("VIP::"+userDto.getId()))userDto.getAuthorities().add(AuthorityDto.of(UserRole.ROLE_VIP));
+		return response.success(userDto
 						,"user information success"
 						,HttpStatus.OK);
 	}

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ssafy.common.model.response.Response;
+import com.ssafy.common.util.RedisUtil;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,10 +31,11 @@ import com.ssafy.db.entity.User;
 public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
 	private final UserService userService;
     private static final Logger logger= LoggerFactory.getLogger(JwtAuthenticationFilter.class);
-	
-	public JwtAuthenticationFilter(AuthenticationManager authenticationManager, UserService userService) {
+	private final RedisUtil redisUtil;
+	public JwtAuthenticationFilter(AuthenticationManager authenticationManager, UserService userService, RedisUtil redisUtil) {
 		super(authenticationManager);
 		this.userService = userService;
+        this.redisUtil = redisUtil;
 	}
 
 	@Override
@@ -78,7 +80,7 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
             		User user = userService.getUserByEmail(email);
                 if(user != null) {
                         // 식별된 정상 유저인 경우, 요청 context 내에서 참조 가능한 인증 정보(jwtAuthentication) 생성.
-                		SsafyUserDetails userDetails = new SsafyUserDetails(user);
+                		SsafyUserDetails userDetails = new SsafyUserDetails(user, redisUtil);
                 		UsernamePasswordAuthenticationToken jwtAuthentication = new UsernamePasswordAuthenticationToken(email,
                 				null, userDetails.getAuthorities());
                 		jwtAuthentication.setDetails(userDetails);

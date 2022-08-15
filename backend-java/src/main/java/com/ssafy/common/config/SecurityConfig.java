@@ -9,6 +9,7 @@ import com.ssafy.common.auth.SsafyUserDetailService;
 import com.ssafy.common.exception.handler.JwtAccessDeniedHandler;
 import com.ssafy.common.exception.handler.JwtAuthenticationEntryPoint;
 import com.ssafy.common.model.response.Response;
+import com.ssafy.common.util.RedisUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -37,7 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
     // Password 인코딩 방식에 BCrypt 암호화 방식 사용
-
+    private final RedisUtil redisUtil;
     private final OAuthService oAuthService;
     private final JwtAccessDeniedHandler accessDeniedHandler;
     private final JwtAuthenticationEntryPoint authenticationEntryPoint;
@@ -88,7 +89,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // 토큰 기반 인증이므로 세션 사용 하지않음
                 .and()
 
-                .addFilter(new JwtAuthenticationFilter(authenticationManager(), userService)) //HTTP 요청에 JWT 토큰 인증 필터를 거치도록 필터를 추가
+                .addFilter(new JwtAuthenticationFilter(authenticationManager(), userService, redisUtil)) //HTTP 요청에 JWT 토큰 인증 필터를 거치도록 필터를 추가
                 .authorizeRequests()
                 .antMatchers("/","/api/v1/auth/signin", "/api/v1/auth/oauth2/**","/api/v1/user", "/api/v1/user/image/**", "/api/v1/auth/reissue").permitAll()
                 .anyRequest().authenticated()//인증이 필요한 URL과 필요하지 않은 URL에 대하여 설정

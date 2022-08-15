@@ -16,4 +16,9 @@ public class AuthorityDto {
                 .authName(authority.getAuthName())
                 .build();
     }
+    public static AuthorityDto of(String name){
+        return AuthorityDto.builder()
+                .authName(name)
+                .build();
+    }
 }
