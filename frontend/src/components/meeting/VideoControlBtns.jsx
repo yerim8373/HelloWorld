@@ -21,7 +21,7 @@ import { leaveRoom } from '../../store/room-thunkActions'
 const VideoControlBtns = ({ onLeaveSession, onToggleDevice, devices }) => {
   const [mic, setMic] = useState(true)
   const [camera, setCamera] = useState(false)
-  const [minutes, setMinutes] = useState(2)
+  const [minutes, setMinutes] = useState(0)
   const [seconds, setSeconds] = useState(30)
 
   const dispatch = useDispatch()
@@ -34,6 +34,22 @@ const VideoControlBtns = ({ onLeaveSession, onToggleDevice, devices }) => {
     onToggleDevice(mic, camera)
   }, [mic, camera])
 
+  useEffect(() => {
+    if (openvidu.session) {
+      openvidu.session.on('signal:rematching', event => {
+        const timeEvent = setTimeout(() => {
+          dispatch(leaveRoom({ roomId: room.roomId }))
+          dispatch(ovActions.leaveSession())
+          window.location.replace('/meeting?rematching=true')
+        }, 3000)
+        return () => clearInterval(timeEvent)
+      })
+    } else {
+      // 세션 없이 여기까지 오는 것은 비정상적 접근으로 판단 강제 페이지 이동
+      navigate('/meeting', { replace: true })
+    }
+  }, [])
+
   // 마이크 설정 로직
   const toggleMicHandler = () => setMic(prevMic => !prevMic)
 
@@ -41,14 +57,19 @@ const VideoControlBtns = ({ onLeaveSession, onToggleDevice, devices }) => {
   const toggleCameraHandler = () => setCamera(prevCamera => !prevCamera)
 
   const reMatchingUserHandler = () => {
-    dispatch(leaveRoom({ roomId: room.roomId }))
+    openvidu.publisher.session.signal({
+      type: 'rematching',
+    })
+    // dispatch(leaveRoom({ roomId: room.roomId }))
     dispatch(ovActions.leaveSession())
     window.location.replace('/meeting?rematching=true')
-    // navigate('/meeting', { state: { reMatching: true } })
   }
 
   const exitRoomHandler = () => {
-    dispatch(leaveRoom({ roomId: room.roomId }))
+    openvidu.publisher.session.signal({
+      type: 'rematching',
+    })
+    // dispatch(leaveRoom({ roomId: room.roomId }))
     dispatch(ovActions.leaveSession())
     window.location.replace('/meeting')
   }
@@ -71,8 +92,9 @@ const VideoControlBtns = ({ onLeaveSession, onToggleDevice, devices }) => {
         }
         if (parseInt(seconds) === 0) {
           if (parseInt(minutes) === 0) {
-            exitRoomHandler()
             clearInterval(countdown)
+            dispatch(ovActions.leaveSession())
+            window.location.replace('/meeting?rematching=true')
           } else {
             setMinutes(parseInt(minutes) - 1)
             setSeconds(59)
@@ -101,8 +123,9 @@ const VideoControlBtns = ({ onLeaveSession, onToggleDevice, devices }) => {
           openvidu_timer_seconds.current.textContent =
             seconds < 10 ? `0${seconds}` : seconds
           if (parseInt(minutes) === 0 && parseInt(seconds) <= 1) {
-            exitRoomHandler()
             clearInterval(countdown)
+            dispatch(ovActions.leaveSession())
+            window.location.replace('/meeting?rematching=true')
           }
         })
       }
@@ -110,20 +133,7 @@ const VideoControlBtns = ({ onLeaveSession, onToggleDevice, devices }) => {
     return () => clearInterval(countdown)
   }, [minutes, seconds])
 
-  // useEffect(() => {
-  //   if (openvidu.publisher) {
-  //     openvidu.session.on('signal:chat', event => {
-  //       const data = JSON.parse(event.data)
-  //       messageList.push({
-  //         connectionId: event.from.connectionId,
-  //         nickname: data.nickname,
-  //         message: data.message,
-  //       })
-  //       setChat(prev => ({ ...prev, messageList }))
-  //       scrollToBottom()
-  //     })
-  //   }
-  // }, [messageList])
+  // 상대방이 방에서 떠나는 경우 나도 나가지도록
 
   return (
     <div className={`flex_row_space_evenly ${classes.btns_wrapper}`}>
