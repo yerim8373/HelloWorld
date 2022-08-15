@@ -35,6 +35,7 @@ const persistingReducer = combineReducers({
   openvidu: ovSlice.reducer,
   tip: tipSlice.reducer,
   question: questionSlice.reducer,
+  heart: hearthistorySlice.reducer,
 })
 
 // const normalReducer = combineReducers({})
