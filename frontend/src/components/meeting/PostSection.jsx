@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
 import Sheet from '../common/Sheet'
 import Modal from '../common/Modal'
 import classes from './PostSection.module.css'
 import Button from '../common/Button'
+import { getAllPosts } from '../../store/post-thunkActions'
 
 function PostItem({ post }) {
   const [modalState, setModalState] = useState(false)
@@ -16,13 +18,12 @@ function PostItem({ post }) {
       {
         key: 'author',
         name: '작성자',
-        content: post.author,
+        content: `${post.user.name} (${post.user.nickname})`,
       },
       {
-        key: 'createdAt',
-        name: '작성일',
-        content:
-          post.createdAt + (post.updatedAt ? ` (수정: ${post.updatedAt})` : ''),
+        key: 'lastModifiedAt',
+        name: '마지막 작성일',
+        content: post.lastModifiedAt,
       },
     ],
   }
@@ -31,7 +32,7 @@ function PostItem({ post }) {
     <>
       <article className={classes.postItem} onClick={handleModal}>
         <h2 className={classes.title}>{post.title}</h2>
-        <p className={classes.author}>by {post.author}</p>
+        <p className={classes.author}>by {post.user.email}</p>
         <p className={classes.summary}>{post.content}</p>
       </article>
       <Modal
@@ -43,13 +44,24 @@ function PostItem({ post }) {
   )
 }
 
-function PostSection({ posts }) {
-  const [itemCount, setItemCount] = useState(5)
-  const [currPosts, setCurrPosts] = useState(posts.slice(0, itemCount))
+function PostSection() {
+  const { token } = useSelector(state => state.auth)
 
-  const handleClick = () => {
-    setItemCount(itemCount + 5)
-  }
+  const [itemCount, setItemCount] = useState(5)
+  const [posts, setPosts] = useState([])
+  const [currPosts, setCurrPosts] = useState([])
+
+  const dispatch = useDispatch()
+
+  const handleClick = () => setItemCount(itemCount + 5)
+
+  useEffect(() => {
+    const getPosts = async () => {
+      const { payload } = await dispatch(getAllPosts(token))
+      setPosts(payload.data)
+    }
+    getPosts()
+  }, [])
 
   useEffect(() => {
     setCurrPosts(posts.slice(0, itemCount))
@@ -62,7 +74,7 @@ function PostSection({ posts }) {
           <h1>포스트</h1>
           <div className={classes.postList}>
             {currPosts.map(post => (
-              <PostItem key={post.id} post={post} />
+              <PostItem key={post.postId} post={post} />
             ))}
           </div>
           {itemCount < posts.length && (
@@ -82,17 +94,12 @@ function PostSection({ posts }) {
 
 PostItem.propTypes = {
   post: PropTypes.shape({
-    id: PropTypes.number.isRequired,
+    postId: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     content: PropTypes.string.isRequired,
-    author: PropTypes.string.isRequired,
-    createdAt: PropTypes.string.isRequired,
-    updatedAt: PropTypes.string,
+    user: PropTypes.object.isRequired,
+    lastModifiedAt: PropTypes.string.isRequired,
   }).isRequired,
-}
-
-PostSection.propTypes = {
-  posts: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
 }
 
 export default PostSection
