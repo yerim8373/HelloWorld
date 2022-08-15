@@ -20,10 +20,11 @@ import storage from 'redux-persist/lib/storage'
 import roomSlice from './room-slice'
 import ovSlice from './ov-slice'
 import hearthistorySlice from './hearthistory-slice'
+import peerUserSlice from './peerUser-slice'
 
 const persistConfig = {
   key: 'root',
-  blacklist: ['room', 'openvidu'],
+  blacklist: ['room', 'openvidu', 'peerUser'],
   storage,
 }
 
@@ -36,6 +37,7 @@ const persistingReducer = combineReducers({
   tip: tipSlice.reducer,
   question: questionSlice.reducer,
   heart: hearthistorySlice.reducer,
+  peerUser: peerUserSlice.reducer,
 })
 
 // const normalReducer = combineReducers({})

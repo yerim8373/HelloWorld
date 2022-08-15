@@ -12,6 +12,7 @@ import { ovActions } from '../../store/ov-slice'
 import { getToken } from '../utils/helper/ovServer'
 import { getRandomTip } from '../../store/tip-thunkActions'
 import { leaveRoom } from '../../store/room-thunkActions'
+import { peerUserActions } from '../../store/peerUser-slice'
 
 //
 // 출처: https://velog.io/@jakeseo_me/%EB%B2%88%EC%97%AD-%EB%A6%AC%EC%95%A1%ED%8A%B8-%ED%9B%85%EC%8A%A4-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8%EC%97%90%EC%84%9C-setInterval-%EC%82%AC%EC%9A%A9-%EC%8B%9C%EC%9D%98-%EB%AC%B8%EC%A0%9C%EC%A0%90#interval-%EC%9D%BC%EC%8B%9C%EC%A0%95%EC%A7%80%ED%95%98%EA%B8%B0
@@ -46,7 +47,7 @@ function LoadingContainer({ handleModal }) {
   const { token } = auth
   const { mySessionId, OV, session, myUserName } = openvidu
   const { roomId } = room
-  const { nickname } = user
+  const { nickname, heart, country } = user
 
   const [loading, setLoading] = useState(true)
   const [seconds, setSeconds] = useState(5000)
@@ -136,15 +137,23 @@ function LoadingContainer({ handleModal }) {
           return () => clearInterval(timeEvent)
         })
 
-        openvidu.session.on('streamDestroyed', event => {
+        session.on('streamDestroyed', event => {
           dispatch(ovActions.deleteSubscriber(event.stream.streamManager))
+          dispatch(peerUserActions.deletePeerUserData())
         })
-        session.on('publisherStartSpeaking', event => {
+
+        session.on('publisherStartSpeaking', () => {
           console.log('나지금 말하고 있다!!')
         })
 
-        session.on('publisherStopSpeaking', event => {
+        session.on('publisherStopSpeaking', () => {
           console.log('나지금 말 멈췄다!')
+        })
+
+        session.on('signal:peerUser', event => {
+          const userData = JSON.parse(event.data)
+          console.log(userData)
+          dispatch(peerUserActions.getPeerUserData(userData))
         })
 
         session.on('exception', exception => {
