@@ -122,6 +122,10 @@ public class UserController {
 								,HttpStatus.OK);
 	}
 
+	public ResponseEntity<?> getHeart(@RequestHeader("Authorization") String bearerToken){
+		return response.success(userService.getHeart(jwtTokenUtil.getEmailFromBearerToken(bearerToken)),"Heart 갯수 반환 성공", HttpStatus.OK);
+	}
+
 	@PostMapping("/heart")
 	public ResponseEntity<?> heart(@RequestBody HeartDto heartDto){
 		if(heartDto.getCnt() > 0)
