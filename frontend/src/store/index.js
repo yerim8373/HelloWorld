@@ -19,6 +19,7 @@ import {
 import storage from 'redux-persist/lib/storage'
 import roomSlice from './room-slice'
 import ovSlice from './ov-slice'
+import hearthistorySlice from './hearthistory-slice'
 
 const persistConfig = {
   key: 'root',
@@ -34,6 +35,7 @@ const persistingReducer = combineReducers({
   openvidu: ovSlice.reducer,
   tip: tipSlice.reducer,
   question: questionSlice.reducer,
+  heart: hearthistorySlice.reducer,
 })
 
 // const normalReducer = combineReducers({})

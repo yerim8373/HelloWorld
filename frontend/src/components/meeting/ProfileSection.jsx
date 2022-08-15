@@ -16,6 +16,7 @@ function ProfileSection({ user }) {
   // 아직 반영안됨, 추후 이슈 개선 전까지는 해당 부분은 더미 데이터 활용하겠음
 
   const state = useSelector(state => state.user)
+
   return (
     <Sheet size="large">
       <div className={classes.profileContainer}>
@@ -27,7 +28,11 @@ function ProfileSection({ user }) {
               </h1>
               {state.subscribe && <Badge />}
             </div>
-            <div className={classes.description}>{user.description}</div>
+            <div className={classes.description}>
+              {state.description
+                ? state.description
+                : '처음 뵙겠습니다. 잘 부탁드립니다.'}
+            </div>
           </div>
           <img
             src={`${process.env.REACT_APP_API_URL}/api/v1/user/image/${state.avatar}`}
