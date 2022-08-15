@@ -21,7 +21,9 @@ public interface UserService {
 	User getUserById(Long id);
 	List<HeartHistory> getUserHeartHistory(String bearerToken);
 	void heart(HeartDto heartDto);
+	Integer getHeart(String email);
 	String saveImage(MultipartFile file) throws IOException;
+
 
 
 }
