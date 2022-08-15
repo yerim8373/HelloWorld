@@ -82,6 +82,13 @@ public class UserServiceImpl implements UserService {
 			userLan.setUser(user);
 		}
 		redisUtil.set("CREDENCIAL::"+user.getId(), signUpDto.getPw(), Long.MAX_VALUE/1000);
+
+		// 가입한 사용자에게 20 하트씩
+		String key = INFO + user.getId();
+		Map<String, Integer> map = new ConcurrentHashMap<>();
+		map.put(HEART, 20);
+		redisUtil.set(key, map, Long.MAX_VALUE/ 1000L);
+
 		return user;
 	}
 
@@ -141,6 +148,18 @@ public class UserServiceImpl implements UserService {
 	public List<HeartHistory> getUserHeartHistory(String bearerToken) {
 		User user = getUserByEmail(jwtTokenUtil.getEmailFromBearerToken(bearerToken));
 		return user.getHeartHistoryList();
+	}
+
+	@Override
+	public Integer getHeart(String email) {
+		User user = getUserByEmail(email);
+		String key = INFO + user.getId();
+
+		Map<String, Integer> map = (Map<String, Integer>)redisUtil.get(key);
+		ObjectMapper mapper = new ObjectMapper();
+		Integer heart = mapper.convertValue(map.get(HEART), Integer.class);
+
+		return heart;
 	}
 
 	@Override
