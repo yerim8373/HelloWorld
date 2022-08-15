@@ -26,7 +26,7 @@ function ProfileSection({ user }) {
               <h1 className="title">
                 안녕하세요, <strong>{state.name}</strong>님!
               </h1>
-              {state.subscribed && <Badge />}
+              {state.subscribe && <Badge />}
             </div>
             <div className={classes.description}>
               {state.description
@@ -42,11 +42,11 @@ function ProfileSection({ user }) {
         </div>
         <div className={classes.subInfo}>
           <div className={classes.subInfoContents}>
-            <Heart count={user.heart} />
+            <Heart count={state.heart} />
             <div className={classes.countryAndLanguages}>
               <CountryFlag
                 svg
-                countryCode="KR"
+                countryCode={state.country}
                 className={classes.CountryFlag}
                 style={{
                   width: '3rem',

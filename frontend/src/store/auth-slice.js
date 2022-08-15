@@ -31,7 +31,6 @@ const authSlice = createSlice({
       state.message = undefined
     },
     [validToken.fulfilled]: (state, { payload }) => {
-      console.log(payload)
       state.token = payload.data.accessToken
     },
     [validToken.rejected]: (state, { payload }) => {
