@@ -57,9 +57,9 @@
   align-items: center;
 }
 
-.CountryFlag {
+/* .CountryFlag {
   border: 2px solid var(--color-grey-200);
-}
+} */
 
 .languages {
   display: flex;

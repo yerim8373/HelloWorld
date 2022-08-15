@@ -12,22 +12,23 @@ import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { ovActions } from '../../store/ov-slice'
 
-const DUMMYUSER_1 = {
-  country: '🇰🇷',
-  nickName: '싸피조아조아',
-  hearts: 2300,
-}
+// const DUMMYUSER_1 = {
+//   country: '🇰🇷',
+//   nickName: '싸피조아조아',
+//   hearts: 2300,
+// }
 
-const DUMMYUSER_2 = {
-  country: '🇨🇦',
-  nickName: '만수르',
-  hearts: 200,
-}
+// const DUMMYUSER_2 = {
+//   country: '🇨🇦',
+//   nickName: '만수르',
+//   hearts: 200,
+// }
 
 const Meeting = () => {
   const navigate = useNavigate()
   const user = useSelector(state => state.user)
   const openvidu = useSelector(state => state.openvidu)
+  const peerUser = useSelector(state => state.peerUser)
   const dispatch = useDispatch()
 
   // // 기기 껐다 켰다
@@ -61,13 +62,37 @@ const Meeting = () => {
     }
   }, [])
 
+  useEffect(() => {
+    const userData = {
+      nickname: user.nickname,
+      heart: user.heart,
+      country: user.country,
+    }
+    openvidu.publisher.session.signal({
+      data: JSON.stringify(userData),
+      type: 'peerUser',
+    })
+  })
+
+  const myData = {
+    nickname: user.nickname,
+    country: user.country,
+    heart: user.heart,
+  }
+
+  const peerData = {
+    nickname: peerUser.nickname,
+    country: peerUser.country,
+    heart: peerUser.heart,
+  }
+
   return (
     <div className={classes.meeting_wrapper}>
       <div className={`${classes.meeting}`}>
         <div className={classes.left_display}>
           <VideoDisplay
             size="wide"
-            userData={DUMMYUSER_1}
+            userData={peerData}
             streamManager={openvidu.subscribers[0]}
           />
           <QuestionSection />
@@ -76,7 +101,7 @@ const Meeting = () => {
           <div>
             <VideoDisplay
               size="narrow"
-              userData={DUMMYUSER_2}
+              userData={myData}
               streamManager={openvidu.publisher}
             />
             <VideoControlBtns

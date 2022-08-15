@@ -21,7 +21,7 @@ import { leaveRoom } from '../../store/room-thunkActions'
 const VideoControlBtns = ({ onLeaveSession, onToggleDevice, devices }) => {
   const [mic, setMic] = useState(true)
   const [camera, setCamera] = useState(false)
-  const [minutes, setMinutes] = useState(0)
+  const [minutes, setMinutes] = useState(5)
   const [seconds, setSeconds] = useState(30)
 
   const dispatch = useDispatch()
@@ -37,14 +37,15 @@ const VideoControlBtns = ({ onLeaveSession, onToggleDevice, devices }) => {
 
   // 초기 설정
 
-    // 방 입장자가 연장을 요청하는 경우 생성자의 시간을 채운다.
+  // 방 입장자가 연장을 요청하는 경우 생성자의 시간을 채운다.
 
   useEffect(() => {
     if (room.isCreatedRoom) {
-        openvidu.session.on('signal:restore', () => {
+      openvidu.session.on('signal:restore', () => {
         setMinutes(5)
         setSeconds(0)
       })
+    }
     if (openvidu.session) {
       openvidu.session.on('signal:rematching', event => {
         const timeEvent = setTimeout(() => {
@@ -58,7 +59,6 @@ const VideoControlBtns = ({ onLeaveSession, onToggleDevice, devices }) => {
       // 세션 없이 여기까지 오는 것은 비정상적 접근으로 판단 강제 페이지 이동
       navigate('/meeting', { replace: true })
     }
-  }
   }, [])
 
   // 마이크 설정 로직
@@ -134,11 +134,11 @@ const VideoControlBtns = ({ onLeaveSession, onToggleDevice, devices }) => {
 
         openvidu.publisher.session.signal({
           data: JSON.stringify(data),
-          type: 'timer',
+          type: 'timerShare',
         })
       } else {
         // 방 입장자용 timer 렌더 설정
-        openvidu.session.on('signal:timer', event => {
+        openvidu.session.on('signal:timerShare', event => {
           const data = JSON.parse(event.data)
           const { minutes, seconds } = data
           openvidu_timer_minites.current.textContent = minutes
@@ -174,6 +174,8 @@ const VideoControlBtns = ({ onLeaveSession, onToggleDevice, devices }) => {
           <span> : </span>
           <span ref={openvidu_timer_seconds}></span>
         </span>
+      </div>
+      <div>
         {user.subscribe ? (
           <Button
             size="small"
