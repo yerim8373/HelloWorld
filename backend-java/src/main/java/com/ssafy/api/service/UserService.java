@@ -20,8 +20,7 @@ public interface UserService {
 	User getUserByEmail(String Email);
 	User getUserById(Long id);
 	List<HeartHistory> getUserHeartHistory(String bearerToken);
-	void plusHeart(HeartDto heartDto);
-	void minusHeart(HeartDto heartDto);
+	void heart(HeartDto heartDto);
 	String saveImage(MultipartFile file) throws IOException;
 
 

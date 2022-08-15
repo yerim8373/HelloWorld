@@ -135,7 +135,7 @@ public class RoomController {
 
                 System.out.println("return RoomDto : " + roomService.getRoomDto(ConnRoomId));
 
-                return response.success(roomService.getRoomDto(ConnRoomId));
+                return response.success(RoomReqDto.builder().roomId(roomService.getRoomDto(ConnRoomId).getRoomId()).build());
 
             }
         }
@@ -155,7 +155,7 @@ public class RoomController {
 
         roomDto.setRoomId(roomId);
 
-        return response.success(roomDto,"방이 생성됐습니다.",HttpStatus.OK);
+        return response.success(RoomReqDto.builder().roomId(roomDto.getRoomId()).build(),"방이 생성됐습니다.",HttpStatus.OK);
     }
 
     @PutMapping("/leave")

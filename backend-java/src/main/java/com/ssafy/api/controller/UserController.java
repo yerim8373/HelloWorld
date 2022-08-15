@@ -124,10 +124,7 @@ public class UserController {
 
 	@PostMapping("/heart")
 	public ResponseEntity<?> heart(@RequestBody HeartDto heartDto){
-		if(heartDto.getCnt() > 0)
-			userService.plusHeart(heartDto);
-		else
-			userService.minusHeart(heartDto);
+			userService.heart(heartDto);
 		return response.success();
 	}
 

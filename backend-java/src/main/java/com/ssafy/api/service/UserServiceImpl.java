@@ -144,12 +144,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void plusHeart(HeartDto heartDto){
-		saveHeartInRedis(heartDto);
-		registHeartHistory(heartDto);
-	}
-	@Override
-	public void minusHeart(HeartDto heartDto){
+	public void heart(HeartDto heartDto){
 		saveHeartInRedis(heartDto);
 		registHeartHistory(heartDto);
 	}
