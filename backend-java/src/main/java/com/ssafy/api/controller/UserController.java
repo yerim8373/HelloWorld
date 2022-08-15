@@ -25,6 +25,8 @@ import retrofit2.http.Multipart;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 유저 관련 API 요청 처리를 위한 컨트롤러 정의.
@@ -121,9 +123,11 @@ public class UserController {
 								,"heart history success"
 								,HttpStatus.OK);
 	}
-
+	@GetMapping("/heart")
 	public ResponseEntity<?> getHeart(@RequestHeader("Authorization") String bearerToken){
-		return response.success(userService.getHeart(jwtTokenUtil.getEmailFromBearerToken(bearerToken)),"Heart 갯수 반환 성공", HttpStatus.OK);
+		Map<String, Integer> heart = new HashMap<>();
+		heart.put("heart", userService.getHeart(jwtTokenUtil.getEmailFromBearerToken(bearerToken)));
+		return response.success(heart,"Heart 갯수 반환 성공", HttpStatus.OK);
 	}
 
 	@PostMapping("/heart")
