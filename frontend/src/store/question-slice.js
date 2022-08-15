@@ -9,7 +9,6 @@ const questionSlice = createSlice({
   reducers: {},
   extraReducers: {
     [getRandomQuestion.fulfilled]: (state, { payload }) => {
-      console.log(payload)
       state.message = payload.data
     },
   },
