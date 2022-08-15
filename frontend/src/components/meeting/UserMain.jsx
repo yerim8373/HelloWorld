@@ -46,7 +46,7 @@ export default function UserMain() {
     <div className="flex_row_center">
       <div className={classes.mainPageContents}>
         <MainLeftArea user={dummy}></MainLeftArea>
-        <PostSection posts={getTempPosts(9)}></PostSection>
+        <PostSection />
       </div>
     </div>
   )
