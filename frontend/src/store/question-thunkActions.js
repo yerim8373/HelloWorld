@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
 export const getRandomQuestion = createAsyncThunk(
-  'tip/getRandomQuestion',
+  'question/getRandomQuestion',
   async accessToken => {
     try {
       const response = await axios.get(
