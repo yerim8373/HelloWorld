@@ -73,9 +73,11 @@ function PostSection() {
         <div className={classes.postListContainer}>
           <h1>포스트</h1>
           <div className={classes.postList}>
-            {currPosts.map(post => (
-              <PostItem key={post.postId} post={post} />
-            ))}
+            {currPosts.length > 0 ? (
+              currPosts.map(post => <PostItem key={post.postId} post={post} />)
+            ) : (
+              <div className={classes.noPost}>게시된 포스트가 없습니다</div>
+            )}
           </div>
           {itemCount < posts.length && (
             <div className={classes.moreBtn}>
