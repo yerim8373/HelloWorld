@@ -12,6 +12,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Builder
 @Getter
@@ -46,6 +47,7 @@ public class UserDto {
                 .id(user.getId())
                 .email(user.getEmail())
                 .name(user.getName())
+                .authorities(user.getAuthorities().stream().map(au->AuthorityDto.of(au)).collect(Collectors.toSet()))
                 .mobileNumber(user.getMobileNumber())
                 .nickname(user.getNickname())
                 .description(user.getDescription())

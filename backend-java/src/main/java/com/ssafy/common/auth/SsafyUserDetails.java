@@ -21,7 +21,7 @@ public class SsafyUserDetails implements UserDetails {
     boolean accountNonLocked;
     boolean credentialNonExpired;
     boolean enabled = false;
-    List<? extends GrantedAuthority> roles = new ArrayList<>();
+    List<? extends GrantedAuthority> roles;
     
     public SsafyUserDetails(User user) {
     		super();
