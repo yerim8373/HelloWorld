@@ -24,7 +24,11 @@ import { inputObj } from '../utils/helper/inputObj'
 
 import { useDispatch } from 'react-redux'
 import { login } from '../../store/auth-thunkActions'
-import { getLanguageData, getUserData } from '../../store/user-thunkActions'
+import {
+  getLanguageData,
+  getMyHeart,
+  getUserData,
+} from '../../store/user-thunkActions'
 
 // 유효성 검사 설정
 // useRef를 통한 현재 input 값 읽기
@@ -78,6 +82,7 @@ function LoginForm() {
       // User Data 가져오기
       await dispatch(getUserData(payload.data.accessToken))
       await dispatch(getLanguageData(payload.data.accessToken))
+      await dispatch(getMyHeart(payload.data.accessToken))
 
       if (payload.data.accessToken) {
         navigate('/meeting')

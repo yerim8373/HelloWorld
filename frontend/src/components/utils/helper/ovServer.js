@@ -4,6 +4,9 @@ import axios from 'axios'
 const OPENVIDU_SERVER_URL = 'https://localhost:4443'
 const OPENVIDU_SERVER_SECRET = 'HELLO_WORLD'
 
+// const OPENVIDU_SERVER_URL = 'https://helloworld.ssafy.io:8443'
+// const OPENVIDU_SERVER_SECRET = 'wndlfdP1051'
+
 export async function getToken(mySessionId) {
   const sessionId = await createSession(mySessionId)
   const token = await createToken(sessionId)
