@@ -28,11 +28,23 @@ const VideoControlBtns = ({ onLeaveSession, onToggleDevice, devices }) => {
   const navigate = useNavigate()
   const auth = useSelector(state => state.auth)
   const room = useSelector(state => state.room)
+  const user = useSelector(state => state.user)
   const openvidu = useSelector(state => state.openvidu)
 
   useEffect(() => {
     onToggleDevice(mic, camera)
   }, [mic, camera])
+
+  // 초기 설정
+  useEffect(() => {
+    // 방 입장자가 연장을 요청하는 경우 생성자의 시간을 채운다.
+    if (room.isCreatedRoom) {
+      openvidu.session.on('signal:restore', () => {
+        setMinutes(5)
+        setSeconds(0)
+      })
+    }
+  }, [])
 
   // 마이크 설정 로직
   const toggleMicHandler = () => setMic(prevMic => !prevMic)
@@ -51,6 +63,17 @@ const VideoControlBtns = ({ onLeaveSession, onToggleDevice, devices }) => {
     dispatch(leaveRoom({ roomId: room.roomId }))
     dispatch(ovActions.leaveSession())
     window.location.replace('/meeting')
+  }
+
+  const restoreTimeHandler = () => {
+    if (room.isCreatedRoom) {
+      setMinutes(5)
+      setSeconds(0)
+    } else {
+      openvidu.publisher.session.signal({
+        type: 'restore',
+      })
+    }
   }
 
   let openvidu_timer_minites = useRef()
@@ -142,6 +165,15 @@ const VideoControlBtns = ({ onLeaveSession, onToggleDevice, devices }) => {
           <span> : </span>
           <span ref={openvidu_timer_seconds}></span>
         </span>
+        {user.subscribe ? (
+          <Button
+            size="small"
+            text="시간연장"
+            onEvent={restoreTimeHandler}
+          ></Button>
+        ) : (
+          <Button size="small" text="시간연장" color="neutral"></Button>
+        )}
       </div>
 
       <div className={`flex_row ${classes.matching_event}`}>

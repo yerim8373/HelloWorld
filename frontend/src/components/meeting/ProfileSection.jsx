@@ -25,11 +25,15 @@ function ProfileSection({ user }) {
               <h1 className="title">
                 안녕하세요, <strong>{state.name}</strong>님!
               </h1>
-              {state.subscribed && <Badge />}
+              {state.subscribe && <Badge />}
             </div>
             <div className={classes.description}>{user.description}</div>
           </div>
-          <img src={user.avatar} alt="avatar" className={classes.avatar} />
+          <img
+            src={`${process.env.REACT_APP_API_URL}/api/v1/user/image/${state.avatar}`}
+            alt="avatar"
+            className={classes.avatar}
+          />
         </div>
         <div className={classes.subInfo}>
           <div className={classes.subInfoContents}>
@@ -37,7 +41,7 @@ function ProfileSection({ user }) {
             <div className={classes.countryAndLanguages}>
               <CountryFlag
                 svg
-                countryCode="KR"
+                countryCode={state.country}
                 className={classes.CountryFlag}
                 style={{
                   width: '3rem',

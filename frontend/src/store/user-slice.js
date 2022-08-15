@@ -5,8 +5,8 @@ import {
   signup,
   setImage,
   getImage,
-  withDrawal,
   updateUser,
+  getMyHeart,
 } from './user-thunkActions'
 
 const userSlice = createSlice({
@@ -39,10 +39,12 @@ const userSlice = createSlice({
       state.mobileNumber = undefined
       state.avatar = undefined
       state.description = undefined
+      state.heart = undefined
     },
   },
   extraReducers: {
     [getUserData.fulfilled]: (state, { payload }) => {
+      console.log(payload)
       state.id = payload.data.id
       state.name = payload.data.name
       state.age = payload.data.age
@@ -50,7 +52,9 @@ const userSlice = createSlice({
       state.gender = payload.data.gender
       state.country = payload.data.country.name
       state.languages = payload.data.languages
-      state.subscribe = payload.data.subscribe ? true : false
+      state.subscribe =
+        payload.data.authorities.filter(auth => auth.authName === 'ROLE_VIP')
+          .length >= 1
       state.email = payload.data.email
       state.mobileNumber = payload.data.mobileNumber
       state.avatar = payload.data.avatarSrc
@@ -78,6 +82,9 @@ const userSlice = createSlice({
     [updateUser.rejected]: (state, { payload }) => {
       state.isError = true
       state.message = payload.message
+    },
+    [getMyHeart.fulfilled]: (state, { payload }) => {
+      console.log(payload)
     },
   },
 })
