@@ -7,7 +7,7 @@ export function ageValidHandler(inputValue) {
 }
 
 export function ageLengthValidHandler(inputValue) {
-  if (inputValue.trim().length > 1) {
+  if (inputValue.trim().length > 0) {
     return true
   }
   return false
