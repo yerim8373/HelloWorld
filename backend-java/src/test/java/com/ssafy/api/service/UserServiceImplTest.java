@@ -69,7 +69,7 @@ class UserServiceImplTest {
                 .name("")
                 .build();
         assertEquals(1, heart.getCnt());
-        userService.plusHeart(heart);
+        userService.heart(heart);
 //        redisUtil.delete(UserServiceImpl.INFO+user2.getId());
     }
 
@@ -87,7 +87,7 @@ class UserServiceImplTest {
                     .name("")
                     .build();
 
-            userService.minusHeart(heart);
+            userService.heart(heart);
         });
     }
 }

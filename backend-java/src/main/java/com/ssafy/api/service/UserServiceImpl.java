@@ -151,6 +151,11 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	public void heart(HeartDto heartDto){
+		saveHeartInRedis(heartDto);
+		registHeartHistory(heartDto);
+	}
+
 	public Integer getHeart(String email) {
 		User user = getUserByEmail(email);
 		String key = INFO + user.getId();
@@ -160,17 +165,6 @@ public class UserServiceImpl implements UserService {
 		Integer heart = mapper.convertValue(map.get(HEART), Integer.class);
 
 		return heart;
-	}
-
-	@Override
-	public void plusHeart(HeartDto heartDto){
-		saveHeartInRedis(heartDto);
-		registHeartHistory(heartDto);
-	}
-	@Override
-	public void minusHeart(HeartDto heartDto){
-		saveHeartInRedis(heartDto);
-		registHeartHistory(heartDto);
 	}
 
 	private void saveHeartInRedis(HeartDto heartDto){
