@@ -1,12 +1,13 @@
 package com.ssafy.common.auth;
 
+import com.ssafy.common.util.RedisUtil;
+import com.ssafy.common.util.UserRole;
 import com.ssafy.db.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,18 +18,22 @@ import java.util.stream.Collectors;
 public class SsafyUserDetails implements UserDetails {
 	@Autowired
 	User user;
+	private final RedisUtil redisUtil;
 	boolean accountNonExpired;
     boolean accountNonLocked;
     boolean credentialNonExpired;
     boolean enabled = false;
-    List<? extends GrantedAuthority> roles;
+    List<SimpleGrantedAuthority> roles;
     
-    public SsafyUserDetails(User user) {
+    public SsafyUserDetails(User user, RedisUtil redisUtil) {
     		super();
     		this.user = user;
-		List<? extends GrantedAuthority> authorities = user.getAuthorities().stream().map(auth -> new SimpleGrantedAuthority(auth.getAuthName()))
+		List<SimpleGrantedAuthority> authorities = user.getAuthorities().stream().map(auth -> new SimpleGrantedAuthority(auth.getAuthName()))
 				.collect(Collectors.toList());
-
+		this.redisUtil = redisUtil;
+		if(redisUtil.haskey("VIP::"+user.getId())){
+			authorities.add(new SimpleGrantedAuthority(UserRole.ROLE_VIP));
+		}
 		this.roles = authorities;
 	}
     
@@ -63,7 +68,7 @@ public class SsafyUserDetails implements UserDetails {
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return this.roles;
 	}
-	public void setAuthorities(List<? extends GrantedAuthority> roles) {
+	public void setAuthorities(List<SimpleGrantedAuthority> roles) {
 		this.roles = roles;
 	}
 }
