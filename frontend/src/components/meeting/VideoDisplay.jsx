@@ -4,6 +4,8 @@ import PropTypes from 'prop-types'
 
 import classes from './VideoDisplay.module.css'
 
+import CountryFlag from 'react-country-flag'
+
 // VideoDisplay /////////////////////////////////
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
@@ -28,12 +30,16 @@ const VideoDisplay = ({ size, userData, streamManager }) => {
         >
           <div className={classes.user_info_section}>
             <div className={classes.user_info}>
-              <span>{userData.country}</span>
-              <span>{userData.nickName}</span>
+              <CountryFlag
+                svg
+                countryCode={userData.country}
+                style={{ width: '2rem', height: '1rem' }}
+              ></CountryFlag>
+              <span>{userData.nickname}</span>
             </div>
             <div className={classes.hearts_info}>
               <span className={classes.heart_icon}>❤</span>
-              <span>{userData.hearts}</span>
+              <span>{userData.heart}</span>
             </div>
           </div>
           <div className={classes.video_section}>
@@ -55,10 +61,9 @@ const VideoDisplay = ({ size, userData, streamManager }) => {
 VideoDisplay.propTypes = {
   size: PropTypes.string.isRequired,
   userData: PropTypes.shape({
-    // 국가 아이콘으로 바꿀 예정
     country: PropTypes.string.isRequired,
-    nickName: PropTypes.string.isRequired,
-    hearts: PropTypes.number.isRequired,
+    nickname: PropTypes.string.isRequired,
+    heart: PropTypes.number.isRequired,
   }),
   streamManager: PropTypes.object,
 }
