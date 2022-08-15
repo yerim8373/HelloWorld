@@ -24,6 +24,7 @@ const userSlice = createSlice({
     mobileNumber: undefined,
     avatar: undefined,
     description: undefined,
+    heart: undefined,
   },
   reducers: {
     clear(state) {
@@ -39,12 +40,13 @@ const userSlice = createSlice({
       state.mobileNumber = undefined
       state.avatar = undefined
       state.description = undefined
+      // 하트의 경우, 최대한 프론트에서 조작하려 하지 않을 것
+      // 하트를 수정하고 싶다면, api를 통해 서버에서 산출하게끔 하자.
       state.heart = undefined
     },
   },
   extraReducers: {
     [getUserData.fulfilled]: (state, { payload }) => {
-      console.log(payload)
       state.id = payload.data.id
       state.name = payload.data.name
       state.age = payload.data.age
@@ -84,7 +86,7 @@ const userSlice = createSlice({
       state.message = payload.message
     },
     [getMyHeart.fulfilled]: (state, { payload }) => {
-      console.log(payload)
+      state.heart = payload.data.heart
     },
   },
 })

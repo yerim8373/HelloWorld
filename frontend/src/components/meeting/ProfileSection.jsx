@@ -37,7 +37,7 @@ function ProfileSection({ user }) {
         </div>
         <div className={classes.subInfo}>
           <div className={classes.subInfoContents}>
-            <Heart count={user.heart} />
+            <Heart count={state.heart} />
             <div className={classes.countryAndLanguages}>
               <CountryFlag
                 svg

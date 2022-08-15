@@ -82,7 +82,7 @@ function LoginForm() {
       // User Data 가져오기
       await dispatch(getUserData(payload.data.accessToken))
       await dispatch(getLanguageData(payload.data.accessToken))
-      // await dispatch(getMyHeart(payload.data.accessToken))
+      await dispatch(getMyHeart(payload.data.accessToken))
 
       if (payload.data.accessToken) {
         navigate('/meeting')

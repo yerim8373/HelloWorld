@@ -125,10 +125,10 @@ export const updateUser = createAsyncThunk(
 
 export const getMyHeart = createAsyncThunk(
   'user/getMyHeart',
-  async ({ accessToken }) => {
+  async accessToken => {
     try {
       const response = await axios.get(
-        `${process.env.REACT_APP_API_URL}/api/v1/user/heart/history`,
+        `${process.env.REACT_APP_API_URL}/api/v1/user/heart`,
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,
