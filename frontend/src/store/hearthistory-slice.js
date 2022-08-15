@@ -4,26 +4,17 @@ import { getHeartHistory } from './hearthistory-thunkActions'
 const hearthistorySlice = createSlice({
   name: 'heart',
   initialState: {
-    heartHistoryId: undefined,
-    cnt: undefined,
-    from: undefined,
-    to: undefined,
-    route: undefined,
-    name: undefined,
-    regDate: undefined,
+    history: [],
+    isError: undefined,
+    message: undefined,
   },
   extraReducers: {
     [getHeartHistory.pending]: () => {
       return
     },
     [getHeartHistory.fulfilled]: (state, { payload }) => {
-      state.heartHistoryId = payload.data.heartHistoryId
-      state.cnt = payload.data.cnt
-      state.from = payload.data.from
-      state.to = payload.data.to
-      state.route = payload.data.route
-      state.name = payload.data.name
-      state.regDate = payload.data.regDate
+      console.log(payload.data)
+      state.history = payload.data
     },
     [getHeartHistory.rejected]: (state, { payload }) => {
       state.isError = true
