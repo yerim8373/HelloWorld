@@ -21,14 +21,14 @@ import { useNavigate } from 'react-router-dom'
 import { leaveRoom } from '../../store/room-thunkActions'
 import { peerUserActions } from '../../store/peerUser-slice'
 import Sheet from '../common/Sheet'
-import { sendHeart } from '../../store/user-thunkActions'
+import { getMyHeart, sendHeart } from '../../store/user-thunkActions'
 
 const VideoControlBtns = ({ onLeaveSession, onToggleDevice, devices }) => {
   const [mic, setMic] = useState(false)
   const [camera, setCamera] = useState(false)
   const [heart, setHeart] = useState(false)
-  const [minutes, setMinutes] = useState(5000)
-  const [seconds, setSeconds] = useState(30)
+  const [minutes, setMinutes] = useState(0)
+  const [seconds, setSeconds] = useState(10)
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -54,15 +54,21 @@ const VideoControlBtns = ({ onLeaveSession, onToggleDevice, devices }) => {
       })
     }
     if (openvidu.session) {
+      // openvidu.session.on('sessionDisconnected', event => {
+      //   if (heart) {
+      //     const heartData = {
+      //       cnt: 1,
+      //       fromUser: user.id,
+      //       name: 'like',
+      //       route: 'like',
+      //       toUser: peerUser.id,
+      //     }
+      //     dispatch(sendHeart({ accessToken: auth.token, heartData }))
+      //     console.log('하트 보냄')
+      //   }
+      // })
+
       openvidu.session.on('streamDestroyed', event => {
-        // const heartData = {
-        //   cnt: 1,
-        //   fromUser: user.email,
-        //   name: 'give',
-        //   route: 'give',
-        //   toUser: peerUser.email,
-        // }
-        // dispatch(sendHeart({ token: auth.token, heartData }))
         dispatch(ovActions.deleteSubscriber(event.stream.streamManager))
         dispatch(peerUserActions.deletePeerUserData())
       })
@@ -72,7 +78,7 @@ const VideoControlBtns = ({ onLeaveSession, onToggleDevice, devices }) => {
           dispatch(leaveRoom({ roomId: room.roomId }))
           dispatch(ovActions.leaveSession())
           window.location.replace('/meeting?rematching=true')
-        }, 3000)
+        }, 2000)
         return () => clearInterval(timeEvent)
       })
     } else {
@@ -88,7 +94,7 @@ const VideoControlBtns = ({ onLeaveSession, onToggleDevice, devices }) => {
   const toggleCameraHandler = () => setCamera(prevCamera => !prevCamera)
 
   // 하트 설정
-  const toggleHeartHandler = () => setHeart(pervHeart => !pervHeart)
+  const toggleHeartHandler = () => setHeart(prevHeart => !prevHeart)
 
   const reMatchingUserHandler = () => {
     openvidu.publisher.session.signal({
@@ -137,6 +143,17 @@ const VideoControlBtns = ({ onLeaveSession, onToggleDevice, devices }) => {
         }
         if (parseInt(seconds) === 0) {
           if (parseInt(minutes) === 0) {
+            if (heart) {
+              const heartData = {
+                cnt: 1,
+                fromUser: user.id,
+                name: 'like',
+                route: 'like',
+                toUser: peerUser.id,
+              }
+              dispatch(sendHeart({ accessToken: auth.token, heartData }))
+              dispatch(getMyHeart(auth.token))
+            }
             clearInterval(countdown)
             dispatch(ovActions.leaveSession())
             window.location.replace('/meeting?rematching=true')
@@ -168,6 +185,17 @@ const VideoControlBtns = ({ onLeaveSession, onToggleDevice, devices }) => {
           openvidu_timer_seconds.current.textContent =
             seconds < 10 ? `0${seconds}` : seconds
           if (parseInt(minutes) === 0 && parseInt(seconds) <= 1) {
+            if (heart) {
+              const heartData = {
+                cnt: 1,
+                fromUser: user.id,
+                name: 'like',
+                route: 'like',
+                toUser: peerUser.id,
+              }
+              dispatch(sendHeart({ accessToken: auth.token, heartData }))
+              dispatch(getMyHeart(auth.token))
+            }
             clearInterval(countdown)
             dispatch(ovActions.leaveSession())
             window.location.replace('/meeting?rematching=true')
