@@ -1,4 +1,4 @@
-import Button from './Button'
+import Button from '../common/Button'
 import classes from './LandingSection.module.css'
 import PropTypes from 'prop-types'
 
@@ -6,8 +6,7 @@ export default function LandingSection({ content }) {
   return (
     <section className={classes.landingSection}>
       <div className={`${classes.wrapper} ${content.center && classes.center}`}>
-        {content.center ||
-          (content.right && <div className={classes.tempImg} />)}
+        {content.center || (content.right && content.foreground)}
         <div
           className={`${classes.contents} ${content.right && classes.right}`}
         >
@@ -29,8 +28,7 @@ export default function LandingSection({ content }) {
             </div>
           )}
         </div>
-        {content.center ||
-          (!content.right && <div className={classes.tempImg} />)}
+        {content.center || (!content.right && content.foreground)}
       </div>
     </section>
   )
@@ -47,5 +45,6 @@ LandingSection.propTypes = {
       action: PropTypes.func,
     }),
     right: PropTypes.bool,
+    foreground: PropTypes.node.isRequired,
   }),
 }

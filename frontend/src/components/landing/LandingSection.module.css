@@ -2,8 +2,6 @@
   height: 90vh;
   display: flex;
   align-items: center;
-
-  background-color: #eee;
 }
 
 .wrapper {
@@ -47,10 +45,4 @@
 
 .action {
   width: 128px;
-}
-
-.tempImg {
-  width: 512px;
-  height: 512px;
-  background-color: var(--color-secondary);
 }

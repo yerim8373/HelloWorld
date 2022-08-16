@@ -1,5 +1,6 @@
-import LandingSection from '../components/common/LandingSection'
+import LandingSection from '../components/landing/LandingSection'
 import FooterBar from '../components/common/FooterBar'
+import RotatingGlobe from '../components/landing/RotatingGlobe'
 
 const contents = [
   {
@@ -14,15 +15,18 @@ const contents = [
         console.log('move to login page')
       },
     },
+    foreground: <RotatingGlobe />,
   },
   {
     title: ['전 세계 사람들과 랜덤으로 1:1 화상통화'],
     content: ['혹시 아나요? 지구 반대편 사람과 새로운 친구가 될지.'],
+    foreground: <div></div>,
   },
   {
     title: ['5분마다 만나는 새로운 인연'],
     content: ['대화가 길어질까봐 걱정하지 않으셔도 돼요.'],
     right: true,
+    foreground: <div></div>,
   },
   {
     title: [
@@ -30,6 +34,7 @@ const contents = [
       '언어와 국가를 필터링해보세요',
     ],
     content: ['여러분의 가장 자신 있는 언어로 이야기할 수 있어요!'],
+    foreground: <div></div>,
   },
   {
     title: [
@@ -38,6 +43,7 @@ const contents = [
     ],
     content: ['이런 기능도 있을 줄 몰랐지만 있죠.'],
     right: true,
+    foreground: <div></div>,
   },
   {
     title: ['5분이 너무 짧다고요?', '그런 당신께 VIP를 추천해요!'],
@@ -49,6 +55,7 @@ const contents = [
         console.log('move to subcription page')
       },
     },
+    foreground: <div></div>,
   },
   {
     title: ['자, 그럼 시작해볼까요?'],
@@ -59,6 +66,7 @@ const contents = [
       },
     },
     center: true,
+    foreground: <div></div>,
   },
 ]
 
