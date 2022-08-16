@@ -4,7 +4,15 @@ import { getHeartHistory } from './hearthistory-thunkActions'
 const hearthistorySlice = createSlice({
   name: 'heart',
   initialState: {
-    history: [],
+    history: [
+      {
+        heartid: undefined,
+        heartdate: undefined,
+        heartopponent: undefined,
+        heartaction: undefined,
+        heartamount: undefined,
+      },
+    ],
     isError: undefined,
     message: undefined,
   },
@@ -13,8 +21,9 @@ const hearthistorySlice = createSlice({
       return
     },
     [getHeartHistory.fulfilled]: (state, { payload }) => {
-      console.log(payload.data)
-      state.history = payload.data
+      // console.log('111')
+      // console.log(payload)
+      // console.log('111')
     },
     [getHeartHistory.rejected]: (state, { payload }) => {
       state.isError = true
