@@ -38,7 +38,7 @@ const VideoDisplay = ({ size, userData, streamManager }) => {
               <span>{userData.nickname}</span>
             </div>
             <div className={classes.hearts_info}>
-              <span className={classes.heart_icon}>❤</span>
+              <span className={classes.heart_icon}>❤ </span>
               <span>{userData.heart}</span>
             </div>
           </div>

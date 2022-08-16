@@ -6,6 +6,8 @@ import {
   BsFillCameraVideoFill,
   BsFillCameraVideoOffFill,
   BsStopwatch,
+  BsHeartFill,
+  BsHeart,
 } from 'react-icons/bs'
 import classes from './VideoControlBtns.module.css'
 
@@ -17,11 +19,15 @@ import { useDispatch, useSelector } from 'react-redux'
 import { ovActions } from '../../store/ov-slice'
 import { useNavigate } from 'react-router-dom'
 import { leaveRoom } from '../../store/room-thunkActions'
+import { peerUserActions } from '../../store/peerUser-slice'
+import Sheet from '../common/Sheet'
+import { sendHeart } from '../../store/user-thunkActions'
 
 const VideoControlBtns = ({ onLeaveSession, onToggleDevice, devices }) => {
-  const [mic, setMic] = useState(true)
+  const [mic, setMic] = useState(false)
   const [camera, setCamera] = useState(false)
-  const [minutes, setMinutes] = useState(5)
+  const [heart, setHeart] = useState(false)
+  const [minutes, setMinutes] = useState(5000)
   const [seconds, setSeconds] = useState(30)
 
   const dispatch = useDispatch()
@@ -29,6 +35,7 @@ const VideoControlBtns = ({ onLeaveSession, onToggleDevice, devices }) => {
   const auth = useSelector(state => state.auth)
   const room = useSelector(state => state.room)
   const user = useSelector(state => state.user)
+  const peerUser = useSelector(state => state.peerUser)
   const openvidu = useSelector(state => state.openvidu)
 
   useEffect(() => {
@@ -47,6 +54,19 @@ const VideoControlBtns = ({ onLeaveSession, onToggleDevice, devices }) => {
       })
     }
     if (openvidu.session) {
+      openvidu.session.on('streamDestroyed', event => {
+        // const heartData = {
+        //   cnt: 1,
+        //   fromUser: user.email,
+        //   name: 'give',
+        //   route: 'give',
+        //   toUser: peerUser.email,
+        // }
+        // dispatch(sendHeart({ token: auth.token, heartData }))
+        dispatch(ovActions.deleteSubscriber(event.stream.streamManager))
+        dispatch(peerUserActions.deletePeerUserData())
+      })
+
       openvidu.session.on('signal:rematching', event => {
         const timeEvent = setTimeout(() => {
           dispatch(leaveRoom({ roomId: room.roomId }))
@@ -61,11 +81,14 @@ const VideoControlBtns = ({ onLeaveSession, onToggleDevice, devices }) => {
     }
   }, [])
 
-  // 마이크 설정 로직
+  // 마이크 설정
   const toggleMicHandler = () => setMic(prevMic => !prevMic)
 
-  // 비디오 설정 로직
+  // 비디오 설정
   const toggleCameraHandler = () => setCamera(prevCamera => !prevCamera)
+
+  // 하트 설정
+  const toggleHeartHandler = () => setHeart(pervHeart => !pervHeart)
 
   const reMatchingUserHandler = () => {
     openvidu.publisher.session.signal({
@@ -158,48 +181,52 @@ const VideoControlBtns = ({ onLeaveSession, onToggleDevice, devices }) => {
   // 상대방이 방에서 떠나는 경우 나도 나가지도록
 
   return (
-    <div className={`flex_row_space_evenly ${classes.btns_wrapper}`}>
-      <div>
-        <span onClick={toggleMicHandler} className={classes.icon}>
-          {mic ? <BsFillMicFill /> : <BsFillMicMuteFill />}
-        </span>
-        <span onClick={toggleCameraHandler} className={classes.icon}>
-          {camera ? <BsFillCameraVideoFill /> : <BsFillCameraVideoOffFill />}
-        </span>
-        <span className={classes.icon}>
-          <BsStopwatch />
-        </span>
-        <span className={classes.timer}>
-          <span ref={openvidu_timer_minites}></span>
-          <span> : </span>
-          <span ref={openvidu_timer_seconds}></span>
-        </span>
-      </div>
-      <div>
-        {user.subscribe ? (
+    <div className={`flex_row_space_between ${classes.btns_wrapper}`}>
+      <Sheet>
+        <div className={`flex_row_center ${classes.icons}`}>
+          <span onClick={toggleHeartHandler} className={classes.icon}>
+            {heart ? <BsHeartFill /> : <BsHeart />}
+          </span>
+          <span onClick={toggleMicHandler} className={classes.icon}>
+            {mic ? <BsFillMicFill /> : <BsFillMicMuteFill />}
+          </span>
+          <span onClick={toggleCameraHandler} className={classes.icon}>
+            {camera ? <BsFillCameraVideoFill /> : <BsFillCameraVideoOffFill />}
+          </span>
+          <span className={classes.icon}>
+            <BsStopwatch />
+          </span>
+          <span className={classes.timer}>
+            <span ref={openvidu_timer_minites}></span>
+            <span> : </span>
+            <span ref={openvidu_timer_seconds}></span>
+          </span>
+          {user.subscribe ? (
+            <Button
+              size="small"
+              text="시간연장"
+              onEvent={restoreTimeHandler}
+            ></Button>
+          ) : (
+            <Button size="small" text="시간연장" color="neutral"></Button>
+          )}
+        </div>
+      </Sheet>
+      <Sheet>
+        <div className={`flex_row_center ${classes.matching_event}`}>
           <Button
             size="small"
-            text="시간연장"
-            onEvent={restoreTimeHandler}
+            text="다음매칭"
+            onEvent={reMatchingUserHandler}
           ></Button>
-        ) : (
-          <Button size="small" text="시간연장" color="neutral"></Button>
-        )}
-      </div>
-
-      <div className={`flex_row ${classes.matching_event}`}>
-        <Button
-          size="small"
-          text="다음으로"
-          onEvent={reMatchingUserHandler}
-        ></Button>
-        <Button
-          size="small"
-          color="error"
-          text="나가기"
-          onEvent={exitRoomHandler}
-        ></Button>
-      </div>
+          <Button
+            size="small"
+            color="error"
+            text="나가기"
+            onEvent={exitRoomHandler}
+          ></Button>
+        </div>
+      </Sheet>
     </div>
   )
 }

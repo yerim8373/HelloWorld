@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
-import { Navigate, useNavigate } from 'react-router-dom'
+import { Navigate, useNavigate, useLocation } from 'react-router-dom'
 import LoadingSpinner from '../common/LoadingSpinner'
 import Button from '../common/Button'
 import classes from './LoadingContainer.module.css'
@@ -43,6 +43,7 @@ function LoadingContainer({ handleModal }) {
   const auth = useSelector(state => state.auth)
   const room = useSelector(state => state.room)
   const openvidu = useSelector(state => state.openvidu)
+  const location = useLocation()
 
   const { token } = auth
   const { mySessionId, OV, session, myUserName } = openvidu
@@ -98,7 +99,7 @@ function LoadingContainer({ handleModal }) {
             let publisher = OV.initPublisher(undefined, {
               audioSource: undefined, // The source of audio. If undefined default microphone
               videoSource: videoDevices[0].deviceId, // The source of video. If undefined default webcam
-              publishAudio: true, // Whether you want to start publishing with your audio unmuted or not
+              publishAudio: false, // Whether you want to start publishing with your audio unmuted or not
               publishVideo: false, // Whether you want to start publishing with your video enabled or not
               resolution: '640x480', // The resolution of your video
               frameRate: 30, // The frame rate of your video
@@ -170,7 +171,11 @@ function LoadingContainer({ handleModal }) {
       if (parseInt(seconds) > 0) {
         setSeconds(parseInt(seconds) - 1)
       } else {
-        navigate(`/meeting/${mySessionId}`, { replace: true })
+        if (location.search === '?rematching=true') {
+          navigate(`/meeting/${mySessionId}`, { replace: true })
+        } else {
+          navigate(`/meeting/${mySessionId}`)
+        }
       }
     }, 1000)
     return () => clearInterval(countdown)

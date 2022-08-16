@@ -4,6 +4,7 @@ import PostSection from './PostSection'
 import classes from './UserMain.module.css'
 import { validToken } from '../../store/auth-thunkActions'
 import { useEffect } from 'react'
+import { ovActions } from '../../store/ov-slice'
 
 const dummy = {
   name: '김싸피',
