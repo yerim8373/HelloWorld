@@ -52,10 +52,10 @@ function App() {
   }
 
   // token 여부 확인
-  const state = useSelector(state => state.auth)
+  const { token } = useSelector(state => state.auth)
   // 토큰 재평가하기 (이슈 있음)
 
-  useInterval(() => dispatch(validToken(state.token)), 300000)
+  useInterval(() => dispatch(validToken(token)), token ? 900000 : null)
 
   return (
     <>
@@ -65,7 +65,7 @@ function App() {
           <Route
             path="/"
             element={
-              state.token ? <Navigate replace to="/meeting" /> : <LandingPage />
+              token ? <Navigate replace to="/meeting" /> : <LandingPage />
             }
           />
           <Route path="/login" element={<LoginPage />} />
