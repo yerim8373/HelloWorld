@@ -20,12 +20,14 @@ const contents = [
   {
     title: ['전 세계 사람들과 랜덤으로 1:1 화상통화'],
     content: ['혹시 아나요? 지구 반대편 사람과 새로운 친구가 될지.'],
+    right: true,
     foreground: <div></div>,
+    background: 'back1',
+    colorInvert: true,
   },
   {
     title: ['5분마다 만나는 새로운 인연'],
     content: ['대화가 길어질까봐 걱정하지 않으셔도 돼요.'],
-    right: true,
     foreground: <div></div>,
   },
   {

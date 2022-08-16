@@ -4,11 +4,28 @@ import PropTypes from 'prop-types'
 
 export default function LandingSection({ content }) {
   return (
-    <section className={classes.landingSection}>
-      <div className={`${classes.wrapper} ${content.center && classes.center}`}>
+    <section
+      className={`${classes.landingSection} ${
+        content.background ? classes.tall : ''
+      }`}
+    >
+      <div
+        className={`${classes.background} ${
+          content.background ? classes[content.background] : ''
+        }`}
+      >
+        <div className={content.background ? classes.blur : ''}></div>
+      </div>
+      <div
+        className={`${classes.wrapper} ${
+          content.center ? classes.center : ''
+        } ${content.colorInvert ? classes.inverted : ''}`}
+      >
         {content.center || (content.right && content.foreground)}
         <div
-          className={`${classes.contents} ${content.right && classes.right}`}
+          className={`${classes.contents} ${
+            content.right ? classes.right : ''
+          }`}
         >
           <h1 className={`${classes.newLine} ${classes.title} display`}>
             {content.title.join('\n')}
@@ -46,5 +63,7 @@ LandingSection.propTypes = {
     }),
     right: PropTypes.bool,
     foreground: PropTypes.node.isRequired,
+    background: PropTypes.string,
+    colorInvert: PropTypes.bool,
   }),
 }
