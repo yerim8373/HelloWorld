@@ -9,19 +9,23 @@ export default function LandingSection({ content }) {
         content.background ? classes.tall : ''
       }`}
     >
-      <div
-        className={`${classes.background} ${
-          content.background ? classes[content.background] : ''
-        }`}
-      >
+      {typeof content.background === 'string' ? (
         <div
-          className={
-            content.background && content.background !== 'last'
-              ? classes.blur
-              : ''
-          }
-        ></div>
-      </div>
+          className={`${classes.background} ${
+            content.background ? classes[content.background] : ''
+          }`}
+        >
+          <div
+            className={
+              content.background && content.background !== 'last'
+                ? classes.blur
+                : ''
+            }
+          ></div>
+        </div>
+      ) : (
+        content.background
+      )}
       <div
         className={`${classes.wrapper} ${
           content.center ? classes.center : ''
@@ -69,7 +73,7 @@ LandingSection.propTypes = {
     }),
     right: PropTypes.bool,
     foreground: PropTypes.node.isRequired,
-    background: PropTypes.string,
+    background: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
     colorInvert: PropTypes.bool,
   }),
 }

@@ -3,6 +3,7 @@ import LandingSection from '../components/landing/LandingSection'
 import FooterBar from '../components/common/FooterBar'
 import RotatingGlobe from '../components/landing/RotatingGlobe'
 import FiveSeconds from '../components/landing/FiveSeconds'
+import LanguageSlide from '../components/landing/LanguageSlide'
 
 const LandingPage = () => {
   const navigate = useNavigate()
@@ -43,7 +44,8 @@ const LandingPage = () => {
       content: ['여러분의 가장 자신 있는 언어로 이야기할 수 있어요!'],
       right: true,
       foreground: <div></div>,
-      background: 'back2',
+      // background: 'back2',
+      background: <LanguageSlide />,
       colorInvert: true,
     },
     {
