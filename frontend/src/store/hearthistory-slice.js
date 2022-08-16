@@ -6,11 +6,19 @@ const hearthistorySlice = createSlice({
   initialState: {
     history: [
       {
-        heartid: undefined,
-        heartdate: undefined,
-        heartopponent: undefined,
-        heartaction: undefined,
-        heartamount: undefined,
+        // heartid: undefined, //heartHistoryId
+        // heartdate: undefined, //regDate
+        // heartopponent: undefined, //from
+        // heartaction: undefined, //route
+        // heartamount: undefined,  //cnd
+        /////////////////////////////////////////////////////////
+        heartHistoryId: undefined,
+        cnt: undefined,
+        from: undefined,
+        to: undefined,
+        name: undefined,
+        route: undefined,
+        regDate: undefined,
       },
     ],
     isError: undefined,
@@ -21,9 +29,16 @@ const hearthistorySlice = createSlice({
       return
     },
     [getHeartHistory.fulfilled]: (state, { payload }) => {
-      // console.log('111')
-      // console.log(payload)
-      // console.log('111')
+      const historyItems = payload.data.map(item => ({
+        heartHistoryId: item.heartHistoryId,
+        cnt: item.cnt,
+        name: item.name,
+        route: item.route,
+        regDate: item.regDate,
+        from: item.from.nickname,
+        to: item.to.nickname,
+      }))
+      state.history = historyItems
     },
     [getHeartHistory.rejected]: (state, { payload }) => {
       state.isError = true
