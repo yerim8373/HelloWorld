@@ -4,20 +4,31 @@
     /* width: 100%; */
 }
 
+.icons {
+  min-width: 500px;
+  width: 20vw;
+}
+
 .icon {
   color: var(--color-success);
-  font-size: 2rem;
-  margin-left:3rem;
+  font-size: 1.5rem;
+  margin-left:1.5rem;
   position: relative;
   top: 5px;
 }
 
+.icon:first-child {
+  color: var(--color-error)
+}
+
 .timer {
   color: var(--color-success);
-  font-size: 2rem;
+  font-size: 1.5rem;
   margin: 0.5rem;
 }
 
-/* .matching_event:nth-last-child() {
-  margin-left: 3rem;
-} */
+.matching_event {
+  width: 15vw;
+  gap: 30px;
+}
+
