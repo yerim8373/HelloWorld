@@ -163,7 +163,7 @@ public class UserServiceImpl implements UserService {
 		Map<String, Integer> map = (Map<String, Integer>)redisUtil.get(key);
 		ObjectMapper mapper = new ObjectMapper();
 		Integer heart = mapper.convertValue(map.get(HEART), Integer.class);
-
+		if(heart == null)heart = 0;
 		return heart;
 	}
 
