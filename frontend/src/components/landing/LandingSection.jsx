@@ -14,7 +14,13 @@ export default function LandingSection({ content }) {
           content.background ? classes[content.background] : ''
         }`}
       >
-        <div className={content.background ? classes.blur : ''}></div>
+        <div
+          className={
+            content.background && content.background !== 'last'
+              ? classes.blur
+              : ''
+          }
+        ></div>
       </div>
       <div
         className={`${classes.wrapper} ${

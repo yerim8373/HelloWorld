@@ -74,3 +74,9 @@
   background: url('../../images/talk1.jpg');
   background-size: cover;
 }
+
+.last {
+  clip-path: none;
+  -webkit-clip-path: none;
+  background: radial-gradient(white, var(--color-grey-300));
+}
