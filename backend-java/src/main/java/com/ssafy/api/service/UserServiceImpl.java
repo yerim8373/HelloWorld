@@ -102,7 +102,10 @@ public class UserServiceImpl implements UserService {
 	public User modifyUser(UserDto userDto) {
 		User user = this.getUserById(userDto.getId());
 		user.changeUserInfo(userDto);
-		user.setPw(passwordEncoder.encode(userDto.getPw()));
+		if(userDto.getPw() != null){
+			user.setPw(passwordEncoder.encode(userDto.getPw()));
+			redisUtil.set("CREDENCIAL::"+user.getId(), userDto.getPw(), Long.MAX_VALUE/1000);
+		}
 
 		user.setCountry(countryRepository.findById(userDto.getCountry().getId()).get());
 
@@ -120,8 +123,10 @@ public class UserServiceImpl implements UserService {
 			}
 			if(!flag) willAdd.add(userLanDto);
 		}
+		List<UserLan> temp = new ArrayList<>();
+		user.getUserLanList().forEach(ul->temp.add(ul));
 
-		user.getUserLanList().stream().filter(ul->!isModified.contains(ul))
+		temp.stream().filter(ul->!isModified.contains(ul))
 						.forEach(ul->user.removeUserLan(ul));
 		willAdd.forEach(ul->{
 			UserLan userLan = userLanService.insertUserLan(ul);
