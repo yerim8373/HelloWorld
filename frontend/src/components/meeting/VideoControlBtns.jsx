@@ -21,14 +21,14 @@ import { useNavigate } from 'react-router-dom'
 import { leaveRoom } from '../../store/room-thunkActions'
 import { peerUserActions } from '../../store/peerUser-slice'
 import Sheet from '../common/Sheet'
-import { getMyHeart, sendHeart } from '../../store/user-thunkActions'
+import { getMyHeart, heartEvent } from '../../store/user-thunkActions'
 
 const VideoControlBtns = ({ onLeaveSession, onToggleDevice, devices }) => {
   const [mic, setMic] = useState(false)
   const [camera, setCamera] = useState(false)
   const [heart, setHeart] = useState(false)
   const [minutes, setMinutes] = useState(0)
-  const [seconds, setSeconds] = useState(10)
+  const [seconds, setSeconds] = useState(15)
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -54,20 +54,6 @@ const VideoControlBtns = ({ onLeaveSession, onToggleDevice, devices }) => {
       })
     }
     if (openvidu.session) {
-      // openvidu.session.on('sessionDisconnected', event => {
-      //   if (heart) {
-      //     const heartData = {
-      //       cnt: 1,
-      //       fromUser: user.id,
-      //       name: 'like',
-      //       route: 'like',
-      //       toUser: peerUser.id,
-      //     }
-      //     dispatch(sendHeart({ accessToken: auth.token, heartData }))
-      //     console.log('하트 보냄')
-      //   }
-      // })
-
       openvidu.session.on('streamDestroyed', event => {
         dispatch(ovActions.deleteSubscriber(event.stream.streamManager))
         dispatch(peerUserActions.deletePeerUserData())
@@ -78,7 +64,7 @@ const VideoControlBtns = ({ onLeaveSession, onToggleDevice, devices }) => {
           dispatch(leaveRoom({ roomId: room.roomId }))
           dispatch(ovActions.leaveSession())
           window.location.replace('/meeting?rematching=true')
-        }, 2000)
+        }, 4000)
         return () => clearInterval(timeEvent)
       })
     } else {
@@ -116,18 +102,47 @@ const VideoControlBtns = ({ onLeaveSession, onToggleDevice, devices }) => {
 
   const restoreTimeHandler = () => {
     if (room.isCreatedRoom) {
-      setMinutes(5)
-      setSeconds(0)
+      if (user.subscribe) {
+        setMinutes(5)
+        setSeconds(0)
+      } else if (user.heart >= 5) {
+        const heartData = {
+          cnt: -5,
+          fromUser: user.id,
+          name: 'extention',
+          route: 'extention',
+          toUser: 1,
+        }
+        dispatch(heartEvent({ accessToken: auth.token, heartData }))
+        dispatch(getMyHeart(auth.token))
+        setMinutes(5)
+        setSeconds(0)
+      }
     } else {
-      openvidu.publisher.session.signal({
-        type: 'restore',
-      })
+      if (user.subscribe) {
+        openvidu.publisher.session.signal({
+          type: 'restore',
+        })
+      } else if (user.heart >= 5) {
+        const heartData = {
+          cnt: -5,
+          fromUser: user.id,
+          name: 'extention',
+          route: 'extention',
+          toUser: 1,
+        }
+        dispatch(heartEvent({ accessToken: auth.token, heartData }))
+        dispatch(getMyHeart(auth.token))
+        openvidu.publisher.session.signal({
+          type: 'restore',
+        })
+      }
     }
   }
 
   let openvidu_timer_minites = useRef()
   let openvidu_timer_seconds = useRef()
-  // 시계 카운트
+
   useEffect(() => {
     // timer 로직 요약 설명
     // 생성자 -> 입장자 이루어지는 단방향 로직 설정
@@ -136,33 +151,8 @@ const VideoControlBtns = ({ onLeaveSession, onToggleDevice, devices }) => {
     // 방 입장자는 1초마다 제공되는 timer를 렌더링만 해야한다.
 
     // 방 생성자용 timer 설정
-    const countdown = setInterval(() => {
+    const countdown = setInterval(async () => {
       if (room.isCreatedRoom) {
-        if (parseInt(seconds) > 0) {
-          setSeconds(parseInt(seconds) - 1)
-        }
-        if (parseInt(seconds) === 0) {
-          if (parseInt(minutes) === 0) {
-            if (heart) {
-              const heartData = {
-                cnt: 1,
-                fromUser: user.id,
-                name: 'like',
-                route: 'like',
-                toUser: peerUser.id,
-              }
-              dispatch(sendHeart({ accessToken: auth.token, heartData }))
-              dispatch(getMyHeart(auth.token))
-            }
-            clearInterval(countdown)
-            dispatch(ovActions.leaveSession())
-            window.location.replace('/meeting?rematching=true')
-          } else {
-            setMinutes(parseInt(minutes) - 1)
-            setSeconds(59)
-          }
-        }
-
         const data = {
           minutes: minutes,
           seconds: seconds,
@@ -176,15 +166,12 @@ const VideoControlBtns = ({ onLeaveSession, onToggleDevice, devices }) => {
           data: JSON.stringify(data),
           type: 'timerShare',
         })
-      } else {
-        // 방 입장자용 timer 렌더 설정
-        openvidu.session.on('signal:timerShare', event => {
-          const data = JSON.parse(event.data)
-          const { minutes, seconds } = data
-          openvidu_timer_minites.current.textContent = minutes
-          openvidu_timer_seconds.current.textContent =
-            seconds < 10 ? `0${seconds}` : seconds
-          if (parseInt(minutes) === 0 && parseInt(seconds) <= 1) {
+
+        if (seconds >= 0) {
+          setSeconds(seconds - 1)
+        }
+        if (seconds === 0) {
+          if (minutes === 0) {
             if (heart) {
               const heartData = {
                 cnt: 1,
@@ -193,18 +180,48 @@ const VideoControlBtns = ({ onLeaveSession, onToggleDevice, devices }) => {
                 route: 'like',
                 toUser: peerUser.id,
               }
-              dispatch(sendHeart({ accessToken: auth.token, heartData }))
-              dispatch(getMyHeart(auth.token))
+              await dispatch(heartEvent({ accessToken: auth.token, heartData }))
             }
             clearInterval(countdown)
             dispatch(ovActions.leaveSession())
             window.location.replace('/meeting?rematching=true')
+          } else {
+            setMinutes(parseInt(minutes) - 1)
+            setSeconds(59)
           }
+        }
+      } else {
+        // 방 입장자용 timer 렌더 설정
+        openvidu.session.on('signal:timerShare', event => {
+          const data = JSON.parse(event.data)
+
+          openvidu_timer_minites.current.textContent = data.minutes
+          openvidu_timer_seconds.current.textContent =
+            data.seconds < 10 ? `0${data.seconds}` : data.seconds
+
+          setMinutes(data.minutes)
+          setSeconds(data.seconds)
         })
+
+        if (minutes === 0 && seconds === 0) {
+          if (heart) {
+            const heartData = {
+              cnt: 1,
+              fromUser: user.id,
+              name: 'like',
+              route: 'like',
+              toUser: peerUser.id,
+            }
+            dispatch(heartEvent({ accessToken: auth.token, heartData }))
+          }
+          clearInterval(countdown)
+          dispatch(ovActions.leaveSession())
+          window.location.replace('/meeting?rematching=true')
+        }
       }
     }, 1000)
     return () => clearInterval(countdown)
-  }, [minutes, seconds])
+  }, [minutes, seconds, heart])
 
   // 상대방이 방에서 떠나는 경우 나도 나가지도록
 
@@ -229,7 +246,7 @@ const VideoControlBtns = ({ onLeaveSession, onToggleDevice, devices }) => {
             <span> : </span>
             <span ref={openvidu_timer_seconds}></span>
           </span>
-          {user.subscribe ? (
+          {user.subscribe || user.heart >= 5 ? (
             <Button
               size="small"
               text="시간연장"

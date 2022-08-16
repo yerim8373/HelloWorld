@@ -51,7 +51,7 @@ function LoadingContainer({ handleModal }) {
   const { nickname, heart, country } = user
 
   const [loading, setLoading] = useState(true)
-  const [seconds, setSeconds] = useState(5000)
+  const [seconds, setSeconds] = useState(500000)
   const [tip, setTip] = useState('')
 
   const navigate = useNavigate()
@@ -127,47 +127,43 @@ function LoadingContainer({ handleModal }) {
   }, [mySessionId])
 
   useEffect(() => {
-    const initSession = async () => {
-      if (session) {
-        session.on('streamCreated', event => {
-          dispatch(ovActions.enteredSubscriber(event.stream))
-          const timeEvent = setTimeout(() => {
-            setSeconds(5)
-            setLoading(false)
-          }, 1000)
-          return () => clearInterval(timeEvent)
-        })
+    if (session) {
+      session.on('streamCreated', event => {
+        dispatch(ovActions.enteredSubscriber(event.stream))
+        setTimeout(() => {
+          setSeconds(5)
+          setLoading(false)
+        }, 2000)
+      })
 
-        // session.on('streamDestroyed', event => {
-        //   dispatch(ovActions.deleteSubscriber(event.stream.streamManager))
-        //   dispatch(peerUserActions.deletePeerUserData())
-        // })
+      // session.on('streamDestroyed', event => {
+      //   dispatch(ovActions.deleteSubscriber(event.stream.streamManager))
+      //   dispatch(peerUserActions.deletePeerUserData())
+      // })
 
-        session.on('publisherStartSpeaking', () => {
-          console.log('나지금 말하고 있다!!')
-        })
+      session.on('publisherStartSpeaking', () => {
+        console.log('나지금 말하고 있다!!')
+      })
 
-        session.on('publisherStopSpeaking', () => {
-          console.log('나지금 말 멈췄다!')
-        })
+      session.on('publisherStopSpeaking', () => {
+        console.log('나지금 말 멈췄다!')
+      })
 
-        session.on('signal:peerUser', event => {
-          const userData = JSON.parse(event.data)
-          dispatch(peerUserActions.getPeerUserData(userData))
-        })
+      session.on('signal:peerUser', event => {
+        const userData = JSON.parse(event.data)
+        dispatch(peerUserActions.getPeerUserData(userData))
+      })
 
-        session.on('exception', exception => {
-          console.warn(exception)
-        })
-      }
+      session.on('exception', exception => {
+        console.warn(exception)
+      })
     }
-    initSession()
   }, [session])
 
   // 시계 카운트
   useEffect(() => {
     const countdown = setInterval(() => {
-      if (parseInt(seconds) > 0) {
+      if (parseInt(seconds) > 1) {
         setSeconds(parseInt(seconds) - 1)
       } else {
         if (location.search === '?rematching=true') {
