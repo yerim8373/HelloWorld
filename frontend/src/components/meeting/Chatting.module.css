@@ -21,8 +21,8 @@
 }
 
 .chatting_logs {
-  max-height: 300px;
-  height: 250px;
+  max-height: 350px;
+  height: 35vh;
   padding: 2rem;
   overflow-y: scroll;
 }

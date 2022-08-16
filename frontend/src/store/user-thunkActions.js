@@ -141,3 +141,25 @@ export const getMyHeart = createAsyncThunk(
     }
   },
 )
+
+export const sendHeart = createAsyncThunk(
+  'user/sendHeart',
+  async (accessToken, heartData) => {
+    try {
+      const response = await axios.post(
+        `${process.env.REACT_APP_API_URL}/api/v1/user/heart`,
+        {
+          heartData,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        },
+      )
+      return response.data
+    } catch (error) {
+      console.log(error)
+    }
+  },
+)
