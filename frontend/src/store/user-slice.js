@@ -7,7 +7,7 @@ import {
   getImage,
   updateUser,
   getMyHeart,
-  sendHeart,
+  heartEvent,
 } from './user-thunkActions'
 
 const userSlice = createSlice({
@@ -90,7 +90,7 @@ const userSlice = createSlice({
       console.log(payload)
       state.heart = payload.data.heart
     },
-    [sendHeart.fulfilled]: (state, { payload }) => {
+    [heartEvent.fulfilled]: (state, { payload }) => {
       console.log(payload)
     },
   },
