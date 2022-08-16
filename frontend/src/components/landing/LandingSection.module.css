@@ -19,7 +19,7 @@
 
 .blur {
   height: 100%;
-  backdrop-filter: blur(2px) brightness(50%);
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
 .wrapper {
