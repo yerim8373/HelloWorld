@@ -5,6 +5,7 @@ import classes from './UserMain.module.css'
 import { validToken } from '../../store/auth-thunkActions'
 import { useEffect } from 'react'
 import { ovActions } from '../../store/ov-slice'
+import { getMyHeart } from '../../store/user-thunkActions'
 
 const dummy = {
   name: '김싸피',
@@ -40,8 +41,11 @@ const getTempPosts = num => {
 export default function UserMain() {
   const dispatch = useDispatch()
   const auth = useSelector(state => state.auth)
+  const user = useSelector(state => state.user)
+
   useEffect(() => {
-    dispatch(validToken(auth.token))
+    // dispatch(validToken(auth.token))
+    dispatch(getMyHeart(auth.token))
   }, [])
   return (
     <div className="flex_row_center">

@@ -142,8 +142,8 @@ export const getMyHeart = createAsyncThunk(
   },
 )
 
-export const sendHeart = createAsyncThunk(
-  'user/sendHeart',
+export const heartEvent = createAsyncThunk(
+  'user/heartEvent',
   async ({ accessToken, heartData }) => {
     try {
       const response = await axios.post(
