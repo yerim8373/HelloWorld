@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import useInterval from '../utils/hooks/useInterval'
-import classes from './FourImages.module.css'
+import classes from './FiveSeconds.module.css'
 import talk2 from '../../images/talk2.jpg'
 import talk3 from '../../images/talk3.jpg'
 import talk4 from '../../images/talk4.jpg'
