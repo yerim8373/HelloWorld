@@ -138,10 +138,10 @@ function LoadingContainer({ handleModal }) {
           return () => clearInterval(timeEvent)
         })
 
-        session.on('streamDestroyed', event => {
-          dispatch(ovActions.deleteSubscriber(event.stream.streamManager))
-          dispatch(peerUserActions.deletePeerUserData())
-        })
+        // session.on('streamDestroyed', event => {
+        //   dispatch(ovActions.deleteSubscriber(event.stream.streamManager))
+        //   dispatch(peerUserActions.deletePeerUserData())
+        // })
 
         session.on('publisherStartSpeaking', () => {
           console.log('나지금 말하고 있다!!')
@@ -153,7 +153,6 @@ function LoadingContainer({ handleModal }) {
 
         session.on('signal:peerUser', event => {
           const userData = JSON.parse(event.data)
-          console.log(userData)
           dispatch(peerUserActions.getPeerUserData(userData))
         })
 

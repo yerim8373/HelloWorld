@@ -68,6 +68,8 @@ const Meeting = () => {
       nickname: user.nickname,
       heart: user.heart,
       country: user.country,
+      email: user.email,
+      id: user.id,
     }
     openvidu.publisher.session.signal({
       data: JSON.stringify(userData),

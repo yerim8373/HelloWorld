@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types'
 import { NavLink } from 'react-router-dom'
 import { BsGear } from 'react-icons/bs'
 import CountryFlag from 'react-country-flag'
@@ -6,16 +5,18 @@ import Sheet from '../common/Sheet'
 import Badge from '../common/Badge'
 import Heart from '../common/Heart'
 import classes from './ProfileSection.module.css'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { useEffect } from 'react'
+import { getMyHeart } from '../../store/user-thunkActions'
 
-function ProfileSection({ user }) {
-  // 한줄소개
-  // 이미지 파일
-  // 하트
-  // 컨츄리
-  // 아직 반영안됨, 추후 이슈 개선 전까지는 해당 부분은 더미 데이터 활용하겠음
+function ProfileSection() {
+  const dispatch = useDispatch()
 
-  const state = useSelector(state => state.user)
+  const user = useSelector(state => state.user)
+  const auth = useSelector(state => state.auth)
+  useEffect(() => {
+    dispatch(getMyHeart(auth.token))
+  }, [])
 
   return (
     <Sheet size="large">
@@ -24,29 +25,29 @@ function ProfileSection({ user }) {
           <div className={classes.mainInfo}>
             <div className={classes.title}>
               <h1 className="title">
-                안녕하세요, <strong>{state.name}</strong>님!
+                안녕하세요, <strong>{user.name}</strong>님!
               </h1>
-              {state.subscribe && <Badge />}
+              {user.subscribe && <Badge />}
             </div>
             <div className={classes.description}>
-              {state.description
-                ? state.description
+              {user.description
+                ? user.description
                 : '처음 뵙겠습니다. 잘 부탁드립니다.'}
             </div>
           </div>
           <img
-            src={`${process.env.REACT_APP_API_URL}/api/v1/user/image/${state.avatar}`}
+            src={`${process.env.REACT_APP_API_URL}/api/v1/user/image/${user.avatar}`}
             alt="avatar"
             className={classes.avatar}
           />
         </div>
         <div className={classes.subInfo}>
           <div className={classes.subInfoContents}>
-            <Heart count={state.heart} />
+            <Heart count={user.heart} />
             <div className={classes.countryAndLanguages}>
               <CountryFlag
                 svg
-                countryCode={state.country}
+                countryCode={user.country}
                 className={classes.CountryFlag}
                 style={{
                   width: '3rem',
@@ -54,8 +55,8 @@ function ProfileSection({ user }) {
                 }}
               />
               <div className={classes.languages}>
-                {state.languages &&
-                  state.languages.map(({ language }) => (
+                {user.languages &&
+                  user.languages.map(({ language }) => (
                     <div key={language.lan} className={classes.language}>
                       {language.lan}
                     </div>
@@ -72,22 +73,23 @@ function ProfileSection({ user }) {
   )
 }
 
-ProfileSection.propTypes = {
-  user: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    nickname: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    gender: PropTypes.string.isRequired,
-    age: PropTypes.number.isRequired,
-    countryId: PropTypes.number.isRequired,
-    mobileNumber: PropTypes.string.isRequired,
-    email: PropTypes.string.isRequired,
-    birthday: PropTypes.string.isRequired,
-    heart: PropTypes.number.isRequired,
-    avatar: PropTypes.string.isRequired,
-    subscribed: PropTypes.bool.isRequired,
-    languages: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-  }).isRequired,
-}
+// user-slice 에서 받아오기 때문에 더이상 필요없음
+// ProfileSection.propTypes = {
+//   user: PropTypes.shape({
+//     name: PropTypes.string.isRequired,
+//     nickname: PropTypes.string.isRequired,
+//     description: PropTypes.string.isRequired,
+//     gender: PropTypes.string.isRequired,
+//     age: PropTypes.number.isRequired,
+//     countryId: PropTypes.number.isRequired,
+//     mobileNumber: PropTypes.string.isRequired,
+//     email: PropTypes.string.isRequired,
+//     birthday: PropTypes.string.isRequired,
+//     heart: PropTypes.number.isRequired,
+//     avatar: PropTypes.string.isRequired,
+//     subscribed: PropTypes.bool.isRequired,
+//     languages: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+//   }).isRequired,
+// }
 
 export default ProfileSection

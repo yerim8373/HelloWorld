@@ -87,6 +87,7 @@ const userSlice = createSlice({
       state.message = payload.message
     },
     [getMyHeart.fulfilled]: (state, { payload }) => {
+      console.log(payload)
       state.heart = payload.data.heart
     },
     [sendHeart.fulfilled]: (state, { payload }) => {

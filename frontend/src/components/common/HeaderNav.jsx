@@ -84,7 +84,7 @@ function HeaderNav() {
               <MenuBtn
                 className={classes.HeaderNav_link_focus}
                 text="랜덤매칭"
-                link="/meeting/loading"
+                link="/meeting?rematching=true"
               />
             </div>
           )}
