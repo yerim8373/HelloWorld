@@ -4,6 +4,7 @@ import FooterBar from '../components/common/FooterBar'
 import RotatingGlobe from '../components/landing/RotatingGlobe'
 import FiveSeconds from '../components/landing/FiveSeconds'
 import LanguageSlide from '../components/landing/LanguageSlide'
+import AboutTopic from '../components/landing/AboutTopic'
 
 const LandingPage = () => {
   const navigate = useNavigate()
@@ -51,10 +52,11 @@ const LandingPage = () => {
     {
       title: [
         '대화할 주제가 없다고요?',
-        '걱정마세요, 주제는 저희가 골라드릴게요',
+        '걱정마세요, 주제는 저희가 골라드릴게요!',
       ],
-      content: ['이런 기능도 있을 줄 몰랐지만 있죠.'],
+      content: ['적어도 어색해질 일은 없겠죠?'],
       foreground: <div></div>,
+      background: <AboutTopic />,
     },
     {
       title: ['5분이 너무 짧다고요?', '그런 당신께 VIP를 추천해요!'],
