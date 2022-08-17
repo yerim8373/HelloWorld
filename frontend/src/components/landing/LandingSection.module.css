@@ -41,6 +41,7 @@
 
 .wrapper.center > .contents {
   align-items: center;
+  text-align: center;
 }
 
 .contents {
@@ -75,8 +76,13 @@
   background-size: cover;
 }
 
+.back2 {
+  background: url('../../images/talk6.jpg');
+  background-size: cover;
+}
+
 .last {
   clip-path: none;
   -webkit-clip-path: none;
-  background: radial-gradient(white, var(--color-grey-300));
+  background: linear-gradient(to bottom, white, var(--color-grey-300));
 }

@@ -5,6 +5,7 @@ import RotatingGlobe from '../components/landing/RotatingGlobe'
 import FiveSeconds from '../components/landing/FiveSeconds'
 import LanguageSlide from '../components/landing/LanguageSlide'
 import AboutTopic from '../components/landing/AboutTopic'
+import VipTable from '../components/landing/VipTable'
 
 const LandingPage = () => {
   const navigate = useNavigate()
@@ -45,7 +46,6 @@ const LandingPage = () => {
       content: ['여러분의 가장 자신 있는 언어로 이야기할 수 있어요!'],
       right: true,
       foreground: <div></div>,
-      // background: 'back2',
       background: <LanguageSlide />,
       colorInvert: true,
     },
@@ -57,18 +57,21 @@ const LandingPage = () => {
       content: ['적어도 어색해질 일은 없겠죠?'],
       foreground: <div></div>,
       background: <AboutTopic />,
+      center: true,
     },
     {
       title: ['5분이 너무 짧다고요?', '그런 당신께 VIP를 추천해요!'],
       content: ['VIP를 구독하고 끊임없이 이야기하세요!'],
       button: {
         name: 'VIP로 가입',
-        color: 'error',
+        color: 'vip',
         action() {
           navigate('/signup')
         },
       },
-      foreground: <div></div>,
+      foreground: <VipTable />,
+      background: 'back2',
+      colorInvert: true,
     },
     {
       title: ['자, 그럼 시작해볼까요?'],
