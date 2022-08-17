@@ -600,3 +600,16 @@
 
 
 ### 220817
+
+#### 종현
+- 에러 고치기
+  - heart history
+  - 유저 프로필 수정
+  - redux-persist 에러
+  - logout 시 localStorage 삭제 추가
+  - peer video rendering 에러
+  - 
+- 발표 준비
+- UCC 준비
+- PPT 준비
+- PPT 작업
