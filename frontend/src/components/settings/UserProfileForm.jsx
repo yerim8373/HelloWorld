@@ -116,27 +116,32 @@ export default function UserProfileForm() {
   const user = useSelector(state => state.user)
   const { token } = useSelector(state => state.auth)
 
-  const [profileImage, setProfileImage] = useState()
-  const [description, setDescription] = useState(user.description || '')
-  const [nickname, setNickname] = useState(user.nickname)
-  const [gender, setGender] = useState(user.gender)
-  const [age, setAge] = useState(user.age)
-  const [callingCode, setCallingCode] = useState(
-    user.mobileNumber.split(' ')[0],
-  )
-  const [mobileNumber, setMobileNumber] = useState(
-    user.mobileNumber.split(' ')[1],
-  )
+  const [profileImage, setProfileImage] = useState('')
+  const [description, setDescription] = useState('')
+  const [nickname, setNickname] = useState('')
+  const [gender, setGender] = useState('')
+  const [age, setAge] = useState(0)
+  const [callingCode, setCallingCode] = useState('')
+  const [mobileNumber, setMobileNumber] = useState('')
   const [country, setCountry] = useState(user.country)
-  const [language1, setLanguage1] = useState(
-    user.languages[0].language.languageId.toString(),
-  )
-  const [language2, setLanguage2] = useState(
-    user.languages[1]?.language.languageId.toString() ?? '0',
-  )
-  const [language3, setLanguage3] = useState(
-    user.languages[2]?.language.languageId.toString() ?? '0',
-  )
+  const [language1, setLanguage1] = useState(0)
+  const [language2, setLanguage2] = useState(0)
+  const [language3, setLanguage3] = useState(0)
+
+  useEffect(() => {
+    if (user.languages && user.languages.length >= 1) {
+      setDescription(user.description)
+      setNickname(user.nickname)
+      setGender(user.gender)
+      setAge(user.age)
+      setCallingCode(user.mobileNumber.split(' ')[0])
+      setMobileNumber(user.mobileNumber.split(' ')[1])
+      setCountry(user.country)
+      setLanguage1(user.languages[0].language.languageId.toString())
+      setLanguage2(user.languages[1]?.language.languageId.toString() ?? '0')
+      setLanguage3(user.languages[2]?.language.languageId.toString() ?? '0')
+    }
+  }, [user])
 
   const dispatch = useDispatch()
 
