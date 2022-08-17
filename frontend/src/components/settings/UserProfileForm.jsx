@@ -184,6 +184,7 @@ export default function UserProfileForm() {
         mobileNumber: `${callingCode} ${mobileNumber}`,
         country: countryData.find(c => c.code === country),
         userLanList,
+        heart: user.heart,
       }
 
       // 서버로 전송
@@ -256,7 +257,7 @@ export default function UserProfileForm() {
             defaultValue={description}
             onData={({ value, valid }) => valid && setDescription(value)}
           />
-          <Heart count={0} />
+          <Heart count={user.heart} />
         </div>
         <div className={classes.profileImageContainer}>
           <ProfileImage src={profileImage} size="xLarge" />
