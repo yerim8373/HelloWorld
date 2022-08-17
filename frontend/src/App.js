@@ -4,7 +4,7 @@ import HeaderNav from './components/common/HeaderNav'
 
 import LoginPage from './pages/auth/LoginPage'
 import SignupPage from './pages/auth/SignupPage'
-import LandingPage from './pages/landingPage'
+import LandingPage from './pages/LandingPage'
 import FindInfo from './pages/auth/find-info'
 import FindEmail from './pages/auth/find-email'
 import FindPassword from './pages/auth/find-password'
