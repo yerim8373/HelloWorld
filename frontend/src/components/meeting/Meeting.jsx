@@ -75,7 +75,7 @@ const Meeting = () => {
       data: JSON.stringify(userData),
       type: 'peerUser',
     })
-  })
+  }, [])
 
   const myData = {
     nickname: user.nickname,

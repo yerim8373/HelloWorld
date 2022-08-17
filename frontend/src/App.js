@@ -4,7 +4,7 @@ import HeaderNav from './components/common/HeaderNav'
 
 import LoginPage from './pages/auth/LoginPage'
 import SignupPage from './pages/auth/SignupPage'
-import LandingPage from './pages/LandingPage'
+import LandingPage from './pages/landingPage'
 import FindInfo from './pages/auth/find-info'
 import FindEmail from './pages/auth/find-email'
 import FindPassword from './pages/auth/find-password'
@@ -55,7 +55,7 @@ function App() {
   const { token } = useSelector(state => state.auth)
   // 토큰 재평가하기 (이슈 있음)
 
-  useInterval(() => dispatch(validToken(token)), token ? 900000 : null)
+  useInterval(() => dispatch(validToken(token)), token ? 300000 : null)
 
   return (
     <>
