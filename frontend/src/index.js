@@ -17,6 +17,11 @@ import axios from 'axios'
 // axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*'
 axios.defaults.withCredentials = true
 
+// localStorage 초기화
+window.addEventListener('beforeunload', () => {
+  localStorage.removeItem('persist:root')
+})
+
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   // <React.StrictMode>
