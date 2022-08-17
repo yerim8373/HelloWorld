@@ -54,11 +54,6 @@ const VideoControlBtns = ({ onLeaveSession, onToggleDevice, devices }) => {
       })
     }
     if (openvidu.session) {
-      openvidu.session.on('streamDestroyed', event => {
-        dispatch(ovActions.deleteSubscriber(event.stream.streamManager))
-        dispatch(peerUserActions.deletePeerUserData())
-      })
-
       openvidu.session.on('signal:rematching', event => {
         const timeEvent = setTimeout(() => {
           dispatch(leaveRoom({ roomId: room.roomId }))

@@ -51,7 +51,7 @@ export default function HeartHistory() {
                     h.route === 'LIKE' ? classes.plus : classes.minus
                   }`}
                 >
-                  {h.route === 'LIKE' ? '+' : '-'}
+                  {h.route === 'LIKE' ? '+' : ''}
                   {h.cnt}
                 </div>
               </div>

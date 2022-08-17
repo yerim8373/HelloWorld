@@ -25,7 +25,7 @@ function ProfileSection() {
           <div className={classes.mainInfo}>
             <div className={classes.title}>
               <h1 className="title">
-                안녕하세요, <strong>{user.name}</strong>님!
+                안녕하세요, <strong>{user.nickname}</strong>님!
               </h1>
               {user.subscribe && <Badge />}
             </div>
