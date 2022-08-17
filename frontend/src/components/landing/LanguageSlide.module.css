@@ -6,6 +6,8 @@
   gap: 2rem;
   overflow-y: hidden;
   background-color: var(--color-grey-900);
+  clip-path: polygon(0 15%, 100% 0, 100% 85%, 0% 100%);
+  -webkit-clip-path: polygon(0 15%, 100% 0, 100% 85%, 0% 100%);
 }
 
 .greeting {
