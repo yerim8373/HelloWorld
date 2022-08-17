@@ -44,8 +44,11 @@ export default function UserMain() {
   const user = useSelector(state => state.user)
 
   useEffect(() => {
-    // dispatch(validToken(auth.token))
-    dispatch(getMyHeart(auth.token))
+    const init = async () => {
+      await dispatch(validToken(auth.token))
+      await dispatch(getMyHeart(auth.token))
+    }
+    init()
   }, [])
   return (
     <div className="flex_row_center">

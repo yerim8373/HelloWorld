@@ -24,7 +24,7 @@ import Sheet from '../common/Sheet'
 import { getMyHeart, heartEvent } from '../../store/user-thunkActions'
 
 const VideoControlBtns = ({ onLeaveSession, onToggleDevice, devices }) => {
-  const [mic, setMic] = useState(false)
+  const [mic, setMic] = useState(true)
   const [camera, setCamera] = useState(false)
   const [heart, setHeart] = useState(false)
   const [minutes, setMinutes] = useState(0)
@@ -64,7 +64,7 @@ const VideoControlBtns = ({ onLeaveSession, onToggleDevice, devices }) => {
           dispatch(leaveRoom({ roomId: room.roomId }))
           dispatch(ovActions.leaveSession())
           window.location.replace('/meeting?rematching=true')
-        }, 4000)
+        }, 2000)
         return () => clearInterval(timeEvent)
       })
     } else {

@@ -42,7 +42,7 @@ export default function HeartHistory() {
                     {'['}
                     {h.from.nickname}
                     {']'}
-                    {h.route === 'extend' ? '' : h.heartopponent}
+                    {h.route === 'EXTENTION' ? '' : h.heartopponent}
                     {actionMsg[h.route]}
                   </div>
                 </div>

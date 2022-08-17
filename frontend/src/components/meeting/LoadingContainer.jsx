@@ -46,7 +46,7 @@ function LoadingContainer({ handleModal }) {
   const location = useLocation()
 
   const { token } = auth
-  const { mySessionId, OV, session, myUserName } = openvidu
+  const { mySessionId, OV, session, myUserName, subscriber } = openvidu
   const { roomId } = room
   const { nickname, heart, country } = user
 
@@ -99,7 +99,7 @@ function LoadingContainer({ handleModal }) {
             let publisher = OV.initPublisher(undefined, {
               audioSource: undefined, // The source of audio. If undefined default microphone
               videoSource: videoDevices[0].deviceId, // The source of video. If undefined default webcam
-              publishAudio: false, // Whether you want to start publishing with your audio unmuted or not
+              publishAudio: true, // Whether you want to start publishing with your audio unmuted or not
               publishVideo: false, // Whether you want to start publishing with your video enabled or not
               resolution: '640x480', // The resolution of your video
               frameRate: 30, // The frame rate of your video
@@ -129,6 +129,7 @@ function LoadingContainer({ handleModal }) {
   useEffect(() => {
     if (session) {
       session.on('streamCreated', event => {
+        console.log(event.stream)
         dispatch(ovActions.enteredSubscriber(event.stream))
         setTimeout(() => {
           setSeconds(5)
@@ -136,10 +137,10 @@ function LoadingContainer({ handleModal }) {
         }, 2000)
       })
 
-      // session.on('streamDestroyed', event => {
-      //   dispatch(ovActions.deleteSubscriber(event.stream.streamManager))
-      //   dispatch(peerUserActions.deletePeerUserData())
-      // })
+      session.on('streamDestroyed', event => {
+        dispatch(ovActions.deleteSubscriber(event.stream.streamManager))
+        dispatch(peerUserActions.deletePeerUserData())
+      })
 
       session.on('publisherStartSpeaking', () => {
         console.log('나지금 말하고 있다!!')
@@ -158,7 +159,7 @@ function LoadingContainer({ handleModal }) {
         console.warn(exception)
       })
     }
-  }, [session])
+  }, [session, subscriber])
 
   // 시계 카운트
   useEffect(() => {
