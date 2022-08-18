@@ -4,11 +4,6 @@
     margin: 0 auto;
 }
 
-h1,
-h2 {
-    text-align: center;
-}
-
 .output_wrapper {
     box-sizing: border-box;
     background-color: rgb(240, 240, 240);
