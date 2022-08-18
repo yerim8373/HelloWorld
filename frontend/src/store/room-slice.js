@@ -32,7 +32,6 @@ const roomSlice = createSlice({
     [leaveRoom.fulfilled]: (state, { payload }) => {
       state.roomId = undefined
       state.languages = undefined
-      state.isCreatingRoom = undefined
       state.isError = undefined
       state.message = undefined
       state.isCreatedRoom = undefined

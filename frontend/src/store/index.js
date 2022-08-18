@@ -24,7 +24,7 @@ import peerUserSlice from './peerUser-slice'
 
 const persistConfig = {
   key: 'root',
-  blacklist: ['room', 'openvidu', 'peerUser'],
+  blacklist: ['openvidu', 'room', 'openvidu', 'peerUser'],
   storage,
 }
 

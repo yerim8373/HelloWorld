@@ -5,6 +5,7 @@ import Chatting from './Chatting'
 import QuestionSection from './QuestionSection'
 import classes from './Meeting.module.css'
 import Button from '../common/Button'
+import { peerUserActions } from '../../store/peerUser-slice'
 
 import { useNavigate } from 'react-router-dom'
 
@@ -26,14 +27,14 @@ import {} from 'react-icons/'
 // }
 
 const Meeting = () => {
-  const navigate = useNavigate()
   const user = useSelector(state => state.user)
   const openvidu = useSelector(state => state.openvidu)
   const peerUser = useSelector(state => state.peerUser)
   const dispatch = useDispatch()
+  const room = useSelector(state => state.room)
 
   // // 기기 껐다 켰다
-  const toggleDevice = useCallback(async (audio, video) => {
+  const toggleDevice = async (audio, video) => {
     try {
       let devices = await openvidu.OV.getDevices()
       let videoDevices = devices.filter(device => device.kind === 'videoinput')
@@ -61,7 +62,7 @@ const Meeting = () => {
     } catch (error) {
       console.log(error)
     }
-  }, [])
+  }
 
   useEffect(() => {
     const userData = {
@@ -70,41 +71,39 @@ const Meeting = () => {
       country: user.country,
       email: user.email,
       id: user.id,
+      createdRoom: room.isCreatedRoom ? true : false,
     }
-    openvidu.publisher.session.signal({
-      data: JSON.stringify(userData),
-      type: 'peerUser',
-    })
+
+    if (userData.id) {
+      openvidu.publisher.session.signal({
+        data: JSON.stringify(userData),
+        type: 'peerUser',
+      })
+    }
   }, [])
 
-  const myData = {
-    nickname: user.nickname,
-    country: user.country,
-    heart: user.heart,
-  }
-
-  const peerData = {
-    nickname: peerUser.nickname,
-    country: peerUser.country,
-    heart: peerUser.heart,
-  }
+  useEffect(() => {
+    console.log('현재 : peerUser ', peerUser)
+  }, [peerUser.nickname])
 
   return (
     <div className={classes.meeting_wrapper}>
       <div className={`${classes.meeting}`}>
         <div className={classes.left_display}>
-          <VideoDisplay
-            size="wide"
-            userData={peerData}
-            streamManager={openvidu.subscribers[0]}
-          />
+          {peerUser.nickname && (
+            <VideoDisplay
+              size="wide"
+              userData={peerUser}
+              streamManager={openvidu.subscribers[0]}
+            />
+          )}
           <QuestionSection />
         </div>
         <div className={classes.right_display}>
           <div>
             <VideoDisplay
               size="narrow"
-              userData={myData}
+              userData={user}
               streamManager={openvidu.publisher}
             />
             <VideoControlBtns
