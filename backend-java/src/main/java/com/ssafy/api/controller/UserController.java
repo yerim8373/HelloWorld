@@ -8,6 +8,8 @@ import com.ssafy.common.util.RedisUtil;
 import com.ssafy.common.util.UserRole;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.io.IOUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -44,8 +46,7 @@ public class UserController {
 	private final JwtTokenUtil jwtTokenUtil;
 	private final UserLanService userLanService;
 	private final RedisUtil redisUtil;
-	@Value("${spring.servlet.multipart.location}")
-	private String root;
+	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
 	@PostMapping()
 	@ApiOperation(value = "회원 가입", notes = "<strong>이메일와 패스워드</strong>를 통해 회원가입 한다.")
@@ -76,6 +77,7 @@ public class UserController {
 		System.out.println(jwtTokenUtil.getEmailFromBearerToken(bearerToken));
 		UserDto userDto = UserDto.of(userService.getUserByEmail(jwtTokenUtil.getEmailFromBearerToken(bearerToken)));
 		if(redisUtil.haskey("VIP::"+userDto.getId()))userDto.getAuthorities().add(AuthorityDto.of(UserRole.ROLE_VIP));
+		logger.info("user : {}", userDto);
 		return response.success(userDto
 						,"user information success"
 						,HttpStatus.OK);
@@ -171,8 +173,9 @@ public class UserController {
 	}
 	@GetMapping(value = "/image/{src}", produces = {MediaType.IMAGE_JPEG_VALUE,MediaType.IMAGE_GIF_VALUE,MediaType.IMAGE_PNG_VALUE})
 	public byte[] getImage(@PathVariable String src) throws IOException {
-		String[] split = src.split("`");
-		InputStream in = new FileInputStream("/home/ubuntu/ssafy/"+split[0]+"/"+split[1]);
+//		String[] split = src.split("`");
+//		InputStream in = new FileInputStream("/home/ubuntu/ssafy/"+split[0]+"/"+split[1]);
+		InputStream in = new FileInputStream("/home/ubuntu/ssafy/7/"+src);
 		byte[] bytes = IOUtils.toByteArray(in);
 		in.close();
 		return bytes;

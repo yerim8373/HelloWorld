@@ -20,6 +20,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.io.File;
 import java.io.IOException;
@@ -38,21 +40,14 @@ import java.util.concurrent.ConcurrentHashMap;
 public class UserServiceImpl implements UserService {
 	public static final String INFO = "INFO::";
 	private static final String HEART = "HEART";
-
 	private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 	private final UserRepository userRepository;
 	private final CountryRepository countryRepository;
-	private final UserLanRepository userLanRepository;
 	private final UserLanService userLanService;
 	private final HeartHistoryRepository heartHistoryRepository;
 	private final PasswordEncoder passwordEncoder;
 	private final JwtTokenUtil jwtTokenUtil;
 	private final RedisUtil redisUtil;
-
-
-
-	@Value("${spring.servlet.multipart.location}")
-	private String root;
 
 	@Override
 	public User createUser(SignUpDto signUpDto){
@@ -152,7 +147,12 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<HeartHistory> getUserHeartHistory(String bearerToken) {
 		User user = getUserByEmail(jwtTokenUtil.getEmailFromBearerToken(bearerToken));
-		return user.getHeartHistoryList();
+		List<HeartHistory> res = new ArrayList<>();
+		user.getHeartHistoryList().forEach(hh->res.add(hh));
+		user.getHeartHistories().stream().filter(hh->hh.getRoute().equals(Route.EXTENTION)).forEach(hh->res.add(hh));
+
+		res.sort((o1,o2)->o2.getRegDate().compareTo(o1.getRegDate()));
+		return res;
 	}
 
 	@Override
@@ -209,7 +209,8 @@ public class UserServiceImpl implements UserService {
 
 
 	public String saveImage(MultipartFile multipartFile) throws IOException {
-		String path = "/home/ubuntu/ssafy/"+LocalDateTime.now().getMonthValue();
+//		String path = "/home/ubuntu/ssafy/"+LocalDateTime.now().getMonthValue();
+		String path = "/home/ubuntu/ssafy/7/";
 		logger.info("path : {}",path);
 		String fileName = UUID.randomUUID().toString().substring(0, 10)+multipartFile.getOriginalFilename();
 
@@ -219,6 +220,6 @@ public class UserServiceImpl implements UserService {
 		}
 		multipartFile.transferTo(dest);
 
-		return LocalDateTime.now().getMonthValue()+"`"+fileName;
+		return fileName;
 	}
 }
