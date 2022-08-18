@@ -39,6 +39,9 @@ export default function HeartHistory() {
                 <div className={classes.dateAndMsg}>
                   <div className={classes.date}>{h.regDate}</div>
                   <div className={classes.msg}>
+                    {'['}
+                    {h.from.nickname}
+                    {']'}
                     {h.route === 'EXTENTION' ? '' : h.heartopponent}
                     {actionMsg[h.route]}
                   </div>
