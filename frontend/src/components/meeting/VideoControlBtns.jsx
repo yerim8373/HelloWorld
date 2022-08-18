@@ -27,8 +27,8 @@ const VideoControlBtns = ({ onLeaveSession, onToggleDevice, devices }) => {
   const [mic, setMic] = useState(true)
   const [camera, setCamera] = useState(false)
   const [heart, setHeart] = useState(false)
-  const [minutes, setMinutes] = useState(0)
-  const [seconds, setSeconds] = useState(15)
+  const [minutes, setMinutes] = useState(5)
+  const [seconds, setSeconds] = useState(0)
 
   const dispatch = useDispatch()
   const navigate = useNavigate()

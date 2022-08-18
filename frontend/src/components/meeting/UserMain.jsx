@@ -6,6 +6,7 @@ import { validToken } from '../../store/auth-thunkActions'
 import { useEffect } from 'react'
 import { ovActions } from '../../store/ov-slice'
 import { getMyHeart } from '../../store/user-thunkActions'
+import { useNavigate } from 'react-router-dom'
 
 const dummy = {
   name: '김싸피',
@@ -39,14 +40,18 @@ const getTempPosts = num => {
 }
 
 export default function UserMain() {
+  const navigate = useNavigate()
   const dispatch = useDispatch()
   const auth = useSelector(state => state.auth)
   const user = useSelector(state => state.user)
 
   useEffect(() => {
     const init = async () => {
-      await dispatch(validToken(auth.token))
-      await dispatch(getMyHeart(auth.token))
+      if (auth.token && user.id) {
+        // console.log(auth, user)
+        await dispatch(validToken(auth.token))
+        // await dispatch(getMyHeart(auth.token))
+      }
     }
     init()
   }, [])

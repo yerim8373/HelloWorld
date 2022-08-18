@@ -22,6 +22,7 @@ import WithdrawalPage from './pages/settings/WithdrawalPage'
 import { useDispatch, useSelector } from 'react-redux'
 import { validToken } from './store/auth-thunkActions'
 import useInterval from './components/utils/hooks/useInterval'
+import { createSerializableStateInvariantMiddleware } from '@reduxjs/toolkit'
 
 const authPathSet = new Set([
   '/login',
@@ -52,22 +53,23 @@ function App() {
   }
 
   // token 여부 확인
-  const { token } = useSelector(state => state.auth)
+  const auth = useSelector(state => state.auth)
+  const user = useSelector(state => state.user)
   // 토큰 재평가하기 (이슈 있음)
 
-  useInterval(() => dispatch(validToken(token)), token ? 300000 : null)
+  useInterval(
+    () => {
+      if (auth) dispatch(validToken(auth.token))
+    },
+    auth ? 300000 : null,
+  )
 
   return (
     <>
       {selectedNav}
       <main>
         <Routes>
-          <Route
-            path="/"
-            element={
-              token ? <Navigate replace to="/meeting" /> : <LandingPage />
-            }
-          />
+          <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/auth/find-info" element={<FindInfo />} />

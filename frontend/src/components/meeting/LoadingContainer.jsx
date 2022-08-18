@@ -139,7 +139,16 @@ function LoadingContainer({ handleModal }) {
 
       session.on('streamDestroyed', event => {
         dispatch(ovActions.deleteSubscriber(event.stream.streamManager))
-        dispatch(peerUserActions.deletePeerUserData())
+      })
+
+      session.on('signal:peerUser', event => {
+        const userData = JSON.parse(event.data)
+        if (room.isCreatedRoom !== userData.createdRoom) {
+          console.log('----------------')
+          console.log(userData)
+          console.log('-----------------')
+          dispatch(peerUserActions.getPeerUserData(userData))
+        }
       })
 
       session.on('publisherStartSpeaking', () => {
@@ -150,16 +159,11 @@ function LoadingContainer({ handleModal }) {
         console.log('나지금 말 멈췄다!')
       })
 
-      session.on('signal:peerUser', event => {
-        const userData = JSON.parse(event.data)
-        dispatch(peerUserActions.getPeerUserData(userData))
-      })
-
       session.on('exception', exception => {
         console.warn(exception)
       })
     }
-  }, [session, subscriber])
+  }, [session])
 
   // 시계 카운트
   useEffect(() => {
