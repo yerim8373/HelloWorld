@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { BsGear } from 'react-icons/bs'
 import CountryFlag from 'react-country-flag'
 import Sheet from '../common/Sheet'
@@ -11,12 +11,17 @@ import { getMyHeart } from '../../store/user-thunkActions'
 
 function ProfileSection() {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const user = useSelector(state => state.user)
   const auth = useSelector(state => state.auth)
   useEffect(() => {
-    dispatch(getMyHeart(auth.token))
-  }, [])
+    if (user.id) {
+      dispatch(getMyHeart(auth.token))
+    } else {
+      navigate('/')
+    }
+  }, [user.id])
 
   return (
     <Sheet size="medium_large">

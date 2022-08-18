@@ -47,7 +47,6 @@ function HeaderNav() {
         await dispatch(logout())
         dispatch(clear())
         setShowMenu(!showMenu)
-        localStorage.removeItem('persist:root')
         navigate('/')
       },
     },

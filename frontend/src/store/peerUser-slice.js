@@ -8,14 +8,17 @@ const peerUserSlice = createSlice({
     heart: undefined,
     email: undefined,
     id: undefined,
+    createdRoom: undefined,
   },
   reducers: {
     getPeerUserData: (state, { payload }) => {
+      console.log(payload)
       state.nickname = payload.nickname
       state.country = payload.country
       state.heart = payload.heart
       state.email = payload.email
       state.id = payload.id
+      state.createdRoom = payload.createdRoom
     },
     deletePeerUserData: state => {
       state.nickname = undefined
@@ -23,6 +26,7 @@ const peerUserSlice = createSlice({
       state.heart = undefined
       state.email = undefined
       state.id = undefined
+      state.createdRoom = undefined
     },
   },
 })
