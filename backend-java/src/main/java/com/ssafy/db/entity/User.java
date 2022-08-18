@@ -61,7 +61,6 @@ public class User{
 
     private Boolean blackListNY;
     private LocalDateTime blackExpireDate;
-//    private LocalDateTime membershipExpireDate;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="countryId")
     private Country country;
@@ -73,6 +72,8 @@ public class User{
     private List<Review> reviewList = new ArrayList<>();
     @OneToMany(mappedBy = "toUser")
     private List<HeartHistory> heartHistoryList = new ArrayList<>();
+    @OneToMany(mappedBy = "fromUser")
+    private List<HeartHistory> heartHistories = new ArrayList<>();
     @OneToMany(mappedBy = "user")
     private List<Notification> notificationList = new ArrayList<>();
     @OneToMany(mappedBy = "user")
@@ -81,26 +82,11 @@ public class User{
     private List<Runtime> runtimeList = new ArrayList<>();
     @OneToMany(mappedBy = "user" , cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<UserLan> userLanList = new ArrayList<>();
-//    @OneToMany(mappedBy = "user")
-//    private List<Credit> creditList = new ArrayList<>();
 
     public void setCountry(Country country){
         this.country = country;
     }
 
-//    public void addPeriod(long period) {
-//        if(this.membershipExpireDate == null || this.membershipExpireDate.isBefore(LocalDateTime.now())){
-//            this.membershipExpireDate = LocalDateTime.now().plusMonths(period);
-//        }
-//        else{
-//            this.membershipExpireDate = this.membershipExpireDate.plusMonths(period);
-//        }
-//    }
-
-//    public void setRoom(Room room) {
-//        this.room = room;
-//        room.getUserList().add(this);
-//    }
     public void setAvatarSrc(String src){
         this.avatarSrc = src;
     }
@@ -111,7 +97,6 @@ public class User{
     }
 
     public void changeUserInfo(UserDto userDto){
-
         this.mobileNumber = userDto.getMobileNumber();
         this.nickname = userDto.getNickname();
         this.description = userDto.getDescription();
