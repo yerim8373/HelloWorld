@@ -31,6 +31,9 @@ function Button({
     case 'small':
       className += `${classes.button_small} `
       break
+    case 'large_height':
+      className += `${classes.button_large_height} `
+      break
     default:
       className += `${classes.button_inherit} `
       break

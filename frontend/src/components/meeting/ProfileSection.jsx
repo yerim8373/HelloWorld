@@ -19,7 +19,7 @@ function ProfileSection() {
   }, [])
 
   return (
-    <Sheet size="large">
+    <Sheet size="medium_large">
       <div className={classes.profileContainer}>
         <div className={classes.mainInfoContainer}>
           <div className={classes.mainInfo}>

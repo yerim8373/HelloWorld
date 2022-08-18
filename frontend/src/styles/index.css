@@ -95,6 +95,15 @@ main {
   align-items: center;
 }
 
+/* 가로형 레이아웃 가운데 정렬 */
+.flex_row_center_topgap {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding-top: 3rem;
+}
+
 .flex_row_space_evenly {
   display: flex;
   flex-direction: row;

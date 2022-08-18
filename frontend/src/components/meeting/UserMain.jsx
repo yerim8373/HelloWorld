@@ -51,7 +51,7 @@ export default function UserMain() {
     init()
   }, [])
   return (
-    <div className="flex_row_center">
+    <div className="flex_row_center_topgap">
       <div className={classes.mainPageContents}>
         <MainLeftArea user={dummy}></MainLeftArea>
         <PostSection />

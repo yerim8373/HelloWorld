@@ -3,6 +3,8 @@ import Button from '../common/Button'
 import Modal from '../common/Modal'
 import LoadingContainer from './LoadingContainer'
 import { useLocation } from 'react-router-dom'
+// import { classNames } from 'react-select/dist/declarations/src/utils'
+import classes from '../common/Button.module.css'
 
 export default function MeetingEntrySection() {
   const [modalState, setModalState] = useState(false)
@@ -31,7 +33,12 @@ export default function MeetingEntrySection() {
   return (
     <>
       {/* <Button text="룸 테스트용 버튼" onEvent={roomHandler}></Button> */}
-      <Button text="랜덤 매칭 시작하기" onEvent={handleModal}></Button>
+      <Button
+        text="랜덤 매칭 시작하기"
+        onEvent={handleModal}
+        size="large_height"
+        className={classes.button_text_big}
+      ></Button>
       <Modal
         opened={modalState}
         handleModal={handleModal}
