@@ -22,7 +22,7 @@ export default function Timezone() {
             <div className={classes.text_align}>
               {/* Current Date / Time in{' '} */}
               {/* {tz.value ? tz.value.split('/')[1] : tz.split('/')[1]}:{' '} */}
-              <pre>{datetime.format('YY.MM.DD HH:mm:ss')}</pre>
+              <pre>{datetime.format('YY.MM.DD / HH:mm')}</pre>
             </div>
           </div>
           <br />
