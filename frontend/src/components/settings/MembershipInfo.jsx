@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux'
-import { BsCheckLg } from 'react-icons/bs'
+import { BsCheckLg, BsFillStarFill } from 'react-icons/bs'
 import Badge from '../common/Badge'
 import Button from '../common/Button'
 import classes from './MembershipInfo.module.css'
@@ -35,9 +35,11 @@ export default function MembershipInfo() {
       <table className={classes.table}>
         <thead className={classes.tableHead}>
           <tr>
-            <th></th>
-            <th className={!subscribed ? classes.currentState : ''}>BASIC</th>
-            <th className={subscribed ? classes.currentState : ''}>VIP</th>
+            <th>
+              <BsFillStarFill />
+            </th>
+            <th className={subscribed ? classes.currentState : ''}>BASIC</th>
+            <th className={!subscribed ? classes.currentState : ''}>VIP</th>
           </tr>
         </thead>
         <tbody>
