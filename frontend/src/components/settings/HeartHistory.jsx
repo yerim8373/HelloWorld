@@ -16,7 +16,7 @@ export default function HeartHistory() {
 
   const actionMsg = {
     LIKE: ' 님으로부터 하트를 받았습니다.',
-    EXTENTION: ' 님과의 대화 시간을 연장했습니다.',
+    EXTENTION: '대화 시간을 연장했습니다.',
   }
 
   useEffect(() => {
@@ -39,9 +39,6 @@ export default function HeartHistory() {
                 <div className={classes.dateAndMsg}>
                   <div className={classes.date}>{h.regDate}</div>
                   <div className={classes.msg}>
-                    {'['}
-                    {h.from.nickname}
-                    {']'}
                     {h.route === 'EXTENTION' ? '' : h.heartopponent}
                     {actionMsg[h.route]}
                   </div>
