@@ -6,6 +6,7 @@ import FiveSeconds from '../components/landing/FiveSeconds'
 import LanguageSlide from '../components/landing/LanguageSlide'
 import AboutTopic from '../components/landing/AboutTopic'
 import VipTable from '../components/landing/VipTable'
+import OutroSection from '../components/landing/OutroSection'
 
 const LandingPage = () => {
   const navigate = useNavigate()
@@ -74,7 +75,7 @@ const LandingPage = () => {
       colorInvert: true,
     },
     {
-      title: ['자, 그럼 시작해볼까요?'],
+      title: ['자, 그럼 이야기를 시작해볼까요?'],
       button: {
         name: 'Try now!',
         action() {
@@ -83,7 +84,7 @@ const LandingPage = () => {
       },
       center: true,
       foreground: <div></div>,
-      background: 'last',
+      background: <OutroSection />,
     },
   ]
 
