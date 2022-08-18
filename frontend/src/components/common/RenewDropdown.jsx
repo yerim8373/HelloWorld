@@ -95,7 +95,7 @@ function RenewDropdown({
 
 RenewDropdown.propTypes = {
   id: PropTypes.string,
-  value: PropTypes.string.isRequired,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   placeholder: PropTypes.string,
   items: PropTypes.array.isRequired,
   handleChange: PropTypes.func.isRequired,
