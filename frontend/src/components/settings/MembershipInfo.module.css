@@ -25,6 +25,10 @@
   color: var(--color-vip);
 }
 
+.starIcon {
+  color: yellow;
+}
+
 .content {
   background-color: whitesmoke;
 }

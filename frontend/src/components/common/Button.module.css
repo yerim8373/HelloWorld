@@ -35,6 +35,7 @@
   border-radius: 0.3rem;
   box-shadow: 0px 8px 5px -5px rgba(191, 189, 189, 0.5);
 }
+
 .button_recommend {
   cursor: pointer;
   background-color: var(--color-secondary);
@@ -69,4 +70,14 @@
 
 .button_small {
   width: 7rem;
+}
+
+.button_large_height {
+  width: 43rem;
+  height: 3.5rem;
+}
+
+.button_text_big {
+  text-align: center;
+  /* font-size: large; */
 }

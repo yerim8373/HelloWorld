@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import ProfileSection from './ProfileSection'
+import Timezone from './Timezone'
 import classes from './MainLeftArea.module.css'
 import MeetingEntrySection from './MeetingEntrySection'
 
@@ -7,6 +8,7 @@ function MainLeftArea({ user }) {
   return (
     <div className={classes.mainLeftArea}>
       <ProfileSection user={user}></ProfileSection>
+      <Timezone></Timezone>
       <MeetingEntrySection></MeetingEntrySection>
     </div>
   )

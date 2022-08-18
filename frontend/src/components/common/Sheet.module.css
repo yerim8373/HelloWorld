@@ -13,6 +13,10 @@
   padding: 2rem;
 }
 
+.sheet.medium_large {
+  padding: 3rem;
+}
+
 .sheet.large {
   padding: 4rem;
 }
