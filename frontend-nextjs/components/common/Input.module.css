@@ -1,0 +1,25 @@
+.input_wrapper {
+  padding: 10px;
+  display: inline-block;
+}
+
+.input {
+  display: block;
+  width: 300px;
+  border: none;
+  outline: none;
+  border-bottom: 1px solid #000000;
+  padding: 8px 0;
+}
+
+.input_label {
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.input::placeholder {
+  color: var(--color-grey-500);
+  font-size: 0.8rem;
+  font-family: 100;
+  font-style: italic;
+}

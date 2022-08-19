@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 insert into
     authority
     value
@@ -147,3 +148,22 @@ insert into tip values (0, now(), '這是你第一次，你不知道該說什麼
                        (0, now(), '當其他人的行為或說不恰當的行為時立即點擊舉報按鈕舉報！', 4),
                        (0, now(), '在設置頁面，你可以看到心的歷史！', 4),
                        (0, now(), '點擊聊天消息旁邊的“翻譯”按鈕您可以看到翻譯後的聊天消息！', 4);
+=======
+-- insert into
+--     authority
+--     value
+--     ('ROLE_USER'), ('ROLE_ADMIN'), ('ROLE_VIP');
+-- insert into
+--     user
+--     value
+--     (0, true, 1000, null, null, null, 'admin', 'MALE', null, 'admin', 'admin', 'admin', '$2a$10$bCE.fZaerqsxjhyWfG6ctOKz6uQz1ZWed9q6Rdx5zCsv4z.Q8gD5e', now(), null);
+-- insert into
+--     user_auth
+--     value
+--     (1,'ROLE_ADMIN');
+-- insert into
+--     country
+--     values
+--     (0, now(), 'KOR'), (0, now(), 'ENG'), (0, now(), 'JPN'), (0, now(), 'FRN'), (0, now(), 'CHN');
+select * from post;
+>>>>>>> 3ad38940d481e1517c22f9ea9ac5e5da025bd6ec

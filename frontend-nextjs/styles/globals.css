@@ -1,0 +1,69 @@
+/* Color Variables */
+:root {
+  --color-primary: #49c288;
+  --color-secondary: #5778ec;
+  --color-vip: #6e29ff;
+  --color-success: #1a9459;
+  --color-caution: #f0b622;
+  --color-error: #de2727;
+  --color-grey-900: #323835;
+  --color-grey-500: #7a8982;
+  --color-grey-300: #b2b8bc;
+}
+
+html,
+body {
+  font-family: Pretendard, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+    Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+* {
+  box-sizing: border-box;
+}
+
+.display {
+  font-size: 48px;
+  font-weight: 600;
+}
+.title {
+  font-size: 32px;
+  font-weight: 600;
+}
+.subtitle {
+  font-size: 24px;
+  font-weight: 600;
+}
+.label {
+  font-size: 18px;
+  font-weight: 600;
+}
+.small {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.margin_div {
+  height: 5rem;
+}
+
+/* 가로형 레이아웃 */
+.flex_row {
+  display: flex;
+  flex-direction: row;
+}
+
+/* 가로형 레이아웃 가운데 정렬 */
+.flex_row_center {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.width_50 {
+  width: 50vw;
+}

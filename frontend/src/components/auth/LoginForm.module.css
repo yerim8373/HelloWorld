@@ -1,0 +1,30 @@
+.login_title {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.login_main {
+  margin-bottom: 3rem;
+}
+
+.login_main div {
+  padding: 0.5rem 0;
+}
+
+.login_btns {
+  text-align: center;
+}
+
+.login_btns div {
+  padding: 0.3rem 0;
+}
+
+.login_tip {
+  margin-top: 3rem;
+  color: var(--color-grey-500);
+}
+
+.login_find_info {
+  color: var(--color-secondary);
+  text-decoration: underline;
+}

@@ -1,0 +1,20 @@
+.userWithdrawal {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.msgContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.radioBtnContainer {
+  display: flex;
+}
+
+.warning {
+  color: var(--color-error);
+  font-weight: 500;
+}

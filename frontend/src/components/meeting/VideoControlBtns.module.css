@@ -1,0 +1,10 @@
+.btns_wrapper {
+  margin: 1rem 10rem;
+}
+
+.icon {
+  color: var(--color-success);
+  font-size: 2rem;
+  margin: 1rem;
+}
+
