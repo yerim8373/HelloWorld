@@ -16,7 +16,9 @@
 
 ## 프로젝트 정보
 
+### 프로젝트 진행 기간
 
+- 2022년 7월 11일 ~ 2022년 8월 19일 (6주)
 
 ### 기획의도
 
@@ -90,6 +92,10 @@
 [https://www.figma.com/file/OqoGzyfLCQ1rtuvCJvuIwr/HelloWorld?node-id=0%3A1](https://www.figma.com/file/OqoGzyfLCQ1rtuvCJvuIwr/HelloWorld?node-id=0%3A1)
 
 ![Untitled](./image/Untitled_1.png)
+
+### API 명세서
+
+https://www.notion.so/f498d3e543d843f2ab3258f553207fa6?v=e5bcbb068609417096d27ebc32cd0d65
 
 ## 주요 기능
 
