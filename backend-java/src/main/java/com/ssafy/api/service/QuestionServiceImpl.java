@@ -52,3 +52,4 @@ public class QuestionServiceImpl implements QuestionService{
         question.setRegDate(LocalDateTime.now());
     }
 }
+

@@ -11,3 +11,4 @@ import lombok.*;
 public class SubscribeDto {
     private Long subscribeId;
 }
+

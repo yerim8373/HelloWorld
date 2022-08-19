@@ -41,6 +41,7 @@ import java.util.Map;
 @RequestMapping("/api/v1/user")
 public class UserController {
 
+
 	private final UserService userService;
 	private final Response response;
 	private final JwtTokenUtil jwtTokenUtil;

@@ -38,3 +38,4 @@ public class UserLan extends BaseEntity {
         this.priority = userLanDto.getPriority();
     }
 }
+

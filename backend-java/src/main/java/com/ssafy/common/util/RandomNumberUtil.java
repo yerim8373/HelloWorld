@@ -23,3 +23,4 @@ public class RandomNumberUtil {
         return sb.toString();
     }
 }
+

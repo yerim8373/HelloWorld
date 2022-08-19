@@ -10,3 +10,4 @@ import lombok.*;
 public class ImageDto {
     private String src;
 }
+

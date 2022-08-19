@@ -14,6 +14,7 @@ import java.util.List;
 
 import static com.ssafy.db.entity.QRoom.room;
 
+
 @Service("roomService")
 @RequiredArgsConstructor
 @Transactional

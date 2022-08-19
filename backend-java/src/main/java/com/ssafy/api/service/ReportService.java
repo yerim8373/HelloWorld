@@ -11,3 +11,4 @@ public interface ReportService {
 
     List<ReportDto> getReportsByEmail(String email);
 }
+

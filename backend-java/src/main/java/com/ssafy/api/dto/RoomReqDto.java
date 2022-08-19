@@ -12,3 +12,4 @@ public class RoomReqDto {
     @ApiModelProperty(name = "방 번호", example="QB8TKZC05P")
     private String roomId;
 }
+

@@ -10,3 +10,4 @@ public interface QuestionService {
     void removeQuestion(Long id);
     void insertQuestion(QuestionDto questionDto);
 }
+
