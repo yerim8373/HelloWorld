@@ -530,6 +530,16 @@
 - 미팅 페이지 좌측 하단에 질문 섹션 생성
 - 팁과 마찬가지로 서버로부터 랜덤한 질문을 불러와 화면에 표시
 
+#### 채윤
+- user-withdrawal
+  - 인증 토큰 파트 추가 작성
+  - 401 오류 해결
+  - 탈퇴할때 db 삭제 안되는 부분 해결
+  - 화면전환 및 메뉴 변경 해결
+- hearthistory 파트 작업 진행 
+  - 유저에게 드러나는 정보에 id값이 나오면 안됨. 따라서 닉네임 값을 보여주도록 로직 작성
+  - backend에 hearthistory 관련 파일 수정 요청. 하트를 받았을때의 시간이 보이지 않음. 또한 하트 내역이 변동되었을때 나타나는 시간이 표시되지않음.
+
 
 ### 220815
 
@@ -583,6 +593,12 @@
   - CSS의 `white-space: pre-wrap;` 속성 사용
 - 포스트가 비어 있을 때 별도의 메시지 표시
 
+#### 채윤
+- hearthistory / hearthistory-slice / hearthistory-thunkAction 수정
+- hearthistory 관련 inquire heart용 api 연결
+- 나이 관련 유효성 검사 AgeValid에서 0~9세는 인식이 안되는 오류 발견.
+  - length > 1 이 아닌 length > 0으로 수정
+
 
 ### 220816
 
@@ -616,6 +632,11 @@
   - 인트로 섹션에 이미지와 애니메이션 적용
   - 두 번째 섹션에 이미지와 새론운 스타일 적용
 
+#### 채윤
+- hearthistory / hearthistory-slice 수정
+- hearthistory 401에러 해결
+- hearthistory의 기록용 event에서, extension과 like을 제외한 타 이벤트들 삭제
+- extention(시간연장)과 Like(타 유저 좋아요 표시) 관련 기록에 나타나는 멘트 수정
 
 ### 220817
 
@@ -643,6 +664,10 @@
   - 마지막 섹션 임시 스타일 적용
 - UCC 촬영 및 자료 제공
 
+#### 채윤
+
+- UCC 용 음원 녹음 및 편집
+- settings 페이지 css 수정중
 
 ### 220818
 
@@ -664,3 +689,15 @@
 - 드롭다운 컴포넌트의 `value` prop 타입에 `number` 추가
 - UCC 자료 제공
 
+#### 채윤
+
+- meeting 페이지 공백 해결용 timezone 제작
+- timezone 오류 해결
+- hearthistory에서 extenstion에 to에 유저 본인의 닉네임이 뜨는 이슈 해결
+- footer 팀 정보 추가
+- 프로젝트 내부 쓰레기 파일 삭제(findinfopage)
+- membershipInfo 이슈 해결
+  - 멤버십 소개 정보가 담긴 테이블에서, 유저 본인의 구독상태와 동일한 값을 테이블에 강조하는 것이 아니어야 함. 유저의 구독상태와 다른 값을 테이블에 표시하게 했음.
+  - ex) 구독상태가 아닐 경우, 테이블의 vip가 강조됨
+- settings의 menu 관련 gap 조절
+- UCC 제작 관련된 TTS 서비스 검색 및 팀에게 제공
