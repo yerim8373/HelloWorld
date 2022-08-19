@@ -1,0 +1,41 @@
+.chatting{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.flex_item_log {
+  margin: 0 2rem;
+  flex-grow: 1;
+  height: 100%;
+}
+
+.flex_item_input {
+  margin: 1rem 2rem 2rem 2rem;
+  flex-shrink: -1;
+  flex-grow: 0;
+}
+
+.sheet_height {
+  height: 100%;
+}
+
+.chatting_logs {
+  max-height: 350px;
+  height: 35vh;
+  padding: 2rem;
+  overflow-y: scroll;
+}
+
+.chatting_input_form {
+  width: 100%;
+}
+
+.chatting_input {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid var(--color-grey-300);
+  outline: none;
+  font-size: 1rem;
+}
+

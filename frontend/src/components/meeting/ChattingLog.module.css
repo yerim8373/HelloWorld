@@ -1,0 +1,25 @@
+.chatting_log {
+  display: flex;
+  align-items: center;
+  margin: 0.5rem 0;
+}
+
+.chatting_log_text{
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--color-grey-300);
+  background-color: var(--color-grey-300);
+  padding: 1rem; 
+  border-radius: 10px;
+  max-width: 300px;
+  color: #ffffff;
+}
+
+.right_aligned {
+  justify-content: flex-end;
+}
+
+.right_aligned > span {
+  border: 1px solid var(--color-success);
+  background-color: var(--color-success);
+}

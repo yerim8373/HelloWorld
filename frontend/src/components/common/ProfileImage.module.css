@@ -1,0 +1,34 @@
+.image {
+  background-color: var(--color-grey-300);
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.xSmall {
+  width: 2rem;
+  height: 2rem;
+}
+
+.small {
+  width: 3rem;
+  height: 3rem;
+}
+
+.medium {
+  width: 4rem;
+  height: 4rem;
+}
+
+.large {
+  width: 8rem;
+  height: 8rem;
+}
+
+.xLarge {
+  width: 12rem;
+  height: 12rem;
+}
