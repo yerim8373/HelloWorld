@@ -65,7 +65,8 @@ public class AuthController {
 		if(redisUtil.haskey(key)){
 			return response.fail("블랙리스트 회원입니다.", HttpStatus.FORBIDDEN);
 		}
-		
+
+
 		JWToken jwt = authService.login(signInDTO);
 
 		ResponseCookie cookie = ResponseCookie.from("refresh-token", jwt.getRefreshToken())

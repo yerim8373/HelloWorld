@@ -12,3 +12,4 @@ public interface RoomService {
     List<RoomDto> findRoom();
     RoomDto getRoomDto(String roomId);
 }
+

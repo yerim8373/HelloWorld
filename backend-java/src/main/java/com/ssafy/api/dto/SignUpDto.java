@@ -21,3 +21,4 @@ public class SignUpDto {
     private Long country;
     private List<UserLanDto> languageList;
 }
+

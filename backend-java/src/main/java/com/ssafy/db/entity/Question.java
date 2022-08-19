@@ -24,3 +24,4 @@ public class Question extends BaseEntity{
         this.language = language;
     }
 }
+

@@ -20,3 +20,4 @@ public class InvalidValueException extends RuntimeException {
         super(message, cause, enableSuppression, writableStackTrace);
     }
 }
+

@@ -69,3 +69,4 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .maxAge(86400L);
     }
 }
+

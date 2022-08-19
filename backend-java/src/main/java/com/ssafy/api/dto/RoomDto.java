@@ -33,6 +33,7 @@ public class RoomDto {
         return new RoomDtoBuilder()
                 .roomId(room.getRoomId())
                 .userMake(UserDto.of(room.getUserMake()))
+
                 .build();
     }
 }

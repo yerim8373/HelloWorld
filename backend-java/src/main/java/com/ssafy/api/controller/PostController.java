@@ -35,6 +35,7 @@ public class PostController {
         return response.success(postService.getAllPosts(), "getAllPosts success" , HttpStatus.OK);
     }
 
+
     @GetMapping("/{id}")
     public ResponseEntity<?> getPostById(@PathVariable Long id){
         return response.success(postService.getPostById(id), "getPostById success", HttpStatus.OK);

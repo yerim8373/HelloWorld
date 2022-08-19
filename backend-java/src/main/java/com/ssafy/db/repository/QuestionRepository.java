@@ -12,3 +12,4 @@ public interface QuestionRepository extends JpaRepository<Question, Long> {
     @Query("select q from Question q where q.language.id = (select ul.language.id from UserLan ul where ul.user.id = :userId and ul.priority = 1)")
     List<Question> findAllByUserId(@Param("userId") Long userId);
 }
+

@@ -48,3 +48,4 @@ public class Post extends BaseEntity{
         // 영속된 엔티티를 가져와서 수정한건데 왜 반영이 안됐을까....
     }
 }
+

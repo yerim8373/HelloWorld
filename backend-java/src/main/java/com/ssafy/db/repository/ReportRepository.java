@@ -15,3 +15,4 @@ public interface ReportRepository extends JpaRepository<Report, Long> {
     @Query("select count(r) from Report r where r.user.email = :email and (r.regDate between :start and :end)")
     Long countReportsByEmail(@Param("email") String email,@Param("start") LocalDateTime start,@Param("end") LocalDateTime end);
 }
+

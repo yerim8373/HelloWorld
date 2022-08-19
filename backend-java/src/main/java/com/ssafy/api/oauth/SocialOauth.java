@@ -14,3 +14,4 @@ public interface SocialOauth {
         else return null;
     }
 }
+

@@ -11,3 +11,4 @@ public interface UserLanService {
     void modifyUserLan(UserLanDto userLanDto);
     void removeUserLan(Long id);
 }
+

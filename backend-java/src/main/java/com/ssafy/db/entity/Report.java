@@ -27,3 +27,4 @@ public class Report extends BaseEntity{
         user.getReportList().add(this);
     }
 }
+
