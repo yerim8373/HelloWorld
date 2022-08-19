@@ -12,3 +12,4 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
     @Query("select r from Review r where r.user.email = :email")
     List<Review> findReviewByEmail(@Param("email")String Email);
 }
+

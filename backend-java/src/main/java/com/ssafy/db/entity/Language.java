@@ -19,3 +19,4 @@ public class Language extends BaseEntity{
     @OneToMany(mappedBy = "language")
     private List<Tip> tipList = new ArrayList<>();
 }
+

@@ -13,3 +13,4 @@ public class Authority {
     @Id
     private String authName;
 }
+

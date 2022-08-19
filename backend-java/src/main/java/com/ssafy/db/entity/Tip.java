@@ -26,3 +26,4 @@ public class Tip extends BaseEntity{
         this.language = language;
     }
 }
+

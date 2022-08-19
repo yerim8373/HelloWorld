@@ -11,3 +11,4 @@ public interface OAuthService{
 
     JWToken oauthLogin(SocialLoginType socialLoginType, String code);
 }
+

@@ -20,3 +20,4 @@ public class InvalidEmailAndPasswordException extends RuntimeException{
         super(message, cause, enableSuppression, writableStackTrace);
     }
 }
+

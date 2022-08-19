@@ -95,3 +95,4 @@ public class NaverOauth implements SocialOauth{
         throw new RuntimeException("Naver 이메일 요청 실패");
     }
 }
+

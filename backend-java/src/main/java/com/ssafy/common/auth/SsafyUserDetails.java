@@ -72,3 +72,4 @@ public class SsafyUserDetails implements UserDetails {
 		this.roles = roles;
 	}
 }
+

@@ -34,3 +34,4 @@ public class HeartHistory extends BaseEntity{
         toUser.getHeartHistoryList().add(this);
     }
 }
+

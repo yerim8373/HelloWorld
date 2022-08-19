@@ -95,3 +95,4 @@ public class KakaoOauth implements SocialOauth{
         throw new RuntimeException("kakao 이메일 요청 실패");
     }
 }
+

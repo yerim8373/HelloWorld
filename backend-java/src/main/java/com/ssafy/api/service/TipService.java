@@ -13,3 +13,4 @@ public interface TipService {
     void insertTip(TipDto tipDto);
 
 }
+

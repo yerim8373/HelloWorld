@@ -79,3 +79,4 @@ public class GoogleOauth  implements SocialOauth{
         throw new RuntimeException("Google 이메일 요청 실패");
     }
 }
+

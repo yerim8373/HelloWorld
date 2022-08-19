@@ -16,3 +16,4 @@ public interface RoomRepository extends JpaRepository<Room, String> {
 //    @Query("select u from User u where u.id in (select r. from Room r) ")
 //    List<User> findUserByRoomId(String rooId);
 }
+

@@ -14,3 +14,4 @@ public class Country extends BaseEntity{
     @Column(unique = true)
     String name;
 }
+

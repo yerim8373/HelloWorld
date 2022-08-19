@@ -12,3 +12,4 @@ public interface PostService {
     void removePost(Long id);
     void insertPost(PostDto postDto, String email);
 }
+

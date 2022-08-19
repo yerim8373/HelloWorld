@@ -9,3 +9,4 @@ public interface AuthService {
     void logout(String refreshToken);
     JWToken reissue(String refreshToken);
 }
+

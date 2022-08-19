@@ -19,6 +19,7 @@ public class TipController {
 
     private final JwtTokenUtil jwtTokenUtil;
 
+
     @GetMapping("")
     public ResponseEntity<?> getAllTipByEmail(@RequestHeader("Authorization") String bearerToken){
         String email = jwtTokenUtil.getEmailFromBearerToken(bearerToken);

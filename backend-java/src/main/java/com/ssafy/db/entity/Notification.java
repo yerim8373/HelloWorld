@@ -28,3 +28,4 @@ public class Notification extends BaseEntity{
         user.getNotificationList().add(this);
     }
 }
+

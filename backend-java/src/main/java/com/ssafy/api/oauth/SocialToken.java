@@ -5,3 +5,4 @@ public interface SocialToken {
     public String getRefreshToken();
     public String getEmail();
 }
+
