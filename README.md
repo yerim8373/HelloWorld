@@ -83,13 +83,13 @@
 
 ### ERD
 
-![스크린샷 2022-07-17 오후 8.39.46.png](./image/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2022-07-17_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_8.39.46.png)
+![스크린샷 2022-07-17 오후 8.39.46.png](./image/erd.png)
 
 ### 와이어프레임 & 프로토타이핑
 
 [https://www.figma.com/file/OqoGzyfLCQ1rtuvCJvuIwr/HelloWorld?node-id=0%3A1](https://www.figma.com/file/OqoGzyfLCQ1rtuvCJvuIwr/HelloWorld?node-id=0%3A1)
 
-![Untitled](./image/Untitled%201.png)
+![Untitled](./image/Untitled_1.png)
 
 ## 주요 기능
 
@@ -107,7 +107,7 @@
         - ex: Redux와 같은 상태관리 라이브러리
 - 로직 구현 순서
     
-    ![Untitled](./image/Untitled%202.png)
+    ![Untitled](./image/Untitled_2.png)
     
 
 ### VIP
