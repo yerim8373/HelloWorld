@@ -4,6 +4,10 @@
   cursor: pointer;
 }
 
+.checkbox.locked {
+  cursor: default;
+}
+
 .invisibleBox {
   display: none;
 }
@@ -23,6 +27,10 @@
   height: 16px;
   border: 2px solid black;
   border-radius: 4px;
+}
+
+.backgroundBox.locked {
+  border: 2px solid var(--color-grey-300);
 }
 
 .invisibleBox:checked + .backgroundBox {

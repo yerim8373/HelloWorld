@@ -10,6 +10,7 @@
 }
 
 .mainProfile {
+  width: 50%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -38,9 +39,66 @@
 .subProfileContainer {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
 }
 
 .buttons {
   display: flex;
   gap: 2rem;
+}
+
+.phoneInput {
+  display: flex;
+  align-items: flex-end;
+  gap: 1rem;
+}
+
+.phoneInput > div {
+  width: 50%;
+}
+
+.countryContainer {
+  width: 100%;
+    display: flex;
+    align-items: flex-end;
+    gap: 1rem;
+}
+
+.countryFlag {
+  width: 3rem;
+  height: 2rem;
+  margin-bottom: 2px;
+  background-color: var(--color-grey-100);
+}
+
+.profileImageContainer {
+  height: 12rem;
+  position: relative;
+}
+
+.profileImageCover {
+  width: 12rem;
+  height: 12rem;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  color: white;
+  font-size: 1.5rem;
+  transition: opacity 0.15s;
+}
+
+.profileImageCover:hover {
+  opacity: 1;
+}
+
+.profileImageCover > input[type="file"] {
+  width: 0;
+  height: 0;
+  opacity: 0;
 }

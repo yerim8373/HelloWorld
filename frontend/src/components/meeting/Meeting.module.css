@@ -10,8 +10,13 @@
   justify-content: center;
 }
 
+.left_display {
+  display: flex;
+  flex-direction: column;
+}
+
 .right_display {
   display: grid;
-  grid-template-rows: 60% 40%;
+  grid-template-rows: 55% 45%;
 }
 

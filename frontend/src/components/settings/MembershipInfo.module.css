@@ -9,6 +9,7 @@
   font-size: 1.25rem;
   font-weight: 500;
   background-color: var(--color-grey-300);
+  background-color: #EEE0FD;
 }
 
 .table th,
@@ -24,8 +25,12 @@
   color: var(--color-vip);
 }
 
+.starIcon {
+  color: yellow;
+}
+
 .content {
-  background-color: var(--color-grey-100);
+  background-color: whitesmoke;
 }
 
 .columnHead {
@@ -49,4 +54,12 @@
 .currentState {
   color: white;
   background-color: var(--color-vip);
+}
+
+.table_border_bottom {
+  border-bottom: 2px solid white;
+}
+
+.table_border_right {
+  border-right: 2px solid white;
 }
