@@ -95,7 +95,7 @@
 
 ### API 명세서
 
-https://www.notion.so/f498d3e543d843f2ab3258f553207fa6?v=e5bcbb068609417096d27ebc32cd0d65
+https://subsequent-tuberose-06f.notion.site/f498d3e543d843f2ab3258f553207fa6?v=e5bcbb068609417096d27ebc32cd0d65
 
 ## 주요 기능
 
