@@ -1,0 +1,20 @@
+.questionSection {
+  padding: 0 2rem;
+}
+
+.questionWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.title {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.question {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--color-secondary);
+}

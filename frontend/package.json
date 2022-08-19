@@ -3,17 +3,32 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@reduxjs/toolkit": "^1.8.3",
+    "@stomp/stompjs": "^6.1.2",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^0.27.2",
+    "country-calling-code": "^0.0.3",
+    "moment-timezone": "^0.5.34",
+    "net": "^1.0.2",
+    "openvidu-browser": "^2.22.0",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
+    "react-async": "^10.0.1",
     "react-dom": "^18.2.0",
+    "react-google-login": "^5.2.2",
     "react-icons": "^4.4.0",
+    "react-kakao-login": "^2.1.0",
+    "react-redux": "^8.0.2",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
     "react-select": "^5.4.0",
+    "react-timezone-select": "^1.3.2",
+    "redux-persist": "^6.0.0",
+    "sockjs-client": "^1.6.1",
+    "stompjs": "^2.3.3",
+    "swr": "^1.3.0",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -48,6 +63,7 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.30.1",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "prettier": "2.7.1"
+    "prettier": "2.7.1",
+    "react-country-flag": "^3.0.2"
   }
 }

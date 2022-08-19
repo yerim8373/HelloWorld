@@ -1,0 +1,83 @@
+.rotatingGlobe {
+  width: 15rem;
+  height: 15rem;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 10%;
+}
+
+.earth {
+  transform: scale(1.5);
+}
+
+.people {
+  position: absolute;
+  top: 0;
+  animation: rotate 10s linear infinite;
+}
+
+.bubble1 {
+  position: absolute;
+  top: -60%;
+  left: -100%;
+  opacity: 0;
+  animation: pop 3.1s infinite;
+}
+
+.bubble2 {
+  position: absolute;
+  top: -25%;
+  left: 80%;
+  opacity: 0;
+  animation: pop 3.7s 0.3s infinite;
+}
+
+.bubble3 {
+  position: absolute;
+  top: 50%;
+  left: -130%;
+  opacity: 0;
+  animation: pop 3.4s 0.7s infinite;
+}
+
+.bubble4 {
+  position: absolute;
+  top: 100%;
+  left: 90%;
+  opacity: 0;
+  animation: pop 2.8s 0.9s infinite;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0) scale(2);
+  }
+  100% {
+    transform: rotate(360deg) scale(2);
+  }
+}
+
+@keyframes pop {
+  0% {
+    opacity: 0;
+    transform: translateY(8rem);
+  }
+  15% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  65% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  80% {
+    opacity: 0;
+    transform: translateY(8rem);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(8rem);
+  }
+}
