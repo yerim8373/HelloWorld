@@ -4,7 +4,7 @@
 
 ---
 
-![KakaoTalk_20220817_225801694.png](README%209c54dcce084d4bff8e7a922fcf84c511/KakaoTalk_20220817_225801694.png)
+![KakaoTalk_20220817_225801694.png](./image/KakaoTalk_20220817_225801694.png)
 
 ### **프리토킹**을 위한 자유로운 대화가 가능한 랜덤 화상채팅
 
@@ -12,7 +12,7 @@
 
 ---
 
-![Untitled](README%209c54dcce084d4bff8e7a922fcf84c511/Untitled.png)
+![Untitled](./image/Untitled.png)
 
 ## 프로젝트 정보
 
@@ -83,13 +83,13 @@
 
 ### ERD
 
-![스크린샷 2022-07-17 오후 8.39.46.png](README%209c54dcce084d4bff8e7a922fcf84c511/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2022-07-17_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_8.39.46.png)
+![스크린샷 2022-07-17 오후 8.39.46.png](./image/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2022-07-17_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_8.39.46.png)
 
 ### 와이어프레임 & 프로토타이핑
 
 [https://www.figma.com/file/OqoGzyfLCQ1rtuvCJvuIwr/HelloWorld?node-id=0%3A1](https://www.figma.com/file/OqoGzyfLCQ1rtuvCJvuIwr/HelloWorld?node-id=0%3A1)
 
-![Untitled](README%209c54dcce084d4bff8e7a922fcf84c511/Untitled%201.png)
+![Untitled](./image/Untitled%201.png)
 
 ## 주요 기능
 
@@ -107,7 +107,7 @@
         - ex: Redux와 같은 상태관리 라이브러리
 - 로직 구현 순서
     
-    ![Untitled](README%209c54dcce084d4bff8e7a922fcf84c511/Untitled%202.png)
+    ![Untitled](./image/Untitled%202.png)
     
 
 ### VIP
@@ -133,54 +133,54 @@
 
 [https://www.youtube.com/watch?v=8ZY0X5w0Hig](https://www.youtube.com/watch?v=8ZY0X5w0Hig)
 
-![Untitled](README%209c54dcce084d4bff8e7a922fcf84c511/Untitled%203.png)
+![Untitled](./image/Untitled%203.png)
 
-![Untitled](README%209c54dcce084d4bff8e7a922fcf84c511/Untitled%204.png)
+![Untitled](./image/Untitled%204.png)
 
-![Untitled](README%209c54dcce084d4bff8e7a922fcf84c511/Untitled%205.png)
+![Untitled](./image/Untitled%205.png)
 
-![Untitled](README%209c54dcce084d4bff8e7a922fcf84c511/Untitled%206.png)
+![Untitled](./image/Untitled%206.png)
 
-![Untitled](README%209c54dcce084d4bff8e7a922fcf84c511/Untitled%207.png)
+![Untitled](./image/Untitled%207.png)
 
 ---
 
 ### 랜딩 페이지
 
-![프로젝트 링크 접속 시 가장 먼저 나오는 페이지입니다.](README%209c54dcce084d4bff8e7a922fcf84c511/KakaoTalk_20220819_115037973.gif)
+![프로젝트 링크 접속 시 가장 먼저 나오는 페이지입니다.](./image/KakaoTalk_20220819_115037973.gif)
 
 프로젝트 링크 접속 시 가장 먼저 나오는 페이지입니다.
 
 ### 회원가입
 
-![올바른 이메일과 비밀번호 등의 회원 정보를 입력합니다.](README%209c54dcce084d4bff8e7a922fcf84c511/KakaoTalk_20220819_113829867.gif)
+![올바른 이메일과 비밀번호 등의 회원 정보를 입력합니다.](./image/KakaoTalk_20220819_113829867.gif)
 
 올바른 이메일과 비밀번호 등의 회원 정보를 입력합니다.
 
-![국적, 언어, 프로필 이미지를 설정하고 개인정보 처리방침에 동의하면 회원가입이 완료됩니다.](README%209c54dcce084d4bff8e7a922fcf84c511/KakaoTalk_20220819_113829724.gif)
+![국적, 언어, 프로필 이미지를 설정하고 개인정보 처리방침에 동의하면 회원가입이 완료됩니다.](./image/KakaoTalk_20220819_113829724.gif)
 
 국적, 언어, 프로필 이미지를 설정하고 개인정보 처리방침에 동의하면 회원가입이 완료됩니다.
 
 ### 포스트
 
-![공지사항, 나라별 문화 등의 내용이 등록된 포스트를 볼 수 있습니다.](README%209c54dcce084d4bff8e7a922fcf84c511/KakaoTalk_20220819_113829414.gif)
+![공지사항, 나라별 문화 등의 내용이 등록된 포스트를 볼 수 있습니다.](./image/KakaoTalk_20220819_113829414.gif)
 
 공지사항, 나라별 문화 등의 내용이 등록된 포스트를 볼 수 있습니다.
 
 ### 매칭 & 미팅
 
-![매칭을 시작했을 때 로딩 화면 & 매칭 성공 5초 후 미팅 페이지로 이동합니다](README%209c54dcce084d4bff8e7a922fcf84c511/KakaoTalk_20220819_113829143.gif)
+![매칭을 시작했을 때 로딩 화면 & 매칭 성공 5초 후 미팅 페이지로 이동합니다](./image/KakaoTalk_20220819_113829143.gif)
 
 매칭을 시작했을 때 로딩 화면 & 매칭 성공 5초 후 미팅 페이지로 이동합니다
 
-![마이크 & 카메라 ON/OFF & 채팅 기능 테스트](README%209c54dcce084d4bff8e7a922fcf84c511/KakaoTalk_20220819_113828993.gif)
+![마이크 & 카메라 ON/OFF & 채팅 기능 테스트](./image/KakaoTalk_20220819_113828993.gif)
 
 마이크 & 카메라 ON/OFF & 채팅 기능 테스트
 
-![하트 보내기 기능](README%209c54dcce084d4bff8e7a922fcf84c511/KakaoTalk_20220819_113828787.gif)
+![하트 보내기 기능](./image/KakaoTalk_20220819_113828787.gif)
 
 하트 보내기 기능
 
-![좌하단에 제공되는 질문 예시 텍스트](README%209c54dcce084d4bff8e7a922fcf84c511/KakaoTalk_20220819_113828535.gif)
+![좌하단에 제공되는 질문 예시 텍스트](./image/KakaoTalk_20220819_113828535.gif)
 
 좌하단에 제공되는 질문 예시 텍스트
