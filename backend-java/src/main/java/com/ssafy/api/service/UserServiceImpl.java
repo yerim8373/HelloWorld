@@ -48,6 +48,7 @@ public class UserServiceImpl implements UserService {
 	private final PasswordEncoder passwordEncoder;
 	private final JwtTokenUtil jwtTokenUtil;
 	private final RedisUtil redisUtil;
+	private final CustomPasswordEncoder customPasswordEncoder;
 
 	@Override
 	public User createUser(SignUpDto signUpDto){
@@ -76,7 +77,7 @@ public class UserServiceImpl implements UserService {
 			UserLan userLan = userLanService.insertUserLan(userLanDto);
 			userLan.setUser(user);
 		}
-		redisUtil.set("CREDENCIAL::"+user.getId(), signUpDto.getPw(), Long.MAX_VALUE/1000);
+		redisUtil.set("CREDENCIAL::"+user.getId(), customPasswordEncoder.encrypt(signUpDto.getPw()), Long.MAX_VALUE/1000);
 
 		// 가입한 사용자에게 20 하트씩
 		String key = INFO + user.getId();

@@ -35,6 +35,7 @@ public class OAuthServiceImpl implements OAuthService{
     private final UserService userService;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
     private final RedisUtil redisUtil;
+    private final CustomPasswordEncoder customPasswordEncoder;
 
     public void request(SocialLoginType socialLoginType) throws IOException {
         SocialOauth socialOauth = findSocialOauthByType(socialLoginType);
@@ -48,7 +49,7 @@ public class OAuthServiceImpl implements OAuthService{
         SocialToken token = socialOauth.requestAccessToken(code);
 
         User user = userService.getUserByEmail(token.getEmail());
-        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(user.getEmail(), redisUtil.get("CREDENCIAL::"+user.getId()));
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(user.getEmail(), customPasswordEncoder.decrypt(redisUtil.get("CREDENCIAL::"+user.getId()).toString()));
         Authentication auth = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
         SecurityContextHolder.getContext().setAuthentication(auth);
 

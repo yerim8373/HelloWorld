@@ -25,27 +25,5 @@ public class GroupCallApplication {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-//    @Bean
-//    public HttpMessageConverter<String> responseBodyConverter() {
-//        return new StringHttpMessageConverter(StandardCharsets.UTF_8);
-//    }
-
-//    @Bean
-//    public CharacterEncodingFilter characterEncodingFilter() {
-//        CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
-//        characterEncodingFilter.setEncoding("UTF-8");
-//        characterEncodingFilter.setForceEncoding(true);
-//        return characterEncodingFilter;
-//    }
-//    @Bean
-//    public KurentoClient kurentoClient(){
-//        return KurentoClient.create();
-//    }
-//    @Bean
-//    public ServletServerContainerFactoryBean createServletServerContainerFactoryBean() {
-//        ServletServerContainerFactoryBean container = new ServletServerContainerFactoryBean();
-//        container.setMaxTextMessageBufferSize(32768);
-//        return container;
-//    }
 
 }
